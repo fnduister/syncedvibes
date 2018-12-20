@@ -1,11 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import history from "./utils/history";
+import { create } from "jss";
+import JssProvider from "react-jss/lib/JssProvider";
+import { createGenerateClassName, jssPreset } from "@material-ui/core/styles";
 import { ConnectedRouter } from "connected-react-router";
 import { Provider } from "react-redux";
 import configureStore from "./configureStore";
 import App from "./containers/App/App";
 import * as serviceWorker from "./serviceWorker";
+
+const styleNode = document.createComment("insertion-point-jss");
+document.head.insertBefore(styleNode, document.head.firstChild);
+
+const generateClassName = createGenerateClassName();
+const jss = create({
+  ...jssPreset(),
+  insertionPoint: "insertion-point-jss"
+});
 
 const initialState = {};
 const store = configureStore(initialState, history);
@@ -13,7 +25,9 @@ const MOUNT_NODE = document.getElementById("root");
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <JssProvider jss={jss} generateClassName={generateClassName}>
+      <App />
+    </JssProvider>
   </Provider>,
   MOUNT_NODE
 );

@@ -47,7 +47,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 - Redux-actions
 - Async await
-- Redux-form
+- Redik
 - React-router
 - Material-ui
 - Styled-component
