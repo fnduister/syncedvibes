@@ -5,7 +5,8 @@ import HomePage from "../../pages/HomePage";
 import Header from "../Header/Header";
 import logo from "../../images/logo.svg";
 import Article from "../Article/Article";
-import GlobalStyle from "../../GlobalStyle";
+import { GlobalStyle } from "../../GlobalStyle";
+import Footer from "../Footer/Footer";
 
 class App extends Component {
   render() {

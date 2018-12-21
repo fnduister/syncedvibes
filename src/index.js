@@ -3,12 +3,14 @@ import ReactDOM from "react-dom";
 import history from "./utils/history";
 import { create } from "jss";
 import JssProvider from "react-jss/lib/JssProvider";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createGenerateClassName, jssPreset } from "@material-ui/core/styles";
 import { ConnectedRouter } from "connected-react-router";
 import { Provider } from "react-redux";
 import configureStore from "./configureStore";
 import App from "./containers/App/App";
 import * as serviceWorker from "./serviceWorker";
+import { GlobalStyle, theme } from "./GlobalStyle";
 
 const styleNode = document.createComment("insertion-point-jss");
 document.head.insertBefore(styleNode, document.head.firstChild);
@@ -26,7 +28,10 @@ const MOUNT_NODE = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
     <JssProvider jss={jss} generateClassName={generateClassName}>
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <App />
+        <GlobalStyle />
+      </MuiThemeProvider>
     </JssProvider>
   </Provider>,
   MOUNT_NODE

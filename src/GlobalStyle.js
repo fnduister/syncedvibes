@@ -1,6 +1,24 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
+import { createMuiTheme } from "@material-ui/core/styles";
+import deepPurple from "@material-ui/core/colors/deepPurple";
 
-const GlobalStyle = createGlobalStyle`
+export const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  },
+  palette: {
+    primary: deepPurple,
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#fff',
+    },
+    default:'#fff'
+  }
+});
+
+export const GlobalStyle = createGlobalStyle`
   html,
   body {
     height: 100%;
@@ -10,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color:#fff
   }
 
   body.fontLoaded {
@@ -20,6 +39,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #fafafa;
     min-height: 100%;
     min-width: 100%;
+    color:#fff
   }
 
   p,
@@ -28,5 +48,3 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5em;
   }
 `;
-
-export default GlobalStyle;
