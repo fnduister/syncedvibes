@@ -14,18 +14,19 @@ export const Background = styled.div`
   background-position: center;
   width: 100wh;
   height: 100vh;
+  position: relative;
 `;
 
 export const BottomLine = styled.div`
   background-color: ${deepPurple[800]};
   height: 1vh;
   width: 100wh;
-  flex-grow: 1;
 `;
 
 export const HeaderNavBar = styled.div`
   flex-grow: 1;
   height: 2vh;
+  z-index: 1;
 `;
 
 export const IconBox = styled.div`

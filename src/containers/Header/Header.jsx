@@ -6,8 +6,10 @@ import IconButton from "@material-ui/core/IconButton";
 import PermIdentity from "@material-ui/icons/PermIdentity";
 import purple from "@material-ui/core/colors/purple";
 import MenuIcon from "@material-ui/icons/Menu";
+import Overlay from "../../components/Overlay/Overlay";
 import Typography from "@material-ui/core/Typography";
-import Title from '../../components/Title/Title';
+import { theme } from "../../GlobalStyle";
+import Title from "../../components/Title/Title";
 import {
   Background,
   BottomLine,
@@ -24,26 +26,27 @@ const Header = () => (
       <AppBarStyled position="sticky">
         <ToolbarStyled>
           <IconBox>
-            <IconButton color="primary" aria-label="Menu">
+            <IconButton color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <TypographyStyled color="primary" variant="h6" align="justify">
+            <TypographyStyled color="inherit" variant="h6" align="justify">
               Menu
             </TypographyStyled>
           </IconBox>
           <IconBox>
-            <TypographyStyled color="primary" variant="h6" align="justify">
+            <TypographyStyled color="inherit" variant="h6" align="justify">
               Login
             </TypographyStyled>
-            <IconButton color="primary" aria-label="Menu">
+            <IconButton color="inherit" aria-label="Menu">
               <PermIdentity />
             </IconButton>
           </IconBox>
         </ToolbarStyled>
       </AppBarStyled>
     </HeaderNavBar>
-    <Title/>
+    <Title />
     <BottomLine />
+    <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[300]} />
   </Background>
 );
 export default Header;
