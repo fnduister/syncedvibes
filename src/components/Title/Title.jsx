@@ -14,7 +14,7 @@ const Title = () => {
       <Typography
         variant="h4"
         gutterBottom
-        color="inherit"
+        color="secondary"
       >
         What do you want!
       </Typography>

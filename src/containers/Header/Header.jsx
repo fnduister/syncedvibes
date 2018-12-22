@@ -23,7 +23,7 @@ import {
 const Header = () => (
   <Background>
     <HeaderNavBar>
-      <AppBarStyled position="sticky">
+      <AppBarStyled position="fixed">
         <ToolbarStyled>
           <IconBox>
             <IconButton color="inherit" aria-label="Menu">

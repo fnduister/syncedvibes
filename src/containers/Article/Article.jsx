@@ -27,12 +27,12 @@ export default function Article(props) {
   };
 
   return (
-    <ArticleGrid item sm={6}>
-      <Title variant="h2" color="textPrimary">
+    <ArticleGrid item sm={6} md={6} lg={5}>
+      <Title variant="h2" color="secondary">
         {props.title}
       </Title>
       <TimeStamp variant="body2" color="textPrimary">
-        <ScheduleIconStyled fontSize="small" /> 9 hours ago by markvok
+        <ScheduleIconStyled fontSize="small" /> {props.time} hours ago by markvok
       </TimeStamp>
       <Youtube opts={opts} videoId={props.url} onReady={onPlayerReady} />
       <Summary variant="body1" color="textPrimary">

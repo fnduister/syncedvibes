@@ -20,6 +20,7 @@ class App extends Component {
             <Route path="/Articles" component={ArticleDetails} />
           </Switch>
         </MainContent>
+        <Footer/>
         <GlobalStyle />
       </Fragment>
     );

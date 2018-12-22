@@ -18,11 +18,11 @@ const HomePage = () => {
       justify="center"
     >
       {[
-        { title: "Hello bro that's good", url: "qQmJbeo6_9U" },
-        { title: "I don't know you, do I?", url: "j8Xm7zoTUns" },
-        { title: "Maybe cats eats pussy", url: "PExjV1W5LaM" }
+        { title: "Hello bro that's good", url: "qQmJbeo6_9U", time: 1 },
+        { title: "I don't know you, do I?", url: "j8Xm7zoTUns", time: 3 },
+        { title: "Maybe cats eat pussy", url: "PExjV1W5LaM", time: 5 }
       ].map(article => (
-        <Article url={article.url} title={article.title} />
+        <Article url={article.url} title={article.title} time={article.time} />
       ))}
     </Container>
   );
