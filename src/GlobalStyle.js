@@ -28,7 +28,8 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color:#fff
+    color:#fff;
+    background-color: #fafafa;
   }
 
   body.fontLoaded {
