@@ -1,4 +1,5 @@
 import React from "react";
+import 'typeface-roboto';
 import ReactDOM from "react-dom";
 import history from "./utils/history";
 import { create } from "jss";

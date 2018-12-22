@@ -13,8 +13,10 @@ export const Background = styled.div`
   background-size: cover;
   background-position: center;
   width: 100wh;
-  height: 100vh;
+  height: 98.45vh;
   position: relative;
+  overflow: hidden;
+  margin-bottom: 5vh;
 `;
 
 export const BottomLine = styled.div`
