@@ -10,6 +10,7 @@ import Overlay from "../../components/Overlay/Overlay";
 import Typography from "@material-ui/core/Typography";
 import { theme } from "../../GlobalStyle";
 import Title from "../../components/Title/Title";
+import SearchIcon from '@material-ui/icons/Search';
 import {
   Background,
   BottomLine,
@@ -17,8 +18,12 @@ import {
   ToolbarStyled,
   HeaderNavBar,
   IconBox,
-  TypographyStyled
+  TypographyStyled,
+  Search,
+  SearchIconStyled,
+  InputBaseStyled
 } from "./styled";
+
 
 const Header = () => (
   <Background>
@@ -33,14 +38,14 @@ const Header = () => (
               Menu
             </TypographyStyled>
           </IconBox>
-          <IconBox>
-            <TypographyStyled color="inherit" variant="h6" align="justify">
-              Login
-            </TypographyStyled>
-            <IconButton color="inherit" aria-label="Menu">
-              <PermIdentity />
-            </IconButton>
-          </IconBox>
+          <Search>
+            <SearchIconStyled>
+              <SearchIcon />
+            </SearchIconStyled>
+            <InputBaseStyled
+              placeholder="Search…"
+            />
+          </Search>
         </ToolbarStyled>
       </AppBarStyled>
     </HeaderNavBar>

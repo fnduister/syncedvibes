@@ -9,12 +9,12 @@ export const theme = createMuiTheme({
   palette: {
     primary: deepPurple,
     secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#fff',
+      light: "#ff7961",
+      main: "#f44336",
+      dark: "#ba000d",
+      contrastText: "#fff"
     },
-    default:'#fff'
+    default: "#fff"
   }
 });
 
@@ -49,3 +49,13 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1.5em;
   }
 `;
+
+export const StyledTheme = {
+  breakpoints: {
+    xs: 0,
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1200
+  }
+};

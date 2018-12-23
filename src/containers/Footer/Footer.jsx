@@ -9,14 +9,7 @@ import { ReactComponent as SyncedVibesIcon } from '../../images/syncedVibesIcon.
 
 const Footer = () => {
   return (
-    <div>
-      <AppBar position="static">
-        <Toolbar>
-        <IconButton color="secondary" aria-label="Open drawer">
-            <SyncedVibesIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+
 
       <BottomStyled
         container
@@ -33,19 +26,19 @@ const Footer = () => {
           direction="row"
           justify="center"
         >
-          <Typography variant="h4" color="secondary">
+          <Typography variant="h5" color="secondary">
             Recent Posts
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             Kodak Black – Close To The Grave
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             OMB Peezy – Ms. Lois House
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             Warm Brew Feat. Dom Kennedy – Full Effect
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             Iamsu! – Freestyle
           </Typography>
         </Grid>
@@ -57,19 +50,19 @@ const Footer = () => {
           direction="row"
           justify="center"
         >
-          <Typography variant="h4" color="secondary">
+          <Typography variant="h5" color="secondary">
             Archives
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             December 2018
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             November 2018
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             October 2018
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             September 2018
           </Typography>
         </Grid>
@@ -81,24 +74,23 @@ const Footer = () => {
           direction="column"
           justify="center"
         >
-          <Typography variant="h4" color="secondary">
+          <Typography variant="h5" color="secondary">
             Recent comment
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             Buggy B – Losi… on Buggy B – Who Is This…
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             Flatbush Zombies… on Flatbush Zombies – New W…
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             G Herbo – Bonj… on G Herbo & Southside Presen…
           </Typography>
-          <Typography variant="body1" color="inherit">
+          <Typography variant="caption" color="inherit">
             Curren$y – 300… on Curren$y Presents ‘Fire…
           </Typography>
         </Grid>
       </BottomStyled>
-    </div>
   );
 };
 

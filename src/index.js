@@ -1,5 +1,5 @@
 import React from "react";
-import 'typeface-roboto';
+import "typeface-roboto";
 import ReactDOM from "react-dom";
 import history from "./utils/history";
 import { create } from "jss";
@@ -11,7 +11,8 @@ import { Provider } from "react-redux";
 import configureStore from "./configureStore";
 import App from "./containers/App/App";
 import * as serviceWorker from "./serviceWorker";
-import { GlobalStyle, theme } from "./GlobalStyle";
+import { GlobalStyle, theme, StyledTheme } from "./GlobalStyle";
+import { ThemeProvider } from "styled-components";
 
 const styleNode = document.createComment("insertion-point-jss");
 document.head.insertBefore(styleNode, document.head.firstChild);
@@ -29,10 +30,12 @@ const MOUNT_NODE = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
     <JssProvider jss={jss} generateClassName={generateClassName}>
-      <MuiThemeProvider theme={theme}>
-        <App />
-        <GlobalStyle />
-      </MuiThemeProvider>
+      <ThemeProvider theme={StyledTheme}>
+        <MuiThemeProvider theme={theme}>
+          <App />
+          <GlobalStyle />
+        </MuiThemeProvider>
+      </ThemeProvider>
     </JssProvider>
   </Provider>,
   MOUNT_NODE
