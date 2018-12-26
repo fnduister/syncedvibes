@@ -25,7 +25,7 @@ export const Background = styled.div`
 `;
 
 export const BottomLine = styled.div`
-  background-color: ${deepPurple[800]};
+  background-color: ${theme.palette.primary[200]};
   height: 1vh;
   width: 100wh;
 `;

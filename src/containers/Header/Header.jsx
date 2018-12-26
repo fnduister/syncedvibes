@@ -5,12 +5,14 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PermIdentity from "@material-ui/icons/PermIdentity";
 import purple from "@material-ui/core/colors/purple";
+import Menu from "../Menu/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import Overlay from "../../components/Overlay/Overlay";
 import Typography from "@material-ui/core/Typography";
 import { theme } from "../../GlobalStyle";
 import Title from "../../components/Title/Title";
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from "@material-ui/icons/Search";
+import { BottomNavBar } from "../Menu/styled";
 import {
   Background,
   BottomLine,
@@ -23,7 +25,6 @@ import {
   SearchIconStyled,
   InputBaseStyled
 } from "./styled";
-
 
 const Header = () => (
   <Background>
@@ -42,15 +43,13 @@ const Header = () => (
             <SearchIconStyled>
               <SearchIcon />
             </SearchIconStyled>
-            <InputBaseStyled
-              placeholder="Search…"
-            />
+            <InputBaseStyled placeholder="Search…" />
           </Search>
         </ToolbarStyled>
       </AppBarStyled>
     </HeaderNavBar>
     <Title />
-    <BottomLine />
+    <Menu />
     <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[300]} />
   </Background>
 );
