@@ -8,7 +8,7 @@ import Tab from "@material-ui/core/Tab";
 const Menu = () => {
   return (
     <BottomNavBar>
-      <Tabs indicatorColor="secondary" textColor="secondary" centered>
+      <Tabs indicatorColor="default" textColor="inherit" centered>
         <Tab label="Music" />
         <Tab label="News" />
         <Tab label="Photography" />
