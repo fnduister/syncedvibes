@@ -8,7 +8,7 @@ import { theme } from "../../GlobalStyle";
 import Title from "../../components/Title/Title";
 import SearchIcon from "@material-ui/icons/Search";
 import { toggleMenu } from "./reducer";
-import { spring } from "react-spring";
+import { Spring } from "react-spring";
 import {
   Background,
   BottomLine,
@@ -51,7 +51,11 @@ class Header extends Component {
           </AppBarStyled>
         </HeaderNavBar>
         <Title />
-        <Menu />
+        {this.props.openMenu && (
+          <Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
+            {props => <Menu props />}
+          </Spring>
+        )}
         <Overlay
           overlayOpacity={0.4}
           overlayColor={theme.palette.primary[300]}

@@ -5,9 +5,9 @@ import { BottomNavBar } from "./styled";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
-const Menu = () => {
+const Menu = ({opacity}) => {
   return (
-    <BottomNavBar>
+    <BottomNavBar opacity>
       <Tabs indicatorColor="default" textColor="inherit" centered>
         <Tab label="Music" />
         <Tab label="News" />
