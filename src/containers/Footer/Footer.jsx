@@ -9,8 +9,6 @@ import { ReactComponent as SyncedVibesIcon } from '../../images/syncedVibesIcon.
 
 const Footer = () => {
   return (
-
-
       <BottomStyled
         container
         spacing={16}
@@ -20,11 +18,7 @@ const Footer = () => {
       >
         <Grid
           item
-          spacing={16}
           sm={3}
-          alignItems="center"
-          direction="row"
-          justify="center"
         >
           <Typography variant="h5" color="secondary">
             Recent Posts
@@ -44,11 +38,7 @@ const Footer = () => {
         </Grid>
         <Grid
           item
-          spacing={2}
           sm={2}
-          alignItems="center"
-          direction="row"
-          justify="center"
         >
           <Typography variant="h5" color="secondary">
             Archives
@@ -68,11 +58,7 @@ const Footer = () => {
         </Grid>
         <Grid
           item
-          spacing={16}
           sm={3}
-          alignItems="center"
-          direction="column"
-          justify="center"
         >
           <Typography variant="h5" color="secondary">
             Recent comment

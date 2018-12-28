@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent, createRef } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "../Menu/Menu";
 import { connect } from "react-redux";
@@ -6,9 +6,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Overlay from "../../components/Overlay/Overlay";
 import { theme } from "../../GlobalStyle";
 import Title from "../../components/Title/Title";
+import { Parallax, ParallaxLayer } from "react-spring/addons";
 import SearchIcon from "@material-ui/icons/Search";
 import { toggleMenu } from "./reducer";
-import { Spring } from "react-spring";
+import { Transition, animated } from "react-spring";
 import {
   Background,
   BottomLine,
@@ -22,10 +23,36 @@ import {
   InputBaseStyled
 } from "./styled";
 
-class Header extends Component {
+class Header extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.bottomNav = createRef();
+    this.state = { value: 0 };
+    console.log({ nav: this.bottomNav.current });
+  }
+
+  handleScroll = () => {
+    this.setState({
+      scroll: window.scrollY
+    });
+  };
+
+  componentDidMount() {
+    this.setState({
+      top: this.bottomNav.offsetTop,
+      height: this.bottomNav.offsetHeight
+    });
+    window.addEventListener("scroll", this.handleScroll);
+    console.log({ heightBottomNav: this.state.top });
+  }
+
+  componentDidUpdate() {
+    console.log({ scroll: this.state.scroll, height: this.state.height });
+  }
+
   render() {
     return (
-      <Background>
+      <Background id="bottomNav">
         <HeaderNavBar>
           <AppBarStyled position="fixed">
             <ToolbarStyled>
@@ -51,11 +78,28 @@ class Header extends Component {
           </AppBarStyled>
         </HeaderNavBar>
         <Title />
-        {this.props.openMenu && (
-          <Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
-            {props => <Menu props />}
-          </Spring>
-        )}
+
+        {
+          <Transition
+            native
+            items={this.props.openMenu}
+            from={{ height: 0, overflow: "hidden" }}
+            enter={[{ height: "auto" }]}
+            leave={{ height: 0 }}
+          >
+            {show =>
+              show &&
+              (props => (
+                <animated.div style={props}>
+                  <div id="merde">
+                    <Menu value={this.state.value} />
+                  </div>
+                </animated.div>
+              ))
+            }
+          </Transition>
+        }
+
         <Overlay
           overlayOpacity={0.4}
           overlayColor={theme.palette.primary[300]}

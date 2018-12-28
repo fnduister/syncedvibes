@@ -33,7 +33,7 @@ export const BottomLine = styled.div`
 export const HeaderNavBar = styled.div`
   flex-grow: 1;
   height: 2vh;
-  z-index: 1;
+  z-index: 5;
 `;
 
 export const IconBox = styled.div`

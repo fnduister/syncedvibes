@@ -7,5 +7,5 @@ import { theme } from "../../GlobalStyle";
 export const BottomNavBar = styled(AppBar)`
     background-color: ${theme.palette.primary[300]};
     position: relative;
-    opacity: ${props => props.opacity}
+    z-index:1;
 `;
