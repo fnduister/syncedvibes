@@ -23,16 +23,14 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const el = document.querySelectorAll("#merde");
+    const el = document.querySelector("header");
     this.setState({ top: el.offsetTop, height: el.offsetHeight });
     window.addEventListener("scroll", this.handleScroll);
-    console.log({ el });
   }
 
-  // componentDidUpdate() {
-  //   // console.log({scroll: this.state.scroll,height: this.state.height});
-
-  // }
+  componentDidUpdate() {
+    console.log({scroll: this.state.scroll,height: this.state.height});
+  }
 
   render() {
     return (
