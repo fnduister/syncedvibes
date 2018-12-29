@@ -24,12 +24,17 @@ class App extends Component {
 
   componentDidMount() {
     const el = document.querySelector("header");
-    this.setState({ top: el.offsetTop, height: el.offsetHeight });
+    this.setState({
+      top: el.offsetTop,
+      height: el.offsetHeight,
+      maxHeight: window.innerHeight
+    });
     window.addEventListener("scroll", this.handleScroll);
+    console.log({maxHeight: this.state.maxHeight});
   }
 
   componentDidUpdate() {
-    console.log({scroll: this.state.scroll,height: this.state.height});
+    console.log({ scroll: this.state.scroll, height: this.state.height });
   }
 
   render() {

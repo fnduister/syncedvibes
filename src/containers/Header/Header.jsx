@@ -40,8 +40,8 @@ class Header extends PureComponent {
       <Background id="bottomNav">
         <HeaderNavBar>
           <NavBar
-            showIcon
-            showSearch
+            withIcon
+            withSearch
             toggleMenu={this.props.toggleMenuHandler}
             background="transparent"
             position="fixed"
@@ -65,7 +65,7 @@ class Header extends PureComponent {
                   <NavBar
                     background={theme.palette.primary[300]}
                     zIndex={1}
-                    showTabs
+                    withTabs
                     position="relative"
                   />
                 </animated.div>

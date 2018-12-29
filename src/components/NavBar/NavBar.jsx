@@ -16,18 +16,18 @@ import {
 } from "./styled";
 
 const NavBar = ({
-  showIcon,
-  showSearch,
+  withIcon,
+  withSearch,
   toggleMenu,
-  showTabs,
+  withTabs,
   zIndex,
   position,
   background
 }) => {
   return (
     <AppBarStyled position={position} background={background}>
-      <ToolbarStyled showIcon={showIcon}>
-        {showIcon && (
+      <ToolbarStyled withIcon={withIcon}>
+        {withIcon && (
           <IconBox>
             <IconButton color="inherit" aria-label="Menu" onClick={toggleMenu}>
               <MenuIcon />
@@ -37,7 +37,7 @@ const NavBar = ({
             </TypographyStyled>
           </IconBox>
         )}
-        {showTabs && (
+        {withTabs && (
           <Tabs indicatorColor="primary" textColor="inherit" centered>
             <Tab label="Music" />
             <Tab label="News" />
@@ -46,7 +46,7 @@ const NavBar = ({
             <Tab label="About" />
           </Tabs>
         )}
-        {showSearch && (
+        {withSearch && (
           <Search>
             <SearchIconStyled>
               <SearchIcon />

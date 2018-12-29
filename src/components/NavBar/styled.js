@@ -27,7 +27,7 @@ export const AppBarStyled = styled(AppBar)`
 `;
 
 export const ToolbarStyled = styled(Toolbar)`
-  justify-content: ${props => (props.showIcon ? "space-between" : "center")};
+  justify-content: ${props => (props.withIcon ? "space-between" : "center")};
 `;
 
 export const Search = styled.div`
