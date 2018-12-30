@@ -11,42 +11,34 @@ import { Background, HeaderNavBar } from "./styled";
 class Header extends PureComponent {
   constructor(props) {
     super(props);
-    this.bottomNav = createRef();
     this.state = { value: 0 };
-    // console.log({ nav: this.bottomNav.current });
   }
-
-  // handleScroll = () => {
-  //   this.setState({
-  //     scroll: window.scrollY
-  //   });
-  // };
-
-  // componentDidMount() {
-  //   this.setState({
-  //     top: this.bottomNav.offsetTop,
-  //     height: this.bottomNav.offsetHeight
-  //   });
-  //   window.addEventListener("scroll", this.handleScroll);
-  //   console.log({ heightBottomNav: this.state.top });
-  // }
-
-  // componentDidUpdate() {
-  //   console.log({ scroll: this.state.scroll, height: this.state.height });
-  // }
 
   render() {
     return (
       <Background id="bottomNav">
-        <HeaderNavBar>
-          <NavBar
-            withIcon
-            withSearch
-            toggleMenu={this.props.toggleMenuHandler}
-            background="transparent"
-            position="fixed"
-            zIndex={1}
-          />
+        <HeaderNavBar ref={this.props.navRef}>
+          <Transition
+            native
+            items={this.props.stickyNav}
+            from={{ background: "transparent" }}
+            enter={[{ background: "transparent" }]}
+            leave={{ background: theme.palette.primary[300] }}
+          >
+            {stick => props => (
+              <animated.div>
+                <NavBar
+                  withIcon
+                  props
+                  withSearch
+                  withTabs={stick}
+                  toggleMenu={this.props.toggleMenuHandler}
+                  position="fixed"
+                  zIndex={6}
+                />
+              </animated.div>
+            )}
+          </Transition>
         </HeaderNavBar>
         <Title />
 
