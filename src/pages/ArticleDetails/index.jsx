@@ -5,6 +5,8 @@ const ArticleDetails = () => {
     <div>
       <p>article details</p>
     </div>
+
+    
   );
 };
 
