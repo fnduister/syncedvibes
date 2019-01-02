@@ -16,7 +16,7 @@ class Header extends PureComponent {
 
   render() {
     return (
-      <Background id="bottomNav">
+      <Background>
         <HeaderNavBar ref={this.props.navRef}>
           <Transition
             native
@@ -39,30 +39,6 @@ class Header extends PureComponent {
           </Transition>
         </HeaderNavBar>
         <Title />
-
-        {
-          <Transition
-            native
-            items={this.props.openMenu}
-            from={{ height: 0, overflow: "hidden" }}
-            enter={[{ height: "auto" }]}
-            leave={{ height: 0 }}
-          >
-            {show =>
-              show &&
-              (props => (
-                <animated.div style={props}>
-                  <NavBar
-                    background={theme.palette.primary[300]}
-                    zIndex={1}
-                    withTabs
-                    position="relative"
-                  />
-                </animated.div>
-              ))
-            }
-          </Transition>
-        }
 
         <Overlay
           overlayOpacity={0.4}

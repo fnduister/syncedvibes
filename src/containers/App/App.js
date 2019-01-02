@@ -65,7 +65,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header
-          stickyNav={this.state.stickyNav}
+        stickyNav={this.state.stickyNav}
           navRef={el => (this.navRef = el)}
         />
         <Container

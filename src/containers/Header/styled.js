@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import AppBar from "@material-ui/core/AppBar";
 import { theme } from "../../GlobalStyle";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import breakpoint from "styled-components-breakpoint";
-import React from 'react';
+import React from "react";
 
 export const Background = styled.div`
   background-image: url(${backgroundImage});
@@ -46,8 +46,10 @@ export const TypographyStyled = styled(Typography)`
   padding: 0.9vh;
 `;
 
+
 export const AppBarStyled = styled(AppBar)`
-  background: transparent;
+  animation: background-color 3s linear;
+  background-color: ${props => props.background};
   box-shadow: none;
 `;
 
@@ -80,10 +82,10 @@ export const SearchIconStyled = styled.div`
   justify-content: center;
 `;
 
-export const InputBaseStyled = styled((props) => (
-  <InputBase {...props} classes={{ root: 'root', input: 'input' }} />
+export const InputBaseStyled = styled(props => (
+  <InputBase {...props} classes={{ root: "root", input: "input" }} />
 ))`
-  & .input{
+  & .input {
     color: inherit;
     padding-top: ${theme.spacing.unit}px;
     padding-right: ${theme.spacing.unit}px;
@@ -91,7 +93,7 @@ export const InputBaseStyled = styled((props) => (
     padding-left: ${theme.spacing.unit * 10}px;
     transition: ${theme.transitions.create("width")};
     width: 100%;
-    ${breakpoint('sm')`
+    ${breakpoint("sm")`
       width: 120px;
       &:focus {
         width: 200px;
@@ -99,9 +101,8 @@ export const InputBaseStyled = styled((props) => (
     `}
   }
 
-  & .root{
+  & .root {
     color: inherit;
     width: 100%;
-  };
-  
+  }
 `;

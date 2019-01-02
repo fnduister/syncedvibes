@@ -26,7 +26,10 @@ const NavBar = ({
   ...props
 }) => {
   return (
-    <AppBarStyled position={position} style={props}>
+    <AppBarStyled
+      position={position}
+      background={withTabs ? "red" : "transparent"}
+    >
       <ToolbarStyled withIcon={withIcon}>
         {withIcon && (
           <IconBox>
