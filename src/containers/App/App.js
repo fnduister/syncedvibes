@@ -9,6 +9,14 @@ import logo from "../../images/logo.svg";
 import Article from "../Article/Article";
 import { GlobalStyle } from "../../GlobalStyle";
 import Footer from "../Footer/Footer";
+import styled from "styled-components";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+
+
+const Container = styled(Grid)`
+  flex-grow: 1;
+`;
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +39,7 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({
-      top:this.navRef.offsetTop,
+      top: this.navRef.offsetTop,
       height: this.navRef.offsetHeight,
       maxHeight: window.innerHeight,
       stickyNav: false
@@ -60,14 +68,21 @@ class App extends Component {
           stickyNav={this.state.stickyNav}
           navRef={el => (this.navRef = el)}
         />
-        <MainContent style={{ color: "#000" }}>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/Articles" component={ArticleDetails} />
-          </Switch>
-        </MainContent>
+        <Container
+          container
+          spacing={16}
+          alignItems="center"
+          direction="column"
+          justify="center"
+        >
+          <MainContent style={{ color: "#000" }}>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/article" component={ArticleDetails} />
+            </Switch>
+          </MainContent>
+        </Container>
         <Footer />
-
         <GlobalStyle />
       </Fragment>
     );

@@ -4,6 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import Youtube from "react-youtube";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import Icon from "@material-ui/core/Icon";
+import CommentSection from '../../components/CommentSection/CommentSection';
+import {Link} from 'react-router-dom';
 import {
   Title,
   TimeStamp,
@@ -29,7 +31,7 @@ export default function Article(props) {
   return (
     <ArticleGrid item sm={6} md={6} lg={5}>
       <Title variant="h2" color="secondary">
-        {props.title}
+        <Link to="article">{props.title}</Link>
       </Title>
       <TimeStamp variant="body2" color="textPrimary">
         <ScheduleIconStyled fontSize="small" /> {props.time} hours ago by markvok
@@ -39,6 +41,8 @@ export default function Article(props) {
         Peezy takes it back to his roots with his new track “Ms. Lois House”, on
         which he reminisces about his journey under the roof that raised him.
       </Summary>
+      <CommentSection/>
     </ArticleGrid>
+    
   );
 }
