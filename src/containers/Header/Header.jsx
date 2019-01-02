@@ -21,9 +21,9 @@ class Header extends PureComponent {
           <Transition
             native
             items={this.props.stickyNav}
-            from={{ background: "transparent" }}
-            enter={[{ background: "transparent" }]}
-            leave={{ background: theme.palette.primary[300] }}
+            from={{ background: "#ffffff" }}
+            enter={[{ background: "#ffffff" }]}
+            leave={{ background: 'red'}}
           >
             {stick => props => (
               <animated.div>
