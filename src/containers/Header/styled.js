@@ -51,6 +51,10 @@ export const AppBarStyled = styled(AppBar)`
   animation: background-color 3s linear;
   background-color: ${props => props.background};
   box-shadow: none;
+
+  & .scrolled{
+    background-color: ${props => props.otherBackground}
+  }
 `;
 
 export const ToolbarStyled = styled(Toolbar)`

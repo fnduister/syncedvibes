@@ -5,7 +5,7 @@ import { theme } from "../../GlobalStyle";
 import NavBar from "../../components/NavBar/NavBar";
 import Title from "../../components/Title/Title";
 import { toggleMenu } from "./reducer";
-import { Transition, animated } from "react-spring";
+import { Transition, animated, Spring } from "react-spring";
 import { Background, HeaderNavBar } from "./styled";
 
 class Header extends PureComponent {
@@ -18,25 +18,25 @@ class Header extends PureComponent {
     return (
       <Background>
         <HeaderNavBar ref={this.props.navRef}>
-          <Transition
-            native
-            items={this.props.stickyNav}
-            from={{}}
-            enter={{ background: "#28d79f" }}
+          <Spring
+            toggle={this.props.stickyNav}
+            from={{ background: "transparent" }}
+            to={{ background: "#28d79f" }}
             leave={{ background: "#c23369" }}
           >
-            {stick => props => (
+            {({ toggle, background }) => (
               <NavBar
-                style={{opacity: .1}}
+                style={{ opacity: 0.1 }}
                 withIcon
                 withSearch
-                withTabs={stick}
+                background={background}
+                withTabs={this.props.stickyNav}
                 toggleMenu={this.props.toggleMenuHandler}
                 position="fixed"
                 zIndex={6}
               />
             )}
-          </Transition>
+          </Spring>
         </HeaderNavBar>
         <Title />
 
