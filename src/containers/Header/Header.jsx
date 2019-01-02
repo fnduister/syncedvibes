@@ -21,22 +21,20 @@ class Header extends PureComponent {
           <Transition
             native
             items={this.props.stickyNav}
-            from={{ background: "#ffffff" }}
-            enter={[{ background: "#ffffff" }]}
-            leave={{ background: 'red'}}
+            from={{}}
+            enter={{ background: "#28d79f" }}
+            leave={{ background: "#c23369" }}
           >
             {stick => props => (
-              <animated.div>
-                <NavBar
-                  withIcon
-                  props
-                  withSearch
-                  withTabs={stick}
-                  toggleMenu={this.props.toggleMenuHandler}
-                  position="fixed"
-                  zIndex={6}
-                />
-              </animated.div>
+              <NavBar
+                style={{opacity: .1}}
+                withIcon
+                withSearch
+                withTabs={stick}
+                toggleMenu={this.props.toggleMenuHandler}
+                position="fixed"
+                zIndex={6}
+              />
             )}
           </Transition>
         </HeaderNavBar>

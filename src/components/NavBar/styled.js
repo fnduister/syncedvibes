@@ -19,7 +19,7 @@ export const TypographyStyled = styled(Typography)`
 `;
 
 export const AppBarStyled = styled(AppBar)`
-  background: ${props => props.background};
+  background-color: 'transparent';
   box-shadow: none;
   z-index: ${props => props.zIndex};
   height: 5vh;

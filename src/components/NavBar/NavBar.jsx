@@ -22,14 +22,15 @@ const NavBar = ({
   withTabs,
   zIndex,
   position,
-  background
+  background,
+  ...props
 }) => {
   return (
-    <AppBarStyled position={position} background={background}>
+    <AppBarStyled position={position} style={props}>
       <ToolbarStyled withIcon={withIcon}>
         {withIcon && (
           <IconBox>
-            <IconButton color="inherit" aria-label="Menu" onClick={toggleMenu}>
+            <IconButton c olor="inherit" aria-label="Menu" onClick={toggleMenu}>
               <MenuIcon />
             </IconButton>
             <TypographyStyled color="inherit" variant="h6" align="justify">
