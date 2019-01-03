@@ -30,7 +30,7 @@ export default function Article(props) {
   };
 
   return (
-    <ArticleGrid item xs={10} md={6} lg={5}>
+    <ArticleGrid item sm={10} md={8}>
       <Title variant="h2" component={Link} to="article" color="secondary">
         {props.title}
       </Title>

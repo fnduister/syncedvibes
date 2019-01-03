@@ -16,7 +16,7 @@ export const theme = createMuiTheme({
       contrastText: "#fff"
     },
     action:{
-      hover:"#f44336"
+      hover:"#f68536"
     }, 
     default: "#fff"
   }
@@ -28,6 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     margin:0px;
+    overflow-x:hidden;
   }
 
   body {
