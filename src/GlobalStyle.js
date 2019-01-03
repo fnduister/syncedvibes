@@ -15,6 +15,9 @@ export const theme = createMuiTheme({
       dark: "#ba000d",
       contrastText: "#fff"
     },
+    action:{
+      hover:"#f44336"
+    }, 
     default: "#fff"
   }
 });

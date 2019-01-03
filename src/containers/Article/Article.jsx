@@ -4,20 +4,21 @@ import Typography from "@material-ui/core/Typography";
 import Youtube from "react-youtube";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import Icon from "@material-ui/core/Icon";
-import CommentSection from '../../components/CommentSection/CommentSection';
-import {Link} from 'react-router-dom';
+import CommentSection from "../../components/CommentSection/CommentSection";
+import { Link } from "react-router-dom";
 import {
+  YoutubeStyled,
   Title,
   TimeStamp,
   Summary,
   ArticleGrid,
-  ScheduleIconStyled
+  ScheduleIconStyled,
+  AspectRatio
 } from "./styled";
 
 export default function Article(props) {
   const opts = {
-    height: "428",
-    width: "747",
+    width: "100%",
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 0
@@ -29,20 +30,22 @@ export default function Article(props) {
   };
 
   return (
-    <ArticleGrid item md={6} lg={5}>
-      <Title variant="h2" color="secondary">
-        <Link to="article">{props.title}</Link>
+    <ArticleGrid item xs={10} md={6} lg={5}>
+      <Title variant="h2" component={Link} to="article" color="secondary">
+        {props.title}
       </Title>
       <TimeStamp variant="body2" color="textPrimary">
-        <ScheduleIconStyled fontSize="small" /> {props.time} hours ago by markvok
+        <ScheduleIconStyled fontSize="small" /> {props.time} hours ago by
+        markvok
       </TimeStamp>
-      <Youtube opts={opts} videoId={props.url} onReady={onPlayerReady} />
+      <AspectRatio>
+        <YoutubeStyled opts={opts} videoId={props.url} onReady={onPlayerReady} />
+      </AspectRatio>
       <Summary variant="body1" color="textPrimary">
         Peezy takes it back to his roots with his new track “Ms. Lois House”, on
         which he reminisces about his journey under the roof that raised him.
       </Summary>
-      <CommentSection/>
+      <CommentSection />
     </ArticleGrid>
-    
   );
 }

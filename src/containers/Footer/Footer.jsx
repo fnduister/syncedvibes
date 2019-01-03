@@ -3,6 +3,7 @@ import { BottomStyled } from "./styled";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
+import { theme } from "../../GlobalStyle";
 import AppBar from "@material-ui/core/AppBar";
 import { Toolbar } from "@material-ui/core";
 import { ReactComponent as SyncedVibesIcon } from '../../images/syncedVibesIcon.svg';
@@ -15,6 +16,7 @@ const Footer = () => {
         alignItems="center"
         direction="row"
         justify="center"
+        background={theme.palette.primary[300]}
       >
         <Grid
           item
