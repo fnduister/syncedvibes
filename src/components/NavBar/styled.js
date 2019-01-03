@@ -18,8 +18,13 @@ export const TypographyStyled = styled(Typography)`
   padding: 0.9vh;
 `;
 
-export const AppBarStyled = styled(AppBar)`
-  background-color: 'transparent';
+export const HeaderWrapper = styled.div`
+  height:2vh;
+`;
+
+export const AppBarStyled = styled(AppBar).attrs({
+  style: ({ background }) => ({ backgroundColor: background })
+})`
   box-shadow: none;
   z-index: ${props => props.zIndex};
   height: 5vh;
@@ -27,7 +32,7 @@ export const AppBarStyled = styled(AppBar)`
 `;
 
 export const ToolbarStyled = styled(Toolbar)`
-  justify-content: ${props => (props.withIcon ? "space-between" : "center")};
+  justify-content: ${props => (props.withicon ? "space-between" : "center")};
 `;
 
 export const Search = styled.div`

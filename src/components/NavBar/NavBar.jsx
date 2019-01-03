@@ -10,6 +10,7 @@ import {
   HeaderNavBar,
   IconBox,
   TypographyStyled,
+  HeaderWrapper,
   Search,
   SearchIconStyled,
   InputBaseStyled
@@ -18,22 +19,26 @@ import {
 const NavBar = ({
   withIcon,
   withSearch,
+  navRef,
   toggleMenu,
   withTabs,
   zIndex,
+  value,
   position,
   background,
   ...props
 }) => {
   return (
+    <HeaderWrapper ref={navRef}>
     <AppBarStyled
       position={position}
-      background={withTabs ? "red" : "transparent"}
+      background={background}
     >
-      <ToolbarStyled withIcon={withIcon}>
+      <ToolbarStyled withicon={withIcon}      
+>
         {withIcon && (
           <IconBox>
-            <IconButton c olor="inherit" aria-label="Menu" onClick={toggleMenu}>
+            <IconButton color="inherit" aria-label="Menu" onClick={toggleMenu}>
               <MenuIcon />
             </IconButton>
             <TypographyStyled color="inherit" variant="h6" align="justify">
@@ -42,7 +47,7 @@ const NavBar = ({
           </IconBox>
         )}
         {withTabs && (
-          <Tabs indicatorColor="primary" textColor="inherit" centered>
+          <Tabs value={value} indicatorColor="primary" textColor="inherit" centered>
             <Tab label="Music" />
             <Tab label="News" />
             <Tab label="Photography" />
@@ -60,6 +65,7 @@ const NavBar = ({
         )}
       </ToolbarStyled>
     </AppBarStyled>
+    </HeaderWrapper>
   );
 };
 
