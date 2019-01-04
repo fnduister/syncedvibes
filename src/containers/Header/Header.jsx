@@ -1,12 +1,14 @@
 import React, { PureComponent, createRef } from "react";
 import { connect } from "react-redux";
 import Overlay from "../../components/Overlay/Overlay";
-import { theme } from "../../GlobalStyle";
+import { theme, viewport } from "../../GlobalStyle";
+import Grid from "@material-ui/core/Grid";
 import NavBar from "../../components/NavBar/NavBar";
 import Title from "../../components/Title/Title";
 import { toggleMenu } from "./reducer";
 import { Transition, animated, Spring, config } from "react-spring";
 import { Background, HeaderNavBar } from "./styled";
+import sizes from "react-sizes";
 
 class Header extends PureComponent {
   constructor(props) {
@@ -28,22 +30,16 @@ class Header extends PureComponent {
       stickyNav: false
     });
     window.addEventListener("scroll", this.handleScroll);
+    console.log({viewport});
   }
 
   changeSticky = sticky => {
-    console.log("changing sticky");
     this.setState({
       stickyNav: sticky
     });
   };
 
   componentDidUpdate() {
-    console.log({
-      scroll: this.state.scroll,
-      height: this.state.height,
-      maxHeight: this.state.maxHeight,
-      top: this.state.top
-    });
     if (this.state.height + this.state.scroll > this.state.maxHeight) {
       if (this.state.stickyNav === false) this.changeSticky(true);
     } else {
@@ -121,7 +117,12 @@ const mapProps = (state, ownProps) => ({
 const mapActions = {
   toggleMenuHandler: () => toggleMenu()
 };
+
+const mapSizesToProps = ({ width }) => ({
+  showTabs: (width > viewport.sm),
+});
+
 export default connect(
   mapProps,
   mapActions
-)(Header);
+)(sizes(mapSizesToProps)(Header));

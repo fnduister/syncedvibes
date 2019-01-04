@@ -5,7 +5,6 @@ import { theme } from "../../GlobalStyle";
 import { TitleBox } from "./styled";
 
 const Title = () => {
-  console.log({theme});
   return (
     <TitleBox>
       <Typography variant="h1" gutterBottom color="inherit">

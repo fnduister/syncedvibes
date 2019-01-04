@@ -28,7 +28,6 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     margin:0px;
-    overflow-x:hidden;
   }
 
   body {
@@ -55,12 +54,16 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const StyledTheme = {
-  breakpoints: {
-    xs: 0,
-    sm: 576,
-    md: 768,
-    lg: 992,
-    xl: 1200
-  }
+export const viewport = {
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200
 };
+
+export const StyledTheme = {
+  breakpoints: viewport
+};
+
+

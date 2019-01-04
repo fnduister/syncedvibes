@@ -16,10 +16,14 @@ export const IconBox = styled.div`
 
 export const TypographyStyled = styled(Typography)`
   padding: 0.9vh;
+  display: none;
+  ${breakpoint("sm")`
+    display: block;
+  `}
 `;
 
 export const HeaderWrapper = styled.div`
-  height:2vh;
+  height: 5vh;
 `;
 
 export const AppBarStyled = styled(AppBar).attrs({
@@ -39,8 +43,9 @@ export const Search = styled.div`
   position: relative;
   border-radius: ${theme.shape.borderRadius}px;
   background-color: ${fade(theme.palette.common.white, 0.15)};
-  && :hover {
+  & :hover {
     background-color: ${fade(theme.palette.common.white, 0.25)};
+    border-radius: ${theme.shape.borderRadius}px;
   }
   margin-left: 0;
   width: 100%;
@@ -61,8 +66,9 @@ export const SearchIconStyled = styled.div`
 `;
 
 export const InputBaseStyled = styled(props => (
-  <InputBase {...props} classes={{ root: "root", input: "input" }} />
+  <InputBase {...props} classes={{ input: "input" }} />
 ))`
+  width: 100%;
   & .input {
     color: inherit;
     padding-top: ${theme.spacing.unit}px;
@@ -71,16 +77,12 @@ export const InputBaseStyled = styled(props => (
     padding-left: ${theme.spacing.unit * 10}px;
     transition: ${theme.transitions.create("width")};
     width: 100%;
+
     ${breakpoint("sm")`
       width: 120px;
       &:focus {
         width: 200px;
       }
     `}
-  }
-
-  & .root {
-    color: inherit;
-    width: 100%;
   }
 `;

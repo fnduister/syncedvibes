@@ -12,7 +12,6 @@ const Footer = () => {
   return (
       <BottomStyled
         container
-        spacing={16}
         alignItems="center"
         direction="row"
         justify="center"

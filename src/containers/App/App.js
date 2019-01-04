@@ -9,6 +9,7 @@ import { GlobalStyle } from "../../GlobalStyle";
 import Footer from "../Footer/Footer";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -26,7 +27,6 @@ class App extends Component {
         <Header />
         <Container
           container
-          spacing={16}
           alignItems="center"
           direction="column"
           justify="center"

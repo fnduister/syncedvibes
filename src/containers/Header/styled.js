@@ -3,7 +3,6 @@ import AppBar from "@material-ui/core/AppBar";
 import { theme } from "../../GlobalStyle";
 import Toolbar from "@material-ui/core/Toolbar";
 import backgroundImage from "../../images/jan-strecha-722905-unsplash.jpg";
-import deepPurple from "@material-ui/core/colors/deepPurple";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
@@ -18,7 +17,7 @@ export const Background = styled.div`
   background-size: cover;
   background-position: center;
   width: 100wh;
-  height: 98.45vh;
+  height: 100vh;
   position: relative;
   overflow: hidden;
   margin-bottom: 5vh;
