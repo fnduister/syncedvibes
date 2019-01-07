@@ -1,29 +1,27 @@
 import React from "react";
-import { BottomStyled } from "./styled";
+import { BottomBox, BottomStyled, Title } from "./styled";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import { theme } from "../../GlobalStyle";
 import AppBar from "@material-ui/core/AppBar";
 import { Toolbar } from "@material-ui/core";
-import { ReactComponent as SyncedVibesIcon } from '../../images/syncedVibesIcon.svg';
+import { ReactComponent as SyncedVibesIcon } from "../../images/syncedVibesIcon.svg";
 
 const Footer = () => {
   return (
-      <BottomStyled
-        container
-        alignItems="center"
-        direction="row"
-        justify="center"
-        background={theme.palette.primary[300]}
-      >
-        <Grid
-          item
-          sm={3}
-        >
-          <Typography variant="h5" color="secondary">
+    <BottomStyled
+      container
+      alignItems="flex-start"
+      direction="row"
+      justify="center"
+      background={theme.palette.primary[300]}
+    >
+      <Grid item md={3} justify="center">
+        <BottomBox>
+          <Title variant="h5" color="secondary">
             Recent Posts
-          </Typography>
+          </Title>
           <Typography variant="caption" color="inherit">
             Kodak Black – Close To The Grave
           </Typography>
@@ -36,14 +34,13 @@ const Footer = () => {
           <Typography variant="caption" color="inherit">
             Iamsu! – Freestyle
           </Typography>
-        </Grid>
-        <Grid
-          item
-          sm={2}
-        >
-          <Typography variant="h5" color="secondary">
+        </BottomBox>
+      </Grid>
+      <Grid item md={3} justify="center">
+        <BottomBox archive>
+          <Title variant="h5" color="secondary">
             Archives
-          </Typography>
+          </Title>
           <Typography variant="caption" color="inherit">
             December 2018
           </Typography>
@@ -56,28 +53,28 @@ const Footer = () => {
           <Typography variant="caption" color="inherit">
             September 2018
           </Typography>
-        </Grid>
-        <Grid
-          item
-          sm={3}
-        >
-          <Typography variant="h5" color="secondary">
+        </BottomBox>
+      </Grid>
+      <Grid item md={3} justify="center">
+        <BottomBox>
+          <Title variant="h5" color="secondary">
             Recent comment
+          </Title>
+          <Typography variant="caption" color="inherit">
+            Buggy B – Losi… on Buggy B – Who Is This Home
           </Typography>
           <Typography variant="caption" color="inherit">
-            Buggy B – Losi… on Buggy B – Who Is This…
+            Flatbush Zombies… on Flatbush Zombies – New Baby
           </Typography>
           <Typography variant="caption" color="inherit">
-            Flatbush Zombies… on Flatbush Zombies – New W…
+            G Herbo – Bonj… on G Herbo & Southside Presente
           </Typography>
           <Typography variant="caption" color="inherit">
-            G Herbo – Bonj… on G Herbo & Southside Presen…
+            Curren$y – 300… on Curren$y Presents ‘FireBase
           </Typography>
-          <Typography variant="caption" color="inherit">
-            Curren$y – 300… on Curren$y Presents ‘Fire…
-          </Typography>
-        </Grid>
-      </BottomStyled>
+        </BottomBox>
+      </Grid>
+    </BottomStyled>
   );
 };
 
