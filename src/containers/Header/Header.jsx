@@ -8,7 +8,7 @@ import Title from "../../components/Title/Title";
 import { toggleMenu } from "./reducer";
 import { Transition, animated, Spring, config } from "react-spring";
 import { Background, HeaderNavBar } from "./styled";
-import sizes from "react-sizes";
+import withSizes from "react-sizes";
 
 class Header extends PureComponent {
   constructor(props) {
@@ -30,7 +30,8 @@ class Header extends PureComponent {
       stickyNav: false
     });
     window.addEventListener("scroll", this.handleScroll);
-    console.log({viewport});
+    console.log({ viewport });
+    console.log({ xs: viewport.sm });
   }
 
   changeSticky = sticky => {
@@ -68,14 +69,16 @@ class Header extends PureComponent {
                 withSearch
                 value={this.state.value}
                 background={background}
-                withTabs={this.state.stickyNav}
+                withTabs={this.props.withTabs && this.state.stickyNav}
                 toggleMenu={this.props.toggleMenuHandler}
                 position="fixed"
                 zIndex={6}
               />
             )}
           </Spring>
+
         </HeaderNavBar>
+
         <Title />
         {
           <Transition
@@ -119,10 +122,10 @@ const mapActions = {
 };
 
 const mapSizesToProps = ({ width }) => ({
-  showTabs: (width > viewport.sm),
+  withTabs: width > viewport.md
 });
 
 export default connect(
   mapProps,
   mapActions
-)(sizes(mapSizesToProps)(Header));
+)(withSizes(mapSizesToProps)(Header));
