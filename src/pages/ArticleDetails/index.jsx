@@ -3,6 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import Article from "../../containers/Article/Article";
 
 
+
 const ArticleDetails = () => {
   return (
     <Fragment>
@@ -12,6 +13,8 @@ const ArticleDetails = () => {
         time="time: 1"
         key="id: 1"
       />
+      <div id="commentSection">
+      </div>
   </Fragment>
          
   
