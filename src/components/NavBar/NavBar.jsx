@@ -16,7 +16,7 @@ import {
   InputBaseStyled
 } from "./styled";
 
-const NavBar = ({
+const NavBar =({
   withIcon,
   withSearch,
   navRef,

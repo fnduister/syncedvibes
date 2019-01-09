@@ -31,7 +31,7 @@ export const BottomLine = styled.div`
 
 export const HeaderNavBar = styled.div`
   flex-grow: 1;
-  height: 2vh;
+  /* height: 2vh; */
   z-index: 5;
 `;
 
@@ -45,14 +45,13 @@ export const TypographyStyled = styled(Typography)`
   padding: 0.9vh;
 `;
 
-
 export const AppBarStyled = styled(AppBar)`
   animation: background-color 3s linear;
   background-color: ${props => props.background};
   box-shadow: none;
 
-  & .scrolled{
-    background-color: ${props => props.otherBackground}
+  & .scrolled {
+    background-color: ${props => props.otherBackground};
   }
 `;
 

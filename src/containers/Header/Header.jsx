@@ -20,6 +20,8 @@ class Header extends PureComponent {
     this.setState({
       scroll: window.scrollY
     });
+    console.log({ maxHeight: this.state.maxHeight });
+    console.log({ Height: this.state.height });
   };
 
   componentDidMount() {
@@ -30,8 +32,6 @@ class Header extends PureComponent {
       stickyNav: false
     });
     window.addEventListener("scroll", this.handleScroll);
-    console.log({ viewport });
-    console.log({ xs: viewport.sm });
   }
 
   changeSticky = sticky => {
@@ -76,7 +76,6 @@ class Header extends PureComponent {
               />
             )}
           </Spring>
-
         </HeaderNavBar>
 
         <Title />

@@ -23,7 +23,7 @@ export const TypographyStyled = styled(Typography)`
 `;
 
 export const HeaderWrapper = styled.div`
-  height: 5vh;
+  /* height: 5vh; */
 `;
 
 export const AppBarStyled = styled(AppBar).attrs({
@@ -31,7 +31,7 @@ export const AppBarStyled = styled(AppBar).attrs({
 })`
   box-shadow: none;
   z-index: ${props => props.zIndex};
-  height: 5vh;
+  height: 9vh;
   justify-content: center;
 `;
 
