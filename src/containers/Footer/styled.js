@@ -32,6 +32,7 @@ export const BottomBox = styled(Grid)`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
   }
 
   @media screen and (max-width: ${viewport.md}px) {
@@ -45,6 +46,8 @@ export const BottomBox = styled(Grid)`
     justify-content: space-around;
   }
 `;
+
+
 export const Title = styled(Typography)`
   margin-bottom: 2vh;
 `;
