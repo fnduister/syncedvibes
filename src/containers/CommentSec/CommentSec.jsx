@@ -5,8 +5,15 @@ import {
   CommentForm,
   Comment
 } from "../../components/CommentSection/CommentSection";
-import { CommentStyled, Form } from "./styled";
+import {
+  CommentStyled,
+  Form,
+  Container,
+  AvatarContainer,
+  TextFieldStyled
+} from "./styled";
 import TextField from "@material-ui/core/TextField";
+import Avatar from "../../images/drake.gif";
 
 class CommentSec extends Component {
   constructor(props) {
@@ -27,30 +34,36 @@ class CommentSec extends Component {
 
   render() {
     return (
-      <Fragment>
+      <Container>
         {/* <CommentBox />
       <CommentForm/>
       <CommentList/> */}
-
-        <Form noValidate autoComplete="off">
-          <TextField
-            id="outlined-name"
-            label="Name"
-            value={this.state.name}
-            onChange={() => null}
-            margin="normal"
-            variant="outlined"
+        <AvatarContainer>
+          <img
+            src={Avatar}
+            alt="suckMydick"
+            style={{ fontSize: "8px", height: "5vh", width: "5vw" }}
           />
-          <TextField
-            required
-            id="outlined-email"
-            label="Email"
-            value={this.state.email}
-            onChange={() => null}
-            margin="normal"
-            variant="outlined"
-          />
-        </Form>
+          <Form noValidate autoComplete="off">
+            <TextFieldStyled
+              id="outlined-name"
+              label="Name"
+              value={this.state.name}
+              onChange={() => null}
+              margin="normal"
+              variant="outlined"
+            />
+            <TextFieldStyled
+              required
+              id="outlined-email"
+              label="Email"
+              value={this.state.email}
+              onChange={() => null}
+              margin="normal"
+              variant="outlined"
+            />
+          </Form>
+        </AvatarContainer>
 
         {this.state.commentData.map(data => (
           <div>
@@ -62,7 +75,7 @@ class CommentSec extends Component {
             </CommentStyled>
           </div>
         ))}
-      </Fragment>
+      </Container>
     );
   }
 }

@@ -2,11 +2,7 @@ import React from "react";
 import commentData from "../../containers/CommentSec/CommentSec";
 
 const CommentBox = () => {
-  const getInitialState = commentData => {
-    return {
-      data: commentData
-    };
-  };
+
   const handleCommentSubmit = comment => {
     this.props.data.push(comment);
     const comments = this.state.data;
