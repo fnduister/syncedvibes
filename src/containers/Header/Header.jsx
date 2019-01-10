@@ -79,7 +79,7 @@ class Header extends PureComponent {
         </HeaderNavBar>
 
         <Title />
-        {
+        {this.props.withTabs > viewport.sm ? (
           <Transition
             native
             items={this.props.openMenu}
@@ -102,7 +102,30 @@ class Header extends PureComponent {
               ))
             }
           </Transition>
-        }
+        ) : (
+          <Transition
+            native
+            items={this.props.openMenu}
+            from={{ height: 0, overflow: "hidden" }}
+            enter={[{ height: "auto" }]}
+            leave={{ height: 0 }}
+          >
+            {show =>
+              show &&
+              (props => (
+                <animated.div style={props}>
+                  <NavBar
+                    background={theme.palette.primary[300]}
+                    zIndex={1}
+                    value={this.state.value}
+                    withTabs="true"
+                    position="relative"
+                  />
+                </animated.div>
+              ))
+            }
+          </Transition>
+        )}
         <Overlay
           overlayOpacity={0.4}
           overlayColor={theme.palette.primary[300]}

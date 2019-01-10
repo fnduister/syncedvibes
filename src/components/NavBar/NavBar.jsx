@@ -8,6 +8,7 @@ import {
   AppBarStyled,
   ToolbarStyled,
   HeaderNavBar,
+  TabStyled,
   IconBox,
   TypographyStyled,
   HeaderWrapper,
@@ -16,7 +17,7 @@ import {
   InputBaseStyled
 } from "./styled";
 
-const NavBar =({
+const NavBar = ({
   withIcon,
   withSearch,
   navRef,
@@ -30,41 +31,46 @@ const NavBar =({
 }) => {
   return (
     <HeaderWrapper ref={navRef}>
-    <AppBarStyled
-      position={position}
-      background={background}
-    >
-      <ToolbarStyled withicon={withIcon}      
->
-        {withIcon && (
-          <IconBox>
-            <IconButton color="inherit" aria-label="Menu" onClick={toggleMenu}>
-              <MenuIcon />
-            </IconButton>
-            <TypographyStyled color="inherit" variant="h6" align="justify">
-              Menu
-            </TypographyStyled>
-          </IconBox>
-        )}
-        {withTabs && (
-          <Tabs value={value} indicatorColor="primary" textColor="inherit" centered>
-            <Tab label="Music" />
-            <Tab label="News" />
-            <Tab label="Photography" />
-            <Tab label="Articles" />
-            <Tab label="About" />
-          </Tabs>
-        )}
-        {withSearch && (
-          <Search>
-            <SearchIconStyled>
-              <SearchIcon />
-            </SearchIconStyled>
-            <InputBaseStyled placeholder="Search…" />
-          </Search>
-        )}
-      </ToolbarStyled>
-    </AppBarStyled>
+      <AppBarStyled position={position} background={background}>
+        <ToolbarStyled withicon={withIcon}>
+          {withIcon && (
+            <IconBox>
+              <IconButton
+                color="inherit"
+                aria-label="Menu"
+                onClick={toggleMenu}
+              >
+                <MenuIcon />
+              </IconButton>
+              <TypographyStyled color="inherit" variant="h6" align="justify">
+                Menu
+              </TypographyStyled>
+            </IconBox>
+          )}
+          {withTabs && (
+            <Tabs
+              value={value}
+              indicatorColor="primary"
+              textColor="inherit"
+              centered
+            >
+              <TabStyled label="Music" />
+              <TabStyled label="News" />
+              <TabStyled label="Photography" />
+              <TabStyled label="Articles" />
+              <TabStyled label="About" />
+            </Tabs>
+          )}
+          {withSearch && (
+            <Search>
+              <SearchIconStyled>
+                <SearchIcon />
+              </SearchIconStyled>
+              <InputBaseStyled placeholder="Search…" />
+            </Search>
+          )}
+        </ToolbarStyled>
+      </AppBarStyled>
     </HeaderWrapper>
   );
 };
