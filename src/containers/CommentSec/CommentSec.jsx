@@ -1,35 +1,70 @@
 import React, { Fragment, Component } from "react";
-import {CommentBox, CommentList, CommentForm, Comment} from '../../components/CommentSection/CommentSection';
 import {
-  Comment 
-} from "./styled.js";
+  CommentBox,
+  CommentList,
+  CommentForm,
+  Comment
+} from "../../components/CommentSection/CommentSection";
+import { CommentStyled, Form } from "./styled";
+import TextField from "@material-ui/core/TextField";
 
-class CommentSec extends Component{
-  state = {
-    commentData: [
-      { 
-        author: "User1", 
-        text: "Sample Comment 1"
-      },
-      { 
-        author:"User2", 
-        text:"Sample Comment 2" 
-      }
-    ]
+class CommentSec extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      commentData: [
+        {
+          author: "User1",
+          text: "Sample Comment 1"
+        },
+        {
+          author: "User2",
+          text: "Sample Comment 2"
+        }
+      ]
+    };
   }
 
-
-  render(){
+  render() {
     return (
-      <Fragment color="default" variant="body1">
-      <CommentBox />,
-      <CommentForm/>,
-      <CommentList/>,
-      <Comment  author={this.state.commentData[0].author} text={this.state.commentData[0].text}/>
-      </Fragment>
-    )
-  }
-};
+      <Fragment>
+        {/* <CommentBox />
+      <CommentForm/>
+      <CommentList/> */}
 
+        <Form noValidate autoComplete="off">
+          <TextField
+            id="outlined-name"
+            label="Name"
+            value={this.state.name}
+            onChange={() => null}
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            required
+            id="outlined-email"
+            label="Email"
+            value={this.state.email}
+            onChange={() => null}
+            margin="normal"
+            variant="outlined"
+          />
+        </Form>
+
+        {this.state.commentData.map(data => (
+          <div>
+            <CommentStyled color="textPrimary" variant="body1">
+              {data.author}
+            </CommentStyled>
+            <CommentStyled color="textPrimary" variant="body1">
+              {data.text}
+            </CommentStyled>
+          </div>
+        ))}
+      </Fragment>
+    );
+  }
+}
 
 export default CommentSec;
