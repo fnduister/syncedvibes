@@ -54,9 +54,8 @@ class CommentSec extends Component {
             <img
               src={Avatar}
               alt="suckMydick"
-              style={{ fontSize: "20px", height: "9vh", width: "7vw" }}
+              style={{ fontSize: "20px", height: "8vh", width: "5vw" }}
             />
-
             <InformationContainer>
               <TextFieldStyled
                 id="outlined-name"
