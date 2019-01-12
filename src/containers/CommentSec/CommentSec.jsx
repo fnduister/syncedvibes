@@ -11,6 +11,7 @@ import {
   Container,
   AvatarContainer,
   TextAreaStyled,
+  InformationContainer,
   ButtonStyled,
   TextFieldStyled
 } from "./styled";
@@ -47,55 +48,55 @@ class CommentSec extends Component {
         {/* <CommentBox />
       <CommentForm/>
       <CommentList/> */}
-        <AvatarContainer>
-          <img
-            src={Avatar}
-            alt="suckMydick"
-            style={{ fontSize: "8px", height: "5vh", width: "5vw" }}
+
+        <Form noValidate autoComplete="off" onSubmit={this.handleCommentSubmit}>
+          <AvatarContainer>
+            <img
+              src={Avatar}
+              alt="suckMydick"
+              style={{ fontSize: "20px", height: "9vh", width: "7vw" }}
+            />
+
+            <InformationContainer>
+              <TextFieldStyled
+                id="outlined-name"
+                label="Name"
+                value={this.state.name}
+                onChange={() => null}
+                margin="normal"
+                variant="outlined"
+              />
+              <TextFieldStyled
+                required
+                id="outlined-email"
+                label="Email"
+                value={this.state.email}
+                onChange={() => null}
+                margin="normal"
+                variant="outlined"
+              />
+            </InformationContainer>
+          </AvatarContainer>
+
+          <TextAreaStyled
+            required
+            id="Comment"
+            label="Comment"
+            value={this.state.comment}
+            onChange={() => null}
+            margin="normal"
+            variant="outlined"
           />
 
-          <Form
-            noValidate
-            autoComplete="off"
-            onSubmit={this.handleCommentSubmit}
+          <ButtonStyled
+            variant="contained"
+            color="secondary"
+            id="submit"
+            value="Post"
           >
-            <TextFieldStyled
-              id="outlined-name"
-              label="Name"
-              value={this.state.name}
-              onChange={() => null}
-              margin="normal"
-              variant="outlined"
-            />
-            <TextFieldStyled
-              required
-              id="outlined-email"
-              label="Email"
-              value={this.state.email}
-              onChange={() => null}
-              margin="normal"
-              variant="outlined"
-            />
-            <TextAreaStyled
-              required
-              id="Comment"
-              label="Comment"
-              value={this.state.comment}
-              onChange={() => null}
-              margin="normal"
-              variant="outlined"
-            />
-
-            <ButtonStyled
-              variant="contained"
-              color="secondary"
-              id="submit"
-              value="Post"
-            >
-              Submit
-            </ButtonStyled>
-          </Form>
-        </AvatarContainer>
+            Submit
+          </ButtonStyled>
+        </Form>
 
         {this.state.commentData.map(data => (
           <div>

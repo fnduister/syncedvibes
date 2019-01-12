@@ -16,8 +16,13 @@ export const ButtonStyled = styled(Button)`
 
 export const AvatarContainer = styled.div`
   display: flex;
+  flex-direction: row;
 `;
 
+export const InformationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 export const Form = styled.form`
   display: flex;
   flexwrap: wrap;
