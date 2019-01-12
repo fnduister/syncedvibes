@@ -4,6 +4,11 @@ import Overlay from "../../components/Overlay/Overlay";
 import { theme, viewport } from "../../GlobalStyle";
 import Grid from "@material-ui/core/Grid";
 import NavBar from "../../components/NavBar/NavBar";
+import Drawer from "@material-ui/core/Drawer";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import Title from "../../components/Title/Title";
 import { toggleMenu } from "./reducer";
 import { Transition, animated, Spring, config } from "react-spring";
@@ -49,6 +54,20 @@ class Header extends PureComponent {
   }
 
   render() {
+    const fullList = (
+      <div>
+        <List>
+          {["MUSIC", "NEWS", "PHOTOGRAPHY", "ARTICLES", "ABOUT"].map(
+            (text, index) => (
+              <ListItem button key={text}>
+                <ListItemText primary={text} />
+              </ListItem>
+            )
+          )}
+        </List>
+      </div>
+    );
+
     return (
       <Background>
         <HeaderNavBar>
@@ -78,8 +97,8 @@ class Header extends PureComponent {
           </Spring>
         </HeaderNavBar>
 
-        <Title />
-        {this.props.withTabs > viewport.sm ? (
+        <Title onMobile={this.props.onMobile} />
+        {this.props.withDrawer ? (
           <Transition
             native
             items={this.props.openMenu}
@@ -103,28 +122,20 @@ class Header extends PureComponent {
             }
           </Transition>
         ) : (
-          <Transition
-            native
-            items={this.props.openMenu}
-            from={{ height: 0, overflow: "hidden" }}
-            enter={[{ height: "auto" }]}
-            leave={{ height: 0 }}
+          <Drawer
+            anchor="bottom"
+            open={this.props.openMenu}
+            onClose={this.props.toggleMenuHandler}
           >
-            {show =>
-              show &&
-              (props => (
-                <animated.div style={props}>
-                  <NavBar
-                    background={theme.palette.primary[300]}
-                    zIndex={1}
-                    value={this.state.value}
-                    withTabs="true"
-                    position="relative"
-                  />
-                </animated.div>
-              ))
-            }
-          </Transition>
+            <div
+              tabIndex={0}
+              role="button"
+              onClick={this.props.toggleMenuHandler}
+              onKeyDown={this.props.toggleMenuHandler}
+            >
+              {fullList}
+            </div>
+          </Drawer>
         )}
         <Overlay
           overlayOpacity={0.4}
@@ -144,7 +155,9 @@ const mapActions = {
 };
 
 const mapSizesToProps = ({ width }) => ({
-  withTabs: width > viewport.md
+  withTabs: width > viewport.md,
+  withDrawer: width > viewport.sm,
+  onMobile: width < viewport.md
 });
 
 export default connect(
