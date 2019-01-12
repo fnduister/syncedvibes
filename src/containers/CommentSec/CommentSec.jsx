@@ -10,6 +10,8 @@ import {
   Form,
   Container,
   AvatarContainer,
+  TextAreaStyled,
+  ButtonStyled,
   TextFieldStyled
 } from "./styled";
 import TextField from "@material-ui/core/TextField";
@@ -30,6 +32,13 @@ class CommentSec extends Component {
         }
       ]
     };
+
+    const handleCommentSubmit = comment => {
+      this.props.data.push(comment);
+      const comments = this.state.data;
+      const newComments = comments.concat([comment]);
+      this.setState({ data: newComments });
+    };
   }
 
   render() {
@@ -44,7 +53,12 @@ class CommentSec extends Component {
             alt="suckMydick"
             style={{ fontSize: "8px", height: "5vh", width: "5vw" }}
           />
-          <Form noValidate autoComplete="off">
+
+          <Form
+            noValidate
+            autoComplete="off"
+            onSubmit={this.handleCommentSubmit}
+          >
             <TextFieldStyled
               id="outlined-name"
               label="Name"
@@ -62,6 +76,24 @@ class CommentSec extends Component {
               margin="normal"
               variant="outlined"
             />
+            <TextAreaStyled
+              required
+              id="Comment"
+              label="Comment"
+              value={this.state.comment}
+              onChange={() => null}
+              margin="normal"
+              variant="outlined"
+            />
+
+            <ButtonStyled
+              variant="contained"
+              color="secondary"
+              id="submit"
+              value="Post"
+            >
+              Submit
+            </ButtonStyled>
           </Form>
         </AvatarContainer>
 
