@@ -31,16 +31,23 @@ class CommentSec extends Component {
           author: "User2",
           text: "Sample Comment 2"
         }
-      ]
-    };
-
-    const handleCommentSubmit = comment => {
-      this.props.data.push(comment);
-      const comments = this.state.data;
-      const newComments = comments.concat([comment]);
-      this.setState({ data: newComments });
+      ],
+      currentComment: {
+        author: "",
+        email: "",
+        comment: ""
+      }
     };
   }
+
+  handleCommentSubmit = e => {
+    console.log("submit");
+    e.preventDefault();
+  };
+
+  onchangeText = evt => {
+    this.setState({ currentComment: { [evt.target.name]: evt.target.value } });
+  };
 
   render() {
     return (
@@ -49,7 +56,7 @@ class CommentSec extends Component {
       <CommentForm/>
       <CommentList/> */}
 
-        <Form noValidate autoComplete="off" onSubmit={this.handleCommentSubmit}>
+        <Form autoComplete="off" onSubmit={this.handleCommentSubmit}>
           <AvatarContainer>
             <img
               src={Avatar}
@@ -60,8 +67,8 @@ class CommentSec extends Component {
               <TextFieldStyled
                 id="outlined-name"
                 label="Name"
-                value={this.state.name}
-                onChange={() => null}
+                value={this.state.currentComment.author}
+                onChange={this.onchangeText}
                 margin="normal"
                 variant="outlined"
               />
@@ -69,8 +76,8 @@ class CommentSec extends Component {
                 required
                 id="outlined-email"
                 label="Email"
-                value={this.state.email}
-                onChange={() => null}
+                value={this.state.currentComment.email}
+                onChange={this.onchangeText}
                 margin="normal"
                 variant="outlined"
               />
@@ -81,8 +88,9 @@ class CommentSec extends Component {
             required
             id="Comment"
             label="Comment"
-            value={this.state.comment}
-            onChange={() => null}
+            multiline
+            rowsMax="5"
+            value={this.state.currentComment.comment}
             margin="normal"
             variant="outlined"
           />
@@ -92,6 +100,7 @@ class CommentSec extends Component {
             color="secondary"
             id="submit"
             value="Post"
+            onSubmit={this.handleCommentSubmit}
           >
             Submit
           </ButtonStyled>
