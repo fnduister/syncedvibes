@@ -49,7 +49,7 @@ export default function Article(props) {
         Peezy takes it back to his roots with his new track “Ms. Lois House”, on
         which he reminisces about his journey under the roof that raised him.
       </Summary>
-      {/* <CommentSec/> */}
+      <CommentSec />
     </ArticleGrid>
   );
 }

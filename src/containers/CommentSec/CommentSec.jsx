@@ -41,8 +41,8 @@ class CommentSec extends Component {
   }
 
   handleCommentSubmit = e => {
-    console.log("submit");
     e.preventDefault();
+    console.log("submit");
   };
 
   onchangeText = evt => {
@@ -100,7 +100,7 @@ class CommentSec extends Component {
             color="secondary"
             id="submit"
             value="Post"
-            onSubmit={this.handleCommentSubmit}
+            type="submit"
           >
             Submit
           </ButtonStyled>
