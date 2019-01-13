@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
 import ArticleDetails from "../../pages/ArticleDetails";
+import posed, { PoseGroup } from "react-pose";
 import HomePage from "../../pages/HomePage";
 import Header from "../Header/Header";
 import { Parallax, ParallaxLayer } from "react-spring/addons";
@@ -15,6 +16,11 @@ const Container = styled(Grid)`
   flex-grow: 1;
 `;
 
+const RouteContainer = posed.div({
+  enter: { opacity: 1, delay: 300, beforeChildren: true },
+  exit: { opacity: 0 }
+});
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,19 +31,23 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
-        <Container
-          container
-          alignItems="center"
-          direction="column"
-          justify="center"
-        >
-          <MainContent>
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/article" component={ArticleDetails} />
-            </Switch>
-          </MainContent>
-        </Container>
+        <MainContent>
+          <PoseGroup>
+            <RouteContainer key="allo">
+              <Container
+                container
+                alignItems="center"
+                direction="column"
+                justify="center"
+              >
+                <Switch>
+                  <Route exact path="/" component={HomePage} />
+                  <Route path="/article" component={ArticleDetails} />
+                </Switch>
+              </Container>
+            </RouteContainer>
+          </PoseGroup>
+        </MainContent>
         <Footer />
         <GlobalStyle />
       </Fragment>

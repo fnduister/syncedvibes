@@ -5,7 +5,7 @@ import Youtube from "react-youtube";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import Icon from "@material-ui/core/Icon";
 import CommentSec from "../../containers/CommentSec/CommentSec";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
   YoutubeStyled,
   Title,
@@ -39,13 +39,17 @@ export default function Article(props) {
         markvok
       </TimeStamp>
       <AspectRatio>
-        <YoutubeStyled opts={opts} videoId={props.url} onReady={onPlayerReady} />
+        <YoutubeStyled
+          opts={opts}
+          videoId={props.url}
+          onReady={onPlayerReady}
+        />
       </AspectRatio>
       <Summary variant="body1" color="textPrimary">
         Peezy takes it back to his roots with his new track “Ms. Lois House”, on
         which he reminisces about his journey under the roof that raised him.
       </Summary>
-      <CommentSec/>
+      {/* <CommentSec/> */}
     </ArticleGrid>
   );
 }

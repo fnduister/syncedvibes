@@ -4,17 +4,13 @@ import Typography from "@material-ui/core/Typography";
 import { theme } from "../../GlobalStyle";
 import { TitleBox } from "./styled";
 
-const Title = () => {
+const Title = ({ onMobile }) => {
   return (
     <TitleBox>
-      <Typography variant="h1" gutterBottom color="inherit">
+      <Typography variant={onMobile ? "h2" : "h1"} gutterBottom color="inherit">
         SyncedVibes
       </Typography>
-      <Typography
-        variant="h4"
-        gutterBottom
-        color="inherit"
-      >
+      <Typography variant={onMobile ? "h5" : "h4"} gutterBottom color="inherit">
         What do you want!
       </Typography>
     </TitleBox>

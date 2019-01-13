@@ -54,3 +54,11 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Recompose
 - Connected-react-router
 - Eslint (airbnb)
+
+## RoadMap
+
+- changing react-spring pour react-pose - done
+- creating page transition animation - done
+- fixing preload asset
+- adding firebase
+- fixing header animation

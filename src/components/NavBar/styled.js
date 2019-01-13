@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import AppBar from "@material-ui/core/AppBar";
-import { theme } from "../../GlobalStyle";
+import Tab from "@material-ui/core/Tab";
+import { theme, viewport } from "../../GlobalStyle";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
@@ -8,10 +9,22 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import breakpoint from "styled-components-breakpoint";
 import React from "react";
 
+export const TabStyled = styled(Tab)`
+  @media (max-width: ${viewport.xl}px) and (min-width: ${viewport.lg}px) {
+    min-width: 20px;
+  }
+`;
+
 export const IconBox = styled.div`
   flex-direction: row;
   display: flex;
   align-items: flex-end;
+
+  @media screen and (max-width: ${viewport.lg}px) {
+    & h6 {
+      display: none;
+    }
+  }
 `;
 
 export const TypographyStyled = styled(Typography)`
@@ -23,7 +36,7 @@ export const TypographyStyled = styled(Typography)`
 `;
 
 export const HeaderWrapper = styled.div`
-  /* height: 5vh; */
+  /* height: 6vh; */
 `;
 
 export const AppBarStyled = styled(AppBar).attrs({
@@ -31,8 +44,12 @@ export const AppBarStyled = styled(AppBar).attrs({
 })`
   box-shadow: none;
   z-index: ${props => props.zIndex};
-  height: 9vh;
+  height: 6vh;
   justify-content: center;
+
+  @media screen and (max-height: ${viewport.sm}px) {
+    height: 14vh;
+  }
 `;
 
 export const ToolbarStyled = styled(Toolbar)`
