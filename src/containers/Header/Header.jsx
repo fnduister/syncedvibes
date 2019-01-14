@@ -45,10 +45,15 @@ class Header extends PureComponent {
     });
   };
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     if (this.state.height + this.state.scroll > this.state.maxHeight) {
       if (this.state.stickyNav === false) this.changeSticky(true);
     } else {
+      if (300 > this.state.maxHeight - this.state.scroll) {
+        console.log({ openMenuBefore: prevProps.openMenu });
+        if (prevProps.openMenu) prevProps.toggleMenuHandler();
+        console.log({ openMenuAfter: prevProps.openMenu });
+      }
       if (this.state.stickyNav === true) this.changeSticky(false);
     }
   }
@@ -80,7 +85,7 @@ class Header extends PureComponent {
                 : "rgba(255, 255, 255, 0)"
             }}
           >
-            {({ toggle, background }) => (
+            {({ background }) => (
               <NavBar
                 navRef={el => (this.navRef = el)}
                 style={{ opacity: 0.1 }}
@@ -98,6 +103,7 @@ class Header extends PureComponent {
         </HeaderNavBar>
 
         <Title onMobile={this.props.onMobile} />
+
         {this.props.withDrawer ? (
           <Transition
             native
