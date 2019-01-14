@@ -25,8 +25,6 @@ class Header extends PureComponent {
     this.setState({
       scroll: window.scrollY
     });
-    console.log({ maxHeight: this.state.maxHeight });
-    console.log({ Height: this.state.height });
   };
 
   componentDidMount() {
@@ -45,14 +43,12 @@ class Header extends PureComponent {
     });
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, nextProps) {
     if (this.state.height + this.state.scroll > this.state.maxHeight) {
       if (this.state.stickyNav === false) this.changeSticky(true);
     } else {
       if (300 > this.state.maxHeight - this.state.scroll) {
-        console.log({ openMenuBefore: prevProps.openMenu });
-        if (prevProps.openMenu) prevProps.toggleMenuHandler();
-        console.log({ openMenuAfter: prevProps.openMenu });
+        if (this.props.openMenu) this.props.toggleMenuHandler();
       }
       if (this.state.stickyNav === true) this.changeSticky(false);
     }
@@ -160,13 +156,7 @@ const mapActions = {
   toggleMenuHandler: () => toggleMenu()
 };
 
-const mapSizesToProps = ({ width }) => ({
-  withTabs: width > viewport.md,
-  withDrawer: width > viewport.sm,
-  onMobile: width < viewport.md
-});
-
 export default connect(
   mapProps,
   mapActions
-)(withSizes(mapSizesToProps)(Header));
+)(Header);

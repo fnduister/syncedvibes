@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import AppBar from "@material-ui/core/AppBar";
 import { theme } from "../../GlobalStyle";
 import Toolbar from "@material-ui/core/Toolbar";

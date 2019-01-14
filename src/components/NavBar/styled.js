@@ -36,7 +36,7 @@ export const TypographyStyled = styled(Typography)`
 `;
 
 export const HeaderWrapper = styled.div`
-  height: 6vh;
+  height: 6.5vh;
 `;
 
 export const AppBarStyled = styled(AppBar).attrs({

@@ -17,7 +17,7 @@ const Footer = () => {
       justify="center"
       background={theme.palette.primary[300]}
     >
-      <Grid item md={3} justify="center">
+      <Grid item md={3}>
         <BottomBox>
           <Title variant="h5" color="secondary">
             Recent Posts
@@ -36,8 +36,8 @@ const Footer = () => {
           </Typography>
         </BottomBox>
       </Grid>
-      <Grid item md={3} justify="center">
-        <BottomBox archive>
+      <Grid item md={3}>
+        <BottomBox archive="true">
           <Title variant="h5" color="secondary">
             Archives
           </Title>
@@ -55,7 +55,7 @@ const Footer = () => {
           </Typography>
         </BottomBox>
       </Grid>
-      <Grid item md={3} justify="center">
+      <Grid item md={3}>
         <BottomBox>
           <Title variant="h5" color="secondary">
             Recent comment
