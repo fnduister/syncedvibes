@@ -23,6 +23,7 @@ export const InformationContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 1vh;
+  max-width: 30vw;
 `;
 export const Form = styled.form`
   display: flex;
@@ -30,12 +31,15 @@ export const Form = styled.form`
   flex-direction: column;
   width: 30vw;
 `;
-
+export const UserDetailsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 export const TextFieldStyled = styled(TextField)`
   background-color: white;
   margin-top: 0px;
   height: 3.5vh;
-  width: 100%;
+  width: 10vw;
   & label {
     transform: translate(15px, 10px) scale(1);
     font-size: 0.8rem;
@@ -45,6 +49,8 @@ export const TextFieldStyled = styled(TextField)`
 export const TextAreaStyled = styled(TextField)`
   background-color: white;
   margin-top: 0px;
+  width: 100%;
+  /* height: 8vh; */
 
   & label {
     transform: translate(15px, 10px) scale(1);
