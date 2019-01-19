@@ -13,8 +13,10 @@ import {
   TextAreaStyled,
   InformationContainer,
   ButtonStyled,
-  TextFieldStyled
+  TextFieldStyled,
+  UserDetailsContainer
 } from "./styled";
+import classNames from "classnames";
 import TextField from "@material-ui/core/TextField";
 import Avatar from "../../images/drake.gif";
 
@@ -24,16 +26,16 @@ class CommentSec extends Component {
     this.state = {
       commentData: [
         {
-          author: "User1",
+          name: "User1",
           text: "Sample Comment 1"
         },
         {
-          author: "User2",
+          name: "User2",
           text: "Sample Comment 2"
         }
       ],
       currentComment: {
-        author: "",
+        name: "",
         email: "",
         comment: ""
       }
@@ -41,12 +43,13 @@ class CommentSec extends Component {
   }
 
   handleCommentSubmit = e => {
+    
     e.preventDefault();
     console.log("submit");
   };
 
-  onchangeText = evt => {
-    this.setState({ currentComment: { [evt.target.name]: evt.target.value } });
+  onchangeText = e => {
+    this.setState({ currentComment: { [e.target.name]: e.target.value } });
   };
 
   render() {
@@ -63,47 +66,65 @@ class CommentSec extends Component {
               alt="suckMydick"
               style={{ fontSize: "20px", height: "8vh", width: "5vw" }}
             />
+
             <InformationContainer>
-              <TextFieldStyled
-                id="outlined-name"
-                label="Name"
-                value={this.state.currentComment.author}
+              <TextAreaStyled
+                //  id="outlined-multiline-flexible"
+                //  label="Multiline"
+                //  multiline
+                //  rowsMax="4"
+                //  value={this.state.multiline}
+                //  onChange={this.handleChange('multiline')}
+                //  className={classes.textField}
+                //  margin="normal"
+                //  helperText="hello"
+                //  variant="outlined"
+
+                id="Comment"
+                name="comment"
+                label="Comment"
+                multiline
+                rowsMax="5"
+                rows="3"
+                value={this.state.currentComment.comment}
                 onChange={this.onchangeText}
                 margin="normal"
                 variant="outlined"
               />
-              <TextFieldStyled
-                required
-                id="outlined-email"
-                label="Email"
-                value={this.state.currentComment.email}
-                onChange={this.onchangeText}
-                margin="normal"
-                variant="outlined"
-              />
+              <UserDetailsContainer>
+                <TextFieldStyled
+                  id="outlined-name"
+                  name="name"
+                  label="Name"
+                  value={this.state.currentComment.author}
+                  onChange={this.onchangeText}
+                  margin="normal"
+                  variant="outlined"
+                />
+                <TextFieldStyled
+                  required
+                  id="outlined-email"
+                  name="email"
+                  label="Email"
+                  value={this.state.currentComment.email}
+                  onChange={this.onchangeText}
+                  margin="normal"
+                  variant="outlined"
+                  style={{ marginLeft: "0.5vw" }}
+                />
+              </UserDetailsContainer>
+              <ButtonStyled
+                variant="contained"
+                color="secondary"
+                id="submit"
+                value="Post"
+                type="submit"
+                
+              >
+                Submit
+              </ButtonStyled>
             </InformationContainer>
           </AvatarContainer>
-
-          <TextAreaStyled
-            required
-            id="Comment"
-            label="Comment"
-            multiline
-            rowsMax="5"
-            value={this.state.currentComment.comment}
-            margin="normal"
-            variant="outlined"
-          />
-
-          <ButtonStyled
-            variant="contained"
-            color="secondary"
-            id="submit"
-            value="Post"
-            type="submit"
-          >
-            Submit
-          </ButtonStyled>
         </Form>
 
         {this.state.commentData.map(data => (
