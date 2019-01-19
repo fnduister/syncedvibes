@@ -1,9 +1,7 @@
 import React, { Fragment } from "react";
 import Article from "../../containers/Article/Article";
 
-
-
-const HomePage = () => {
+const HomePage = props => {
   return (
     <Fragment>
       {[
@@ -17,6 +15,7 @@ const HomePage = () => {
         { title: "Maybe cats eat pussy", url: "PExjV1W5LaM", time: 5, id: 3 }
       ].map(article => (
         <Article
+          onMobile={props.onMobile}
           url={article.url}
           title={article.title}
           time={article.time}

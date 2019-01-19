@@ -31,7 +31,12 @@ export default function Article(props) {
 
   return (
     <ArticleGrid item xs={10} md={8} lg={5}>
-      <Title variant="h2" component={Link} to="article" color="secondary">
+      <Title
+        variant={props.onMobile ? "h3" : "h2"}
+        component={Link}
+        to="article"
+        color="secondary"
+      >
         {props.title}
       </Title>
       <TimeStamp variant="body2" color="textPrimary">

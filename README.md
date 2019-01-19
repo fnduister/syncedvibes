@@ -61,4 +61,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - creating page transition animation - done
 - fixing preload asset
 - adding firebase
-- fixing header animation
+- fixing header animation - done
