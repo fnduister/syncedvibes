@@ -1,0 +1,22 @@
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/database";
+import "firebase/auth";
+
+const config = {
+  apiKey: "AIzaSyDBhGpq6JJX-rkMQIF1tjfkvqhlS2h_RIs",
+  authDomain: "syncedvibes.firebaseapp.com",
+  databaseURL: "https://syncedvibes.firebaseio.com",
+  projectId: "syncedvibes",
+  storageBucket: "syncedvibes.appspot.com",
+  messagingSenderId: "13499403135"
+};
+
+firebase.initializeApp(config);
+
+export const rrfConfig = {
+  userProfile: "users"
+  // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+};
+
+export default firebase;

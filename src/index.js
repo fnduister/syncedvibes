@@ -9,11 +9,12 @@ import { createGenerateClassName, jssPreset } from "@material-ui/core/styles";
 import { ConnectedRouter } from "connected-react-router";
 import { Provider } from "react-redux";
 import configureStore from "./configureStore";
+import firebase, { rrfConfig } from "./utils/firebase";
 import App from "./containers/App/App";
 import * as serviceWorker from "./serviceWorker";
 import { GlobalStyle, theme, StyledTheme } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
-import { getFirebase } from 'react-redux-firebase';
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 
 const styleNode = document.createComment("insertion-point-jss");
 document.head.insertBefore(styleNode, document.head.firstChild);
@@ -26,18 +27,27 @@ const jss = create({
 
 const initialState = {};
 const store = configureStore(initialState, history);
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch
+};
+
 const MOUNT_NODE = document.getElementById("root");
 
 ReactDOM.render(
   <Provider store={store}>
-    <JssProvider jss={jss} generateClassName={generateClassName}>
-      <ThemeProvider theme={StyledTheme}>
-        <MuiThemeProvider theme={theme}>
-          <App />
-          <GlobalStyle />
-        </MuiThemeProvider>
-      </ThemeProvider>
-    </JssProvider>
+    <ReactReduxFirebaseProvider {...rrfProps}>
+      <JssProvider jss={jss} generateClassName={generateClassName}>
+        <ThemeProvider theme={StyledTheme}>
+          <MuiThemeProvider theme={theme}>
+            <App />
+            <GlobalStyle />
+          </MuiThemeProvider>
+        </ThemeProvider>
+      </JssProvider>
+    </ReactReduxFirebaseProvider>
   </Provider>,
   MOUNT_NODE
 );

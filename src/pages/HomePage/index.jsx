@@ -1,29 +1,44 @@
 import React, { Fragment } from "react";
 import Article from "../../containers/Article/Article";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { withStateHandlers } from "recompose";
+import {
+  firebaseConnect,
+  isLoaded,
+  isEmpty,
+  withFirebase
+} from "react-redux-firebase";
 
-const HomePage = props => {
+const HomePage = ({ onMobile, articles }) => {
+  if (!isLoaded(articles)) {
+    return <div>Loading...</div>;
+  }
+
+  if (isEmpty(articles)) {
+    return <div>Todos List Is Empty</div>;
+  }
+
   return (
     <Fragment>
-      {[
-        { title: "Hello bro that's good", url: "qQmJbeo6_9U", time: 1, id: 1 },
-        {
-          title: "I don't know you, do I?",
-          url: "j8Xm7zoTUns",
-          time: 3,
-          id: 2
-        },
-        { title: "Maybe cats eat pussy", url: "PExjV1W5LaM", time: 5, id: 3 }
-      ].map(article => (
-        <Article
-          onMobile={props.onMobile}
-          url={article.url}
-          title={article.title}
-          time={article.time}
-          key={article.id}
-        />
-      ))}
+      {Object.keys(articles).map(key => {
+        return (
+          <Article
+            onMobile={onMobile}
+            url={articles[key].url}
+            title={articles[key].title}
+            time={articles[key].time}
+            key={key}
+          />
+        );
+      })}
     </Fragment>
   );
 };
 
-export default HomePage;
+const enhance = compose(
+  firebaseConnect(() => ["articles"]),
+  connect(state => ({ articles: state.firebase.data.articles }))
+);
+
+export default enhance(HomePage);
