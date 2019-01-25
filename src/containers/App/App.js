@@ -12,6 +12,7 @@ import Footer from "../Footer/Footer";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import testFirebase from "../../components/testComponent/testFirebase";
 import withSizes from "react-sizes";
 
 const Container = styled(Grid)`
@@ -56,7 +57,6 @@ class App extends Component {
                   />
                   <Route
                     path="/article"
-                    onMobile={this.props.onMobile}
                     render={props => (
                       <ArticleDetails
                         {...props}
@@ -64,6 +64,7 @@ class App extends Component {
                       />
                     )}
                   />
+                  <Route path="/test" component={testFirebase} />
                 </Switch>
               </Container>
             </RouteContainer>
