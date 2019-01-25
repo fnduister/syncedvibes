@@ -1,53 +1,47 @@
-import React from "react";
-import { Form ,Formik, Field, ErrorMessage } from "formik";
-import TextField from '@material-ui/core/FormField';
-import { compose } from 'redux'
-import { withHandlers } from 'recompose';
-import {
-  firebaseConnect,
-  withFirebase
-} from "react-redux-firebase";
+import React, { Fragment } from "react";
+import { Form, Formik, Field, ErrorMessage } from "formik";
+import { Link } from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
+import { compose } from "redux";
+import { withHandlers } from "recompose";
+import { firebaseConnect, withFirebase } from "react-redux-firebase";
+import Typography from "@material-ui/core/Typography";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import EditFormSchema from "../../components/Forms/EditFormSchema";
+import { DialogContentStyled } from "./Styled";
+import moment from "moment";
+import Moment from "react-moment";
+import "moment-timezone";
 
-const AddArticle = () => (
-  <div>
-    <h1>Anywhere in your app!</h1>
-    <Formik
-        initialValues={user /** { email, social } */}
+import EditForm from "../../components/Forms/EditForm";
+
+const AddArticle = props => (
+  <Fragment>
+    <DialogTitle color="secondary">Add Article</DialogTitle>
+    <DialogContentStyled>
+      <Formik
+        initialValues=""
+        validationSchema={EditFormSchema}
         onSubmit={(values, actions) => {
-              props.saveArticle(values);
-            error => {
-              actions.setSubmitting(false);
-              actions.setErrors(transformMyRestApiErrorsToAnObject(error));
-              actions.setStatus({ msg: 'Set some arbitrary status or data' });
-              <br/>
-            }
-          );
+          const date = moment().format("LLLL");
+          props.saveArticle({ ...values, date });
+          actions.setSubmitting(false);
+          actions.setStatus({ msg: "Set some arbitrary status or data" });
         }}
-        render={({ errors, status, touched, isSubmitting }) => (
-          <Form>
-            <Field type="text" name="content" component={TextField} />
-            <ErrorMessage name="content" component="div" />  
-            <Field type="text" className="error" name="social.facebook" />
-            <ErrorMessage name="social.facebook">
-              {errorMessage => <div className="error">{errorMessage}</div>}
-            </ErrorMessage>
-            <Field type="text" name="social.twitter" />
-            <ErrorMessage name="social.twitter" className="error" component="div"/>  
-            {status && status.msg && <div>{status.msg}</div>}
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
+        render={props => <EditForm {...props} />}
       />
-  </div>
+    </DialogContentStyled>
+  </Fragment>
 );
-
 
 const enhance = compose(
   firebaseConnect("articles"),
   withHandlers({
-    saveArticle: props => data => props.firebase.update("articles", data) 
+    saveArticle: props => data => props.firebase.push("articles", data)
   })
-  );
-  export default enhance(AddArticle);
+);
+export default enhance(AddArticle);

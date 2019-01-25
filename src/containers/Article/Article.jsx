@@ -7,6 +7,7 @@ import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
 import CommentSec from "../../containers/CommentSec/CommentSec";
 import { Link } from "react-router-dom";
+import Dialog from "@material-ui/core/Dialog";
 import AddArticle from "../../components/AddArticle/AddArticle";
 import {
   YoutubeStyled,
@@ -21,13 +22,16 @@ import {
 class Article extends Component {
   constructor(props) {
     super(props);
-    this.state = { edit: false };
+    this.state = { edit: false, comment: false };
   }
   onPlayerReady = evt => {
     evt.target.pauseVideo();
   };
   editHandler = () => {
     this.setState(state => ({ edit: !state.edit }));
+  };
+  commentHandler = () => {
+    this.setState(state => ({ comment: !state.comment }));
   };
   render() {
     const opts = {
@@ -66,17 +70,30 @@ class Article extends Component {
         <Button
           variant="contained"
           color="secondary"
-          id="submit"
-          value="Post"
           type="button"
           onClick={this.editHandler}
         >
           edit
         </Button>
-        <CommentSec />
+        <Button
+          variant="contained"
+          color="secondary"
+          type="button"
+          onClick={this.commentHandler}
+        >
+          {this.state.comment ? "- " : "+ "} comments
+        </Button>
+
+        {this.state.comment ? <CommentSec /> : null}
       </ArticleGrid>
     ) : (
-      <AddArticle />
+      <Dialog
+        open={this.state.edit}
+        onClose={this.editHandler}
+        aria-labelledby="form-dialog-title"
+      >
+        <AddArticle edit={this.state.edit} editHandler={this.editHandler} />
+      </Dialog>
     );
   }
 }

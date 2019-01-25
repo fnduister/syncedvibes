@@ -2,7 +2,6 @@ import { createGlobalStyle } from "styled-components";
 import { createMuiTheme } from "@material-ui/core/styles";
 import deepPurple from "@material-ui/core/colors/deepPurple";
 
-
 export const theme = createMuiTheme({
   typography: {
     useNextVariants: true
@@ -15,10 +14,10 @@ export const theme = createMuiTheme({
       dark: "#ba000d",
       contrastText: "#fff"
     },
-    action:{
-      hover:"#f68536"
-    }, 
-    default: "#fff"
+    action: {
+      hover: "#f68536"
+    },
+    default: "#000"
   }
 });
 
@@ -32,7 +31,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Roboto','Helvetica Neue', Helvetica, Arial, sans-serif;
-    color:#fff;
+    color:#000;
     background-color: #fafafa;
   }
 
@@ -65,5 +64,3 @@ export const viewport = {
 export const StyledTheme = {
   breakpoints: viewport
 };
-
-
