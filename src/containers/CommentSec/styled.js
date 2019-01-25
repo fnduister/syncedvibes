@@ -6,8 +6,14 @@ import Avatar from '@material-ui/core/Avatar';
 
 export const CommentSectionStyled = styled.div``;
 
-export const CommentStyled = styled(Typography)`
-  margin-top: 2vh;
+export const CommentUserStyled = styled(Typography)`
+  margin-top: 1vh;
+  color: black;
+  font-weight:bold;
+  font-size: 0.7rem;
+`;
+
+export const CommentTextStyled = styled(Typography)`
   color: black;
 `;
 
@@ -20,7 +26,11 @@ export const ButtonStyled = styled(Button)`
 `;
 
 export const AvatarStyled = styled(Avatar)`
-    margin: 10
+    margin: 10;
+    
+`;
+export const SmallAvatarStyled = styled(Avatar)`
+    margin: 10;
 `;
 
 export const AvatarContainer = styled.div`
@@ -28,6 +38,10 @@ export const AvatarContainer = styled.div`
   flex-direction: row;
   padding-top: 2vh;
   flex-grow: 1;
+  padding-bottom: 10%;
+`;
+export const AvatarCenterContainer = styled.div`
+  padding-top: 2%;
 `;
 
 export const InformationContainer = styled.div`
@@ -73,6 +87,18 @@ export const Container = styled.div`
   flex-direction: column;
   background-color: #f1f1f2;
   border-radius: 7px;
+`;
+export const CommentContainer = styled.div`
+  display: flex;
+  flex-direction:row;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  
+`;
+export const CommentDataContainer = styled.div`
+  display: flex;
+  flex-direction:column;
+  padding-left: 1% ;
 `;
 
 // const styles = theme => ({

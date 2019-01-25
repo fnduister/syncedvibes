@@ -6,16 +6,21 @@ import {
   Comment
 } from "../../components/CommentSection/CommentSection";
 import {
-  CommentStyled,
+  CommentUserStyled,
+  CommentTextStyled,
   Form,
   Container,
   AvatarContainer,
+  AvatarCenterContainer,
   TextAreaStyled,
   InformationContainer,
   ButtonStyled,
   TextFieldStyled,
   UserDetailsContainer,
-  AvatarStyled
+  AvatarStyled,
+  SmallAvatarStyled,
+  CommentDataContainer,
+  CommentContainer
 } from "./styled";
 import classNames from "classnames";
 import TextField from "@material-ui/core/TextField";
@@ -44,7 +49,6 @@ class CommentSec extends Component {
   }
 
   handleCommentSubmit = e => {
-    
     e.preventDefault();
     console.log("submit");
   };
@@ -62,13 +66,14 @@ class CommentSec extends Component {
 
         <Form autoComplete="off" onSubmit={this.handleCommentSubmit}>
           <AvatarContainer>
-          <AvatarStyled alt="User Avatar" src={Avatar} />
+          <AvatarCenterContainer>
+            <AvatarStyled alt="User Avatar" src={Avatar} />
             {/* <img
               src={Avatar}
               alt="User Avatar"
               style={{ fontSize: "20px", height: "4.3vh", width: "3.2vw", borderRadius: "50%"}}
             /> */}
-
+            </AvatarCenterContainer>
             <InformationContainer>
               <TextAreaStyled
                 id="Comment"
@@ -81,7 +86,6 @@ class CommentSec extends Component {
                 onChange={this.onchangeText}
                 margin="normal"
                 fullWidth
-                
               />
               <UserDetailsContainer>
                 {/* <TextFieldStyled
@@ -120,15 +124,23 @@ class CommentSec extends Component {
 
         {this.state.commentData.map(data => (
           <div>
-            <CommentStyled color="textPrimary" variant="body1">
-              {data.author}
-            </CommentStyled>
-            <CommentStyled color="textPrimary" variant="body1">
+             <hr color="lightgrey"/>
+            <CommentContainer>
+            
+            <SmallAvatarStyled alt="User Avatar" src={Avatar} />
+            
+            <CommentDataContainer>
+            <CommentUserStyled color="textPrimary">
+              {data.name}
+            </CommentUserStyled>
+            <CommentTextStyled color="textPrimary">
               {data.text}
-            </CommentStyled>
+            </CommentTextStyled>
+            </CommentDataContainer>
+            </CommentContainer>
           </div>
-        ))}
-      </Container>
+        ))}</Container>
+      
     );
   }
 }
