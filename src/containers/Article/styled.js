@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import ScheduleIcon from "@material-ui/icons/Schedule";
-import { theme } from "../../GlobalStyle";
+import { theme, viewport } from "../../GlobalStyle";
 import Youtube from "react-youtube";
 
 export const YoutubeStyled = styled(Youtube)`
@@ -14,6 +14,18 @@ export const YoutubeStyled = styled(Youtube)`
 export const Title = styled(Typography)`
   margin-bottom: 2vh;
   text-decoration: none;
+
+  @media screen and (max-width: ${viewport.lg}px) {
+    width: 80vw;
+  }
+
+  @media screen and (min-width: ${viewport.lg}px) and (max-width: ${viewport.xl}px) {
+    width: 60vw;
+  }
+
+  @media screen and (min-width: ${viewport.xl}px) {
+    width: 42vw;
+  }
 
   &:hover {
     color: ${theme.palette.action.hover};
@@ -44,6 +56,8 @@ export const TimeStamp = styled(Typography)`
 
 export const Summary = styled(Typography)`
   margin-top: 2vh;
+  width: 100%;
+  display: flex;
 `;
 
 export const ArticleGrid = styled(Grid)`
