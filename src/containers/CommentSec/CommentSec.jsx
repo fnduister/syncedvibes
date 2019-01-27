@@ -6,19 +6,25 @@ import {
   Comment
 } from "../../components/CommentSection/CommentSection";
 import {
-  CommentStyled,
+  CommentUserStyled,
+  CommentTextStyled,
   Form,
   Container,
   AvatarContainer,
+  AvatarCenterContainer,
   TextAreaStyled,
   InformationContainer,
   ButtonStyled,
   TextFieldStyled,
-  UserDetailsContainer
+  UserDetailsContainer,
+  AvatarStyled,
+  SmallAvatarStyled,
+  CommentDataContainer,
+  CommentContainer
 } from "./styled";
 import classNames from "classnames";
 import TextField from "@material-ui/core/TextField";
-import Avatar from "../../images/drake.gif";
+import Avatar from "../../images/savage.jpg";
 
 class CommentSec extends Component {
   constructor(props) {
@@ -43,7 +49,6 @@ class CommentSec extends Component {
   }
 
   handleCommentSubmit = e => {
-    
     e.preventDefault();
     console.log("submit");
   };
@@ -61,45 +66,36 @@ class CommentSec extends Component {
 
         <Form autoComplete="off" onSubmit={this.handleCommentSubmit}>
           <AvatarContainer>
-            <img
+          <AvatarCenterContainer>
+            <AvatarStyled alt="User Avatar" src={Avatar} />
+            {/* <img
               src={Avatar}
-              alt="suckMydick"
-              style={{ fontSize: "20px", height: "8vh", width: "5vw" }}
-            />
-
+              alt="User Avatar"
+              style={{ fontSize: "20px", height: "4.3vh", width: "3.2vw", borderRadius: "50%"}}
+            /> */}
+            </AvatarCenterContainer>
             <InformationContainer>
               <TextAreaStyled
-                //  id="outlined-multiline-flexible"
-                //  label="Multiline"
-                //  multiline
-                //  rowsMax="4"
-                //  value={this.state.multiline}
-                //  onChange={this.handleChange('multiline')}
-                //  className={classes.textField}
-                //  margin="normal"
-                //  helperText="hello"
-                //  variant="outlined"
-
                 id="Comment"
                 name="comment"
                 label="Comment"
                 multiline
                 rowsMax="5"
-                rows="3"
+                rows="1"
                 value={this.state.currentComment.comment}
                 onChange={this.onchangeText}
                 margin="normal"
-                variant="outlined"
+                fullWidth
               />
               <UserDetailsContainer>
-                <TextFieldStyled
+                {/* <TextFieldStyled
                   id="outlined-name"
                   name="name"
                   label="Name"
                   value={this.state.currentComment.author}
                   onChange={this.onchangeText}
                   margin="normal"
-                  variant="outlined"
+                 
                 />
                 <TextFieldStyled
                   required
@@ -109,17 +105,16 @@ class CommentSec extends Component {
                   value={this.state.currentComment.email}
                   onChange={this.onchangeText}
                   margin="normal"
-                  variant="outlined"
                   style={{ marginLeft: "0.5vw" }}
-                />
+                /> */}
               </UserDetailsContainer>
+
               <ButtonStyled
                 variant="contained"
                 color="secondary"
                 id="submit"
                 value="Post"
                 type="submit"
-                
               >
                 Submit
               </ButtonStyled>
@@ -129,15 +124,23 @@ class CommentSec extends Component {
 
         {this.state.commentData.map(data => (
           <div>
-            <CommentStyled color="textPrimary" variant="body1">
-              {data.author}
-            </CommentStyled>
-            <CommentStyled color="textPrimary" variant="body1">
+             <hr color="lightgrey"/>
+            <CommentContainer>
+            
+            <SmallAvatarStyled alt="User Avatar" src={Avatar} />
+            
+            <CommentDataContainer>
+            <CommentUserStyled color="textPrimary">
+              {data.name}
+            </CommentUserStyled>
+            <CommentTextStyled color="textPrimary">
               {data.text}
-            </CommentStyled>
+            </CommentTextStyled>
+            </CommentDataContainer>
+            </CommentContainer>
           </div>
-        ))}
-      </Container>
+        ))}</Container>
+      
     );
   }
 }

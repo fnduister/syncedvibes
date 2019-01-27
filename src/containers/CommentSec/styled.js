@@ -2,44 +2,69 @@ import styled from "styled-components";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Avatar from '@material-ui/core/Avatar';
 
 export const CommentSectionStyled = styled.div``;
 
-export const CommentStyled = styled(Typography)`
-  margin-top: 2vh;
+export const CommentUserStyled = styled(Typography)`
+  margin-top: 1vh;
+  color: black;
+  font-weight:bold;
+  font-size: 0.7rem;
+`;
+
+export const CommentTextStyled = styled(Typography)`
   color: black;
 `;
 
-export const ButtonStyled = styled(Button)``;
+
+
+export const ButtonStyled = styled(Button)`
+  display: flex;
+  align-self: flex-end;
+  width: 2vw;
+`;
+
+export const AvatarStyled = styled(Avatar)`
+    margin: 10;
+    
+`;
+export const SmallAvatarStyled = styled(Avatar)`
+    margin: 10;
+`;
 
 export const AvatarContainer = styled.div`
   display: flex;
   flex-direction: row;
   padding-top: 2vh;
   flex-grow: 1;
+  padding-bottom: 10%;
+`;
+export const AvatarCenterContainer = styled.div`
+  padding-top: 2%;
 `;
 
 export const InformationContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 1vh;
-  max-width: 30vw;
+  width: 80%;
 `;
 export const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  width: 30vw;
+  width: 40vw;
 `;
 export const UserDetailsContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
 export const TextFieldStyled = styled(TextField)`
-  background-color: white;
+  background-color: transparent;
   margin-top: 0px;
   height: 3.5vh;
-  width: 10vw;
+  width: 15vw;
   & label {
     transform: translate(15px, 10px) scale(1);
     font-size: 0.8rem;
@@ -47,23 +72,33 @@ export const TextFieldStyled = styled(TextField)`
 `;
 
 export const TextAreaStyled = styled(TextField)`
-  background-color: white;
+  background-color: transparent;
   margin-top: 0px;
-  width: 100%;
+  /* width: 30vw; */
   /* height: 8vh; */
 
   & label {
-    transform: translate(15px, 10px) scale(1);
-    font-size: 0.8rem;
+    
   }
 `;
 export const Container = styled.div`
   padding: 0 3vw 1vh;
-  margin-top: 5vh;
   display: flex;
   flex-direction: column;
   background-color: #f1f1f2;
   border-radius: 7px;
+`;
+export const CommentContainer = styled.div`
+  display: flex;
+  flex-direction:row;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  
+`;
+export const CommentDataContainer = styled.div`
+  display: flex;
+  flex-direction:column;
+  padding-left: 1% ;
 `;
 
 // const styles = theme => ({

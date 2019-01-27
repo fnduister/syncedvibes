@@ -18,6 +18,9 @@ import {
   ScheduleIconStyled,
   AspectRatio
 } from "./styled";
+import moment from "moment";
+import Moment from "react-moment";
+import "moment-timezone";
 
 class Article extends Component {
   constructor(props) {
@@ -52,8 +55,8 @@ class Article extends Component {
           {this.props.title}
         </Title>
         <TimeStamp variant="body2" color="textPrimary">
-          <ScheduleIconStyled fontSize="small" /> {this.props.time} hours ago by
-          markvok
+          <ScheduleIconStyled fontSize="small" />{" "}
+          <Moment fromNow>{this.props.date}</Moment> by markvok
         </TimeStamp>
         <AspectRatio>
           <YoutubeStyled
@@ -63,9 +66,7 @@ class Article extends Component {
           />
         </AspectRatio>
         <Summary variant="body1" color="textPrimary">
-          Peezy takes it back to his roots with his new track “Ms. Lois House”,
-          on which he reminisces about his journey under the roof that raised
-          him.
+          {this.props.content}
         </Summary>
         <Button
           variant="contained"
