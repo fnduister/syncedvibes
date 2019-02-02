@@ -13,7 +13,7 @@ import {
 } from "./styled";
 
 import Avatar from "../../images/savage.jpg";
-
+import Comment from "../../components/Comment/Comment";
 
 class CommentSection extends Component {
   constructor(props) {

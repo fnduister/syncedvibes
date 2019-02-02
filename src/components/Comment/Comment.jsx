@@ -1,4 +1,4 @@
-import { React, Component } from "react";
+import React, { Component } from "react";
 import {
   CommentUserStyled,
   CommentTextStyled,
@@ -11,18 +11,19 @@ import {
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Avatar from "../../images/savage.jpg";
-import Comment from "../../components/";
-
 
 class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      favoriteStatus: [
+        
+      ],
       favorite: false
     };
   }
   toggleFavorite = e => {
-    e.target.styles.color = "red";
+    e.favorite.styles.color = "red";
   };
 
   render() {
@@ -38,7 +39,7 @@ class Comment extends Component {
           <CommentTextStyled color="textPrimary">
             {data.text}
             <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
-              <Favorite favorite={this.state.favorite} />
+              <Favorite favorite={this.props.favorite} />
             </IconButton>
             <IconButton>
               <DeleteIcon />
