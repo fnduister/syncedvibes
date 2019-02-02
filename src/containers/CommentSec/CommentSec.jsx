@@ -54,6 +54,9 @@ class CommentSec extends Component {
     e.preventDefault();
     console.log("submit");
   };
+  showSubmitButton = e => {
+    console.log("submit");
+  };
 
   onchangeText = e => {
     this.setState({ currentComment: { [e.target.name]: e.target.value } });
@@ -62,19 +65,11 @@ class CommentSec extends Component {
   render() {
     return (
       <Container>
-        {/* <CommentBox />
-      <CommentForm/>
-      <CommentList/> */}
-
+ 
         <Form autoComplete="off" onSubmit={this.handleCommentSubmit}>
           <AvatarContainer>
-            <AvatarCenterContainer>
-              <AvatarStyled alt="User Avatar" src={Avatar} />
-              {/* <img
-              src={Avatar}
-              alt="User Avatar"
-              style={{ fontSize: "20px", height: "4.3vh", width: "3.2vw", borderRadius: "50%"}}
-            /> */}
+          <AvatarCenterContainer>
+            <AvatarStyled alt="User Avatar" src={Avatar} />
             </AvatarCenterContainer>
             <InformationContainer>
               <TextAreaStyled
@@ -88,28 +83,8 @@ class CommentSec extends Component {
                 onChange={this.onchangeText}
                 margin="normal"
                 fullWidth
+                onFocus={this.showSubmitButton()}
               />
-              <UserDetailsContainer>
-                {/* <TextFieldStyled
-                  id="outlined-name"
-                  name="name"
-                  label="Name"
-                  value={this.state.currentComment.author}
-                  onChange={this.onchangeText}
-                  margin="normal"
-                 
-                />
-                <TextFieldStyled
-                  required
-                  id="outlined-email"
-                  name="email"
-                  label="Email"
-                  value={this.state.currentComment.email}
-                  onChange={this.onchangeText}
-                  margin="normal"
-                  style={{ marginLeft: "0.5vw" }}
-                /> */}
-              </UserDetailsContainer>
 
               <ButtonStyled
                 variant="contained"
@@ -126,7 +101,7 @@ class CommentSec extends Component {
 
         {this.state.commentData.map(data => (
           <div>
-            <hr color="lightgrey" />
+             <hr color="lightgrey"/>
             <CommentContainer>
               <SmallAvatarStyled alt="User Avatar" src={Avatar} />
 
