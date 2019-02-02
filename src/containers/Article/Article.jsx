@@ -17,7 +17,7 @@ import {
   ArticleGrid,
   ScheduleIconStyled,
   AspectRatio
-} from "./styled";
+} from "../../pages/ArticleDetails/styled";
 import moment from "moment";
 import Moment from "react-moment";
 import "moment-timezone";

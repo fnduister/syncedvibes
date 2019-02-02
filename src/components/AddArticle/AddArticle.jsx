@@ -25,7 +25,7 @@ const AddArticle = props => (
     <DialogContentStyled>
       <Formik
         initialValues=""
-        validationSchema={EditFormSchema}
+        // validationSchema={EditFormSchema}
         onSubmit={(values, actions) => {
           const date = moment().format("LLLL");
           props.saveArticle({ ...values, date });
