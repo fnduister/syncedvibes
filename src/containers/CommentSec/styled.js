@@ -15,6 +15,7 @@ export const CommentUserStyled = styled(Typography)`
 
 export const CommentTextStyled = styled(Typography)`
   color: black;
+ 
 `;
 
 
@@ -31,6 +32,7 @@ export const AvatarStyled = styled(Avatar)`
 `;
 export const SmallAvatarStyled = styled(Avatar)`
     margin: 10;
+    margin-top: 1%;
 `;
 
 export const AvatarContainer = styled.div`
@@ -48,7 +50,7 @@ export const InformationContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 1vh;
-  width: 80%;
+  width: 100%;
 `;
 export const Form = styled.form`
   display: flex;
@@ -82,7 +84,7 @@ export const TextAreaStyled = styled(TextField)`
   }
 `;
 export const Container = styled.div`
-  padding: 0 3vw 1vh;
+  padding: 0 .5vw 1vh;
   display: flex;
   flex-direction: column;
   background-color: #f1f1f2;
@@ -92,13 +94,15 @@ export const CommentContainer = styled.div`
   display: flex;
   flex-direction:row;
   padding-top: 2%;
-  padding-bottom: 2%;
+ 
   
 `;
 export const CommentDataContainer = styled.div`
   display: flex;
   flex-direction:column;
   padding-left: 1% ;
+ 
+ 
 `;
 
 // const styles = theme => ({
