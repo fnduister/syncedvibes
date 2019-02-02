@@ -25,9 +25,10 @@ const HomePage = ({ onMobile, articles }) => {
         return (
           <Article
             onMobile={onMobile}
+            content={articles[key].content}
             url={articles[key].url}
             title={articles[key].title}
-            time={articles[key].time}
+            date={articles[key].date}
             key={key}
           />
         );
