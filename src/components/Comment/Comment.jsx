@@ -2,16 +2,21 @@ import React, { Component } from "react";
 import {
   CommentUserStyled,
   CommentTextStyled,
-  Fav,
+  FavoriteButton,
+  DeleteIconStyled,
+  CommentUserDate,
   SmallAvatarStyled,
   CommentDataContainer,
   CommentContainer,
   TimeStamp,
   ReplyButton,
+  ReplyButtonsContainer
 } from "./styled";
+import Moment from "react-moment";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
+
 import Avatar from "../../images/savage.jpg";
+import { Typography } from "@material-ui/core";
 
 class Comment extends Component {
   constructor(props) {
@@ -38,9 +43,7 @@ class Comment extends Component {
   toggleFavorite = e => {
     this.setState(state => ({ favorite: !state.favorite }));
   };
-  reply = e =>{
-    
-  };
+  reply = e => {};
 
   render() {
     const { data } = this.props;
@@ -48,25 +51,33 @@ class Comment extends Component {
       <CommentContainer>
         <SmallAvatarStyled alt="User Avatar" src={Avatar} />
         <CommentDataContainer>
-          <CommentUserStyled color="textPrimary">
-            {data.user.username}
-            <TimeStamp fromNow>{this.props.date}</TimeStamp>
-          </CommentUserStyled>
-          <CommentTextStyled color="textPrimary">
+          <CommentUserDate>
+            <CommentUserStyled color="textPrimary" variant="body2">
+              {data.user.username}
+            </CommentUserStyled>
+            <TimeStamp variant="body2">
+              <Moment fromNow>{this.props.date}</Moment>
+            </TimeStamp>
+          </CommentUserDate>
+          <CommentTextStyled color="textPrimary" variant="body1">
             {data.comment}
-            <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
-              <Fav favorite={this.state.favorite} />
-            </IconButton>
-            <ReplyButton
-                    id="Reply"
-                    value="Post"
-                    type="Reply"
-                    onClick={this.reply}
-                  >
-                  Reply</ReplyButton>
-            <IconButton>
-              <DeleteIcon />
-            </IconButton>
+            <ReplyButtonsContainer>
+              <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
+                <FavoriteButton favorite={this.state.favorite} />
+              </IconButton>
+              <ReplyButton
+                id="Reply"
+                value="Post"
+                type="Reply"
+                variant="button"
+                onClick={this.reply}
+              >
+                Reply
+              </ReplyButton>
+              <IconButton>
+                <DeleteIconStyled />
+              </IconButton>
+            </ReplyButtonsContainer>
           </CommentTextStyled>
         </CommentDataContainer>
       </CommentContainer>
