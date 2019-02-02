@@ -1,5 +1,4 @@
 import React, { Fragment, Component } from "react";
-import Article from "../../containers/Article/Article";
 import { compose } from "redux";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
