@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   CommentUserStyled,
   CommentTextStyled,
-  Favorite,
+  Fav,
   SmallAvatarStyled,
   CommentDataContainer,
   CommentContainer,
@@ -16,14 +16,11 @@ class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favoriteStatus: [
-        
-      ],
       favorite: false
     };
   }
   toggleFavorite = e => {
-    e.favorite.styles.color = "red";
+    this.setState(state => ({ favorite: !state.favorite }));
   };
 
   render() {
@@ -39,7 +36,7 @@ class Comment extends Component {
           <CommentTextStyled color="textPrimary">
             {data.text}
             <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
-              <Favorite favorite={this.props.favorite} />
+              <Fav favorite={this.state.favorite} />
             </IconButton>
             <IconButton>
               <DeleteIcon />

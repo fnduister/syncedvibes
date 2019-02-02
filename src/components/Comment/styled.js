@@ -2,12 +2,12 @@ import styled from "styled-components";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Moment from "react-moment";
-import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+import Favorite from "@material-ui/icons/Favorite";
 
 export const CommentSectionStyled = styled.div``;
 
-export const Favorite = styled(FavoriteBorder)`
-  color: ${props => (props.favorite ? "red" : "blue")};
+export const Fav = styled(Favorite)`
+  color: ${props => (props.favorite ? "red" : "grey")};
 `;
 
 export const CommentUserStyled = styled(Typography)`
