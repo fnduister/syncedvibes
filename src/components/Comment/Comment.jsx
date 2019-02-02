@@ -49,11 +49,11 @@ class Comment extends Component {
         <SmallAvatarStyled alt="User Avatar" src={Avatar} />
         <CommentDataContainer>
           <CommentUserStyled color="textPrimary">
-            {data.name}
+            {data.user.username}
             <TimeStamp fromNow>{this.props.date}</TimeStamp>
           </CommentUserStyled>
           <CommentTextStyled color="textPrimary">
-            {data.text}
+            {data.comment}
             <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
               <Fav favorite={this.state.favorite} />
             </IconButton>

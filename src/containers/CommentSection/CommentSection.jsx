@@ -9,8 +9,7 @@ import {
   ButtonStyled,
   ButtonStyledTwo,
   ButtonContainer,
-  AvatarStyled,
-  
+  AvatarStyled
 } from "./styled";
 
 import Avatar from "../../images/savage.jpg";
@@ -48,7 +47,6 @@ class CommentSection extends Component {
     this.setState({ submitButtonFocused: true });
   };
 
- 
   cancelComment = e => {
     this.setState({
       submitButtonFocused: false,
@@ -110,8 +108,8 @@ class CommentSection extends Component {
           </AvatarContainer>
         </Form>
 
-        {this.state.commentData.map(data => (
-            <Comment data={data} />
+        {Object.keys(this.props.comments).map(key => (
+          <Comment key={key} data={this.props.comments[key]} />
         ))}
       </Container>
     );
