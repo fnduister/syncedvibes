@@ -24,7 +24,9 @@ import {
 } from "./styled";
 import classNames from "classnames";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import Avatar from "../../images/savage.jpg";
+import Moment from "react-moment";
 
 class CommentSec extends Component {
   constructor(props) {
@@ -66,9 +68,9 @@ class CommentSec extends Component {
 
         <Form autoComplete="off" onSubmit={this.handleCommentSubmit}>
           <AvatarContainer>
-          <AvatarCenterContainer>
-            <AvatarStyled alt="User Avatar" src={Avatar} />
-            {/* <img
+            <AvatarCenterContainer>
+              <AvatarStyled alt="User Avatar" src={Avatar} />
+              {/* <img
               src={Avatar}
               alt="User Avatar"
               style={{ fontSize: "20px", height: "4.3vh", width: "3.2vw", borderRadius: "50%"}}
@@ -124,23 +126,25 @@ class CommentSec extends Component {
 
         {this.state.commentData.map(data => (
           <div>
-             <hr color="lightgrey"/>
+            <hr color="lightgrey" />
             <CommentContainer>
-            
-            <SmallAvatarStyled alt="User Avatar" src={Avatar} />
-            
-            <CommentDataContainer>
-            <CommentUserStyled color="textPrimary">
-              {data.name}
-            </CommentUserStyled>
-            <CommentTextStyled color="textPrimary">
-              {data.text}
-            </CommentTextStyled>
-            </CommentDataContainer>
+              <SmallAvatarStyled alt="User Avatar" src={Avatar} />
+
+              <CommentDataContainer>
+                <CommentUserStyled color="textPrimary">
+                  {data.name}
+                </CommentUserStyled>
+                <Typography variant="body2" color="textPrimary">
+                  <Moment fromNow>{this.props.date}</Moment> by markvok
+                </Typography>
+                <CommentTextStyled color="textPrimary">
+                  {data.text}
+                </CommentTextStyled>
+              </CommentDataContainer>
             </CommentContainer>
           </div>
-        ))}</Container>
-      
+        ))}
+      </Container>
     );
   }
 }
