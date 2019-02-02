@@ -37,6 +37,12 @@ export const ReplyButton = styled(Button)`
 
 export const CommentTextStyled = styled(Typography)`
   color: black;
+  /* width: 95%; */
+  margin-left: 1%;
+  margin-right: 1%;
+  text-align: justify;
+  /* padding-left: 1em;
+  padding-right: 1em; */
 `;
 
 export const TimeStamp = styled(Typography)`
