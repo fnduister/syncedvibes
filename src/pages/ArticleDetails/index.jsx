@@ -7,7 +7,7 @@ import Youtube from "react-youtube";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
-import CommentSec from "../../containers/CommentSec/CommentSec";
+import CommentSection from "../../containers/CommentSection/CommentSection";
 import { Link } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import AddArticle from "../../components/AddArticle/AddArticle";
@@ -101,7 +101,7 @@ class ArticleDetails extends Component {
           </Button>
 
           {this.state.comment ? (
-            <CommentSec comments={this.props.article.comments} />
+            <CommentSection comments={this.props.article.comments} />
           ) : null}
         </ArticleGrid>
       ) : (

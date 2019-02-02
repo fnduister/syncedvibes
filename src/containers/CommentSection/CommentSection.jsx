@@ -109,8 +109,8 @@ class CommentSection extends Component {
           </AvatarContainer>
         </Form>
 
-        {this.state.commentData.map(data => (
-            <Comment data={data} />
+        {this.props.comments.map((key, value) => (
+            <Comment key={key} data={value} />
         ))}
       </Container>
     );
