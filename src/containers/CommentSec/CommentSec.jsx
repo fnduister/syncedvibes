@@ -1,11 +1,5 @@
 import React, { Fragment, Component } from "react";
 import {
-  CommentBox,
-  CommentList,
-  CommentForm,
-  Comment
-} from "../../components/CommentSection/CommentSection";
-import {
   CommentUserStyled,
   CommentTextStyled,
   Form,
@@ -15,19 +9,21 @@ import {
   TextAreaStyled,
   InformationContainer,
   ButtonStyled,
-  TextFieldStyled,
-  UserDetailsContainer,
+  ButtonStyledTwo,
+  ButtonContainer,
+  Favorite,
   AvatarStyled,
   SmallAvatarStyled,
   CommentDataContainer,
-  CommentContainer
+  CommentContainer,
+  TimeStamp
 } from "./styled";
-import classNames from "classnames";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "../../images/savage.jpg";
 import Moment from "react-moment";
-
+import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 class CommentSec extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +42,9 @@ class CommentSec extends Component {
         name: "",
         email: "",
         comment: ""
-      }
+      },
+      submitButtonFocused: false,
+      favorite: false
     };
   }
 
@@ -55,7 +53,19 @@ class CommentSec extends Component {
     console.log("submit");
   };
   showSubmitButton = e => {
-    console.log("submit");
+    this.setState({ submitButtonFocused: true });
+  };
+
+  toggleFavorite = e => {
+    e.target.styles.color = "red";
+  };
+  cancelComment = e => {
+    this.setState({
+      submitButtonFocused: false,
+      currentComment: {
+        comment: ""
+      }
+    });
   };
 
   onchangeText = e => {
@@ -65,11 +75,10 @@ class CommentSec extends Component {
   render() {
     return (
       <Container>
- 
         <Form autoComplete="off" onSubmit={this.handleCommentSubmit}>
           <AvatarContainer>
-          <AvatarCenterContainer>
-            <AvatarStyled alt="User Avatar" src={Avatar} />
+            <AvatarCenterContainer>
+              <AvatarStyled alt="User Avatar" src={Avatar} />
             </AvatarCenterContainer>
             <InformationContainer>
               <TextAreaStyled
@@ -83,41 +92,54 @@ class CommentSec extends Component {
                 onChange={this.onchangeText}
                 margin="normal"
                 fullWidth
-                onFocus={this.showSubmitButton()}
+                onFocus={this.showSubmitButton}
               />
 
-              <ButtonStyled
-                variant="contained"
-                color="secondary"
-                id="submit"
-                value="Post"
-                type="submit"
-              >
-                Submit
-              </ButtonStyled>
+              {this.state.submitButtonFocused ? (
+                <ButtonContainer>
+                  <ButtonStyled
+                    variant="contained"
+                    color="secondary"
+                    id="submit"
+                    value="Post"
+                    type="submit"
+                  >
+                    Submit
+                  </ButtonStyled>
+                  <ButtonStyledTwo
+                    id="cancel"
+                    value="Post"
+                    type="cancel"
+                    onClick={this.cancelComment}
+                  >
+                    Cancel
+                  </ButtonStyledTwo>
+                </ButtonContainer>
+              ) : null}
             </InformationContainer>
           </AvatarContainer>
         </Form>
 
         {this.state.commentData.map(data => (
-          <div>
-             <hr color="lightgrey"/>
             <CommentContainer>
               <SmallAvatarStyled alt="User Avatar" src={Avatar} />
-
               <CommentDataContainer>
                 <CommentUserStyled color="textPrimary">
                   {data.name}
+                  <TimeStamp fromNow>{this.props.date}</TimeStamp>
                 </CommentUserStyled>
-                <Typography variant="body2" color="textPrimary">
-                  <Moment fromNow>{this.props.date}</Moment> by markvok
-                </Typography>
                 <CommentTextStyled color="textPrimary">
                   {data.text}
+                  <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
+                    {/* {this.state.fovrite ? ( ) : null ()} */}
+                    <Favorite favorite={this.state.favorite} />
+                  </IconButton>
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
                 </CommentTextStyled>
               </CommentDataContainer>
             </CommentContainer>
-          </div>
         ))}
       </Container>
     );
