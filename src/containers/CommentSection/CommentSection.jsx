@@ -1,7 +1,5 @@
-import React, { Fragment, Component } from "react";
+import React, { Component } from "react";
 import {
-  CommentUserStyled,
-  CommentTextStyled,
   Form,
   Container,
   AvatarContainer,
@@ -11,20 +9,13 @@ import {
   ButtonStyled,
   ButtonStyledTwo,
   ButtonContainer,
-  Favorite,
   AvatarStyled,
-  SmallAvatarStyled,
-  CommentDataContainer,
-  CommentContainer,
-  TimeStamp
 } from "./styled";
-import Typography from "@material-ui/core/Typography";
+
 import Avatar from "../../images/savage.jpg";
-import Moment from "react-moment";
-import Icon from "@material-ui/core/Icon";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-class CommentSec extends Component {
+
+
+class CommentSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,9 +47,7 @@ class CommentSec extends Component {
     this.setState({ submitButtonFocused: true });
   };
 
-  toggleFavorite = e => {
-    e.target.styles.color = "red";
-  };
+ 
   cancelComment = e => {
     this.setState({
       submitButtonFocused: false,
@@ -121,29 +110,11 @@ class CommentSec extends Component {
         </Form>
 
         {this.state.commentData.map(data => (
-            <CommentContainer>
-              <SmallAvatarStyled alt="User Avatar" src={Avatar} />
-              <CommentDataContainer>
-                <CommentUserStyled color="textPrimary">
-                  {data.name}
-                  <TimeStamp fromNow>{this.props.date}</TimeStamp>
-                </CommentUserStyled>
-                <CommentTextStyled color="textPrimary">
-                  {data.text}
-                  <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
-                    {/* {this.state.fovrite ? ( ) : null ()} */}
-                    <Favorite favorite={this.state.favorite} />
-                  </IconButton>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </CommentTextStyled>
-              </CommentDataContainer>
-            </CommentContainer>
+            <Comment data={data} />
         ))}
       </Container>
     );
   }
 }
 
-export default CommentSec;
+export default CommentSection;
