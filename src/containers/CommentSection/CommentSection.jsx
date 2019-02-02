@@ -10,6 +10,7 @@ import {
   ButtonStyledTwo,
   ButtonContainer,
   AvatarStyled,
+  
 } from "./styled";
 
 import Avatar from "../../images/savage.jpg";

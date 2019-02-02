@@ -6,7 +6,8 @@ import {
   SmallAvatarStyled,
   CommentDataContainer,
   CommentContainer,
-  TimeStamp
+  TimeStamp,
+  ReplyButton,
 } from "./styled";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -16,11 +17,29 @@ class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      commentReply: [
+        {
+          name: "User1",
+          text: "Sample Comment 1"
+        },
+        {
+          name: "User2",
+          text: "Sample Comment 2"
+        }
+      ],
+      currentReply: {
+        name: "",
+        email: "",
+        comment: ""
+      },
       favorite: false
     };
   }
   toggleFavorite = e => {
     this.setState(state => ({ favorite: !state.favorite }));
+  };
+  reply = e =>{
+    
   };
 
   render() {
@@ -38,6 +57,13 @@ class Comment extends Component {
             <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
               <Fav favorite={this.state.favorite} />
             </IconButton>
+            <ReplyButton
+                    id="Reply"
+                    value="Post"
+                    type="Reply"
+                    onClick={this.reply}
+                  >
+                  Reply</ReplyButton>
             <IconButton>
               <DeleteIcon />
             </IconButton>
