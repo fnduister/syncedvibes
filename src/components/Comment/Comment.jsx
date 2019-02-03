@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import {
-  CommentUserStyled,
-  CommentTextStyled,
+  ReplyUserStyled,
+  ReplyTextStyled,
   FavoriteButton,
   DeleteIconStyled,
-  CommentUserDate,
+  ReplyUserDate,
   SmallAvatarStyled,
-  CommentDataContainer,
+  ReplyDataContainer,
   CommentContainer,
   TimeStamp,
   ReplyButton,
@@ -18,7 +18,8 @@ import {
   TextAreaStyled,
   ButtonStyledTwo,
   ButtonStyled,
-  ButtonContainer
+  ButtonContainer,
+  ReplySectionContainer
 } from "./styled";
 import Moment from "react-moment";
 import IconButton from "@material-ui/core/IconButton";
@@ -104,16 +105,16 @@ class Comment extends Component {
     return (
       <CommentContainer>
         <SmallAvatarStyled alt="User Avatar" src={Avatar} />
-        <CommentDataContainer>
-          <CommentUserDate>
-            <CommentUserStyled color="textPrimary" variant="body2">
+        <ReplyDataContainer>
+          <ReplyUserDate>
+            <ReplyUserStyled color="textPrimary" variant="body2">
               {data.user.username}
-            </CommentUserStyled>
+            </ReplyUserStyled>
             <TimeStamp variant="body2">
               <Moment fromNow>{this.props.date}</Moment>
             </TimeStamp>
-          </CommentUserDate>
-          <CommentTextStyled color="textPrimary" variant="body1">
+          </ReplyUserDate>
+          <ReplyTextStyled color="textPrimary" variant="body1">
             {data.comment}
             <ReplyButtonsContainer>
               <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
@@ -132,21 +133,22 @@ class Comment extends Component {
                 <DeleteIconStyled />
               </IconButton>
             </ReplyButtonsContainer>
+            <ReplySectionContainer style={this.state.reply ? {} : { display: "none" }}>
             <ReplyContainer>
               <ReplyAvatarStyled alt="User Avatar" src={Avatar} />
-              <CommentDataContainer>
-                <CommentUserDate>
-                  <CommentUserStyled color="textPrimary" variant="body2">
+              <ReplyDataContainer>
+                <ReplyUserDate>
+                  <ReplyUserStyled color="textPrimary" variant="body2">
                     {this.state.replyData[0].name}
-                  </CommentUserStyled>
+                  </ReplyUserStyled>
                   <TimeStamp variant="body2">
                     <Moment fromNow>{this.props.date}</Moment>
                   </TimeStamp>
-                </CommentUserDate>
-                <CommentTextStyled color="textPrimary" variant="body1">
+                </ReplyUserDate>
+                <ReplyTextStyled color="textPrimary" variant="body1">
                   {data.comment}
-                </CommentTextStyled>
-              </CommentDataContainer>
+                </ReplyTextStyled>
+              </ReplyDataContainer>
             </ReplyContainer>
             <ReplyOptionsContainer>
               <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
@@ -167,19 +169,19 @@ class Comment extends Component {
             </ReplyOptionsContainer>
             <ReplyContainer>
               <ReplyAvatarStyled alt="User Avatar" src={Avatar} />
-              <CommentDataContainer>
-                <CommentUserDate>
-                  <CommentUserStyled color="textPrimary" variant="body2">
+              <ReplyTextStyled>
+                <ReplyUserDate>
+                  <ReplyUserStyled color="textPrimary" variant="body2">
                     {this.state.replyData[1].name}
-                  </CommentUserStyled>
+                  </ReplyUserStyled>
                   <TimeStamp variant="body2">
                     <Moment fromNow>{this.props.date}</Moment>
                   </TimeStamp>
-                </CommentUserDate>
-                <CommentTextStyled color="textPrimary" variant="body1">
+                </ReplyUserDate>
+                <ReplyTextStyled color="textPrimary" variant="body1">
                   {data.comment}
-                </CommentTextStyled>
-              </CommentDataContainer>
+                </ReplyTextStyled>
+              </ReplyTextStyled>
             </ReplyContainer>
             <ReplyOptionsContainer>
               <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
@@ -199,59 +201,56 @@ class Comment extends Component {
               </IconButton>
             </ReplyOptionsContainer>
 
-            <InformationContainer>
-            <Grid container spacing={8} alignItems="flex-end">
-          <Grid item>
-            <AccountCircle />
-          </Grid>
-          <Grid item>
-          <TextAreaStyled
-                id="Reply"
-                name="Reply"
-                label="Reply"
-                multiline
-                rowsMax="5"
-                rows="1"
-                value={this.state.currentReply.comment}
-                onChange={this.onchangeText}
-                margin="normal"
-                fullWidth
-                onFocus={this.showReplySubmitButton}
-              />
-
-            
-            {/* <TextField id="input-with-icon-grid" label="With a grid" /> */}
-          </Grid>
-          <Grid Item>
-          {this.state.replySubmitButtonFocused ? (
-                <ButtonContainer>
-                  <ButtonStyled
-                    variant="contained"
-                    color="secondary"
-                    id="submit"
-                    value="Post"
-                    type="submit"
-                  >
-                    Submit
-                  </ButtonStyled>
-                  <ButtonStyledTwo
-                    id="cancel"
-                    value="Clear"
-                    type="cancel"
-                    onClick={this.cancelReply}
-                  >
-                    Cancel
-                  </ButtonStyledTwo>
-                </ButtonContainer>
-              ) : null}
-          </Grid>
-        </Grid>
-       
-        </InformationContainer>
+            <InformationContainer
               
+            >
+              <Grid container spacing={8} alignItems="flex-end">
+                <Grid item>
+                  <AccountCircle />
+                </Grid>
+                <Grid item>
+                  <TextAreaStyled
+                    id="Reply"
+                    name="Reply"
+                    label="Reply"
+                    multiline
+                    rowsMax="5"
+                    rows="1"
+                    value={this.state.currentReply.comment}
+                    onChange={this.onchangeText}
+                    margin="normal"
+                    fullWidth
+                    onFocus={this.showReplySubmitButton}
+                  />
 
-
-
+                  {/* <TextField id="input-with-icon-grid" label="With a grid" /> */}
+                </Grid>
+                <Grid Item>
+                  {this.state.replySubmitButtonFocused ? (
+                    <ButtonContainer>
+                      <ButtonStyled
+                        variant="contained"
+                        color="secondary"
+                        id="submit"
+                        value="Post"
+                        type="submit"
+                      >
+                        Submit
+                      </ButtonStyled>
+                      <ButtonStyledTwo
+                        id="cancel"
+                        value="Clear"
+                        type="cancel"
+                        onClick={this.cancelReply}
+                      >
+                        Cancel
+                      </ButtonStyledTwo>
+                    </ButtonContainer>
+                  ) : null}
+                </Grid>
+              </Grid>
+            </InformationContainer>
+            </ReplySectionContainer>
             {/* <TextField id="input-with-icon-grid" label="leave comment" /> */}
 
             {/* <CommentContainer style={this.state.reply ? {} : { display: "none" }}>
@@ -267,7 +266,7 @@ class Comment extends Component {
           </CommentUserDate>
           <CommentTextStyled color="textPrimary" variant="body1">
             {data.comment}
- </CommentTextStyled></CommentDataContainer></CommentContainer> */}
+ </CommentTextStyled></ReplyDataContainer></CommentContainer> */}
 
             {/* <TextField
                   style={this.state.reply ? {} : { display: "none" }}
@@ -281,8 +280,8 @@ class Comment extends Component {
                     )
                   }}
                 /> */}
-          </CommentTextStyled>
-        </CommentDataContainer>
+          </ReplyTextStyled>
+        </ReplyDataContainer>
       </CommentContainer>
     );
   }

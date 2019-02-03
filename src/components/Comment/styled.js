@@ -7,7 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AccountCircle from '@material-ui/icons/AccountCircle';
-export const CommentSectionStyled = styled.div``;
+export const ReplySectionStyled = styled.div``;
 
 export const FavoriteButton = styled(Favorite)`
   color: ${props => (props.favorite ? "red" : "grey")};
@@ -18,15 +18,17 @@ export const DeleteIconStyled = styled(DeleteIcon)`
   font-size: 15px;
 `;
 
-export const CommentUserStyled = styled(Typography)`
+export const ReplyUserStyled = styled(Typography)`
   color: black;
   font-weight: bold;
 `;
 
-export const CommentUserDate = styled.div`
+export const ReplyUserDate = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+`;
+export const ReplySectionContainer = styled.div`
 `;
 export const ReplyContainer = styled.div`
   display: flex;
@@ -41,7 +43,7 @@ export const ReplyButton = styled(Button)`
   font-size: 12px;
 `;
 
-export const CommentTextStyled = styled(Typography)`
+export const ReplyTextStyled = styled(Typography)`
   color: black;
   /* width: 95%; */
   margin-left: 1%;
@@ -79,7 +81,7 @@ export const ReplyOptionsContainer = styled.div`
   padding-top: 1%;
   margin-left: 10%;
 `;
-export const CommentDataContainer = styled.div`
+export const ReplyDataContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 1%;
