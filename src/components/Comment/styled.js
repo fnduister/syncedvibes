@@ -6,6 +6,7 @@ import Favorite from "@material-ui/icons/Favorite";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
+import AccountCircle from '@material-ui/icons/AccountCircle';
 export const CommentSectionStyled = styled.div``;
 
 export const FavoriteButton = styled(Favorite)`
@@ -29,7 +30,7 @@ export const CommentUserDate = styled.div`
 `;
 export const ReplyContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-top: 3%;
 `;
 
@@ -64,15 +65,62 @@ export const SmallAvatarStyled = styled(Avatar)`
 export const CommentContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 2%;
+  padding-top: 1%;
+
 `;
 export const ReplyButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
   padding-top: 1%;
 `;
+export const ReplyOptionsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-top: 1%;
+  margin-left: 10%;
+`;
 export const CommentDataContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 1%;
+`;
+
+export const ReplyAvatarStyled = styled(AccountCircle)`
+  margin: .5;
+  flex:1;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+`;
+
+export const ButtonStyled = styled(Button)`
+  display: flex;
+  width: 1vw;
+  height: 1vh;
+  margin-left: 1%;
+  margin-right: 1%;
+`;
+export const ButtonStyledTwo = styled(Button)`
+  display: flex;
+  width: 1vw;
+  height: 1vh;
+  margin-left: 3%;
+`;
+
+export const InformationContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-left: 1vh;
+  width: 100%;
+`;
+
+export const TextAreaStyled = styled(TextField)`
+  background-color: transparent;
+  margin-bottom: 0px;
+  height: 1%;
+  & label {
+  }
 `;
