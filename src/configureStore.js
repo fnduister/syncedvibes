@@ -3,7 +3,6 @@
  */
 
 import { createStore, applyMiddleware, compose } from "redux";
-import { reactReduxFirebase, firebaseReducer } from "react-redux-firebase";
 import { routerMiddleware } from "connected-react-router";
 import createReducer from "./rootReducers";
 import thunk from "redux-thunk";

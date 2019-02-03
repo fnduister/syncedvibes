@@ -15,7 +15,9 @@ const config = {
 firebase.initializeApp(config);
 
 export const rrfConfig = {
-  userProfile: "users"
+  userProfile: "users",
+  attachAuthIsReady: true, // attaches auth is ready promise to store
+  firebaseStateName: 'firebase' // should match the reducer name ('firebase' is default)
   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 };
 

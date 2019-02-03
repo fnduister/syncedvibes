@@ -11,13 +11,13 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import EditFormSchema from "../../components/Forms/EditFormSchema";
+import EditFormSchema from "../Forms/EditForm/EditFormSchema";
 import { DialogContentStyled } from "./Styled";
 import moment from "moment";
 import Moment from "react-moment";
 import "moment-timezone";
 
-import EditForm from "../../components/Forms/EditForm";
+import EditForm from "../Forms/EditForm/EditForm";
 
 const AddArticle = props => (
   <Fragment>
