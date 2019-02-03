@@ -27,11 +27,6 @@ export const CommentUserDate = styled.div`
   flex-direction: row;
   align-items: flex-end;
 `;
-export const ReplyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 3%;
-`;
 
 export const ReplyButton = styled(Button)`
   display: flex;
