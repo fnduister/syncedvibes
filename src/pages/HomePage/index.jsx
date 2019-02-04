@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import Article from "../../containers/Article/Article";
+import Article from "../../components/Article/Article";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { Articles } from "./styled";
 import { withStateHandlers } from "recompose";
 import {
   firebaseConnect,
@@ -20,7 +21,7 @@ const HomePage = ({ onMobile, articles }) => {
   }
 
   return (
-    <Fragment>
+    <Articles xs={12} sm={9} container>
       {Object.keys(articles).map(key => {
         return (
           <Article
@@ -33,7 +34,7 @@ const HomePage = ({ onMobile, articles }) => {
           />
         );
       })}
-    </Fragment>
+    </Articles>
   );
 };
 

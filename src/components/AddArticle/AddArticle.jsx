@@ -1,23 +1,15 @@
 import React, { Fragment } from "react";
-import { Form, Formik, Field, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
+import { Formik } from "formik";
 import { compose } from "redux";
 import { withHandlers } from "recompose";
-import { firebaseConnect, withFirebase } from "react-redux-firebase";
-import Typography from "@material-ui/core/Typography";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+import { firebaseConnect } from "react-redux-firebase";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import EditFormSchema from "../../components/Forms/EditFormSchema";
-import { DialogContentStyled } from "./Styled";
+import { DialogContentStyled } from "./styled";
+import EditFormSchema from '../Forms/EditForm/EditForm';
 import moment from "moment";
-import Moment from "react-moment";
 import "moment-timezone";
 
-import EditForm from "../../components/Forms/EditForm";
+import EditForm from "../Forms/EditForm/EditForm";
 
 const AddArticle = props => (
   <Fragment>

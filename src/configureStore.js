@@ -3,10 +3,10 @@
  */
 
 import { createStore, applyMiddleware, compose } from "redux";
-import { reactReduxFirebase, firebaseReducer } from "react-redux-firebase";
 import { routerMiddleware } from "connected-react-router";
 import createReducer from "./rootReducers";
 import thunk from "redux-thunk";
+import { getFirebase, reactReduxFirebase } from "react-redux-firebase";
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
@@ -14,7 +14,9 @@ export default function configureStore(initialState = {}, history) {
   // 2. routerMiddleware: Syncs the location/URL path to the state
   const middlewares = [thunk, routerMiddleware(history)];
 
-  const enhancers = [applyMiddleware(...middlewares)];
+  const enhancers = [
+    applyMiddleware(...middlewares, thunk.withExtraArgument(getFirebase))
+  ];
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle, indent */
@@ -32,8 +34,6 @@ export default function configureStore(initialState = {}, history) {
     composeEnhancers(...enhancers)
   );
 
-
-
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if (module.hot) {
@@ -41,6 +41,7 @@ export default function configureStore(initialState = {}, history) {
       store.replaceReducer(createReducer(store.injectedReducers));
     });
   }
+
 
   return store;
 }

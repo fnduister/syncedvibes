@@ -14,6 +14,8 @@ import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import testFirebase from "../../components/testComponent/testFirebase";
 import withSizes from "react-sizes";
+import Login from "../Login/Login";
+import "moment-timezone";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -55,8 +57,9 @@ class App extends Component {
                       <HomePage {...props} onMobile={this.props.onMobile} />
                     )}
                   />
+                  <Route path="/login" component={Login} />
                   <Route
-                    path="/article"
+                    path="/article/:articleId"
                     render={props => (
                       <ArticleDetails
                         {...props}
