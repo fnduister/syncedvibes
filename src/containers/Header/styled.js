@@ -20,7 +20,7 @@ export const Background = styled.div`
   height: 100vh;
   position: relative;
   overflow: hidden;
-  margin-bottom: 5vh;
+  /* margin-bottom: 5vh; */
 `;
 
 export const BottomLine = styled.div`

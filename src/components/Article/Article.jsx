@@ -1,5 +1,5 @@
 import React from "react";
-import { ArticleContainer, Header, Content, Media, HeaderText, Type, Looks } from "./Styled";
+import { ArticleContainer, Header, Content, Media, HeaderText, Type, Looks } from "./styled";
 import Drake from "../../images/jan-strecha-722905-unsplash.jpg";
 
 function Article(props) {

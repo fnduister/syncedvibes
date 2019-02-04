@@ -1,19 +1,16 @@
 import React, { PureComponent, createRef } from "react";
 import { connect } from "react-redux";
 import Overlay from "../../components/Overlay/Overlay";
-import { theme, viewport } from "../../GlobalStyle";
-import Grid from "@material-ui/core/Grid";
+import { theme } from "../../GlobalStyle";
 import NavBar from "../../components/NavBar/NavBar";
 import Drawer from "@material-ui/core/Drawer";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Title from "../../components/Title/Title";
 import { toggleMenu } from "./reducer";
 import { Transition, animated, Spring, config } from "react-spring";
 import { Background, HeaderNavBar } from "./styled";
-import withSizes from "react-sizes";
 
 class Header extends PureComponent {
   constructor(props) {
