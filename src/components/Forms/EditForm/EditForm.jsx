@@ -5,7 +5,7 @@ import {
   TextTitle,
   SaveIconStyled,
   ButtonStyled
-} from "./Styled";
+} from "./styled";
 import { Button } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import { Form, Field, ErrorMessage } from "formik";
