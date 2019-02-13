@@ -62,9 +62,9 @@ const LoginForm = ({
         <Field
           type="text"
           className="error"
-          name="username"
+          name="displayName"
           component={TextTitle}
-          label="username"
+          label="display name"
           variant="outlined"
         />
       )}

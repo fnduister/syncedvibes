@@ -5,8 +5,6 @@ import Avatar from "@material-ui/core/Avatar";
 
 export const CommentSectionStyled = styled.div``;
 
-
-
 export const ButtonStyled = styled(Button)`
   display: flex;
   width: 2vw;
@@ -21,8 +19,8 @@ export const ButtonStyledTwo = styled(Button)`
 
 export const AvatarStyled = styled(Avatar)`
   margin: 10;
+  color: red;
 `;
-
 
 export const AvatarContainer = styled.div`
   display: flex;

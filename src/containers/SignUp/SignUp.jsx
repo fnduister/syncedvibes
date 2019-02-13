@@ -7,16 +7,15 @@ import { compose } from "redux";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import LoginFormSchema from "../../components/Forms/LoginForm/LoginFormSchema";
 
-const Login = ({ firebase, auth, signup, history }) => (
+const SignUp = ({ firebase, auth, signup, history }) => (
   <Container>
     <Formik
       initialValues=""
       validationSchema={LoginFormSchema}
-      onSubmit={async ({ email, password }, actions) => {
-        // console.log({values});
-        console.log({ email, password });
+      onSubmit={async ({ email, password, displayName }, actions) => {
         try {
-          await firebase.login({ email, password });
+          const avatar = displayName.substr(0, 1).toUpperCase();
+          const user = await firebase.createUser({ email, password }, {email, displayName, avatar});
           actions.setSubmitting(false);
           history.push("/");
         } catch (err) {
@@ -25,11 +24,11 @@ const Login = ({ firebase, auth, signup, history }) => (
           actions.setStatus({ msg: err.message });
         }
       }}
-      render={props => <LoginForm {...props} />}
+      render={props => <LoginForm {...props} signup />}
     />
   </Container>
 );
 export default compose(
   firebaseConnect("articles"),
   connect(({ firebase: { auth } }) => ({ auth }))
-)(Login);
+)(SignUp);

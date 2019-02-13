@@ -11,9 +11,16 @@ import {
   ButtonContainer,
   AvatarStyled
 } from "./styled";
-
+import { compose } from "redux";
+import {
+  firebaseConnect,
+  withFirebase,
+  isLoaded,
+  getVal
+} from "react-redux-firebase";
 import Avatar from "../../images/savage.jpg";
 import Comment from "../../components/Comment/Comment";
+import { connect } from "react-redux";
 
 class CommentSection extends Component {
   constructor(props) {
@@ -66,7 +73,14 @@ class CommentSection extends Component {
         <Form autoComplete="off" onSubmit={this.handleCommentSubmit}>
           <AvatarContainer>
             <AvatarCenterContainer>
-              <AvatarStyled alt="User Avatar" src={Avatar} />
+              {this.props.profile.avatarUrl ? (
+                <AvatarStyled
+                  alt="User Avatar"
+                  src={this.props.profile.avatarUrl}
+                />
+              ) : (
+                <AvatarStyled>{this.props.profile.avatar}</AvatarStyled>
+              )}
             </AvatarCenterContainer>
             <InformationContainer>
               <TextAreaStyled
@@ -116,4 +130,6 @@ class CommentSection extends Component {
   }
 }
 
-export default CommentSection;
+const enhance = compose(connect(({ firebase: { profile } }) => ({ profile })));
+
+export default enhance(CommentSection);
