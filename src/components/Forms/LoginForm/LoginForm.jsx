@@ -12,6 +12,7 @@ import {
   Image,
   TextTitle,
   SaveIconStyled,
+  Already,
   LoginButton
 } from "./styled";
 import { Button, Typography, Fab } from "@material-ui/core";
@@ -22,12 +23,31 @@ import AddIcon from "@material-ui/icons/Add";
 import GoogleIcon from "../../../images/google-icon2.png";
 import FacebookIcon from "../../../images/facebook-icon.png";
 import { withFirebase } from "react-redux-firebase";
+import { Icon, IconButton } from "@material-ui/core";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import AdornementInputText from "../AdornmentInputText/AdornementInputText";
 
-const LoginForm = ({ errors, status, touched, isSubmitting, firebase }) => {
+const LoginForm = ({
+  signup,
+  errors,
+  status,
+  touched,
+  isSubmitting,
+  firebase
+}) => {
+  const socialLogin = async provider => {
+    try {
+      const user = await firebase.login({ provider, type: "popup" });
+      console.log({ user });
+    } catch (err) {
+      console.log({ err });
+    }
+  };
+
   return (
     <Form>
       <SubHeader color="secondary" variant="h4">
-        LOGIN
+        {signup ? "SIGN UP" : "LOG IN"}
       </SubHeader>
       <SubHeader variant="subheading">Welcome to the Vibe</SubHeader>
       <Field
@@ -38,17 +58,27 @@ const LoginForm = ({ errors, status, touched, isSubmitting, firebase }) => {
         label="email"
         variant="outlined"
       />
-
+      {signup && (
+        <Field
+          type="text"
+          className="error"
+          name="displayName"
+          component={TextTitle}
+          label="display name"
+          variant="outlined"
+        />
+      )}
       <Field
-        type="password"
         name="password"
-        component={TextContent}
+        component={AdornementInputText}
         variant="outlined"
         label="password"
       />
-      <ForgotPassword variant="caption" to="login" component={Link}>
-        Forgot Password?
-      </ForgotPassword>
+      {!signup && (
+        <ForgotPassword variant="caption" to="login" component={Link}>
+          Forgot Password?
+        </ForgotPassword>
+      )}
 
       <ErrorMessage name="social.twitter" className="error" component="div" />
       {status && status.msg && <div>{status.msg}</div>}
@@ -59,16 +89,14 @@ const LoginForm = ({ errors, status, touched, isSubmitting, firebase }) => {
         type="submit"
         disabled={isSubmitting}
       >
-        login
+        {!signup ? "Login" : "Sign up"}
       </LoginButton>
       <Separator> OR </Separator>
       <Social>
         <FacebookButton
           aria-label="Facebook"
           disabled={isSubmitting}
-          onClick={() =>
-            firebase.login({ provider: "facebook", type: "popup" })
-          }
+          onClick={() => socialLogin("Facebook")}
           variant="contained"
           color="default"
         >
@@ -78,7 +106,7 @@ const LoginForm = ({ errors, status, touched, isSubmitting, firebase }) => {
         <GoogleButton
           aria-label="Google"
           disabled={isSubmitting}
-          onClick={() => firebase.login({ provider: "google", type: "popup" })}
+          onClick={() => socialLogin("google")}
           variant="contained"
           color="default"
         >
@@ -86,6 +114,12 @@ const LoginForm = ({ errors, status, touched, isSubmitting, firebase }) => {
           Login Google
         </GoogleButton>
       </Social>
+      <Already>
+        Already have an account?{" "}
+        <Link to={signup ? "login" : "signup"}>
+          {signup ? "Log in" : "Sign up"}
+        </Link>
+      </Already>
     </Form>
   );
 };

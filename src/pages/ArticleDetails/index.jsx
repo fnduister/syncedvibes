@@ -100,7 +100,7 @@ class ArticleDetails extends Component {
           </Button>
 
           {this.state.comment ? (
-            <CommentSection comments={this.props.article.comments} />
+            <CommentSection comments={this.props.article.comments} addComment={this.props.addComment}/>
           ) : null}
         </ArticleGrid>
       ) : (
@@ -123,7 +123,11 @@ const enhance = compose(
   ]),
   connect(({ firebase }, props) => ({
     article: getVal(firebase, `data/articles/${props.match.params.articleId}`) // lodash's get can also be used
-  }))
+  })),
+  withHandlers({
+    addComment: props => comment =>
+      props.firebase.push(`articles/${props.match.params.articleId}/comments`, comment)
+  })
 );
 
 export default enhance(ArticleDetails);

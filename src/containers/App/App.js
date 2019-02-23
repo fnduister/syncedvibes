@@ -15,6 +15,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import testFirebase from "../../components/testComponent/testFirebase";
 import withSizes from "react-sizes";
 import Login from "../Login/Login";
+import SignUp from "../SignUp/SignUp";
 import "moment-timezone";
 
 const Container = styled(Grid)`
@@ -58,6 +59,7 @@ class App extends Component {
                     )}
                   />
                   <Route path="/login" component={Login} />
+                  <Route path="/signup" component={SignUp} />
                   <Route
                     path="/article/:articleId"
                     render={props => (

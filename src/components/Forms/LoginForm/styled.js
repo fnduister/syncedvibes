@@ -23,6 +23,7 @@ export const Social = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  margin-bottom: 1.5em;
 `;
 
 export const Image = styled.img`
@@ -67,4 +68,8 @@ export const ForgotPassword = styled(Typography)`
   :hover {
     color: red;
   }
+`;
+
+export const Already = styled(Text)`
+
 `;
