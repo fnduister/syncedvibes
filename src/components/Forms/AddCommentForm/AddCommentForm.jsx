@@ -1,33 +1,49 @@
 import React, { Fragment } from "react";
 import { Form, Formik, Field, ErrorMessage } from "formik";
+import {
+  AvatarContainer,
+  AvatarStyled,
+  TextAreaStyled,
+  ButtonContainer,
+  ButtonStyled
+} from "./styled";
 
-function AddCommentForm() {
+function AddCommentForm({ errors, status, touched, isSubmitting,auth, profile, resetForm }) {
   return (
-    <Fragment>
-      {/* <TextAreaStyled
-        id="Comment"
+    <Form>
+      <AvatarContainer>
+        {profile.avatarUrl ? (
+          <AvatarStyled alt="User Avatar" src={profile.avatarUrl} />
+        ) : (
+          <AvatarStyled>{profile.avatar}</AvatarStyled>
+        )}
+      </AvatarContainer>
+      <Field
         name="comment"
         label="Comment"
         multiline
         rowsMax="5"
+        component={TextAreaStyled}
         rows="1"
-        value={this.state.currentComment.comment}
-        onChange={this.onchangeText}
         margin="normal"
         fullWidth
-        onFocus={this.showSubmitButton()}
       />
 
-      <ButtonStyled
-        variant="contained"
-        color="secondary"
-        id="submit"
-        value="Post"
-        type="submit"
-      >
-        Submit
-      </ButtonStyled> */}
-    </Fragment>
+      <ButtonContainer>
+        <ButtonStyled
+          variant="contained"
+          color="secondary"
+          id="submit"
+          value="Post"
+          type="submit"
+        >
+          Submit
+        </ButtonStyled>
+        <ButtonStyled id="cancel" value="Post" type="cancel">
+          Cancel
+        </ButtonStyled>
+      </ButtonContainer>
+    </Form>
   );
 }
 

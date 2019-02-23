@@ -11,7 +11,9 @@ import {
   ButtonContainer,
   AvatarStyled
 } from "./styled";
+import moment from "moment";
 import { compose } from "redux";
+import { Formik } from "formik";
 import {
   firebaseConnect,
   withFirebase,
@@ -21,106 +23,41 @@ import {
 import Avatar from "../../images/savage.jpg";
 import Comment from "../../components/Comment/Comment";
 import { connect } from "react-redux";
+import AddCommentFormSchema from "../../components/Forms/AddCommentForm/AddCommentValidation.js";
+import AddCommentForm from "../../components/Forms/AddCommentForm/AddCommentForm";
 
 class CommentSection extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      commentData: [
-        {
-          name: "User1",
-          text: "Sample Comment 1"
-        },
-        {
-          name: "User2",
-          text: "Sample Comment 2"
-        }
-      ],
-      currentComment: {
-        name: "",
-        email: "",
-        comment: ""
-      },
-      submitButtonFocused: false,
-      favorite: false
-    };
-  }
-
-  handleCommentSubmit = e => {
-    e.preventDefault();
-    console.log("submit");
-  };
-  showSubmitButton = e => {
-    this.setState({ submitButtonFocused: true });
-  };
-
-  cancelComment = e => {
-    this.setState({
-      submitButtonFocused: false,
-      currentComment: {
-        comment: ""
-      }
-    });
-  };
-
-  onchangeText = e => {
-    this.setState({ currentComment: { [e.target.name]: e.target.value } });
-  };
 
   render() {
     return (
       <Container>
-        <Form autoComplete="off" onSubmit={this.handleCommentSubmit}>
-          <AvatarContainer>
-            <AvatarCenterContainer>
-              {this.props.profile.avatarUrl ? (
-                <AvatarStyled
-                  alt="User Avatar"
-                  src={this.props.profile.avatarUrl}
-                />
-              ) : (
-                <AvatarStyled>{this.props.profile.avatar}</AvatarStyled>
-              )}
-            </AvatarCenterContainer>
-            <InformationContainer>
-              <TextAreaStyled
-                id="Comment"
-                name="comment"
-                label="Comment"
-                multiline
-                rowsMax="5"
-                rows="1"
-                value={this.state.currentComment.comment}
-                onChange={this.onchangeText}
-                margin="normal"
-                fullWidth
-                onFocus={this.showSubmitButton}
-              />
-
-              {this.state.submitButtonFocused ? (
-                <ButtonContainer>
-                  <ButtonStyled
-                    variant="contained"
-                    color="secondary"
-                    id="submit"
-                    value="Post"
-                    type="submit"
-                  >
-                    Submit
-                  </ButtonStyled>
-                  <ButtonStyledTwo
-                    id="cancel"
-                    value="Post"
-                    type="cancel"
-                    onClick={this.cancelComment}
-                  >
-                    Cancel
-                  </ButtonStyledTwo>
-                </ButtonContainer>
-              ) : null}
-            </InformationContainer>
-          </AvatarContainer>
-        </Form>
+        <Formik
+          initialValues=""
+          validationSchema={AddCommentFormSchema}
+          onSubmit={(values, actions) => {
+            actions.setSubmitting(false);
+            actions.setStatus({ msg: "Set some arbitrary status or data" });
+            const date = moment().format("LLLL");
+            const avatar = this.props.profile.avatarUrl
+              ? this.props.profile.avatarUrl
+              : this.props.profile.avatar;
+            const comment = {
+              ...values,
+              user: { avatar, uid: this.props.auth.uid },
+              date,
+              replies: {},
+              favorite: 0
+            };
+            this.props.addComment(comment);
+          }}
+          render={props => (
+            <AddCommentForm
+              profile={this.props.profile}
+              auth={this.props.auth}
+              {...props}
+            />
+          )}
+        />
 
         {Object.keys(this.props.comments).map(key => (
           <Comment key={key} data={this.props.comments[key]} />
@@ -130,6 +67,8 @@ class CommentSection extends Component {
   }
 }
 
-const enhance = compose(connect(({ firebase: { profile } }) => ({ profile })));
+const enhance = compose(
+  connect(({ firebase: { profile, auth } }) => ({ profile, auth }))
+);
 
 export default enhance(CommentSection);
