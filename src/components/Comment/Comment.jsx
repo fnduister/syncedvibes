@@ -16,6 +16,8 @@ import {
   ReplyOptionsContainer,
   InformationContainer,
   TextAreaStyled,
+  AvatarContainer,
+  AvatarStyled,
   ButtonStyledTwo,
   ButtonStyled,
   ButtonContainer,
@@ -101,24 +103,32 @@ class Comment extends Component {
   };
 
   render() {
-    const { data } = this.props;
+    const {
+      data: { user, replies, favorite, date, comment }
+    } = this.props;
     return (
       <CommentContainer>
-        <SmallAvatarStyled alt="User Avatar" src={Avatar} />
+        <AvatarContainer>
+          {user.avatar ? (
+            <AvatarStyled alt="User Avatar" src={user.avatar} />
+          ) : (
+            <AvatarStyled>{user.avatar}</AvatarStyled>
+          )}
+        </AvatarContainer>
         <ReplyDataContainer>
           <ReplyUserDate>
             <ReplyUserStyled color="textPrimary" variant="body2">
-              {data.user.username}
+              {user.username}
             </ReplyUserStyled>
             <TimeStamp variant="body2">
-              <Moment fromNow>{this.props.date}</Moment>
+              <Moment fromNow>{date}</Moment>
             </TimeStamp>
           </ReplyUserDate>
           <ReplyTextStyled color="textPrimary" variant="body1">
-            {data.comment}
+            {comment}
             <ReplyButtonsContainer>
               <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
-                <FavoriteButton favorite={this.state.favorite} />
+                <FavoriteButton favorite={favorite} />
               </IconButton>
               <ReplyButton
                 id="Reply"
@@ -133,123 +143,123 @@ class Comment extends Component {
                 <DeleteIconStyled />
               </IconButton>
             </ReplyButtonsContainer>
-            <ReplySectionContainer style={this.state.reply ? {} : { display: "none" }}>
-            <ReplyContainer>
-              <ReplyAvatarStyled alt="User Avatar" src={Avatar} />
-              <ReplyDataContainer>
-                <ReplyUserDate>
-                  <ReplyUserStyled color="textPrimary" variant="body2">
-                    {this.state.replyData[0].name}
-                  </ReplyUserStyled>
-                  <TimeStamp variant="body2">
-                    <Moment fromNow>{this.props.date}</Moment>
-                  </TimeStamp>
-                </ReplyUserDate>
-                <ReplyTextStyled color="textPrimary" variant="body1">
-                  {data.comment}
-                </ReplyTextStyled>
-              </ReplyDataContainer>
-            </ReplyContainer>
-            <ReplyOptionsContainer>
-              <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
-                <FavoriteButton favorite={this.state.favorite} />
-              </IconButton>
-              <ReplyButton
-                id="Reply"
-                value="Post"
-                type="Reply"
-                variant="button"
-                onClick={this.toggleReply}
-              >
-                Reply
-              </ReplyButton>
-              <IconButton>
-                <DeleteIconStyled />
-              </IconButton>
-            </ReplyOptionsContainer>
-            <ReplyContainer>
-              <ReplyAvatarStyled alt="User Avatar" src={Avatar} />
-              <ReplyTextStyled>
-                <ReplyUserDate>
-                  <ReplyUserStyled color="textPrimary" variant="body2">
-                    {this.state.replyData[1].name}
-                  </ReplyUserStyled>
-                  <TimeStamp variant="body2">
-                    <Moment fromNow>{this.props.date}</Moment>
-                  </TimeStamp>
-                </ReplyUserDate>
-                <ReplyTextStyled color="textPrimary" variant="body1">
-                  {data.comment}
-                </ReplyTextStyled>
-              </ReplyTextStyled>
-            </ReplyContainer>
-            <ReplyOptionsContainer>
-              <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
-                <FavoriteButton favorite={this.state.favorite} />
-              </IconButton>
-              <ReplyButton
-                id="Reply"
-                value="Post"
-                type="Reply"
-                variant="button"
-                onClick={this.toggleReply}
-              >
-                Reply
-              </ReplyButton>
-              <IconButton>
-                <DeleteIconStyled />
-              </IconButton>
-            </ReplyOptionsContainer>
-
-            <InformationContainer
-              
+            <ReplySectionContainer
+              style={this.state.reply ? {} : { display: "none" }}
             >
-              <Grid container spacing={8} alignItems="flex-end">
-                <Grid item>
-                  <AccountCircle />
-                </Grid>
-                <Grid item>
-                  <TextAreaStyled
-                    id="Reply"
-                    name="Reply"
-                    label="Reply"
-                    multiline
-                    rowsMax="5"
-                    rows="1"
-                    value={this.state.currentReply.comment}
-                    onChange={this.onchangeText}
-                    margin="normal"
-                    fullWidth
-                    onFocus={this.showReplySubmitButton}
-                  />
+              <ReplyContainer>
+                <ReplyAvatarStyled alt="User Avatar" src={Avatar} />
+                <ReplyDataContainer>
+                  <ReplyUserDate>
+                    <ReplyUserStyled color="textPrimary" variant="body2">
+                      {this.state.replyData[0].name}
+                    </ReplyUserStyled>
+                    <TimeStamp variant="body2">
+                      <Moment fromNow>{this.props.date}</Moment>
+                    </TimeStamp>
+                  </ReplyUserDate>
+                  <ReplyTextStyled color="textPrimary" variant="body1">
+                    {comment}
+                  </ReplyTextStyled>
+                </ReplyDataContainer>
+              </ReplyContainer>
+              <ReplyOptionsContainer>
+                <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
+                  <FavoriteButton favorite={this.state.favorite} />
+                </IconButton>
+                <ReplyButton
+                  id="Reply"
+                  value="Post"
+                  type="Reply"
+                  variant="button"
+                  onClick={this.toggleReply}
+                >
+                  Reply
+                </ReplyButton>
+                <IconButton>
+                  <DeleteIconStyled />
+                </IconButton>
+              </ReplyOptionsContainer>
+              <ReplyContainer>
+                <ReplyAvatarStyled alt="User Avatar" src={Avatar} />
+                <ReplyTextStyled>
+                  <ReplyUserDate>
+                    <ReplyUserStyled color="textPrimary" variant="body2">
+                      {this.state.replyData[1].name}
+                    </ReplyUserStyled>
+                    <TimeStamp variant="body2">
+                      <Moment fromNow>{this.props.date}</Moment>
+                    </TimeStamp>
+                  </ReplyUserDate>
+                  <ReplyTextStyled color="textPrimary" variant="body1">
+                    {comment}
+                  </ReplyTextStyled>
+                </ReplyTextStyled>
+              </ReplyContainer>
+              <ReplyOptionsContainer>
+                <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
+                  <FavoriteButton favorite={this.state.favorite} />
+                </IconButton>
+                <ReplyButton
+                  id="Reply"
+                  value="Post"
+                  type="Reply"
+                  variant="button"
+                  onClick={this.toggleReply}
+                >
+                  Reply
+                </ReplyButton>
+                <IconButton>
+                  <DeleteIconStyled />
+                </IconButton>
+              </ReplyOptionsContainer>
 
-                  {/* <TextField id="input-with-icon-grid" label="With a grid" /> */}
+              <InformationContainer>
+                <Grid container spacing={8} alignItems="flex-end">
+                  <Grid item>
+                    <AccountCircle />
+                  </Grid>
+                  <Grid item>
+                    <TextAreaStyled
+                      id="Reply"
+                      name="Reply"
+                      label="Reply"
+                      multiline
+                      rowsMax="5"
+                      rows="1"
+                      value={this.state.currentReply.comment}
+                      onChange={this.onchangeText}
+                      margin="normal"
+                      fullWidth
+                      onFocus={this.showReplySubmitButton}
+                    />
+
+                    {/* <TextField id="input-with-icon-grid" label="With a grid" /> */}
+                  </Grid>
+                  <Grid Item>
+                    {this.state.replySubmitButtonFocused ? (
+                      <ButtonContainer>
+                        <ButtonStyled
+                          variant="contained"
+                          color="secondary"
+                          id="submit"
+                          value="Post"
+                          type="submit"
+                        >
+                          Submit
+                        </ButtonStyled>
+                        <ButtonStyledTwo
+                          id="cancel"
+                          value="Clear"
+                          type="cancel"
+                          onClick={this.cancelReply}
+                        >
+                          Cancel
+                        </ButtonStyledTwo>
+                      </ButtonContainer>
+                    ) : null}
+                  </Grid>
                 </Grid>
-                <Grid Item>
-                  {this.state.replySubmitButtonFocused ? (
-                    <ButtonContainer>
-                      <ButtonStyled
-                        variant="contained"
-                        color="secondary"
-                        id="submit"
-                        value="Post"
-                        type="submit"
-                      >
-                        Submit
-                      </ButtonStyled>
-                      <ButtonStyledTwo
-                        id="cancel"
-                        value="Clear"
-                        type="cancel"
-                        onClick={this.cancelReply}
-                      >
-                        Cancel
-                      </ButtonStyledTwo>
-                    </ButtonContainer>
-                  ) : null}
-                </Grid>
-              </Grid>
-            </InformationContainer>
+              </InformationContainer>
             </ReplySectionContainer>
             {/* <TextField id="input-with-icon-grid" label="leave comment" /> */}
 

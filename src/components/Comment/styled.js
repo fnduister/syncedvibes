@@ -7,7 +7,21 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AccountCircle from '@material-ui/icons/AccountCircle';
+
 export const ReplySectionStyled = styled.div``;
+
+export const AvatarStyled = styled(Avatar)`
+  margin: 10;
+  color: red;
+`;
+
+export const AvatarContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-top: 2vh;
+  flex-grow: 1;
+  padding-bottom: 10%;
+`;
 
 export const FavoriteButton = styled(Favorite)`
   color: ${props => (props.favorite ? "red" : "grey")};
