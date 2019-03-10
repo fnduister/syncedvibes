@@ -27,8 +27,13 @@ import AddCommentFormSchema from "../../components/Forms/AddCommentForm/AddComme
 import AddCommentForm from "../../components/Forms/AddCommentForm/AddCommentForm";
 
 class CommentSection extends Component {
-
   render() {
+    let ArrayComment = Object.keys(this.props.comments).map(key => {
+      const comments = this.props.comments[key];
+      return { ...comments, key };
+    });
+    ArrayComment.sort((a, b) => moment(b.date) - moment(a.date));
+
     return (
       <Container>
         <Formik
@@ -38,12 +43,13 @@ class CommentSection extends Component {
             actions.setSubmitting(false);
             actions.setStatus({ msg: "Set some arbitrary status or data" });
             const date = moment().format("LLLL");
-            const avatar = this.props.profile.avatarUrl
-              ? this.props.profile.avatarUrl
-              : this.props.profile.avatar;
             const comment = {
               ...values,
-              user: { avatar, uid: this.props.auth.uid },
+              user: {
+                uid: this.props.auth.uid,
+                displayName: this.props.profile.displayName,
+                photoURL: this.props.auth.photoURL
+              },
               date,
               replies: {},
               favorite: 0
@@ -58,9 +64,13 @@ class CommentSection extends Component {
             />
           )}
         />
-
-        {Object.keys(this.props.comments).map(key => (
-          <Comment key={key} data={this.props.comments[key]} />
+        {console.log({
+          auth: this.props.auth,
+          myUnSortedObject: this.props.comments,
+          myUnSortedArray: ArrayComment
+        })}
+        {ArrayComment.map(comment => (
+          <Comment key={comment.key} data={comment} />
         ))}
       </Container>
     );

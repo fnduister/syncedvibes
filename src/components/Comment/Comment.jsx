@@ -116,7 +116,7 @@ class Comment extends Component {
         <ReplyDataContainer>
           <ReplyUserDate>
             <ReplyUserStyled color="textPrimary" variant="body2">
-              {user.username}
+              {user.displayName}
             </ReplyUserStyled>
             <TimeStamp variant="body2">
               <Moment fromNow>{date}</Moment>
