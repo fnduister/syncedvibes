@@ -43,12 +43,20 @@ class CommentSection extends Component {
             actions.setSubmitting(false);
             actions.setStatus({ msg: "Set some arbitrary status or data" });
             const date = moment().format("LLLL");
+            const avatarUrl = this.props.profile.avatarUrl
+              ? this.props.profile.avatarUrl
+              : null;
+            const avatar = this.props.profile.avatar
+              ? this.props.profile.avatar
+              : null;
+            console.log({ profile: this.props.profile });
             const comment = {
               ...values,
               user: {
                 uid: this.props.auth.uid,
                 displayName: this.props.profile.displayName,
-                photoURL: this.props.auth.photoURL
+                avatarUrl,
+                avatar
               },
               date,
               replies: {},
@@ -64,11 +72,6 @@ class CommentSection extends Component {
             />
           )}
         />
-        {console.log({
-          auth: this.props.auth,
-          myUnSortedObject: this.props.comments,
-          myUnSortedArray: ArrayComment
-        })}
         {ArrayComment.map(comment => (
           <Comment key={comment.key} data={comment} />
         ))}

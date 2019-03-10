@@ -108,8 +108,8 @@ class Comment extends Component {
     } = this.props;
     return (
       <CommentContainer>
-        {user.avatar ? (
-          <AvatarStyled alt="User Avatar" src={user.avatar} />
+        {user.avatarUrl ? (
+          <AvatarStyled alt="User Avatar" src={user.avatarUrl} />
         ) : (
           <AvatarStyled>{user.avatar}</AvatarStyled>
         )}
