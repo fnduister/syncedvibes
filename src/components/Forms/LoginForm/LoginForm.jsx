@@ -15,6 +15,7 @@ import {
   Already,
   LoginButton
 } from "./styled";
+import {withRouter} from 'react-router-dom';
 import { Button, Typography, Fab } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import { Form, Field, ErrorMessage } from "formik";
@@ -26,6 +27,7 @@ import { withFirebase } from "react-redux-firebase";
 import { Icon, IconButton } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import AdornementInputText from "../AdornmentInputText/AdornementInputText";
+import { compose } from 'recompose';
 
 const LoginForm = ({
   signup,
@@ -33,12 +35,14 @@ const LoginForm = ({
   status,
   touched,
   isSubmitting,
-  firebase
+  firebase,
+  history
 }) => {
   const socialLogin = async provider => {
     try {
       const user = await firebase.login({ provider, type: "popup" });
       console.log({ user });
+      history.goBack();
     } catch (err) {
       console.log({ err });
     }
@@ -124,4 +128,4 @@ const LoginForm = ({
   );
 };
 
-export default withFirebase(LoginForm);
+export default compose(withFirebase, withRouter)(LoginForm);

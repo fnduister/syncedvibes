@@ -69,7 +69,7 @@ class ArticleDetails extends Component {
             {this.props.article.title}
           </Title>
           <TimeStamp variant="body2" color="textPrimary">
-            <ScheduleIconStyled fontSize="small" />{" "}
+            <ScheduleIconStyled fontSize="small" />
             <Moment fromNow>{this.props.article.date}</Moment> by markvok
           </TimeStamp>
           <AspectRatio>

@@ -19,7 +19,7 @@ export const MainContainer = styled.div`
   flex-direction: row;
   flex-grow: 1;
   padding-top: 1vh;
-  margin-bottom: 2em;
+  margin-bottom: .5em;
   margin-right: .5em;
 `;
 

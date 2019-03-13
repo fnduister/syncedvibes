@@ -138,9 +138,9 @@ class Comment extends Component {
             >
               Reply
             </ReplyButton>
-            <IconButton>
+            {/* <IconButton>
               <DeleteIconStyled />
-            </IconButton>
+            </IconButton> */}
           </ReplyButtonsContainer>
           <ReplySectionContainer
             style={this.state.reply ? {} : { display: "none" }}

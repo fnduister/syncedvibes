@@ -1,19 +1,27 @@
 import React from "react";
-import { ArticleContainer, Header, Content, Media, HeaderText, Type, Looks } from "./styled";
+import {
+  ArticleContainer,
+  Header,
+  Content,
+  Media,
+  HeaderText,
+  Type,
+  Looks
+} from "./styled";
 import Drake from "../../images/jan-strecha-722905-unsplash.jpg";
 
-function Article(props) {
+function Article({ title, views, mediaUrl, type }) {
   return (
-    <ArticleContainer>
+    <ArticleContainer backgroundImage={mediaUrl}>
       <Header>
-        <Type>R</Type>
+        <Type>{type}</Type>
         <Looks>
-        <HeaderText variant="h6" color="secondary">
-          750 looks
-        </HeaderText>
+          <HeaderText variant="h6" color="secondary">
+            {views} looks
+          </HeaderText>
         </Looks>
       </Header>
-      <Content variant="p" > {props.content} </Content>
+      <Content variant="p"> {title} </Content>
     </ArticleContainer>
   );
 }
