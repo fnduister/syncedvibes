@@ -24,7 +24,6 @@ export const MainContainer = styled.div`
 `;
 
 export const SubContainer = styled.div`
- 
   flex-direction: row;
   flex-grow: 1;
 `;
@@ -33,12 +32,15 @@ export const AvatarStyled = styled(Avatar)`
   margin: 10px;
   color: red;
   /* margin-top: 1.7em; */
-
 `;
 export const ButtonStyled = styled(Button)`
-   flex-direction: row-reverse;
+  flex-direction: row-reverse;
   width: 2vw;
+  margin-left: 1em;
+`;
 
+export const SubmitButton = styled(ButtonStyled)`
+  
 `;
 
 export const ButtonContainer = styled.div`

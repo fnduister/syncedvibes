@@ -14,9 +14,13 @@ function AddCommentForm({
   status,
   touched,
   isSubmitting,
+  handleReset,
   auth,
+  dirty,
   profile,
-  resetForm
+  resetForm,
+  showButtons,
+  pristine
 }) {
   return (
     <Form>
@@ -26,32 +30,42 @@ function AddCommentForm({
         ) : (
           <AvatarStyled>{profile.avatar}</AvatarStyled>
         )}
-      <SubContainer>
-        <Field
-          name="comment"
-          label="Comment"
-          multiline
-          rowsMax="5"
-          component={TextAreaStyled}
-          rows="1"
-          margin="normal"
-          fullWidth
-        />
+        <SubContainer>
+          <Field
+            name="comment"
+            label="Comment"
+            multiline
+            rowsMax="5"
+            component={TextAreaStyled}
+            rows="1"
+            margin="normal"
+            fullWidth
+            onFocus={showButtons}
+          />
 
-        <ButtonContainer>
-          <ButtonStyled
-            variant="contained"
-            color="secondary"
-            id="submit"
-            value="Post"
-            type="submit"
-          >
-            Submit
-          </ButtonStyled>
-          <ButtonStyled id="cancel" value="Post" type="cancel">
-            Cancel
-          </ButtonStyled>
-        </ButtonContainer>
+          {pristine && (
+            <ButtonContainer>
+              {console.log({ touched, dirty, errors })}
+              <ButtonStyled
+                variant="contained"
+                color="secondary"
+                disabled={isSubmitting || errors.comment || !dirty}
+                id="submit"
+                value="Post"
+                type="submit"
+              >
+                Submit
+              </ButtonStyled>
+              <ButtonStyled
+                id="cancel"
+                value="Post"
+                type="cancel"
+                onClick={handleReset}
+              >
+                Cancel
+              </ButtonStyled>
+            </ButtonContainer>
+          )}
         </SubContainer>
       </MainContainer>
     </Form>

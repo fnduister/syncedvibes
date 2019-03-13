@@ -133,7 +133,7 @@ class Comment extends Component {
               id="Reply"
               value="Post"
               type="Reply"
-              variant="button"
+              variant="text"
               onClick={this.toggleReply}
             >
               Reply

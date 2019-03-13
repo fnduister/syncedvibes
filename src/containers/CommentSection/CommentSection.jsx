@@ -27,6 +27,10 @@ import AddCommentFormSchema from "../../components/Forms/AddCommentForm/AddComme
 import AddCommentForm from "../../components/Forms/AddCommentForm/AddCommentForm";
 
 class CommentSection extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { pristine: false };
+  }
   render() {
     let ArrayComment = Object.keys(this.props.comments).map(key => {
       const comments = this.props.comments[key];
@@ -34,6 +38,9 @@ class CommentSection extends Component {
     });
     ArrayComment.sort((a, b) => moment(b.date) - moment(a.date));
 
+    const showButtons = () => {
+      this.setState(state => ({ pristine: !state.pristine }));
+    };
     return (
       <Container>
         <Formik
@@ -68,6 +75,8 @@ class CommentSection extends Component {
             <AddCommentForm
               profile={this.props.profile}
               auth={this.props.auth}
+              showButtons={showButtons}
+              pristine={this.state.pristine}
               {...props}
             />
           )}
