@@ -8,20 +8,22 @@ import {
   Type,
   Looks
 } from "./styled";
-import Drake from "../../images/jan-strecha-722905-unsplash.jpg";
 
-function Article({ title, views, mediaUrl, type }) {
+function Article({ title, views, mediaUrl, type, thumbnail, id }) {
+  const images = require.context("../../images/gifs", true);
+  console.log(id);
   return (
-    <ArticleContainer backgroundImage={mediaUrl}>
+    <ArticleContainer
+      to={`/article/${id}`}
+      backgroundImage={images(`./${thumbnail}`)}
+    >
       <Header>
         <Type>{type}</Type>
         <Looks>
-          <HeaderText variant="h6" color="secondary">
-            {views} looks
-          </HeaderText>
+          <HeaderText color="secondary">{views}</HeaderText>
         </Looks>
       </Header>
-      <Content variant="p"> {title} </Content>
+      <Content variant="h6"> {title} </Content>
     </ArticleContainer>
   );
 }

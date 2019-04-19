@@ -21,18 +21,19 @@ const HomePage = ({ onMobile, articles }) => {
   }
 
   return (
-    <Articles xs={10} sm={12} container>
+    <Articles xs={10} sm={12} lg={10} container>
       {Object.keys(articles).map(key => {
         return (
           <Article
             onMobile={onMobile}
-            url={articles[key].url}
+            mediaUrl={articles[key].url}
             title={articles[key].title}
             date={articles[key].date}
             views={articles[key].views}
             thumbnail={articles[key].thumbnail}
             type={articles[key].type}
-            key={key}
+            id={key}
+            key
           />
         );
       })}
