@@ -1,17 +1,23 @@
 import styled from "styled-components";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-import Moment from "react-moment";
 import Favorite from "@material-ui/icons/Favorite";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import AccountCircle from "@material-ui/icons/AccountCircle";
 export const ReplySectionStyled = styled.div``;
 
 export const FavoriteButton = styled(Favorite)`
   color: ${props => (props.favorite ? "red" : "grey")};
   font-size: 15px;
+`;
+
+export const AvatarStyled = styled(Avatar)`
+  margin: 10;
+  color: red;
+  width: 32.5px;
+  height: 32.5px;
 `;
 
 export const DeleteIconStyled = styled(DeleteIcon)`
@@ -21,36 +27,32 @@ export const DeleteIconStyled = styled(DeleteIcon)`
 export const ReplyUserStyled = styled(Typography)`
   color: black;
   font-weight: bold;
+  margin-right: 0.5em;
+  padding-left: .8em;
 `;
 
 export const ReplyUserDate = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  
 `;
-export const ReplySectionContainer = styled.div`
-`;
+export const ReplySectionContainer = styled.div``;
 export const ReplyContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 3%;
+  margin-top: 3em;
 `;
 
 export const ReplyButton = styled(Button)`
   display: flex;
   width: 2vw;
-  margin-left: 3%;
   font-size: 12px;
 `;
 
 export const ReplyTextStyled = styled(Typography)`
   color: black;
-  /* width: 95%; */
-  margin-left: 1%;
-  margin-right: 1%;
-  text-align: justify;
-  /* padding-left: 1em;
-  padding-right: 1em; */
+  padding-left: .8em;
 `;
 
 export const TimeStamp = styled(Typography)`
@@ -67,29 +69,28 @@ export const SmallAvatarStyled = styled(Avatar)`
 export const CommentContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 1%;
-
+  padding-top: 1em;
+  padding-left: 0.7em;
 `;
 export const ReplyButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 1%;
 `;
 export const ReplyOptionsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 1%;
-  margin-left: 10%;
+  margin-left: 10em;
 `;
 export const ReplyDataContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 1%;
+ 
+  padding-right: 3em;
 `;
 
 export const ReplyAvatarStyled = styled(AccountCircle)`
-  margin: .5;
-  flex:1;
+  margin: 0.5;
+  flex: 1;
 `;
 
 export const ButtonContainer = styled.div`
@@ -102,14 +103,14 @@ export const ButtonStyled = styled(Button)`
   display: flex;
   width: 1vw;
   height: 1vh;
-  margin-left: 1%;
-  margin-right: 1%;
+  margin-left: 1em;
+  margin-right: 1em;
 `;
 export const ButtonStyledTwo = styled(Button)`
   display: flex;
   width: 1vw;
   height: 1vh;
-  margin-left: 3%;
+  margin-left: 3em;
 `;
 
 export const InformationContainer = styled.div`
@@ -122,7 +123,7 @@ export const InformationContainer = styled.div`
 export const TextAreaStyled = styled(TextField)`
   background-color: transparent;
   margin-bottom: 0px;
-  height: 1%;
+  height: 1em;
   & label {
   }
 `;

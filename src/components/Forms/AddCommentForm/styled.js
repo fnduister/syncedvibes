@@ -14,23 +14,33 @@ export const TextAreaStyled = styled(TextField)`
   }
 `;
 
-export const AvatarContainer = styled.div`
+export const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 2vh;
   flex-grow: 1;
-  padding-bottom: 10%;
+  padding-top: 1vh;
+  margin-bottom: .5em;
+  margin-right: .5em;
+`;
+
+export const SubContainer = styled.div`
+  flex-direction: row;
+  flex-grow: 1;
 `;
 
 export const AvatarStyled = styled(Avatar)`
-  margin: 10;
+  margin: 10px;
   color: red;
+  /* margin-top: 1.7em; */
 `;
 export const ButtonStyled = styled(Button)`
-  display: flex;
+  flex-direction: row-reverse;
   width: 2vw;
-  margin-left: 1%;
-  margin-right: 1%;
+  margin-left: 1em;
+`;
+
+export const SubmitButton = styled(ButtonStyled)`
+  
 `;
 
 export const ButtonContainer = styled.div`

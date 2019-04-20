@@ -1,19 +1,29 @@
 import React from "react";
-import { ArticleContainer, Header, Content, Media, HeaderText, Type, Looks } from "./styled";
-import Drake from "../../images/jan-strecha-722905-unsplash.jpg";
+import {
+  ArticleContainer,
+  Header,
+  Content,
+  Media,
+  HeaderText,
+  Type,
+  Looks
+} from "./styled";
 
-function Article(props) {
+function Article({ title, views, mediaUrl, type, thumbnail, id }) {
+  const images = require.context("../../images/gifs", true);
+  console.log(id);
   return (
-    <ArticleContainer>
+    <ArticleContainer
+      to={`/article/${id}`}
+      backgroundImage={images(`./${thumbnail}`)}
+    >
       <Header>
-        <Type>R</Type>
+        <Type>{type}</Type>
         <Looks>
-        <HeaderText variant="h6" color="secondary">
-          750 looks
-        </HeaderText>
+          <HeaderText color="secondary">{views}</HeaderText>
         </Looks>
       </Header>
-      <Content variant="p" > {props.content} </Content>
+      <Content variant="h6"> {title} </Content>
     </ArticleContainer>
   );
 }

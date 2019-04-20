@@ -17,20 +17,23 @@ const HomePage = ({ onMobile, articles }) => {
   }
 
   if (isEmpty(articles)) {
-    return <div>Todos List Is Empty</div>;
+    return <div>There's no articles</div>;
   }
 
   return (
-    <Articles xs={12} sm={9} container>
+    <Articles xs={10} sm={12} lg={10} container>
       {Object.keys(articles).map(key => {
         return (
           <Article
             onMobile={onMobile}
-            content={articles[key].content}
-            url={articles[key].url}
+            mediaUrl={articles[key].url}
             title={articles[key].title}
             date={articles[key].date}
-            key={key}
+            views={articles[key].views}
+            thumbnail={articles[key].thumbnail}
+            type={articles[key].type}
+            id={key}
+            key
           />
         );
       })}
