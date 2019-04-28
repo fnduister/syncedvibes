@@ -26,7 +26,7 @@ const homepageReducer = handleActions(
       ...state,
       audioFilter: !state.audioFilter
     }),
-    [toggleVideoFilter]: state => ({
+    [toggleNewsFilter]: state => ({
       ...state,
       newsFilter: !state.newsFilter
     }),

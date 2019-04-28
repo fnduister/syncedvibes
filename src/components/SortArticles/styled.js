@@ -9,5 +9,9 @@ export const SortContainer = styled.div`
 
 export const SortButton = styled(Fab)`
   margin-right: 1em;
-  background: ${props => (props.backgroundcolor ? "#c084f4" : "#c011f4")};
+  background: ${props => (props.backgroundcolor === true ? "#aaa" : "#c018f9")};
+
+  & :active {
+    background-color: #b9b9;
+  }
 `;

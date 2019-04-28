@@ -11,7 +11,6 @@ import {
 
 function Article({ title, views, mediaUrl, type, thumbnail, id }) {
   const images = require.context("../../images/gifs", true);
-  console.log(id);
   return (
     <ArticleContainer
       to={`/article/${id}`}

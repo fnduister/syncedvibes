@@ -1,35 +1,44 @@
 import React from "react";
 import { SortContainer, SortButton } from "./styled";
 
-const SortArticles = (
+const SortArticles = ({
   toggleAudioFilterHandler,
   toggleNewsFilterHandler,
   toggleVideoFilterHandler,
   filters
-) => (
-  <SortContainer>
-    <SortButton
-      onclick={() => toggleVideoFilterHandler}
-      backgroundcolor={filters.videoFilter}
-      variant="extended"
-    >
-      video
-    </SortButton>
-    <SortButton
-      onclick={() => toggleNewsFilterHandler}
-      backgroundcolor={filters.newsFilter}
-      variant="extended"
-    >
-      news
-    </SortButton>
-    <SortButton
-      onclick={() => toggleAudioFilterHandler}
-      backgroundcolor={filters.audioFilter}
-      variant="extended"
-    >
-      audio
-    </SortButton>
-  </SortContainer>
-);
+}) => {
+  console.log({ filters });
+
+  const test = () => {
+    console.log("test room");
+    toggleAudioFilterHandler();
+  };
+
+  return (
+    <SortContainer>
+      <SortButton
+        onClick={() => toggleVideoFilterHandler()}
+        backgroundcolor={filters.videoFilter}
+        variant="extended"
+      >
+        video
+      </SortButton>
+      <SortButton
+        onClick={() => toggleNewsFilterHandler()}
+        backgroundcolor={filters.newsFilter}
+        variant="extended"
+      >
+        news
+      </SortButton>
+      <SortButton
+        onClick={() => toggleAudioFilterHandler()}
+        backgroundcolor={filters.audioFilter}
+        variant="extended"
+      >
+        audio
+      </SortButton>
+    </SortContainer>
+  );
+};
 
 export default SortArticles;

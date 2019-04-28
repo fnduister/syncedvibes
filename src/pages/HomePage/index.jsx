@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Component } from "react";
 import Article from "../../components/Article/Article";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -11,61 +11,65 @@ import {
   isEmpty,
   withFirebase
 } from "react-redux-firebase";
+import { getSelectedArticles } from "./selectors";
 import {
   toggleAudioFilter,
   toggleNewsFilter,
   toggleVideoFilter
 } from "./reducer";
 
-const HomePage = ({
-  onMobile,
-  articles,
-  filters,
-  toggleAudioFilterHandler,
-  toggleNewsFilterHandler,
-  toggleVideoFilterHandler
-}) => {
-  if (!isLoaded(articles)) {
-    return <div>Loading...</div>;
+class HomePage extends Component {
+  // componentWillUpdate
+  render() {
+    const {
+      onMobile,
+      articles,
+      filters,
+      toggleAudioFilterHandler,
+      toggleNewsFilterHandler,
+      toggleVideoFilterHandler
+    } = this.props;
+
+    if (!isLoaded(articles)) {
+      return <div>Loading...</div>;
+    }
+
+    if (isEmpty(articles)) {
+      return <div>There's no articles</div>;
+    }
+
+    return (
+      <Fragment>
+        <SortArticles
+          toggleAudioFilterHandler={toggleAudioFilterHandler}
+          toggleNewsFilterHandler={toggleNewsFilterHandler}
+          toggleVideoFilterHandler={toggleVideoFilterHandler}
+          filters={filters}
+        />
+        <Articles xs={10} sm={12} lg={10} container>
+          {Object.keys(articles).map(key => {
+            return (
+              <Article
+                onMobile={onMobile}
+                mediaUrl={articles[key].url}
+                title={articles[key].title}
+                date={articles[key].date}
+                views={articles[key].views}
+                thumbnail={articles[key].thumbnail}
+                type={articles[key].type}
+                id={key}
+                key
+              />
+            );
+          })}
+        </Articles>
+      </Fragment>
+    );
   }
-
-  if (isEmpty(articles)) {
-    return <div>There's no articles</div>;
-  }
-
-  console.log({ filters });
-
-  return (
-    <Fragment>
-      <SortArticles
-        toggleAudioFilterHandler
-        toggleNewsFilterHandler
-        toggleVideoFilterHandler
-        filters
-      />
-      <Articles xs={10} sm={12} lg={10} container>
-        {Object.keys(articles).map(key => {
-          return (
-            <Article
-              onMobile={onMobile}
-              mediaUrl={articles[key].url}
-              title={articles[key].title}
-              date={articles[key].date}
-              views={articles[key].views}
-              thumbnail={articles[key].thumbnail}
-              type={articles[key].type}
-              id={key}
-              key
-            />
-          );
-        })}
-      </Articles>
-    </Fragment>
-  );
-};
+}
 
 const mapActions = {
-  toggleAudioFilterHandler: () => toggleVideoFilter(),
+  toggleAudioFilterHandler: () => toggleAudioFilter(),
   toggleNewsFilterHandler: () => toggleNewsFilter(),
   toggleVideoFilterHandler: () => toggleVideoFilter()
 };
@@ -74,7 +78,7 @@ const enhance = compose(
   firebaseConnect(() => ["articles"]),
   connect(
     state => ({
-      articles: state.firebase.data.articles,
+      articles: getSelectedArticles(state),
       filters: state.global.homepage
     }),
     mapActions
