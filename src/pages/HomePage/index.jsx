@@ -33,11 +33,7 @@ class HomePage extends Component {
     if (!isLoaded(articles)) {
       return <div>Loading...</div>;
     }
-
-    if (isEmpty(articles)) {
-      return <div>There's no articles</div>;
-    }
-
+    
     return (
       <Fragment>
         <SortArticles
@@ -46,23 +42,27 @@ class HomePage extends Component {
           toggleVideoFilterHandler={toggleVideoFilterHandler}
           filters={filters}
         />
-        <Articles xs={10} sm={12} lg={10} container>
-          {Object.keys(articles).map(key => {
-            return (
-              <Article
-                onMobile={onMobile}
-                mediaUrl={articles[key].url}
-                title={articles[key].title}
-                date={articles[key].date}
-                views={articles[key].views}
-                thumbnail={articles[key].thumbnail}
-                type={articles[key].type}
-                id={key}
-                key
-              />
-            );
-          })}
-        </Articles>
+        {isEmpty(articles) ? (
+          <div>There's no articles</div>
+        ) : (
+          <Articles container>
+            {Object.keys(articles).map(key => {
+              return (
+                <Article
+                  onMobile={onMobile}
+                  mediaUrl={articles[key].url}
+                  title={articles[key].title}
+                  date={articles[key].date}
+                  views={articles[key].views}
+                  thumbnail={articles[key].thumbnail}
+                  type={articles[key].type}
+                  id={key}
+                  key={key}
+                />
+              );
+            })}
+          </Articles>
+        )}
       </Fragment>
     );
   }

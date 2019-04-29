@@ -7,13 +7,6 @@ const SortArticles = ({
   toggleVideoFilterHandler,
   filters
 }) => {
-  console.log({ filters });
-
-  const test = () => {
-    console.log("test room");
-    toggleAudioFilterHandler();
-  };
-
   return (
     <SortContainer>
       <SortButton

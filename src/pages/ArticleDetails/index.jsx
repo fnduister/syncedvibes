@@ -38,12 +38,15 @@ class ArticleDetails extends Component {
   onPlayerReady = evt => {
     evt.target.pauseVideo();
   };
+
   editHandler = () => {
     this.setState(state => ({ edit: !state.edit }));
   };
+
   commentHandler = () => {
     this.setState(state => ({ comment: !state.comment }));
   };
+
   render() {
     const opts = {
       width: "100%",
@@ -58,7 +61,7 @@ class ArticleDetails extends Component {
     }
 
     return isLoaded(this.props.article) ? (
-      !this.state.edit ? (
+      <Fragment>
         <ArticleGrid item xs={10} md={8} lg={5}>
           <Title
             variant={this.props.onMobile ? "h3" : "h2"}
@@ -100,18 +103,22 @@ class ArticleDetails extends Component {
           </Button>
 
           {this.state.comment ? (
-            <CommentSection comments={this.props.article.comments} addComment={this.props.addComment}/>
+            <CommentSection
+              comments={this.props.article.comments}
+              addComment={this.props.addComment}
+            />
           ) : null}
         </ArticleGrid>
-      ) : (
-        <Dialog
-          open={this.state.edit}
-          onClose={this.editHandler}
-          aria-labelledby="form-dialog-title"
-        >
-          <AddArticle edit={this.state.edit} editHandler={this.editHandler} />
-        </Dialog>
-      )
+        {this.state.edit && (
+          <Dialog
+            open={this.state.edit}
+            onClose={this.editHandler}
+            aria-labelledby="form-dialog-title"
+          >
+            <AddArticle edit={this.state.edit} editHandler={this.editHandler} />
+          </Dialog>
+        )}
+      </Fragment>
     ) : (
       "Loading..."
     );
@@ -126,7 +133,10 @@ const enhance = compose(
   })),
   withHandlers({
     addComment: props => comment =>
-      props.firebase.push(`articles/${props.match.params.articleId}/comments`, comment)
+      props.firebase.push(
+        `articles/${props.match.params.articleId}/comments`,
+        comment
+      )
   })
 );
 
