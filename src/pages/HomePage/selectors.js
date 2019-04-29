@@ -2,16 +2,16 @@ import { createSelector } from "reselect";
 
 export const getArticles = state => state.firebase.data.articles;
 export const getFilters = state => state.global.homepage;
-console.log({ getFilters });
 
 const filterArticles = (articles, values) => {
-  let newArticles = {};
+  let newArticles = Object.assign({}, articles);
 
   Object.keys(articles).map(key => {
     for (const value of values) {
-      if (articles[key].type !== value) {
+      if (articles[key].type === value) {
         console.log({ articles: articles[key], value });
-        newArticles[key] = articles[key];
+        delete newArticles[key];
+        break;
       }
     }
   });
