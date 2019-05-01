@@ -10,6 +10,7 @@ import moment from "moment";
 import { connect } from "react-redux";
 import "moment-timezone";
 import EditForm from "../Forms/EditForm/EditForm";
+import { openNotification } from "../Notification/reducer";
 
 const AddArticle = props => (
   <Fragment>
@@ -24,21 +25,27 @@ const AddArticle = props => (
           actions.setSubmitting(false);
           actions.setStatus({ msg: "Recorded" });
           props.editHandler();
+          props.openNotificationHandler("un gros test", "success");
         }}
         render={formikProps => (
           <EditForm types={props.types} {...formikProps} />
         )}
       />
-      {console.log({ types: props.types })}
     </DialogContentStyled>
   </Fragment>
 );
 
 const enhance = compose(
   firebaseConnect("articles", "settings"),
-  connect(({ firebase }, props) => ({
-    types: firebase.data.settings.articlesTypes // lodash's get can also be used
-  })),
+  connect(
+    ({ firebase }, props) => ({
+      types: firebase.data.settings.articlesTypes // lodash's get can also be used
+    }),
+    {
+      openNotificationHandler: (message, variant) =>
+        openNotification(message, variant)
+    }
+  ),
   withHandlers({
     saveArticle: props => data => props.firebase.push("articles", data)
   })
