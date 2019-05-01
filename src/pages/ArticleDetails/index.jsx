@@ -115,7 +115,12 @@ class ArticleDetails extends Component {
             onClose={this.editHandler}
             aria-labelledby="form-dialog-title"
           >
-            <AddArticle edit={this.state.edit} editHandler={this.editHandler} />
+            <AddArticle
+              article={this.props.article}
+              updateArticle={this.props.updateArticle}
+              edit={this.state.edit}
+              editHandler={this.editHandler}
+            />
           </Dialog>
         )}
       </Fragment>
@@ -126,7 +131,8 @@ class ArticleDetails extends Component {
 }
 const enhance = compose(
   firebaseConnect(props => [
-    `articles/${props.match.params.articleId}` // equivalent string notation
+    `articles/${props.match.params.articleId}`,
+    "settings" // equivalent string notation
   ]),
   connect(({ firebase }, props) => ({
     article: getVal(firebase, `data/articles/${props.match.params.articleId}`) // lodash's get can also be used
@@ -136,7 +142,9 @@ const enhance = compose(
       props.firebase.push(
         `articles/${props.match.params.articleId}/comments`,
         comment
-      )
+      ),
+    updateArticle: props => article =>
+      props.firebase.update(`articles/${props.match.params.articleId}`, article)
   })
 );
 

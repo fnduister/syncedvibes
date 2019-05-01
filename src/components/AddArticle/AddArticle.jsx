@@ -5,10 +5,10 @@ import { withHandlers } from "recompose";
 import { firebaseConnect } from "react-redux-firebase";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogContentStyled } from "./styled";
-import EditFormSchema from '../Forms/EditForm/EditForm';
+import EditFormSchema from "../Forms/EditForm/EditForm";
 import moment from "moment";
+import { connect } from "react-redux";
 import "moment-timezone";
-
 import EditForm from "../Forms/EditForm/EditForm";
 
 const AddArticle = props => (
@@ -16,22 +16,29 @@ const AddArticle = props => (
     <DialogTitle color="secondary">Add Article</DialogTitle>
     <DialogContentStyled>
       <Formik
-        initialValues=""
+        initialValues={props.article}
         validationSchema={EditFormSchema}
         onSubmit={(values, actions) => {
           const date = moment().format("LLLL");
-          props.saveArticle({ ...values, date });
+          props.updateArticle({ ...values, date });
           actions.setSubmitting(false);
-          actions.setStatus({ msg: "Set some arbitrary status or data" });
+          actions.setStatus({ msg: "Recorded" });
+          props.editHandler();
         }}
-        render={props => <EditForm {...props} />}
+        render={formikProps => (
+          <EditForm types={props.types} {...formikProps} />
+        )}
       />
+      {console.log({ types: props.types })}
     </DialogContentStyled>
   </Fragment>
 );
 
 const enhance = compose(
-  firebaseConnect("articles"),
+  firebaseConnect("articles", "settings"),
+  connect(({ firebase }, props) => ({
+    types: firebase.data.settings.articlesTypes // lodash's get can also be used
+  })),
   withHandlers({
     saveArticle: props => data => props.firebase.push("articles", data)
   })

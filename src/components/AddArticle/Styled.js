@@ -9,7 +9,7 @@ import { Button } from "@material-ui/core";
 export const DialogContentStyled = styled(DialogContent)`
   display: flex;
   flex-direction: column;
-  width: 25vw;
+  width: 50vw;
   position:relative;
 `;
 

@@ -11,6 +11,9 @@ export const TextContent = styled(TextField)`
   margin: 1rem 0;
 `;
 
+export const TextType = styled(TextContent)`
+  width: 20vw;
+`;
 export const TextUrl = styled(TextContent)``;
 export const TextTitle = styled(TextContent)``;
 export const ButtonStyled = styled(Button)`

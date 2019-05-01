@@ -4,22 +4,37 @@ import {
   TextUrl,
   TextTitle,
   SaveIconStyled,
-  ButtonStyled
+  ButtonStyled,
+  TextType
 } from "./styled";
-import { Button } from "@material-ui/core";
+import { Button, MenuItem } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import { Form, Field, ErrorMessage } from "formik";
 
-const EditForm = ({ errors, status, touched, isSubmitting }) => (
+const EditForm = ({ types, errors, status, touched, isSubmitting }) => (
   <Form>
     <Field
       type="text"
-      className="error"
       name="title"
       component={TextTitle}
       label="title"
       variant="outlined"
     />
+
+    <Field
+      type="select"
+      component={TextType}
+      name="type"
+      select
+      label="Select type"
+      margin="normal"
+    >
+      {Object.keys(types).map(key => (
+        <MenuItem key={key} value={types[key]}>
+          {types[key]}
+        </MenuItem>
+      ))}
+    </Field>
 
     <Field
       type="text"
@@ -32,6 +47,7 @@ const EditForm = ({ errors, status, touched, isSubmitting }) => (
       label="content"
       margin="normal"
     />
+
     <Field
       type="text"
       name="url"
@@ -39,6 +55,15 @@ const EditForm = ({ errors, status, touched, isSubmitting }) => (
       label="url"
       variant="outlined"
     />
+
+    <Field
+      type="text"
+      name="thumbnail"
+      component={TextUrl}
+      label="thumbnail"
+      variant="outlined"
+    />
+
     <ErrorMessage name="social.twitter" className="error" component="div" />
     {status && status.msg && <div>{status.msg}</div>}
     <ButtonStyled
