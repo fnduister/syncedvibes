@@ -1,7 +1,6 @@
 import React, { Fragment, Component } from "react";
 import { compose } from "redux";
 import Button from "@material-ui/core/Button";
-import Notification from "../../components/Notification/Notification";
 import CommentSection from "../../containers/CommentSection/CommentSection";
 import { Link } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
@@ -58,8 +57,6 @@ class ArticleDetails extends Component {
 
     return isLoaded(this.props.article) ? (
       <Fragment>
-        <Notification />
-
         <ArticleGrid item xs={10} md={8} lg={5}>
           <Title
             variant={this.props.onMobile ? "h3" : "h2"}

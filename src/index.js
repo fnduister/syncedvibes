@@ -10,7 +10,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { Provider } from "react-redux";
 import configureStore from "./configureStore";
 import firebase, { rrfConfig } from "./utils/firebase/firebase";
-import App from "./containers/App/App";
+import App from "./containers/App/App.jsx";
 import * as serviceWorker from "./serviceWorker";
 import { GlobalStyle, theme, StyledTheme } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";

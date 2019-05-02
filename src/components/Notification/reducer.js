@@ -1,7 +1,7 @@
 import { createActions, handleActions, combineActions } from "redux-actions";
 
 const defaultState = {
-  open: false,
+  open: true,
   variant: "success",
   message: ""
 };

@@ -5,11 +5,9 @@ import ErrorIcon from "@material-ui/icons/Error";
 import InfoIcon from "@material-ui/icons/Info";
 import CloseIcon from "@material-ui/icons/Close";
 import WarningIcon from "@material-ui/icons/Warning";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
 import { connect } from "react-redux";
 import { closeNotification } from "./reducer";
-
-import {} from "./styled";
+import { SnackbarStyled, Message, SnackbarContentStyled } from "./styled";
 import { IconButton } from "@material-ui/core";
 class Notification extends Component {
   variantIcon = {
@@ -23,24 +21,24 @@ class Notification extends Component {
     const Icon = this.variantIcon[this.props.variant];
     console.log("dans la notification");
     return (
-      <Snackbar
+      <SnackbarStyled
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left"
         }}
         open={this.props.open}
-        variant={this.props.variant}
-        autoHideDuration={6000}
+        // autoHideDuration={6000}
         onClose={this.props.closeNotificationHandler}
         message="heddd asdfasd  sadf"
       >
-        <SnackbarContent
+        <SnackbarContentStyled
           aria-describedby="client-snackbar"
+          variant={this.props.variant}
           message={
-            <span id="client-snackbar">
+            <Message>
               <Icon />
-              {this.props.message}
-            </span>
+              {/* {this.props.message} */}<p>helllllllllo</p>
+            </Message>
           }
           action={[
             <IconButton
@@ -52,7 +50,7 @@ class Notification extends Component {
             </IconButton>
           ]}
         />
-      </Snackbar>
+      </SnackbarStyled>
     );
   }
 }
