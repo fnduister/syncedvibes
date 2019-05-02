@@ -25,7 +25,7 @@ const AddArticle = props => (
           actions.setSubmitting(false);
           actions.setStatus({ msg: "Recorded" });
           props.editHandler();
-          props.openNotificationHandler("un gros test", "warning");
+          props.openNotificationHandler("Modification saved", "success");
         }}
         render={formikProps => (
           <EditForm types={props.types} {...formikProps} />

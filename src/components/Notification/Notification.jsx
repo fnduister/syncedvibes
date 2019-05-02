@@ -7,7 +7,12 @@ import CloseIcon from "@material-ui/icons/Close";
 import WarningIcon from "@material-ui/icons/Warning";
 import { connect } from "react-redux";
 import { closeNotification } from "./reducer";
-import { SnackbarStyled, Message, SnackbarContentStyled } from "./styled";
+import {
+  SnackbarStyled,
+  Message,
+  MessageBox,
+  SnackbarContentStyled
+} from "./styled";
 import { IconButton } from "@material-ui/core";
 class Notification extends Component {
   variantIcon = {
@@ -27,7 +32,7 @@ class Notification extends Component {
           horizontal: "left"
         }}
         open={this.props.open}
-        // autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={this.props.closeNotificationHandler}
         message="heddd asdfasd  sadf"
       >
@@ -35,10 +40,10 @@ class Notification extends Component {
           aria-describedby="client-snackbar"
           variant={this.props.variant}
           message={
-            <Message>
+            <MessageBox>
               <Icon />
-              {/* {this.props.message} */}<p>helllllllllo</p>
-            </Message>
+              <Message variant="primary">{this.props.message}</Message>
+            </MessageBox>
           }
           action={[
             <IconButton
