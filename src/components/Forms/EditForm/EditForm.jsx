@@ -7,11 +7,12 @@ import {
   ButtonStyled,
   TextType
 } from "./styled";
+import MyEditor from '../Draft/Draft';
 import { Button, MenuItem } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import { Form, Field, ErrorMessage } from "formik";
 
-const EditForm = ({ types, errors, status, touched, isSubmitting }) => (
+const EditForm = ({ types, errors, status, touched, isSubmitting, values, handleBlur, setFieldValue }) => (
   <Form>
     <Field
       type="text"
@@ -36,16 +37,10 @@ const EditForm = ({ types, errors, status, touched, isSubmitting }) => (
       ))}
     </Field>
 
-    <Field
-      type="text"
-      name="content"
-      component={TextContent}
-      multiline
-      rowsMax="5"
-      rows="3"
-      variant="outlined"
-      label="content"
-      margin="normal"
+    <MyEditor
+      editorState={values.editorState}
+      onChange={setFieldValue}
+      onBlur={handleBlur}
     />
 
     <Field

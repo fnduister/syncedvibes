@@ -6,7 +6,9 @@ import { firebaseConnect } from "react-redux-firebase";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogContentStyled } from "./styled";
 import EditFormSchema from "../Forms/EditForm/EditForm";
+import {stateToHTML} from 'draft-js-export-html';
 import moment from "moment";
+import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
 import { connect } from "react-redux";
 import "moment-timezone";
 import EditForm from "../Forms/EditForm/EditForm";
@@ -17,9 +19,11 @@ const AddArticle = props => (
     <DialogTitle color="secondary">Add Article</DialogTitle>
     <DialogContentStyled>
       <Formik
-        initialValues={props.article}
+        initialValues={{ ...props.article, editorState: new EditorState.createEmpty() }}
         validationSchema={EditFormSchema}
         onSubmit={(values, actions) => {
+          const html = stateToHTML(values.editorState);
+          console.log("TCL: values", html);
           const date = moment().format("LLLL");
           props.updateArticle({ ...values, date });
           actions.setSubmitting(false);

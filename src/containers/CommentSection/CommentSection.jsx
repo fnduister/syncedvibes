@@ -32,12 +32,14 @@ class CommentSection extends Component {
     this.state = { pristine: false };
   }
   render() {
-    let ArrayComment = Object.keys(this.props.comments).map(key => {
-      const comments = this.props.comments[key];
-      return { ...comments, key };
-    });
-    ArrayComment.sort((a, b) => moment(b.date) - moment(a.date));
-
+    let ArrayComment;
+    if (this.props.comments) {
+      ArrayComment = Object.keys(this.props.comments).map(key => {
+        const comments = this.props.comments[key];
+        return { ...comments, key };
+      });
+      ArrayComment.sort((a, b) => moment(b.date) - moment(a.date));
+    }
     const showButtons = () => {
       this.setState(state => ({ pristine: !state.pristine }));
     };
@@ -81,9 +83,13 @@ class CommentSection extends Component {
             />
           )}
         />
-        {ArrayComment.map(comment => (
-          <Comment key={comment.key} data={comment} />
-        ))}
+        {this.props.comments ? (
+          ArrayComment.map(comment => (
+            <Comment key={comment.key} data={comment} />
+          ))
+        ) : (
+          <p>Be the first to comment</p>
+        )}
       </Container>
     );
   }
