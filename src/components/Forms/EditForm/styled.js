@@ -5,10 +5,15 @@ import { TextField } from "formik-material-ui";
 import SaveIcon from "@material-ui/icons/Save";
 import { theme } from "../../../GlobalStyle";
 import { Button } from "@material-ui/core";
+import { Form } from "formik";
 
 export const TextContent = styled(TextField)`
   display: flex;
   margin: 1rem 0;
+`;
+
+export const FormStyled = styled(Form)`
+  width: 100%;
 `;
 
 export const TextType = styled(TextContent)`

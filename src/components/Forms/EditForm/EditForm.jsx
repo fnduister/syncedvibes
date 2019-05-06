@@ -2,6 +2,7 @@ import React from "react";
 import {
   TextContent,
   TextUrl,
+  FormStyled,
   TextTitle,
   SaveIconStyled,
   ButtonStyled,
@@ -13,7 +14,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import { Form, Field, ErrorMessage } from "formik";
 
 const EditForm = ({ types, errors, status, touched, isSubmitting, values, handleBlur, setFieldValue }) => (
-  <Form>
+  <FormStyled>
     <Field
       type="text"
       name="title"
@@ -71,7 +72,7 @@ const EditForm = ({ types, errors, status, touched, isSubmitting, values, handle
       <SaveIconStyled />
       Submit
     </ButtonStyled>
-  </Form>
+  </FormStyled>
 );
 
 export default EditForm;

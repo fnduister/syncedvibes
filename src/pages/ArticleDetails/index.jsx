@@ -51,10 +51,6 @@ class ArticleDetails extends Component {
       }
     };
 
-    if (isLoaded(this.props.article)) {
-      console.log({ article: this.props.article, props: this.props });
-    }
-
     return isLoaded(this.props.article) ? (
       <Fragment>
         <ArticleGrid item xs={10} md={8} lg={5}>

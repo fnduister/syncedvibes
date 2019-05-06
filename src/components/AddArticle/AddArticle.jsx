@@ -3,8 +3,7 @@ import { Formik } from "formik";
 import { compose } from "redux";
 import { withHandlers } from "recompose";
 import { firebaseConnect } from "react-redux-firebase";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { DialogContentStyled } from "./styled";
+import { DialogContentStyled, DialogTitleStyled } from "./styled";
 import EditFormSchema from "../Forms/EditForm/EditForm";
 import {stateToHTML} from 'draft-js-export-html';
 import moment from "moment";
@@ -16,8 +15,8 @@ import { openNotification } from "../Notification/reducer";
 
 const AddArticle = props => (
   <Fragment>
-    <DialogTitle color="secondary">Add Article</DialogTitle>
     <DialogContentStyled>
+    <DialogTitleStyled color="secondary">Add Article</DialogTitleStyled>
       <Formik
         initialValues={{ ...props.article, editorState: new EditorState.createEmpty() }}
         validationSchema={EditFormSchema}
