@@ -1,26 +1,10 @@
 import React, { Component } from "react";
 import {
-  Form,
   Container,
-  AvatarContainer,
-  AvatarCenterContainer,
-  TextAreaStyled,
-  InformationContainer,
-  ButtonStyled,
-  ButtonStyledTwo,
-  ButtonContainer,
-  AvatarStyled
 } from "./styled";
 import moment from "moment";
 import { compose } from "redux";
 import { Formik } from "formik";
-import {
-  firebaseConnect,
-  withFirebase,
-  isLoaded,
-  getVal
-} from "react-redux-firebase";
-import Avatar from "../../images/savage.jpg";
 import Comment from "../../components/Comment/Comment";
 import { connect } from "react-redux";
 import AddCommentFormSchema from "../../components/Forms/AddCommentForm/AddCommentValidation.js";

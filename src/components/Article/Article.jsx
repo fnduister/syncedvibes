@@ -18,9 +18,6 @@ function Article({ title, views, mediaUrl, type, thumbnail, id }) {
     >
       <Header>
         <Type>{type}</Type>
-        <Looks>
-          <HeaderText color="secondary">{views}</HeaderText>
-        </Looks>
       </Header>
       <Content variant="h6"> {title} </Content>
     </ArticleContainer>

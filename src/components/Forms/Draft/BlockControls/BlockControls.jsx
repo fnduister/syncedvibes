@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../Button/Button';
+import { Container } from './styled';
 
 const BLOCK_TYPES = [
     { label: 'H1', style: 'header-one' },
@@ -22,7 +23,7 @@ const BlockControls = props => {
       .getBlockForKey(selection.getStartKey())
       .getType();
     return (
-      <div className="RichEditor-controls">
+      <Container className="RichEditor-controls">
         {BLOCK_TYPES.map(type =>
           <Button
             key={type.label}
@@ -32,7 +33,7 @@ const BlockControls = props => {
             style={type.style}
           />
         )}
-      </div>
+      </Container>
     );
 };
   

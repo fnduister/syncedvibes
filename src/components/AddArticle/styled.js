@@ -9,8 +9,9 @@ import { Button } from "@material-ui/core";
 export const DialogContentStyled = styled(DialogContent)`
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 40vw;
   position:relative;
+  padding: 1em;
 `;
 
 export const TextContent = styled(TextField)`

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
 import BlockControls from "./BlockControls/BlockControls";
 import InlineControls from "./InlineControls/InlineControls";
-import { EditorContainer, EditorSection } from "./styled";
+import { ControlsContainer,EditorStyled, EditorSection, Container } from "./styled";
 class MyEditor extends Component {
   onChange = editorState => {
     this.props.onChange("editorState", editorState);
@@ -48,19 +48,20 @@ class MyEditor extends Component {
     const { editorState } = this.props;
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
-    console.log({ editorState });
     return (
-      <EditorContainer>
-        <BlockControls
-          editorState={editorState}
-          onToggle={this.toggleBlockType}
-        />
-        <InlineControls
-          editorState={editorState}
-          onToggle={this.toggleInlineStyle}
-        />
+      <Container>
+        <ControlsContainer>
+          <BlockControls
+            editorState={editorState}
+            onToggle={this.toggleBlockType}
+          />
+          <InlineControls
+            editorState={editorState}
+            onToggle={this.toggleInlineStyle}
+          />
+        </ControlsContainer>
         <EditorSection onClick={this.focus}>
-          <Editor
+          <EditorStyled
             customStyleMap={this.styleMap}
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
@@ -71,7 +72,7 @@ class MyEditor extends Component {
             spellCheck={true}
           />
         </EditorSection>
-      </EditorContainer>
+      </Container>
     );
   }
 }

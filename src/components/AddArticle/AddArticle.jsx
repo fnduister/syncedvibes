@@ -22,10 +22,11 @@ const AddArticle = props => (
         initialValues={{ ...props.article, editorState: new EditorState.createEmpty() }}
         validationSchema={EditFormSchema}
         onSubmit={(values, actions) => {
-          const html = stateToHTML(values.editorState);
-          console.log("TCL: values", html);
+          actions.setSubmitting(false);
+          const content = stateToHTML(values.editorState.getCurrentContent());
+          const { title, type, url, thumbnail } = values;
           const date = moment().format("LLLL");
-          props.updateArticle({ ...values, date });
+          props.updateArticle({ title, type, url, thumbnail, date, content });
           actions.setSubmitting(false);
           actions.setStatus({ msg: "Recorded" });
           props.editHandler();
