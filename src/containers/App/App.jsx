@@ -7,6 +7,7 @@ import HomePage from "../../pages/HomePage";
 import Header from "../Header/Header";
 import { Parallax, ParallaxLayer } from "react-spring/addons";
 import { MainContent } from "./styled";
+import Notification from "../../components/Notification/Notification";
 import { GlobalStyle, viewport } from "../../GlobalStyle";
 import Footer from "../Footer/Footer";
 import styled from "styled-components";
@@ -23,15 +24,11 @@ const Container = styled(Grid)`
 `;
 
 const RouteContainer = posed.div({
-  enter: { opacity: 1, delay: 300, beforeChildren: true },
+  enter: { opacity: 1, delay: 350, beforeChildren: true },
   exit: { opacity: 0 }
 });
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
 
   render() {
     return (
@@ -77,6 +74,7 @@ class App extends Component {
         </MainContent>
         <Footer />
         <GlobalStyle />
+        <Notification />
       </Fragment>
     );
   }

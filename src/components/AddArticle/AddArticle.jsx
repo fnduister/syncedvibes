@@ -3,35 +3,53 @@ import { Formik } from "formik";
 import { compose } from "redux";
 import { withHandlers } from "recompose";
 import { firebaseConnect } from "react-redux-firebase";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { DialogContentStyled } from "./styled";
-import EditFormSchema from '../Forms/EditForm/EditForm';
+import { DialogContentStyled, DialogTitleStyled } from "./styled";
+import EditFormSchema from "../Forms/EditForm/EditForm";
+import {stateToHTML} from 'draft-js-export-html';
 import moment from "moment";
+import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
+import { connect } from "react-redux";
 import "moment-timezone";
-
 import EditForm from "../Forms/EditForm/EditForm";
+import { openNotification } from "../Notification/reducer";
 
 const AddArticle = props => (
   <Fragment>
-    <DialogTitle color="secondary">Add Article</DialogTitle>
     <DialogContentStyled>
+    <DialogTitleStyled color="secondary">Add Article</DialogTitleStyled>
       <Formik
-        initialValues=""
+        initialValues={{ ...props.article, editorState: new EditorState.createEmpty() }}
         validationSchema={EditFormSchema}
         onSubmit={(values, actions) => {
-          const date = moment().format("LLLL");
-          props.saveArticle({ ...values, date });
           actions.setSubmitting(false);
-          actions.setStatus({ msg: "Set some arbitrary status or data" });
+          const content = stateToHTML(values.editorState.getCurrentContent());
+          const { title, type, url, thumbnail } = values;
+          const date = moment().format("LLLL");
+          props.updateArticle({ title, type, url, thumbnail, date, content });
+          actions.setSubmitting(false);
+          actions.setStatus({ msg: "Recorded" });
+          props.editHandler();
+          props.openNotificationHandler("Modification saved", "success");
         }}
-        render={props => <EditForm {...props} />}
+        render={formikProps => (
+          <EditForm types={props.types} {...formikProps} />
+        )}
       />
     </DialogContentStyled>
   </Fragment>
 );
 
 const enhance = compose(
-  firebaseConnect("articles"),
+  firebaseConnect("articles", "settings"),
+  connect(
+    ({ firebase }, props) => ({
+      types: firebase.data.settings.articlesTypes // lodash's get can also be used
+    }),
+    {
+      openNotificationHandler: (message, variant) =>
+        openNotification(message, variant)
+    }
+  ),
   withHandlers({
     saveArticle: props => data => props.firebase.push("articles", data)
   })

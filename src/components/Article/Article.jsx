@@ -11,7 +11,6 @@ import {
 
 function Article({ title, views, mediaUrl, type, thumbnail, id }) {
   const images = require.context("../../images/gifs", true);
-  console.log(id);
   return (
     <ArticleContainer
       to={`/article/${id}`}
@@ -19,9 +18,6 @@ function Article({ title, views, mediaUrl, type, thumbnail, id }) {
     >
       <Header>
         <Type>{type}</Type>
-        <Looks>
-          <HeaderText color="secondary">{views}</HeaderText>
-        </Looks>
       </Header>
       <Content variant="h6"> {title} </Content>
     </ArticleContainer>

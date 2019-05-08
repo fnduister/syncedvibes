@@ -1,10 +1,5 @@
 import React, { Fragment, Component } from "react";
 import { compose } from "redux";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Youtube from "react-youtube";
-import ScheduleIcon from "@material-ui/icons/Schedule";
-import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
 import CommentSection from "../../containers/CommentSection/CommentSection";
 import { Link } from "react-router-dom";
@@ -38,12 +33,15 @@ class ArticleDetails extends Component {
   onPlayerReady = evt => {
     evt.target.pauseVideo();
   };
+
   editHandler = () => {
     this.setState(state => ({ edit: !state.edit }));
   };
+
   commentHandler = () => {
     this.setState(state => ({ comment: !state.comment }));
   };
+
   render() {
     const opts = {
       width: "100%",
@@ -53,12 +51,8 @@ class ArticleDetails extends Component {
       }
     };
 
-    if (isLoaded(this.props.article)) {
-      console.log({ article: this.props.article, props: this.props });
-    }
-
     return isLoaded(this.props.article) ? (
-      !this.state.edit ? (
+      <Fragment>
         <ArticleGrid item xs={10} md={8} lg={5}>
           <Title
             variant={this.props.onMobile ? "h3" : "h2"}
@@ -100,18 +94,27 @@ class ArticleDetails extends Component {
           </Button>
 
           {this.state.comment ? (
-            <CommentSection comments={this.props.article.comments} addComment={this.props.addComment}/>
+            <CommentSection
+              comments={this.props.article.comments}
+              addComment={this.props.addComment}
+            />
           ) : null}
         </ArticleGrid>
-      ) : (
-        <Dialog
-          open={this.state.edit}
-          onClose={this.editHandler}
-          aria-labelledby="form-dialog-title"
-        >
-          <AddArticle edit={this.state.edit} editHandler={this.editHandler} />
-        </Dialog>
-      )
+        {this.state.edit && (
+          <Dialog
+            open={this.state.edit}
+            onClose={this.editHandler}
+            aria-labelledby="form-dialog-title"
+          >
+            <AddArticle
+              article={this.props.article}
+              updateArticle={this.props.updateArticle}
+              edit={this.state.edit}
+              editHandler={this.editHandler}
+            />
+          </Dialog>
+        )}
+      </Fragment>
     ) : (
       "Loading..."
     );
@@ -119,14 +122,20 @@ class ArticleDetails extends Component {
 }
 const enhance = compose(
   firebaseConnect(props => [
-    `articles/${props.match.params.articleId}` // equivalent string notation
+    `articles/${props.match.params.articleId}`,
+    "settings" // equivalent string notation
   ]),
   connect(({ firebase }, props) => ({
     article: getVal(firebase, `data/articles/${props.match.params.articleId}`) // lodash's get can also be used
   })),
   withHandlers({
     addComment: props => comment =>
-      props.firebase.push(`articles/${props.match.params.articleId}/comments`, comment)
+      props.firebase.push(
+        `articles/${props.match.params.articleId}/comments`,
+        comment
+      ),
+    updateArticle: props => article =>
+      props.firebase.update(`articles/${props.match.params.articleId}`, article)
   })
 );
 
