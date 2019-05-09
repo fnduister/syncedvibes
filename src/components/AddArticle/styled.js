@@ -15,7 +15,7 @@ export const DialogTitleStyled = styled(DialogTitle)`
 export const DialogContentStyled = styled(DialogContent)`
   display: flex;
   flex-direction: column;
-  width: 40vw;
+  width: 35vw;
   position: relative;
   padding: 1em;
   flex-flow: row wrap;

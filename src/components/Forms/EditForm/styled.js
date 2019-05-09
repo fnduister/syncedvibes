@@ -22,7 +22,7 @@ export const TextType = styled(TextContent)`
 export const TextUrl = styled(TextContent)``;
 export const TextTitle = styled(TextContent)``;
 export const ButtonStyled = styled(Button)`
-  margin-top: 3em;
+  margin-top: 0.5em;
   display: flex;
   align-self: flex-end;
 `;
