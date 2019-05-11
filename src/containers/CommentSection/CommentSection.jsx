@@ -25,15 +25,21 @@ class CommentSection extends Component {
       ArrayComment.sort((a, b) => moment(b.date) - moment(a.date));
     }
     const showButtons = () => {
-      this.setState(state => ({ pristine: !state.pristine }));
+      this.setState(state => ({ pristine: true }));
     };
+
+    const changeOnBlur = () => {
+      console.log("change on changeOnBlur");
+      this.setState(state => ({ pristine: false }));
+    };
+
     return (
       <Container>
         <Formik
           initialValues=""
           validationSchema={AddCommentFormSchema}
           onSubmit={(values, actions) => {
-            actions.setSubmitting(false);
+            actions.setSubmitting(true);
             actions.setStatus({ msg: "Set some arbitrary status or data" });
             const date = moment().format("LLLL");
             const avatarUrl = this.props.profile.avatarUrl
@@ -56,12 +62,15 @@ class CommentSection extends Component {
               favorite: 0
             };
             this.props.addComment(comment);
+            actions.setSubmitting(false);
+            changeOnBlur();
           }}
           render={props => (
             <AddCommentForm
               profile={this.props.profile}
               auth={this.props.auth}
               showButtons={showButtons}
+              changeOnBlur={changeOnBlur}
               pristine={this.state.pristine}
               {...props}
             />

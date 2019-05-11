@@ -15,10 +15,12 @@ function AddCommentForm({
   touched,
   isSubmitting,
   handleReset,
+  changeOnBlur,
   auth,
   dirty,
   profile,
   resetForm,
+  handleBlur,
   showButtons,
   pristine
 }) {
@@ -41,11 +43,16 @@ function AddCommentForm({
             margin="normal"
             fullWidth
             onFocus={showButtons}
+            onBlur={e => {
+              console.log("inside you");
+              changeOnBlur();
+              handleBlur(e);
+            }}
           />
 
           {pristine && (
             <ButtonContainer>
-              {console.log({ touched, dirty, errors })}
+              {console.log({ touched, dirty, errors, pristine })}
               <ButtonStyled
                 variant="contained"
                 color="secondary"
@@ -60,7 +67,11 @@ function AddCommentForm({
                 id="cancel"
                 value="Post"
                 type="cancel"
-                onClick={handleReset}
+                onClick={e => {
+                  e.preventDefault();
+                  handleReset();
+                  changeOnBlur();
+                }}
               >
                 Cancel
               </ButtonStyled>
