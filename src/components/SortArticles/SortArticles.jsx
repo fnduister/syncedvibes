@@ -12,21 +12,24 @@ const SortArticles = ({
       <SortButton
         onClick={() => toggleVideoFilterHandler()}
         backgroundcolor={filters.videoFilter}
-        variant="extended"
+        variant="outlined"
+        color="#c018f9"
       >
         video
       </SortButton>
       <SortButton
         onClick={() => toggleNewsFilterHandler()}
         backgroundcolor={filters.newsFilter}
-        variant="extended"
+        variant="outlined"
+        color="#c018f9"
       >
         news
       </SortButton>
       <SortButton
         onClick={() => toggleAudioFilterHandler()}
         backgroundcolor={filters.audioFilter}
-        variant="extended"
+        variant="outlined"
+        color="#c018f9"
       >
         audio
       </SortButton>
