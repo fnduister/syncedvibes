@@ -13,7 +13,6 @@ const SortArticles = ({
         onClick={() => toggleVideoFilterHandler()}
         backgroundcolor={filters.videoFilter}
         variant="outlined"
-        color="#c018f9"
       >
         video
       </SortButton>
@@ -21,7 +20,6 @@ const SortArticles = ({
         onClick={() => toggleNewsFilterHandler()}
         backgroundcolor={filters.newsFilter}
         variant="outlined"
-        color="#c018f9"
       >
         news
       </SortButton>
@@ -29,7 +27,6 @@ const SortArticles = ({
         onClick={() => toggleAudioFilterHandler()}
         backgroundcolor={filters.audioFilter}
         variant="outlined"
-        color="#c018f9"
       >
         audio
       </SortButton>
