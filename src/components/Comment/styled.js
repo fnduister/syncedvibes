@@ -10,6 +10,7 @@ export const ReplySectionStyled = styled.div``;
 
 export const FavoriteButton = styled(Favorite)`
   color: ${props => (props.favorite ? "red" : "grey")};
+  /* color: red; */
   font-size: 15px;
 `;
 
@@ -28,19 +29,20 @@ export const ReplyUserStyled = styled(Typography)`
   color: black;
   font-weight: bold;
   margin-right: 0.5em;
-  padding-left: .8em;
+  padding-left: 0.8em;
 `;
 
 export const ReplyUserDate = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  
 `;
-export const ReplySectionContainer = styled.div``;
+export const ReplySectionContainer = styled.div`
+`;
 export const ReplyContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin-top: 3em;
 `;
 
@@ -52,7 +54,7 @@ export const ReplyButton = styled(Button)`
 
 export const ReplyTextStyled = styled(Typography)`
   color: black;
-  padding-left: .8em;
+  padding-left: 0.8em;
 `;
 
 export const TimeStamp = styled(Typography)`
@@ -75,6 +77,7 @@ export const CommentContainer = styled.div`
 export const ReplyButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 export const ReplyOptionsContainer = styled.div`
   display: flex;
@@ -84,7 +87,7 @@ export const ReplyOptionsContainer = styled.div`
 export const ReplyDataContainer = styled.div`
   display: flex;
   flex-direction: column;
- 
+
   padding-right: 3em;
 `;
 

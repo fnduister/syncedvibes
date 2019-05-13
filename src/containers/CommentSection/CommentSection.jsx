@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import {
-  Container,
-} from "./styled";
+import { Container } from "./styled";
 import moment from "moment";
 import { compose } from "redux";
 import { Formik } from "formik";
@@ -9,6 +7,7 @@ import Comment from "../../components/Comment/Comment";
 import { connect } from "react-redux";
 import AddCommentFormSchema from "../../components/Forms/AddCommentForm/AddCommentValidation.js";
 import AddCommentForm from "../../components/Forms/AddCommentForm/AddCommentForm";
+import { withHandlers } from "recompose";
 
 class CommentSection extends Component {
   constructor(props) {
@@ -63,6 +62,7 @@ class CommentSection extends Component {
             };
             this.props.addComment(comment);
             actions.setSubmitting(false);
+            actions.resetForm();
             changeOnBlur();
           }}
           render={props => (
@@ -78,7 +78,12 @@ class CommentSection extends Component {
         />
         {this.props.comments ? (
           ArrayComment.map(comment => (
-            <Comment key={comment.key} data={comment} />
+            <Comment
+              key={comment.key}
+              commentId={comment.key}
+              data={comment}
+              updateComment={this.props.updateComment}
+            />
           ))
         ) : (
           <p>Be the first to comment</p>

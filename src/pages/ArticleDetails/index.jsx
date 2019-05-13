@@ -106,6 +106,7 @@ class ArticleDetails extends Component {
 
           {this.state.comment ? (
             <CommentSection
+              updateComment={this.props.updateComment}
               comments={this.props.article.comments}
               addComment={this.props.addComment}
             />
@@ -140,6 +141,11 @@ const enhance = compose(
     article: getVal(firebase, `data/articles/${props.match.params.articleId}`) // lodash's get can also be used
   })),
   withHandlers({
+    updateComment: props => (comment, commentId) =>
+      props.firebase.update(
+        `articles/${props.match.params.articleId}/comments/${commentId}`,
+        comment
+      ),
     addComment: props => comment =>
       props.firebase.push(
         `articles/${props.match.params.articleId}/comments`,
