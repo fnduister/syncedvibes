@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Form, Formik, Field, ErrorMessage } from "formik";
+import { Form, Field } from "formik";
 import {
   MainContainer,
   AvatarStyled,

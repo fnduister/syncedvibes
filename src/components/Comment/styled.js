@@ -37,7 +37,7 @@ export const ReplyUserDate = styled.div`
   flex-direction: row;
   align-items: flex-end;
 `;
-export const ReplySectionContainer = styled.div`
+export const ViewReplies = styled.div`
 `;
 export const ReplyContainer = styled.div`
   display: flex;

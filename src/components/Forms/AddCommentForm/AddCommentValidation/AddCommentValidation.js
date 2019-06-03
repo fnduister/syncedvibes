@@ -5,5 +5,4 @@ const AddCommentFormSchema = object().shape({
     .min(5, "Too Short!")
     .max(500, "Too Long!")
 });
-
 export default AddCommentFormSchema;

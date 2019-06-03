@@ -21,7 +21,7 @@ import {
   ButtonStyledTwo,
   ButtonStyled,
   ButtonContainer,
-  ReplySectionContainer
+  ViewReplies
 } from "./styled";
 import Moment from "react-moment";
 import IconButton from "@material-ui/core/IconButton";
@@ -32,15 +32,18 @@ import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Grid from "@material-ui/core/Grid";
+import AddCommentFormik from "../Forms/AddCommentFormik/AddCommentFormik";
+import CommentList from "../CommentList/CommentList";
 import Avatar from "../../images/savage.jpg";
 import { Typography } from "@material-ui/core";
+import { connect } from "react-redux";
 
 class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       favorite: false,
-      reply: false,
+      addReply: false,
       replySubmitButtonFocused: false
     };
   }
@@ -56,6 +59,18 @@ class Comment extends Component {
       this.setState(state => ({ favorite: !state.favorite }));
       let newFavorite = this.state.favorite ? favorite + 1 : favorite - 1;
       updateComment({ ...this.props.data, favorite: newFavorite }, commentId);
+    };
+
+    const toggleReply = () => {
+      this.setState(state => ({ addReply: !state.addReply }));
+    };
+
+    const handleCommentForm = reply => {
+      const newReplies = { ...replies, reply };
+      this.props.updateComment({ ...comment, newReplies }, commentId);
+      console.log("TCL: Comment -> render -> newReplies", newReplies);
+
+      // toggleReply();
     };
 
     return (
@@ -87,7 +102,7 @@ class Comment extends Component {
               value="Post"
               type="Reply"
               variant="text"
-              onClick={this.toggleReply}
+              onClick={toggleReply}
             >
               Reply
             </ReplyButton>
@@ -95,14 +110,25 @@ class Comment extends Component {
               <DeleteIconStyled />
             </IconButton> */}
           </ReplyButtonsContainer>
-          <ReplySectionContainer
-            style={this.state.reply ? {} : { display: "none" }}
-          />
+          <ViewReplies style={this.state.reply ? {} : { display: "none" }}>
+            {replies ? <commentList comments={replies} /> : "view replies"}
+          </ViewReplies>
+          {this.state.addReply ? (
+            <AddCommentFormik
+              profile={this.props.profile}
+              auth={this.props.auth}
+              addComment={handleCommentForm}
+            />
+          ) : null}
         </ReplyDataContainer>
       </CommentContainer>
     );
   }
 }
 
-export default Comment;
+const enhance = connect(({ firebase: { profile, auth } }) => ({
+  profile,
+  auth
+}));
+export default enhance(Comment);
 /*  */
