@@ -11,27 +11,11 @@ import {
   TimeStamp,
   ReplyButton,
   ReplyButtonsContainer,
-  ReplyContainer,
-  ReplyAvatarStyled,
-  ReplyOptionsContainer,
-  InformationContainer,
-  TextAreaStyled,
-  AvatarContainer,
   AvatarStyled,
-  ButtonStyledTwo,
-  ButtonStyled,
-  ButtonContainer,
   ViewReplies
 } from "./styled";
 import Moment from "react-moment";
 import IconButton from "@material-ui/core/IconButton";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import FormControl from "@material-ui/core/FormControl";
-import TextField from "@material-ui/core/TextField";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Grid from "@material-ui/core/Grid";
 import AddCommentFormik from "../Forms/AddCommentFormik/AddCommentFormik";
 import CommentList from "../CommentList/CommentList";
 import Avatar from "../../images/savage.jpg";
