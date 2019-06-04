@@ -21,13 +21,22 @@ import CommentList from "../CommentList/CommentList";
 import Avatar from "../../images/savage.jpg";
 import { Typography } from "@material-ui/core";
 import { connect } from "react-redux";
-
+import { withHandlers } from "recompose";
+import { compose } from "redux";
+import { withRouter } from "react-router";
+import {
+  firebaseConnect,
+  withFirebase,
+  isLoaded,
+  getVal
+} from "react-redux-firebase";
 class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       favorite: false,
       addReply: false,
+      showReplies: false,
       replySubmitButtonFocused: false
     };
   }
@@ -39,6 +48,8 @@ class Comment extends Component {
       updateComment
     } = this.props;
 
+    console.log("TCL: Comment -> render -> replies", replies);
+
     const toggleFavorite = e => {
       this.setState(state => ({ favorite: !state.favorite }));
       let newFavorite = this.state.favorite ? favorite + 1 : favorite - 1;
@@ -49,21 +60,23 @@ class Comment extends Component {
       this.setState(state => ({ addReply: !state.addReply }));
     };
 
-    const handleCommentForm = reply => {
-      const newReplies = { ...replies, reply };
-      this.props.updateComment({ ...comment, newReplies }, commentId);
-      console.log("TCL: Comment -> render -> newReplies", newReplies);
-
-      // toggleReply();
+    const handleCommentForm = async reply => {
+      await this.props.addReply(reply, commentId);
+      toggleReply();
     };
+
+    const handleRepliesVisibility = () => {
+      this.setState(state => ({ showReplies: !state.showReplies }));
+    }
+
 
     return (
       <CommentContainer>
         {user.avatarUrl ? (
           <AvatarStyled alt="User Avatar" src={user.avatarUrl} />
         ) : (
-          <AvatarStyled>{user.avatar}</AvatarStyled>
-        )}
+            <AvatarStyled>{user.avatar}</AvatarStyled>
+          )}
         <ReplyDataContainer>
           <ReplyUserDate>
             <ReplyUserStyled color="textPrimary" variant="body2">
@@ -78,7 +91,7 @@ class Comment extends Component {
           </ReplyTextStyled>
           <ReplyButtonsContainer>
             <IconButton aria-label="Delete" onClick={toggleFavorite}>
-              <FavoriteButton favorite={this.state.favorite} />
+              <FavoriteButton favorite={this.state.favorite ? "red" : "grey"} />
             </IconButton>
             <span>{favorite}</span>
             <ReplyButton
@@ -94,11 +107,12 @@ class Comment extends Component {
               <DeleteIconStyled />
             </IconButton> */}
           </ReplyButtonsContainer>
-          <ViewReplies style={this.state.reply ? {} : { display: "none" }}>
-            {replies ? <commentList comments={replies} /> : "view replies"}
-          </ViewReplies>
+
+          {replies ? <ViewReplies size="small" onClick={handleRepliesVisibility}>Show replies</ViewReplies> : null}
+          {this.state.showReplies ? <CommentList comments={replies} /> : null}
           {this.state.addReply ? (
             <AddCommentFormik
+              smaller
               profile={this.props.profile}
               auth={this.props.auth}
               addComment={handleCommentForm}
@@ -110,9 +124,16 @@ class Comment extends Component {
   }
 }
 
-const enhance = connect(({ firebase: { profile, auth } }) => ({
-  profile,
-  auth
-}));
-export default enhance(Comment);
-/*  */
+const enhance = compose(
+  withFirebase,
+  connect(({ firebase: { profile, auth } }) => ({
+    profile,
+    auth
+  })), withHandlers({
+    addReply: props => (reply, commentId) =>
+      props.firebase.push(
+        `articles/${props.match.params.articleId}/comments/${commentId}/replies`,
+        reply
+      )
+  }));
+export default withRouter(enhance(Comment));

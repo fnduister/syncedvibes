@@ -12,7 +12,7 @@ class CommentSection extends Component {
     return (
       <Container>
         <AddCommentFormik profile={this.props.profile} auth={this.props.auth} addComment={this.props.addComment}/>
-        <CommentList comments={this.props.comments} updateComment={this.props.updateComment}/>
+        <CommentList comments={this.props.comments} updateComment={this.props.updateComment} addComment={this.props.addComment}/>
       </Container>
     );
   }

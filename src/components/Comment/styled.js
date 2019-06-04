@@ -9,7 +9,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 export const ReplySectionStyled = styled.div``;
 
 export const FavoriteButton = styled(Favorite)`
-  color: ${props => (props.favorite ? "red" : "grey")};
+  color: ${props => (props.favorite)};
   /* color: red; */
   font-size: 15px;
 `;
@@ -37,7 +37,7 @@ export const ReplyUserDate = styled.div`
   flex-direction: row;
   align-items: flex-end;
 `;
-export const ViewReplies = styled.div`
+export const ViewReplies = styled(Button)`
 `;
 export const ReplyContainer = styled.div`
   display: flex;
