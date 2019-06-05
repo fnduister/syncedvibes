@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import Comment from "../Comment/Comment";
 import moment from "moment";
 
-const CommentList = ({ comments, updateComment }) => {
+const CommentList = ({ smaller, comments, updateComment }) => {
   let ArrayComment;
   if (comments) {
     ArrayComment = Object.keys(comments).map(key => {
@@ -18,6 +18,7 @@ const CommentList = ({ comments, updateComment }) => {
         ArrayComment.map(comment => (
           <Comment
             key={comment.key}
+            smaller
             commentId={comment.key}
             data={comment}
             updateComment={updateComment}

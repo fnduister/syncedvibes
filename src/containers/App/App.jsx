@@ -18,6 +18,8 @@ import withSizes from "react-sizes";
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import "moment-timezone";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -29,7 +31,6 @@ const RouteContainer = posed.div({
 });
 
 class App extends Component {
-
   render() {
     return (
       <Fragment>

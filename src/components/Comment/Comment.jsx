@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   ReplyUserStyled,
+  KeyboardArrowUpStyled,
   ReplyTextStyled,
   FavoriteButton,
   DeleteIconStyled,
@@ -68,16 +69,15 @@ class Comment extends Component {
 
     const handleRepliesVisibility = () => {
       this.setState(state => ({ showReplies: !state.showReplies }));
-    }
-
+    };
 
     return (
       <CommentContainer>
         {user.avatarUrl ? (
-          <AvatarStyled alt="User Avatar" src={user.avatarUrl} />
+          <AvatarStyled  alt="User Avatar" src={user.avatarUrl} />
         ) : (
-            <AvatarStyled>{user.avatar}</AvatarStyled>
-          )}
+          <AvatarStyled>{user.avatar}</AvatarStyled>
+        )}
         <ReplyDataContainer>
           <ReplyUserDate>
             <ReplyUserStyled color="textPrimary" variant="body2">
@@ -109,8 +109,20 @@ class Comment extends Component {
             </IconButton> */}
           </ReplyButtonsContainer>
 
-          {replies ? <ViewReplies size="small" onClick={handleRepliesVisibility}>Show replies<KeyboardArrowDownStyled /></ViewReplies> : null}
-          {this.state.showReplies ? <CommentList comments={replies} /> : null}
+          {replies ? (
+            !this.state.showReplies ? (
+              <ViewReplies size="small" onClick={handleRepliesVisibility}>
+                Show replies
+                <KeyboardArrowDownStyled />
+              </ViewReplies>
+            ) : (
+              <ViewReplies size="small" onClick={handleRepliesVisibility}>
+                Hide replies
+                <KeyboardArrowUpStyled />
+              </ViewReplies>
+            )
+          ) : null}
+          {this.state.showReplies ? <CommentList smaller comments={replies} /> : null}
           {this.state.addReply ? (
             <AddCommentFormik
               smaller
@@ -130,11 +142,15 @@ const enhance = compose(
   connect(({ firebase: { profile, auth } }) => ({
     profile,
     auth
-  })), withHandlers({
+  })),
+  withHandlers({
     addReply: props => (reply, commentId) =>
       props.firebase.push(
-        `articles/${props.match.params.articleId}/comments/${commentId}/replies`,
+        `articles/${
+          props.match.params.articleId
+        }/comments/${commentId}/replies`,
         reply
       )
-  }));
+  })
+);
 export default withRouter(enhance(Comment));

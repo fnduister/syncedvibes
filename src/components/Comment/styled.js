@@ -7,24 +7,28 @@ import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
-
+import KeyboardArrowUp from "@material-ui/icons/KeyboardArrowUp";
 
 export const ReplySectionStyled = styled.div``;
 
 export const FavoriteButton = styled(Favorite)`
-  color: ${props => (props.favorite)};
+  color: ${props => props.favorite};
   /* color: red; */
   font-size: 15px;
 `;
 
 export const AvatarStyled = styled(Avatar)`
   margin: 10;
-  color: red;
+   color: red;
   width: 32.5px;
   height: 32.5px;
 `;
 
 export const KeyboardArrowDownStyled = styled(KeyboardArrowDown)`
+  font-size: 15px;
+`;
+
+export const KeyboardArrowUpStyled = styled(KeyboardArrowUp)`
   font-size: 15px;
 `;
 export const DeleteIconStyled = styled(DeleteIcon)`
@@ -46,7 +50,8 @@ export const ReplyUserDate = styled.div`
 export const ViewReplies = styled(Button)`
   width: 10em;
   font-size: 12px;
-  padding:0;
+  padding: 0;
+  color: purple;
 `;
 export const ReplyContainer = styled.div`
   display: flex;
@@ -80,7 +85,7 @@ export const SmallAvatarStyled = styled(Avatar)`
 export const CommentContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width:100%;
+  width: 100%;
   padding-top: 1em;
   padding-left: 0.7em;
 `;
@@ -97,7 +102,7 @@ export const ReplyOptionsContainer = styled.div`
 export const ReplyDataContainer = styled.div`
   display: flex;
   flex-direction: column;
-
+  width: 100%;
   padding-right: 3em;
 `;
 

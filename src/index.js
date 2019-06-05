@@ -16,6 +16,7 @@ import { GlobalStyle, theme, StyledTheme } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 
+
 const styleNode = document.createComment("insertion-point-jss");
 document.head.insertBefore(styleNode, document.head.firstChild);
 
