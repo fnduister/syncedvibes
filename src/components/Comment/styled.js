@@ -6,6 +6,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
+
+
 export const ReplySectionStyled = styled.div``;
 
 export const FavoriteButton = styled(Favorite)`
@@ -21,6 +24,9 @@ export const AvatarStyled = styled(Avatar)`
   height: 32.5px;
 `;
 
+export const KeyboardArrowDownStyled = styled(KeyboardArrowDown)`
+  font-size: 15px;
+`;
 export const DeleteIconStyled = styled(DeleteIcon)`
   font-size: 15px;
 `;
@@ -38,6 +44,9 @@ export const ReplyUserDate = styled.div`
   align-items: flex-end;
 `;
 export const ViewReplies = styled(Button)`
+  width: 10em;
+  font-size: 12px;
+  padding:0;
 `;
 export const ReplyContainer = styled.div`
   display: flex;
@@ -71,6 +80,7 @@ export const SmallAvatarStyled = styled(Avatar)`
 export const CommentContainer = styled.div`
   display: flex;
   flex-direction: row;
+  width:100%;
   padding-top: 1em;
   padding-left: 0.7em;
 `;

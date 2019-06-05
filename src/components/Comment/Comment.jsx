@@ -12,6 +12,7 @@ import {
   ReplyButton,
   ReplyButtonsContainer,
   AvatarStyled,
+  KeyboardArrowDownStyled,
   ViewReplies
 } from "./styled";
 import Moment from "react-moment";
@@ -108,7 +109,7 @@ class Comment extends Component {
             </IconButton> */}
           </ReplyButtonsContainer>
 
-          {replies ? <ViewReplies size="small" onClick={handleRepliesVisibility}>Show replies</ViewReplies> : null}
+          {replies ? <ViewReplies size="small" onClick={handleRepliesVisibility}>Show replies<KeyboardArrowDownStyled /></ViewReplies> : null}
           {this.state.showReplies ? <CommentList comments={replies} /> : null}
           {this.state.addReply ? (
             <AddCommentFormik
