@@ -5,6 +5,8 @@ import CommentSection from "../../containers/CommentSection/CommentSection";
 import { Link } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import AddArticle from "../../components/AddArticle/AddArticle";
+import { stateToHTML } from "draft-js-export-html";
+import { convertFromRaw } from "draft-js";
 import {
   YoutubeStyled,
   Title,
@@ -14,6 +16,7 @@ import {
   ScheduleIconStyled,
   AspectRatio
 } from "./styled";
+import ReactHtmlParser from "react-html-parser";
 import moment from "moment";
 import Moment from "react-moment";
 import { connect } from "react-redux";
@@ -73,9 +76,17 @@ class ArticleDetails extends Component {
               onReady={this.onPlayerReady}
             />
           </AspectRatio>
-          <Summary variant="body1" color="textPrimary">
-            {this.props.article.content}
-          </Summary>
+          <div>
+            {/* on recuperer une version json du content, alors on le parse
+            ensuite on le convertie en stateContent pour draft, 
+            ensuite on le transforme en text, et pour finir, on convertie le text en html
+            */}
+            {ReactHtmlParser(
+              stateToHTML(
+                convertFromRaw(JSON.parse(this.props.article.content))
+              )
+            )}
+          </div>
           <Button
             variant="contained"
             color="secondary"
@@ -95,6 +106,7 @@ class ArticleDetails extends Component {
 
           {this.state.comment ? (
             <CommentSection
+              updateComment={this.props.updateComment}
               comments={this.props.article.comments}
               addComment={this.props.addComment}
             />
@@ -129,6 +141,11 @@ const enhance = compose(
     article: getVal(firebase, `data/articles/${props.match.params.articleId}`) // lodash's get can also be used
   })),
   withHandlers({
+    updateComment: props => (comment, commentId) =>
+      props.firebase.update(
+        `articles/${props.match.params.articleId}/comments/${commentId}`,
+        comment
+      ),
     addComment: props => comment =>
       props.firebase.push(
         `articles/${props.match.params.articleId}/comments`,

@@ -20,9 +20,11 @@ border-radius: 5px;
 
 export const EditorSection = styled.div`
   cursor: text;
-  padding: 5px;
+  padding: 1em .5em;
   font-size: 16px;
   margin-top: 0;
 `;
 
-export const EditorStyled = styled(Editor)``;
+export const EditorStyled = styled(Editor)`
+
+`;

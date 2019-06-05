@@ -8,4 +8,5 @@ export const TitleBox = styled.div`
   z-index: 1;
   justify-content: center;
   margin-bottom: 25vh;
+  color: white;
 `;

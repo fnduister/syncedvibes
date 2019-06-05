@@ -39,73 +39,25 @@ class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      commentData: [
-        {
-          name: "User1",
-          text: "Sample Comment 1"
-        },
-        {
-          name: "User2",
-          text: "Sample Comment 2"
-        }
-      ],
-      currentComment: {
-        name: "",
-        email: "",
-        comment: ""
-      },
-      replyData: [
-        {
-          name: "User1",
-          text: "Sample Comment 1"
-        },
-        {
-          name: "User2",
-          text: "Sample Comment 2"
-        }
-      ],
-      currentReply: {
-        name: "",
-        email: "",
-        comment: ""
-      },
       favorite: false,
       reply: false,
       replySubmitButtonFocused: false
     };
   }
-  toggleFavorite = e => {
-    this.setState(state => ({ favorite: !state.favorite }));
-  };
-
-  toggleReply = e => {
-    this.setState(state => ({ reply: !state.reply }));
-  };
-  handleReplySubmit = e => {
-    e.preventDefault();
-    console.log("submit");
-  };
-  showReplySubmitButton = e => {
-    this.setState({ replySubmitButtonFocused: true });
-  };
-
-  cancelReply = e => {
-    this.setState({
-      replySubmitButtonFocused: false,
-      currentReply: {
-        comment: ""
-      }
-    });
-  };
-
-  onchangeText = e => {
-    this.setState({ currentReply: { [e.target.name]: e.target.value } });
-  };
 
   render() {
     const {
-      data: { user, replies, favorite, date, comment }
+      data: { user, replies, favorite, date, comment },
+      commentId,
+      updateComment
     } = this.props;
+
+    const toggleFavorite = e => {
+      this.setState(state => ({ favorite: !state.favorite }));
+      let newFavorite = this.state.favorite ? favorite + 1 : favorite - 1;
+      updateComment({ ...this.props.data, favorite: newFavorite }, commentId);
+    };
+
     return (
       <CommentContainer>
         {user.avatarUrl ? (
@@ -126,9 +78,10 @@ class Comment extends Component {
             {comment}
           </ReplyTextStyled>
           <ReplyButtonsContainer>
-            <IconButton aria-label="Delete" onClick={this.toggleFavorite}>
-              <FavoriteButton favorite={favorite} />
+            <IconButton aria-label="Delete" onClick={toggleFavorite}>
+              <FavoriteButton favorite={this.state.favorite} />
             </IconButton>
+            <span>{favorite}</span>
             <ReplyButton
               id="Reply"
               value="Post"

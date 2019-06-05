@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import {
-  Container,
-} from "./styled";
+import { Container } from "./styled";
 import moment from "moment";
 import { compose } from "redux";
 import { Formik } from "formik";
@@ -9,6 +7,7 @@ import Comment from "../../components/Comment/Comment";
 import { connect } from "react-redux";
 import AddCommentFormSchema from "../../components/Forms/AddCommentForm/AddCommentValidation.js";
 import AddCommentForm from "../../components/Forms/AddCommentForm/AddCommentForm";
+import { withHandlers } from "recompose";
 
 class CommentSection extends Component {
   constructor(props) {
@@ -25,15 +24,21 @@ class CommentSection extends Component {
       ArrayComment.sort((a, b) => moment(b.date) - moment(a.date));
     }
     const showButtons = () => {
-      this.setState(state => ({ pristine: !state.pristine }));
+      this.setState(state => ({ pristine: true }));
     };
+
+    const changeOnBlur = () => {
+      console.log("change on changeOnBlur");
+      this.setState(state => ({ pristine: false }));
+    };
+
     return (
       <Container>
         <Formik
           initialValues=""
           validationSchema={AddCommentFormSchema}
           onSubmit={(values, actions) => {
-            actions.setSubmitting(false);
+            actions.setSubmitting(true);
             actions.setStatus({ msg: "Set some arbitrary status or data" });
             const date = moment().format("LLLL");
             const avatarUrl = this.props.profile.avatarUrl
@@ -56,12 +61,16 @@ class CommentSection extends Component {
               favorite: 0
             };
             this.props.addComment(comment);
+            actions.setSubmitting(false);
+            actions.resetForm();
+            changeOnBlur();
           }}
           render={props => (
             <AddCommentForm
               profile={this.props.profile}
               auth={this.props.auth}
               showButtons={showButtons}
+              changeOnBlur={changeOnBlur}
               pristine={this.state.pristine}
               {...props}
             />
@@ -69,7 +78,12 @@ class CommentSection extends Component {
         />
         {this.props.comments ? (
           ArrayComment.map(comment => (
-            <Comment key={comment.key} data={comment} />
+            <Comment
+              key={comment.key}
+              commentId={comment.key}
+              data={comment}
+              updateComment={this.props.updateComment}
+            />
           ))
         ) : (
           <p>Be the first to comment</p>
