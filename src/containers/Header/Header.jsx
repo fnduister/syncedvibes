@@ -11,7 +11,6 @@ import Title from "../../components/Title/Title";
 import { toggleMenu } from "./reducer";
 import { Transition, animated, Spring, config } from "react-spring";
 import { Background, HeaderNavBar } from "./styled";
-import Slider from "react-slick";
 
 class Header extends PureComponent {
   constructor(props) {
@@ -67,14 +66,6 @@ class Header extends PureComponent {
       </div>
     );
 
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
-    };
-
     return (
       <Background>
         <HeaderNavBar>
@@ -104,24 +95,7 @@ class Header extends PureComponent {
           </Spring>
         </HeaderNavBar>
 
-        {/* <Title onMobile={this.props.onMobile} /> */}
-        <Slider {...settings}>
-          <div>
-            <h3>1hhhhhjjjjjjjjjjjjjggggggggggfffffffffddddddd</h3>
-          </div>
-          <div>
-            <h3>222</h3>
-          </div>
-          <div>
-            <h3>21</h3>
-          </div>
-          <div>
-            <h3>31</h3>
-          </div>
-          <div>
-            <h3>61</h3>
-          </div>
-        </Slider>
+        <Title onMobile={this.props.onMobile} />
 
         {this.props.withDrawer ? (
           <Transition

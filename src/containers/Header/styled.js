@@ -2,7 +2,7 @@ import styled from "styled-components";
 import AppBar from "@material-ui/core/AppBar";
 import { theme } from "../../GlobalStyle";
 import Toolbar from "@material-ui/core/Toolbar";
-import backgroundImage from "../../images/dsc_0504.jpg";
+import backgroundImage from "../../images/dsc_0551.jpg";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
