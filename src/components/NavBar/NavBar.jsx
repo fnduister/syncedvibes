@@ -7,7 +7,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import {
   AppBarStyled,
   ToolbarStyled,
-  HeaderNavBar,
   TabStyled,
   IconBox,
   TypographyStyled,
@@ -33,42 +32,15 @@ const NavBar = ({
     <HeaderWrapper ref={navRef}>
       <AppBarStyled position={position} background={background}>
         <ToolbarStyled withicon={withIcon}>
-          {withIcon && (
-            <IconBox>
-              <IconButton
-                color="inherit"
-                aria-label="Menu"
-                onClick={toggleMenu}
-              >
-                <MenuIcon />
-              </IconButton>
-              <TypographyStyled color="inherit" variant="h6" align="justify">
-                Menu
-              </TypographyStyled>
-            </IconBox>
-          )}
-          {withTabs && (
-            <Tabs
-              value={value}
-              indicatorColor="primary"
-              textColor="inherit"
-              centered
-            >
-              <TabStyled label="Music" />
-              <TabStyled label="News" />
-              <TabStyled label="Photography" />
-              <TabStyled label="Articles" />
-              <TabStyled label="About" />
-            </Tabs>
-          )}
-          {withSearch && (
-            <Search>
-              <SearchIconStyled>
-                <SearchIcon />
-              </SearchIconStyled>
-              <InputBaseStyled placeholder="Search…" />
-            </Search>
-          )}
+          <TypographyStyled color="inherit" variant="h6" align="justify">
+            Menu
+          </TypographyStyled>
+          <Search>
+            <SearchIconStyled>
+              <SearchIcon />
+            </SearchIconStyled>
+            <InputBaseStyled placeholder="Search…" />
+          </Search>
         </ToolbarStyled>
       </AppBarStyled>
     </HeaderWrapper>
