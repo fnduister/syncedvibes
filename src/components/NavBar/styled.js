@@ -43,6 +43,7 @@ export const AppBarStyled = styled(AppBar)`
   box-shadow: none;
   height: 6vh;
   justify-content: center;
+  background-color: rgba(0,0,0,0);
 
   @media screen and (max-height: ${viewport.sm}px) {
     height: 14vh;
