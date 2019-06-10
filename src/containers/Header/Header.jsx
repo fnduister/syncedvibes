@@ -1,4 +1,4 @@
-import React, { PureComponent, createRef, useState } from "react";
+import React, { PureComponent, createRef } from "react";
 import { connect } from "react-redux";
 import Overlay from "../../components/Overlay/Overlay";
 import { theme } from "../../GlobalStyle";
@@ -9,57 +9,133 @@ import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
 import Title from "../../components/Title/Title";
 import { toggleMenu } from "./reducer";
+import { Transition, animated, Spring, config } from "react-spring";
 import { Background, HeaderNavBar } from "./styled";
 
-const Header = props => {
+class Header extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { value: 0 };
+  }
 
-  // handleScroll = () => {
-  //   this.setState({
-  //     scroll: window.scrollY
-  //   });
-  // };
+  handleScroll = () => {
+    this.setState({
+      scroll: window.scrollY
+    });
+  };
 
-  // componentDidMount() {
-  //   this.setState({
-  //     top: this.navRef.offsetTop,
-  //     height: this.navRef.offsetHeight,
-  //     maxHeight: window.innerHeight,
-  //     stickyNav: false
-  //   });
-  //   window.addEventListener("scroll", this.handleScroll);
-  // }
+  componentDidMount() {
+    this.setState({
+      top: this.navRef.offsetTop,
+      height: this.navRef.offsetHeight,
+      maxHeight: window.innerHeight,
+      stickyNav: false
+    });
+    window.addEventListener("scroll", this.handleScroll);
+  }
 
-  // changeSticky = sticky => {
-  //   this.setState({
-  //     stickyNav: sticky
-  //   });
-  // };
+  changeSticky = sticky => {
+    this.setState({
+      stickyNav: sticky
+    });
+  };
 
-  // componentDidUpdate(prevProps, nextProps) {
-  //   if (this.state.height + this.state.scroll > this.state.maxHeight) {
-  //     if (this.state.stickyNav === false) this.changeSticky(true);
-  //   } else {
-  //     if (300 > this.state.maxHeight - this.state.scroll) {
-  //       if (this.props.openMenu) this.props.toggleMenuHandler();
-  //     }
-  //     if (this.state.stickyNav === true) this.changeSticky(false);
-  //   }
-  // }
-  
+  componentDidUpdate(prevProps, nextProps) {
+    if (this.state.height + this.state.scroll > this.state.maxHeight) {
+      if (this.state.stickyNav === false) this.changeSticky(true);
+    } else {
+      if (300 > this.state.maxHeight - this.state.scroll) {
+        if (this.props.openMenu) this.props.toggleMenuHandler();
+      }
+      if (this.state.stickyNav === true) this.changeSticky(false);
+    }
+  }
+
+  render() {
+    const fullList = (
+      <div>
+        <List>
+          {["MUSIC", "NEWS", "PHOTOGRAPHY", "ARTICLES", "ABOUT"].map(
+            (text, index) => (
+              <ListItem button key={text}>
+                <ListItemText primary={text} />
+              </ListItem>
+            )
+          )}
+        </List>
+      </div>
+    );
+
     return (
       <Background>
         <HeaderNavBar>
+          <Spring
+            from={{ background: "rgba(255, 255, 255, 0)" }}
+            config={config.gentle}
+            to={{
+              background: this.state.stickyNav
+                ? theme.palette.primary[300]
+                : "rgba(255, 255, 255, 0)"
+            }}
+          >
+            {({ background }) => (
               <NavBar
-                // navRef={el => (this.navRef = el)}
+                navRef={el => (this.navRef = el)}
                 style={{ opacity: 0.1 }}
                 withIcon="true"
+                withSearch
+                value={this.state.value}
+                background={background}
+                withTabs={this.props.withTabs && this.state.stickyNav}
+                toggleMenu={this.props.toggleMenuHandler}
                 position="fixed"
                 zIndex={6}
               />
+            )}
+          </Spring>
         </HeaderNavBar>
 
-        <Title onMobile={props.onMobile} />
+        <Title onMobile={this.props.onMobile} />
 
+        {this.props.withDrawer ? (
+          <Transition
+            native
+            items={this.props.openMenu}
+            from={{ height: 0, overflow: "hidden" }}
+            enter={[{ height: "auto" }]}
+            leave={{ height: 0 }}
+          >
+            {show =>
+              show &&
+              (props => (
+                <animated.div style={props}>
+                  <NavBar
+                    background={theme.palette.primary[300]}
+                    zIndex={1}
+                    value={this.state.value}
+                    withTabs="true"
+                    position="relative"
+                  />
+                </animated.div>
+              ))
+            }
+          </Transition>
+        ) : (
+          <Drawer
+            anchor="bottom"
+            open={this.props.openMenu}
+            onClose={this.props.toggleMenuHandler}
+          >
+            <div
+              tabIndex={0}
+              role="button"
+              onClick={this.props.toggleMenuHandler}
+              onKeyDown={this.props.toggleMenuHandler}
+            >
+              {fullList}
+            </div>
+          </Drawer>
+        )}
         <Overlay
           overlayOpacity={0.4}
           overlayColor={theme.palette.primary[300]}
@@ -67,7 +143,17 @@ const Header = props => {
       </Background>
     );
   }
+}
 
+const mapProps = (state, ownProps) => ({
+  openMenu: state.global.Header.openMenu
+});
 
+const mapActions = {
+  toggleMenuHandler: () => toggleMenu()
+};
 
-export default Header;
+export default connect(
+  mapProps,
+  mapActions
+)(Header);

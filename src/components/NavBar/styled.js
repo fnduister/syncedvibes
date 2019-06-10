@@ -39,8 +39,11 @@ export const HeaderWrapper = styled.div`
   height: 6.5vh;
 `;
 
-export const AppBarStyled = styled(AppBar)`
+export const AppBarStyled = styled(AppBar).attrs({
+  style: ({ background }) => ({ backgroundColor: background })
+})`
   box-shadow: none;
+  z-index: ${props => props.zIndex};
   height: 6vh;
   justify-content: center;
 

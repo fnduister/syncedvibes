@@ -4,7 +4,6 @@ import Tab from "@material-ui/core/Tab";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import { theme } from "../../GlobalStyle";
 import {
   AppBarStyled,
   ToolbarStyled,
@@ -27,27 +26,49 @@ const NavBar = ({
   zIndex,
   value,
   position,
+  background,
   ...props
 }) => {
-  console.log({ theme });
   return (
     <HeaderWrapper ref={navRef}>
-      <AppBarStyled position={position} color="default">
+      <AppBarStyled position={position} background={background}>
         <ToolbarStyled withicon={withIcon}>
-          <IconBox>
-            <IconButton color="inherit" aria-label="Menu" onClick={toggleMenu}>
-              <MenuIcon />
-            </IconButton>
-            <TypographyStyled color="inherit" variant="h6" align="justify">
-              SyncedVibes
-            </TypographyStyled>
-          </IconBox>
-          <Search>
-            <SearchIconStyled>
-              <SearchIcon />
-            </SearchIconStyled>
-            <InputBaseStyled placeholder="Search…" />
-          </Search>
+          {withIcon && (
+            <IconBox>
+              <IconButton
+                color="inherit"
+                aria-label="Menu"
+                onClick={toggleMenu}
+              >
+                <MenuIcon />
+              </IconButton>
+              <TypographyStyled color="inherit" variant="h6" align="justify">
+                Menu
+              </TypographyStyled>
+            </IconBox>
+          )}
+          {withTabs && (
+            <Tabs
+              value={value}
+              indicatorColor="primary"
+              textColor="inherit"
+              centered
+            >
+              <TabStyled label="Music" />
+              <TabStyled label="News" />
+              <TabStyled label="Photography" />
+              <TabStyled label="Articles" />
+              <TabStyled label="About" />
+            </Tabs>
+          )}
+          {withSearch && (
+            <Search>
+              <SearchIconStyled>
+                <SearchIcon />
+              </SearchIconStyled>
+              <InputBaseStyled placeholder="Search…" />
+            </Search>
+          )}
         </ToolbarStyled>
       </AppBarStyled>
     </HeaderWrapper>
