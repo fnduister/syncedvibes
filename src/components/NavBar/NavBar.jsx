@@ -4,6 +4,7 @@ import Tab from "@material-ui/core/Tab";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import { theme } from "../../GlobalStyle";
 import {
   AppBarStyled,
   ToolbarStyled,
@@ -26,33 +27,27 @@ const NavBar = ({
   zIndex,
   value,
   position,
-  background,
   ...props
 }) => {
+  console.log({ theme });
   return (
     <HeaderWrapper ref={navRef}>
-      <AppBarStyled position={position} background={background}>
+      <AppBarStyled position={position} color="default">
         <ToolbarStyled withicon={withIcon}>
-            <IconBox>
-              <IconButton
-                color="inherit"
-                aria-label="Menu"
-                onClick={toggleMenu}
-              >
-                <MenuIcon />
-              </IconButton>
-              <TypographyStyled color="inherit" variant="h6" align="justify">
-                Menu
-              </TypographyStyled>
-            </IconBox>
-          {withSearch && (
-            <Search>
-              <SearchIconStyled>
-                <SearchIcon />
-              </SearchIconStyled>
-              <InputBaseStyled placeholder="Search…" />
-            </Search>
-          )}
+          <IconBox>
+            <IconButton color="inherit" aria-label="Menu" onClick={toggleMenu}>
+              <MenuIcon />
+            </IconButton>
+            <TypographyStyled color="inherit" variant="h6" align="justify">
+              SyncedVibes
+            </TypographyStyled>
+          </IconBox>
+          <Search>
+            <SearchIconStyled>
+              <SearchIcon />
+            </SearchIconStyled>
+            <InputBaseStyled placeholder="Search…" />
+          </Search>
         </ToolbarStyled>
       </AppBarStyled>
     </HeaderWrapper>
