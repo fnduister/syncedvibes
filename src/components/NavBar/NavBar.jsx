@@ -33,7 +33,6 @@ const NavBar = ({
     <HeaderWrapper ref={navRef}>
       <AppBarStyled position={position} background={background}>
         <ToolbarStyled withicon={withIcon}>
-          {withIcon && (
             <IconBox>
               <IconButton
                 color="inherit"
@@ -46,21 +45,6 @@ const NavBar = ({
                 Menu
               </TypographyStyled>
             </IconBox>
-          )}
-          {withTabs && (
-            <Tabs
-              value={value}
-              indicatorColor="primary"
-              textColor="inherit"
-              centered
-            >
-              <TabStyled label="Music" />
-              <TabStyled label="News" />
-              <TabStyled label="Photography" />
-              <TabStyled label="Articles" />
-              <TabStyled label="About" />
-            </Tabs>
-          )}
           {withSearch && (
             <Search>
               <SearchIconStyled>
