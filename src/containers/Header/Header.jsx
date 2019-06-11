@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import Overlay from "../../components/Overlay/Overlay";
 import { theme } from "../../GlobalStyle";
@@ -12,43 +12,29 @@ import { toggleMenu } from "./reducer";
 import { Transition, animated, Spring, config } from "react-spring";
 import { Background, HeaderNavBar } from "./styled";
 
-const Header = () => {
-  let navbarEle;
-  const [value, changeValue] = useState(0);
-  const [scroll, setScroll] = useState(navbarEle.offsetTop);
-  const [height, setHeight] = useState(navbarEle.offsetHeight);
+const Header = props => {
+  const navRef = useRef(null);
+  const [maxHeight, setMaxHeight] = useState(0);
+  const [scroll, setScroll] = useState(0);
+  const [height, setHeight] = useState();
   const [stickyNav, SetStickyNav] = useState(false);
-  const maxHeight = window.innerHeight;
 
-  console.log("TCL: Header -> navbarEle", navbarEle);
-  const handleScroll = () => {
+  const handleScroll = (value) => {
     setScroll(window.scrollY);
-  };
+  }
 
   useEffect(() => {
-    navbarEle = document.getElementById("navbarID");
-  });
+    const { offsetHeight } = navRef.current;
+    setMaxHeight(window.innerHeight);
+    setHeight(offsetHeight);
+    window.addEventListener("scroll", handleScroll);
 
-  // componentDidMount() {
-  //   this.setState({
-  //     top: this.navRef.offsetTop,
-  //     height: this.navRef.offsetHeight,
-  //     maxHeight: window.innerHeight,
-  //     stickyNav: false
-  //   });
-  //   window.addEventListener("scroll", setScroll( window.scrollY));
-  // }
-
-  // componentDidUpdate(prevProps, nextProps) {
-  //   if (this.state.height + this.state.scroll > this.state.maxHeight) {
-  //     if (this.state.stickyNav === false) this.changeSticky(true);
-  //   } else {
-  //     if (300 > this.state.maxHeight - this.state.scroll) {
-  //       if (this.props.openMenu) this.props.toggleMenuHandler();
-  //     }
-  //     if (this.state.stickyNav === true) this.changeSticky(false);
-  //   }
-  // }
+    if (height + scroll > maxHeight) {
+      if (stickyNav === false) SetStickyNav(true);
+    } else {
+      if (stickyNav === true) SetStickyNav(false);
+    }
+  }, [scroll]);
 
   return (
     <Background>
@@ -57,16 +43,15 @@ const Header = () => {
           from={{ background: "rgba(255, 255, 255, 0)" }}
           config={config.gentle}
           to={{
-            background: this.state.stickyNav
+            background: stickyNav
               ? theme.palette.primary[300]
               : "rgba(255, 255, 255, 0)"
           }}
         >
           {({ background }) => (
             <NavBar
-              navRef={el => (this.navRef = el)}
+              navRef={navRef}
               style={{ opacity: 0.1 }}
-              value={this.state.value}
               background={background}
               position="fixed"
               id="navbarID"
@@ -76,7 +61,7 @@ const Header = () => {
         </Spring>
       </HeaderNavBar>
 
-      <Title onMobile={this.props.onMobile} />
+      <Title onMobile={props.onMobile} />
 
       <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[300]} />
     </Background>
