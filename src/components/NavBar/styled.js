@@ -8,6 +8,10 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import breakpoint from "styled-components-breakpoint";
 import React from "react";
+import Button from '@material-ui/core/Button';
+
+
+export const HomePageButton = styled(Button)``;
 
 export const TabStyled = styled(Tab)`
   @media (max-width: ${viewport.xl}px) and (min-width: ${viewport.lg}px) {

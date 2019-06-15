@@ -2,15 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import Overlay from "../../components/Overlay/Overlay";
 import { theme } from "../../GlobalStyle";
+import { Link } from 'react-router-dom';
 import NavBar from "../../components/NavBar/NavBar";
-import Drawer from "@material-ui/core/Drawer";
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
-import ListItemText from "@material-ui/core/ListItemText";
 import Title from "../../components/Title/Title";
 import { toggleMenu } from "./reducer";
 import { Transition, animated, Spring, config } from "react-spring";
 import { Background, HeaderNavBar } from "./styled";
+import Button from '@material-ui/core/Button';
 
 const Header = props => {
   const navRef = useRef(null);
@@ -23,6 +21,7 @@ const Header = props => {
     setScroll(window.scrollY);
   }
 
+  console.log({ props });
   useEffect(() => {
     const { offsetHeight } = navRef.current;
     setMaxHeight(window.innerHeight);
@@ -60,7 +59,6 @@ const Header = props => {
           )}
         </Spring>
       </HeaderNavBar>
-
       <Title onMobile={props.onMobile} />
 
       <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[300]} />

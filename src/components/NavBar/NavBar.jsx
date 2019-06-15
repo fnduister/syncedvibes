@@ -1,11 +1,14 @@
 import React from "react";
 import Tabs from "@material-ui/core/Tabs";
+import { Link } from 'react-router-dom';
 import Tab from "@material-ui/core/Tab";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { withRouter } from 'react-router';
 import SearchIcon from "@material-ui/icons/Search";
 import {
   AppBarStyled,
+  HomePageButton,
   ToolbarStyled,
   TabStyled,
   IconBox,
@@ -15,6 +18,8 @@ import {
   SearchIconStyled,
   InputBaseStyled
 } from "./styled";
+
+// const AdapterLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />);
 
 const NavBar = ({
   withIcon,
@@ -32,9 +37,9 @@ const NavBar = ({
     <HeaderWrapper ref={navRef}>
       <AppBarStyled position={position} background={background}>
         <ToolbarStyled withicon={withIcon}>
-          <TypographyStyled color="inherit" variant="h6" align="justify">
+          <HomePageButton component={Link} to="/">
             Menu
-          </TypographyStyled>
+          </HomePageButton>
           <Search>
             <SearchIconStyled>
               <SearchIcon />

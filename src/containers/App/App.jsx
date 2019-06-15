@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ArticleDetails from "../../pages/ArticleDetails";
 import posed, { PoseGroup } from "react-pose";
 import HomePage from "../../pages/HomePage";
@@ -18,8 +18,6 @@ import withSizes from "react-sizes";
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import "moment-timezone";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -33,50 +31,48 @@ const RouteContainer = posed.div({
 class App extends Component {
   render() {
     return (
-      <Fragment>
-        <Header
-          onMobile={this.props.onMobile}
-          withDrawer={this.props.withDrawer}
-          withTabs={this.props.withTabs}
-        />
-        <MainContent>
-          <PoseGroup>
-            <RouteContainer key="allo">
-              <Container
-                container
-                alignItems="center"
-                direction="column"
-                justify="center"
-              >
-                <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    render={props => (
-                      <HomePage {...props} onMobile={this.props.onMobile} />
-                    )}
-                  />
-                  <Route path="/login" component={Login} />
-                  <Route path="/signup" component={SignUp} />
-                  <Route
-                    path="/article/:articleId"
-                    render={props => (
-                      <ArticleDetails
-                        {...props}
-                        onMobile={this.props.onMobile}
-                      />
-                    )}
-                  />
-                  <Route path="/test" component={testFirebase} />
-                </Switch>
-              </Container>
-            </RouteContainer>
-          </PoseGroup>
-        </MainContent>
-        <Footer />
-        <GlobalStyle />
-        <Notification />
-      </Fragment>
+      <Router>
+        <Fragment>
+          <Header
+            // onMobile={this.props.onMobile}
+          />
+            <PoseGroup>
+              <RouteContainer key="allo">
+                <Container
+                  container
+                  alignItems="center"
+                  direction="column"
+                  justify="center"
+                >
+                  <Switch>
+                    <Route
+                      exact
+                      path="/"
+                      render={props => (
+                        <HomePage {...props} onMobile={this.props.onMobile} />
+                      )}
+                    />
+                    <Route path="/login" component={Login} />
+                    <Route path="/signup" component={SignUp} />
+                    <Route
+                      path="/article/:articleId"
+                      render={props => (
+                        <ArticleDetails
+                          {...props}
+                          onMobile={this.props.onMobile}
+                        />
+                      )}
+                    />
+                    <Route path="/test" component={testFirebase} />
+                  </Switch>
+                </Container>
+              </RouteContainer>
+            </PoseGroup>
+          <Footer />
+          <GlobalStyle />
+          <Notification />
+        </Fragment>
+      </Router>
     );
   }
 }

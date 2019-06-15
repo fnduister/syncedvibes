@@ -2,6 +2,7 @@ import React from "react";
 import "typeface-roboto";
 import ReactDOM from "react-dom";
 import history from "./utils/history";
+import { BrowserRouter as Router } from 'react-router-dom';
 import { create } from "jss";
 import JssProvider from "react-jss/lib/JssProvider";
 import { MuiThemeProvider } from "@material-ui/core/styles";
@@ -43,7 +44,7 @@ ReactDOM.render(
       <JssProvider jss={jss} generateClassName={generateClassName}>
         <ThemeProvider theme={StyledTheme}>
           <MuiThemeProvider theme={theme}>
-            <App />
+              <App />
             <GlobalStyle />
           </MuiThemeProvider>
         </ThemeProvider>
