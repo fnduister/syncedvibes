@@ -9,7 +9,24 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import breakpoint from "styled-components-breakpoint";
 import React from "react";
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
+export const AvatarProgress = styled(CircularProgress)`
+
+`;
+
+export const EmptyAccount = styled(AccountCircle)`
+  color: ${props => props.status ? "green": "white"};
+`;
+
+export const AvatarStyled = styled(Avatar)`
+  margin: 10;
+   color: red;
+  width: 32px;
+  height: 32px;
+`;
 
 export const HomePageButton = styled(Button)``;
 
