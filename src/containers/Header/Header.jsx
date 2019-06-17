@@ -10,21 +10,29 @@ import Button from "@material-ui/core/Button";
 
 const Header = props => {
   const navRef = useRef(null);
+  let images = [];
+  let backgroundImageUrl = "";
+  let backgrounds;
   const [maxHeight, setMaxHeight] = useState(0);
   const [scroll, setScroll] = useState(0);
   const [height, setHeight] = useState();
   const [stickyNav, SetStickyNav] = useState(false);
   const [completed, setCompleted] = useState(0);
+  const [currentImage, incrementCurrentImage] = useState(0);
 
   const handleScroll = value => {
     setScroll(window.scrollY);
   };
-
-  const backgrounds = require.context("../../images/backgrounds", true);
-
+  
+  backgrounds = require.context("../../images/backgrounds", true);
+  images = backgrounds.keys();
+  useEffect(() => {
+    backgroundImageUrl = backgrounds(images[0]);
+    console.log("TCL: backgroundImageUrl", backgroundImageUrl)
+  })
 
   const changeBackground = () => {
-    console.log("changing picture");
+    incrementCurrentImage(prev => (prev + 1) % 6);
   }
 
   useEffect(() => {
@@ -59,7 +67,7 @@ const Header = props => {
   }, []);
 
   return (
-    <Background backgroundImage={changeBackground}>
+    <Background backgroundImage={backgrounds(images[currentImage])}>
       <HeaderNavBar>
         <Spring
           from={{ background: "rgba(255, 255, 255, 0)" }}
@@ -83,7 +91,7 @@ const Header = props => {
         </Spring>
       </HeaderNavBar>
       <Title onMobile={props.onMobile} />
-      <ProgressiveLine color="secondary" variant="determinate" value={completed}/>
+      <ProgressiveLine color="secondary" variant="determinate" value={completed} />
       <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[300]} />
     </Background>
   );
