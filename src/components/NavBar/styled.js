@@ -19,6 +19,7 @@ export const AvatarProgress = styled(CircularProgress)`
 
 export const EmptyAccount = styled(AccountCircle)`
   color: ${props => props.status ? "green": "white"};
+  cursor: pointer;
 `;
 
 export const AvatarStyled = styled(Avatar)`

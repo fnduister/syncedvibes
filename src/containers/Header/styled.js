@@ -2,15 +2,23 @@ import styled from "styled-components";
 import AppBar from "@material-ui/core/AppBar";
 import { theme } from "../../GlobalStyle";
 import Toolbar from "@material-ui/core/Toolbar";
-import backgroundImage from "../../images/dsc_0551.jpg";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import breakpoint from "styled-components-breakpoint";
 import React from "react";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+export const ProgressiveLine = styled(LinearProgress)`
+  height: 3px;
+
+  & .root{
+    flex-grow: 1;
+  }
+`;
 
 export const Background = styled.div`
-  background-image: url(${backgroundImage});
+  /* background-image: url(${props => props.backgroundImage}); */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
