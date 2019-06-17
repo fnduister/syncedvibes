@@ -14,6 +14,18 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 export const AvatarProgress = styled(CircularProgress)`
+`;
+
+export const AvatarContainer = styled.div`
+  margin-left: 2em;
+  width: 32px;
+  height: 32px;
+  display: flex;
+
+`;
+
+export const SearchContainer = styled.div`
+  display: flex;
 
 `;
 
@@ -29,7 +41,9 @@ export const AvatarStyled = styled(Avatar)`
   height: 32px;
 `;
 
-export const HomePageButton = styled(Button)``;
+export const HomePageButton = styled(Button)`
+  color: white;
+`;
 
 export const TabStyled = styled(Tab)`
   @media (max-width: ${viewport.xl}px) and (min-width: ${viewport.lg}px) {

@@ -20,6 +20,8 @@ import {
   TabStyled,
   IconBox,
   AvatarProgress,
+  AvatarContainer,
+  SearchContainer,
   TypographyStyled,
   HeaderWrapper,
   Search,
@@ -65,6 +67,7 @@ const NavBar = ({
           <HomePageButton component={Link} to="/">
             Menu
           </HomePageButton>
+          <SearchContainer>
           <Search>
             <SearchIconStyled>
               <SearchIcon />
@@ -72,7 +75,7 @@ const NavBar = ({
             <InputBaseStyled placeholder="Search…" />
           </Search>
           {isLoaded(auth) ? (
-            <div
+            <AvatarContainer
               onMouseEnter={changeMouseStatus}
               onMouseLeave={changeMouseStatus}
             >
@@ -89,10 +92,11 @@ const NavBar = ({
               ) : (
                 <AvatarStyled>{profile.avatar}</AvatarStyled>
               )}
-            </div>
+            </AvatarContainer>
           ) : (
             <AvatarProgress size={26} />
-          )}
+              )}
+            </SearchContainer>
         </ToolbarStyled>
       </AppBarStyled>
     </HeaderWrapper>
