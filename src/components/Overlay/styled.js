@@ -7,4 +7,5 @@ export const OverlayDiv = styled.div`
     background: ${props => props.overlayColor};
     opacity: ${props => props.overlayOpacity};
     position:absolute;
+    z-index: -1;
 `;

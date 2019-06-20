@@ -65,38 +65,38 @@ const NavBar = ({
       <AppBarStyled position={position} background={background}>
         <ToolbarStyled withicon={withIcon}>
           <HomePageButton component={Link} to="/">
-            Menu
+            SyncedVibes
           </HomePageButton>
           <SearchContainer>
-          <Search>
-            <SearchIconStyled>
-              <SearchIcon />
-            </SearchIconStyled>
-            <InputBaseStyled placeholder="Search…" />
-          </Search>
-          {isLoaded(auth) ? (
-            <AvatarContainer
-              onMouseEnter={changeMouseStatus}
-              onMouseLeave={changeMouseStatus}
-            >
-              {isEmpty(auth) ? (
-                <EmptyAccount
-                  status={mouseStatus}
-                  fontSize="large"
-                  onClick={signIn}
-                />
-              ) : mouseStatus ? (
-                <Cancel onClick={signOut} fontSize="large" />
-              ) : profile.avatarUrl ? (
-                <AvatarStyled alt="User Avatar" src={profile.avatarUrl} />
-              ) : (
-                <AvatarStyled>{profile.avatar}</AvatarStyled>
+            <Search>
+              <SearchIconStyled>
+                <SearchIcon />
+              </SearchIconStyled>
+              <InputBaseStyled placeholder="Search…" />
+            </Search>
+            {isLoaded(auth) ? (
+              <AvatarContainer
+                onMouseEnter={changeMouseStatus}
+                onMouseLeave={changeMouseStatus}
+              >
+                {isEmpty(auth) ? (
+                  <EmptyAccount
+                    status={mouseStatus}
+                    fontSize="large"
+                    onClick={signIn}
+                  />
+                ) : mouseStatus ? (
+                  <Cancel onClick={signOut} fontSize="large" />
+                ) : profile.avatarUrl ? (
+                  <AvatarStyled alt="User Avatar" src={profile.avatarUrl} />
+                ) : (
+                        <AvatarStyled>{profile.avatar}</AvatarStyled>
+                      )}
+              </AvatarContainer>
+            ) : (
+                <AvatarProgress size={26} />
               )}
-            </AvatarContainer>
-          ) : (
-            <AvatarProgress size={26} />
-              )}
-            </SearchContainer>
+          </SearchContainer>
         </ToolbarStyled>
       </AppBarStyled>
     </HeaderWrapper>

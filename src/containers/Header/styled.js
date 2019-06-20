@@ -28,6 +28,7 @@ export const Background = styled.div`
   height: 100vh;
   position: relative;
   overflow: hidden;
+  z-index: 5;
   /* margin-bottom: 5vh; */
 `;
 

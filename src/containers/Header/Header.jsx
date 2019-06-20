@@ -7,6 +7,7 @@ import Title from "../../components/Title/Title";
 import { Transition, animated, Spring, config } from "react-spring";
 import { Background, HeaderNavBar, ProgressiveLine } from "./styled";
 import Button from "@material-ui/core/Button";
+import Slider from '../../components/Slider/Slider';
 
 const Header = props => {
   const navRef = useRef(null);
@@ -60,10 +61,10 @@ const Header = props => {
       });
     }
 
-    const timer = setInterval(progress, 500);
-    return () => {
-      clearInterval(timer);
-    };
+    // const timer = setInterval(progress, 500);
+    // return () => {
+    //   clearInterval(timer);
+    // };
   }, []);
 
   return (
@@ -91,6 +92,7 @@ const Header = props => {
         </Spring>
       </HeaderNavBar>
       <Title onMobile={props.onMobile} />
+      <Slider/>  
       <ProgressiveLine color="secondary" variant="determinate" value={completed} />
       <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[300]} />
     </Background>

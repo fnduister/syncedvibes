@@ -16,7 +16,8 @@ import * as serviceWorker from "./serviceWorker";
 import { GlobalStyle, theme, StyledTheme } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const styleNode = document.createComment("insertion-point-jss");
 document.head.insertBefore(styleNode, document.head.firstChild);
