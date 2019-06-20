@@ -17,7 +17,7 @@ const Slider = () => {
         initialSlide: 2,
         autoplay: true,
         autoplaySpeed: 4000,
-        cssEase:"cubic-bezier(0.1, 0.7, 1.0, 0.1)"
+        cssEase:"ease-in-out"
     }
     return (
         <SliderStyled {...settings}>
