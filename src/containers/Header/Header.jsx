@@ -61,10 +61,10 @@ const Header = props => {
       });
     }
 
-    const timer = setInterval(progress, 500);
-    return () => {
-      clearInterval(timer);
-    };
+    // const timer = setInterval(progress, 500);
+    // return () => {
+    //   clearInterval(timer);
+    // };
   }, []);
 
   return (
