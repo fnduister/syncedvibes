@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { SliderStyled } from './styled';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Slider = () => {
+const Slider = ({ completed }) => {
     const backgrounds = require.context("../../images/backgrounds", true);
+    const sliderRef = useRef();
 
     const settings = {
-        dots: true,
         lazyLoad: true,
         infinite: true,
         // fade: true,
@@ -15,14 +15,16 @@ const Slider = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         initialSlide: 2,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        cssEase:"ease-in-out"
+        cssEase: "ease-in-out"
     }
+
+    useEffect(() => {
+        if (completed === 100) sliderRef.current.slickNext();
+    }, [completed]);
+
     return (
-        <SliderStyled {...settings}>
+        <SliderStyled ref={sliderRef} {...settings}>
             {backgrounds.keys().map(element => {
-                console.log({backgroundURL: backgrounds(element)});
                 return <div><img src={backgrounds(element)} /></div>
             }
             )}

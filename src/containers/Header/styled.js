@@ -18,7 +18,6 @@ export const ProgressiveLine = styled(LinearProgress)`
 `;
 
 export const Background = styled.div`
-  background-image: url(${props => props.backgroundImage});
   display: flex;
   flex-direction: column;
   justify-content: space-between;

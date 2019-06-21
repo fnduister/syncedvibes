@@ -24,13 +24,6 @@ const Header = props => {
   const handleScroll = value => {
     setScroll(window.scrollY);
   };
-  
-  backgrounds = require.context("../../images/backgrounds", true);
-  images = backgrounds.keys();
-  useEffect(() => {
-    backgroundImageUrl = backgrounds(images[0]);
-    console.log("TCL: backgroundImageUrl", backgroundImageUrl)
-  })
 
   const changeBackground = () => {
     incrementCurrentImage(prev => (prev + 1) % 6);
@@ -57,18 +50,18 @@ const Header = props => {
           changeBackground();
           return 0;
         }
-        return Math.min(oldCompleted + 10, 100);
+        return Math.min(oldCompleted + 10, 110);
       });
     }
 
-    // const timer = setInterval(progress, 500);
-    // return () => {
-    //   clearInterval(timer);
-    // };
+    const timer = setInterval(progress, 350);
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
 
   return (
-    <Background backgroundImage={backgrounds(images[currentImage])}>
+    <Background>
       <HeaderNavBar>
         <Spring
           from={{ background: "rgba(255, 255, 255, 0)" }}
@@ -92,7 +85,7 @@ const Header = props => {
         </Spring>
       </HeaderNavBar>
       <Title onMobile={props.onMobile} />
-      <Slider/>  
+      <Slider completed={completed}/>  
       <ProgressiveLine color="secondary" variant="determinate" value={completed} />
       <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[300]} />
     </Background>
