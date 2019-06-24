@@ -21,6 +21,7 @@ import "moment-timezone";
 
 const Container = styled(Grid)`
   flex-grow: 1;
+  display: none;
 `;
 
 const RouteContainer = posed.div({
