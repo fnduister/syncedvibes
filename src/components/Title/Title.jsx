@@ -11,7 +11,7 @@ const Title = ({ onMobile }) => {
         SyncedVibes
       </Typography>
       <Typography variant={onMobile ? "h5" : "h4"} gutterBottom color="inherit">
-        What do you want!
+        Bringing Together What Moves You!
       </Typography>
     </TitleBox>
   );

@@ -20,7 +20,6 @@ import { openNotification } from "../Notification/reducer";
 
 const AddArticle = props => {
   const contentState = props.article.content ? convertFromRaw(JSON.parse(props.article.content)) : null;
-  console.log("TCL: contentState", contentState);
   return (
     <Fragment>
       <DialogContentStyled>

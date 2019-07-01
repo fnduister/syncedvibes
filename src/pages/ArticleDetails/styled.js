@@ -33,13 +33,11 @@ export const Title = styled(Typography)`
 `;
 
 export const AspectRatio = styled.div`
-  & span {
     position: relative;
+    display: flex;
     width: 100%;
     height: 0;
     padding-bottom: 51%;
-    display: block;
-  }
 
   & iframe {
     height: 100%;

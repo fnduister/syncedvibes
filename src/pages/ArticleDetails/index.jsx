@@ -45,6 +45,14 @@ class ArticleDetails extends Component {
     this.setState(state => ({ comment: !state.comment }));
   };
 
+  parseUrl = iframeCode => {
+    const regex = /https:\/\/[\w./]+/g;
+    return iframeCode.match(regex)[0].split('/').pop();
+    // console.log("TCL: ArticleDetails -> iframeCode", iframeCode)
+    // console.log("TCL: ArticleDetails -> url", url);
+    // return url;
+  };
+
   render() {
     const opts = {
       width: "100%",
@@ -69,13 +77,19 @@ class ArticleDetails extends Component {
             <ScheduleIconStyled fontSize="small" />
             <Moment fromNow>{this.props.article.date}</Moment> by markvok
           </TimeStamp>
-          <AspectRatio>
-            <YoutubeStyled
-              opts={opts}
-              videoId={this.props.article.url}
-              onReady={this.onPlayerReady}
-            />
-          </AspectRatio>
+          {this.props.article.url.includes("youtube") ? (
+            <AspectRatio>
+              <YoutubeStyled
+                opts={opts}
+                videoId={this.parseUrl(this.props.article.url)}
+                onReady={this.onPlayerReady}
+              />
+            </AspectRatio>
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: this.props.article.url }} />
+          )}
+          {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/myLxZaiTT2Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
+
           <div>
             {/* on recuperer une version json du content, alors on le parse
             ensuite on le convertie en stateContent pour draft, 

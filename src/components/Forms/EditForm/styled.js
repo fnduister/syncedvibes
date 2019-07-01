@@ -6,6 +6,9 @@ import SaveIcon from "@material-ui/icons/Save";
 import { theme } from "../../../GlobalStyle";
 import { Button } from "@material-ui/core";
 import { Form } from "formik";
+import {
+  LibraryAdd
+} from "@material-ui/icons";
 
 export const TextContent = styled(TextField)`
   display: flex;
@@ -30,4 +33,8 @@ export const ButtonStyled = styled(Button)`
 export const SaveIconStyled = styled(SaveIcon)`
   font-size: 20px;
   margin-right: 0.3em;
+`;
+
+export const LibraryAddStyled = styled(LibraryAdd)`
+  margin-right: 0.4em;
 `;

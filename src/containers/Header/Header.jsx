@@ -54,6 +54,8 @@ const Header = props => {
       });
     }
 
+{/* <iframe src="https://open.spotify.com/embed/track/0DiDStADDVh3SvAsoJAFMk" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> */}
+
     const timer = setInterval(progress, 350);
     return () => {
       clearInterval(timer);
