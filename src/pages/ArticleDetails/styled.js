@@ -11,6 +11,7 @@ export const YoutubeStyled = styled(Youtube)`
   left: 0;
 `;
 
+
 export const Title = styled(Typography)`
   margin-bottom: 2vh;
   text-decoration: none;
@@ -38,6 +39,7 @@ export const AspectRatio = styled.div`
     width: 100%;
     height: 0;
     padding-bottom: 51%;
+    margin-bottom: 2em;
 
   & iframe {
     height: 100%;

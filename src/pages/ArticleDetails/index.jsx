@@ -47,10 +47,10 @@ class ArticleDetails extends Component {
 
   parseUrl = iframeCode => {
     const regex = /https:\/\/[\w./]+/g;
-    return iframeCode.match(regex)[0].split('/').pop();
-    // console.log("TCL: ArticleDetails -> iframeCode", iframeCode)
-    // console.log("TCL: ArticleDetails -> url", url);
-    // return url;
+    return iframeCode
+      .match(regex)[0]
+      .split("/")
+      .pop();
   };
 
   render() {
@@ -64,6 +64,7 @@ class ArticleDetails extends Component {
 
     return isLoaded(this.props.article) ? (
       <Fragment>
+        {console.log("dans articles details")}
         <ArticleGrid item xs={10} md={8} lg={5}>
           <Title
             variant={this.props.onMobile ? "h3" : "h2"}
@@ -77,19 +78,22 @@ class ArticleDetails extends Component {
             <ScheduleIconStyled fontSize="small" />
             <Moment fromNow>{this.props.article.date}</Moment> by markvok
           </TimeStamp>
-          {this.props.article.url.includes("youtube") ? (
-            <AspectRatio>
-              <YoutubeStyled
-                opts={opts}
-                videoId={this.parseUrl(this.props.article.url)}
-                onReady={this.onPlayerReady}
+          {this.props.article.media.map((url, index) => 
+            url.includes("youtube") ? (
+              <AspectRatio>
+                <YoutubeStyled
+                  opts={opts}
+                  videoId={this.parseUrl(url)}
+                  onReady={this.onPlayerReady}
+                />
+              </AspectRatio>
+            ) : (
+              <div
+                dangerouslySetInnerHTML={{ __html: url }}
               />
-            </AspectRatio>
-          ) : (
-            <div dangerouslySetInnerHTML={{ __html: this.props.article.url }} />
-          )}
-          {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/myLxZaiTT2Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
-
+            )
+          )
+        }
           <div>
             {/* on recuperer une version json du content, alors on le parse
             ensuite on le convertie en stateContent pour draft, 

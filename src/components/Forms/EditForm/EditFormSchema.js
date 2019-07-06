@@ -8,9 +8,9 @@ const EditFormSchema = object().shape({
   content: string()
     .min(2, "Too Short!")
     .required("A content is Required"),
-  url: string()
-    .url("Invalid url")
-    .required("An url is Required")
+  // url: string()
+  //   .url("Invalid url")
+  //   .required("An url is Required")
 });
 
 export default EditFormSchema;

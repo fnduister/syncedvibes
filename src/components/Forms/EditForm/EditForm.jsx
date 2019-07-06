@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import {
   TextContent,
   TextUrl,
@@ -13,7 +13,7 @@ import AdornementInputUrl from "../AdornementInputUrl/AdornementInputUrl";
 import MyEditor from "../Draft/Draft";
 import { Button, MenuItem } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
-import { Form, Field, ErrorMessage } from "formik";
+import { Field, ErrorMessage, FieldArray } from "formik";
 
 const EditForm = ({
   types,
@@ -25,15 +25,7 @@ const EditForm = ({
   handleBlur,
   setFieldValue
 }) => {
-  const [extraUrl, addExtraUrl] = useState([]);
-  let index = values.media.lenght;
-
-  console.log("TCL: index", values.media);
-
-  const addUrl = evt => {
-    addExtraUrl([...extraUrl, `url${index}`]);
-  };
-
+  console.log({media: values.media});
   return (
     <FormStyled>
       <Field
@@ -64,36 +56,49 @@ const EditForm = ({
         onChange={setFieldValue}
         onBlur={handleBlur}
       />
-      {Object.keys(values.media).map(url => (
-        <Field
-          type="text"
-          name={`media.${url}`}
-          component={AdornementInputUrl}
-          label={url}
-          variant="outlined"
-        />
-      ))}
+
+      <FieldArray
+        name="media"
+        render={arrayHelpers => (
+          <Fragment>
+            {values.media.map((url, index) => (
+              <div key={index}>
+                <Field
+                  type="text"
+                  name={`media.${index}`}
+                  component={AdornementInputUrl}
+                  label={`url ${index}`}
+                  variant="outlined"
+                  removeUrl={() => arrayHelpers.remove(index)}
+                />
+              </div>
+            ))}
+            <ButtonStyled
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => arrayHelpers.push('')} // insert an empty string at a position
+              disabled={isSubmitting}
+            >
+              <LibraryAddStyled />
+              Add an url
+            </ButtonStyled>
+          </Fragment>
+        )}
+      />
 
       {/* {extraUrl.map(url => (
         <Field
           type="text"
+          key={url}
           name={`media.${url}`}
-          component={AdornementInputUrl}
           label={url}
+          render={props => (
+            <AdornementInputUrl removeUrl={removeUrl} {...props} />
+          )}
           variant="outlined"
         />
       ))} */}
-
-      {/* <ButtonStyled
-        variant="contained"
-        color="primary"
-        size="large"
-        onClick={addUrl()}
-        disabled={isSubmitting}
-      >
-        <LibraryAddStyled />
-        Add an url
-      </ButtonStyled> */}
 
       <Field
         type="text"

@@ -36,9 +36,9 @@ const AddArticle = props => {
             const content = JSON.stringify(
               convertToRaw(values.editorState.getCurrentContent())
             );
-            const { title, type, url, thumbnail } = values;
+            const { title, type, url, thumbnail, media } = values;
             const date = moment().format("LLLL");
-            props.updateArticle({ title, type, url, thumbnail, date, content });
+            props.updateArticle({ title, type, url,media, thumbnail, date, content });
             actions.setSubmitting(false);
             actions.setStatus({ msg: "Recorded" });
             props.editHandler();
@@ -48,6 +48,7 @@ const AddArticle = props => {
             <EditForm types={props.types} {...formikProps} />
           )}
         />
+        {console.log("dans addArticle")}
       </DialogContentStyled>
     </Fragment>
   );

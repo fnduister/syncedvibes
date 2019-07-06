@@ -46,6 +46,7 @@ class HomePage extends Component {
           <div>There's no articles</div>
         ) : (
           <Articles container>
+            {console.log("dans le homepage")}
             {Object.keys(articles).map(key => {
               return (
                 <Article
