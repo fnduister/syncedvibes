@@ -11,22 +11,15 @@ import {
   YoutubeStyled,
   Title,
   TimeStamp,
-  Summary,
   ArticleGrid,
   ScheduleIconStyled,
   AspectRatio
 } from "./styled";
 import ReactHtmlParser from "react-html-parser";
-import moment from "moment";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import { withHandlers } from "recompose";
-import {
-  firebaseConnect,
-  withFirebase,
-  isLoaded,
-  getVal
-} from "react-redux-firebase";
+import { firebaseConnect, isLoaded, getVal } from "react-redux-firebase";
 
 class ArticleDetails extends Component {
   constructor(props) {
@@ -54,6 +47,8 @@ class ArticleDetails extends Component {
   };
 
   render() {
+    const dateToFormat = '1976-04-19T12:59-0500';
+
     const opts = {
       width: "100%",
       playerVars: {
@@ -76,10 +71,12 @@ class ArticleDetails extends Component {
           </Title>
           <TimeStamp variant="body2" color="textPrimary">
             <ScheduleIconStyled fontSize="small" />
-            <Moment fromNow>{this.props.article.date}</Moment> by markvok
+            <Moment fromNow date={this.props.article.date} />
+            {console.log(this.props.article.date)}
           </TimeStamp>
-          {this.props.article.media.map((url, index) => 
-            url.includes("youtube") ? (
+          {this.props.article.media.map((url, index) => (
+            <div key={index}>
+              {url.includes("youtube") ? (
               <AspectRatio>
                 <YoutubeStyled
                   opts={opts}
@@ -87,13 +84,10 @@ class ArticleDetails extends Component {
                   onReady={this.onPlayerReady}
                 />
               </AspectRatio>
-            ) : (
-              <div
-                dangerouslySetInnerHTML={{ __html: url }}
-              />
-            )
-          )
-        }
+              ) : (
+                <div dangerouslySetInnerHTML={{ __html: url }} />)}
+            </div>
+          ))}
           <div>
             {/* on recuperer une version json du content, alors on le parse
             ensuite on le convertie en stateContent pour draft, 

@@ -1,9 +1,6 @@
 import styled from "styled-components";
-import { Formik } from "formik";
-import DialogContent from "@material-ui/core/DialogContent";
 import { TextField } from "formik-material-ui";
 import SaveIcon from "@material-ui/icons/Save";
-import { theme } from "../../../GlobalStyle";
 import { Button, Typography } from "@material-ui/core";
 
 export const TextContent = styled(TextField)`

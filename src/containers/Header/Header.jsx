@@ -1,33 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
-import { connect } from "react-redux";
 import Overlay from "../../components/Overlay/Overlay";
 import { theme } from "../../GlobalStyle";
 import NavBar from "../../components/NavBar/NavBar";
 import Title from "../../components/Title/Title";
-import { Transition, animated, Spring, config } from "react-spring";
+import { Spring, config } from "react-spring";
 import { Background, HeaderNavBar, ProgressiveLine } from "./styled";
-import Button from "@material-ui/core/Button";
 import Slider from '../../components/Slider/Slider';
 
 const Header = props => {
   const navRef = useRef(null);
-  let images = [];
-  let backgroundImageUrl = "";
-  let backgrounds;
+
   const [maxHeight, setMaxHeight] = useState(0);
   const [scroll, setScroll] = useState(0);
   const [height, setHeight] = useState();
   const [stickyNav, SetStickyNav] = useState(false);
   const [completed, setCompleted] = useState(0);
-  const [currentImage, incrementCurrentImage] = useState(0);
+  const [, incrementCurrentImage] = useState(0);
 
   const handleScroll = value => {
     setScroll(window.scrollY);
   };
-
-  const changeBackground = () => {
-    incrementCurrentImage(prev => (prev + 1) % 6);
-  }
 
   useEffect(() => {
     const { offsetHeight } = navRef.current;
@@ -47,14 +39,12 @@ const Header = props => {
     const progress = () => {
       setCompleted(oldCompleted => {
         if (oldCompleted === 100) {
-          changeBackground();
+          incrementCurrentImage(prev => (prev + 1) % 6);
           return 0;
         }
         return Math.min(oldCompleted + 10, 110);
       });
     }
-
-{/* <iframe src="https://open.spotify.com/embed/track/0DiDStADDVh3SvAsoJAFMk" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> */}
 
     const timer = setInterval(progress, 350);
     return () => {

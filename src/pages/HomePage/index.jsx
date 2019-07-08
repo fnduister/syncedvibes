@@ -3,13 +3,11 @@ import Article from "../../components/Article/Article";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { Articles } from "./styled";
-import { withStateHandlers } from "recompose";
 import SortArticles from "../../components/SortArticles/SortArticles";
 import {
   firebaseConnect,
   isLoaded,
   isEmpty,
-  withFirebase
 } from "react-redux-firebase";
 import { getSelectedArticles } from "./selectors";
 import {

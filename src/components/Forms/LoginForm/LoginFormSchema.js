@@ -1,4 +1,4 @@
-import Yup, { string, object } from "yup";
+import { string, object } from "yup";
 
 const LoginFormSchema = object().shape({
   email: string()

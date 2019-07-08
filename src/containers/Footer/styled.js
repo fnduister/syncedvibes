@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import breakpoint from "styled-components-breakpoint";
 import { viewport } from "../../GlobalStyle";
 
 export const BottomStyled = styled(Grid)`

@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { Formik } from "formik";
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@material-ui/icons/Save";
-import { theme } from "../../GlobalStyle";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Button } from "@material-ui/core";
 

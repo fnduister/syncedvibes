@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
+import React from "react";
 import LoginForm from "../../components/Forms/LoginForm/LoginForm";
 import { Formik } from "formik";
 import { Container } from "./styled";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
+import { firebaseConnect } from "react-redux-firebase";
 import LoginFormSchema from "../../components/Forms/LoginForm/LoginFormSchema";
 
 const SignUp = ({ firebase, auth, signup, history }) => (
@@ -15,7 +15,7 @@ const SignUp = ({ firebase, auth, signup, history }) => (
       onSubmit={async ({ email, password, displayName }, actions) => {
         try {
           const avatar = displayName.substr(0, 1).toUpperCase();
-          const user = await firebase.createUser({ email, password }, {email, displayName, avatar});
+          await firebase.createUser({ email, password }, {email, displayName, avatar});
           actions.setSubmitting(false);
           history.push("/");
         } catch (err) {

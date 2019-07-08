@@ -3,10 +3,7 @@ import {
   ArticleContainer,
   Header,
   Content,
-  Media,
-  HeaderText,
   Type,
-  Looks
 } from "./styled";
 
 function Article({ title, views, mediaUrl, type, thumbnail, id }) {
@@ -14,7 +11,7 @@ function Article({ title, views, mediaUrl, type, thumbnail, id }) {
   return (
     <ArticleContainer
       to={`/article/${id}`}
-      backgroundImage={images(`./${thumbnail}`)}
+      backgroundimage={images(`./${thumbnail}`)}
     >
       <Header>
         <Type>{type}</Type>

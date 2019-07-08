@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Typography, Avatar } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 export const ArticleContainer = styled(Link)`
@@ -9,7 +9,7 @@ export const ArticleContainer = styled(Link)`
   margin: 0.6em;
   display: flex;
   flex-direction: column;
-  background-image: url(${props => props.backgroundImage});
+  background-image: url(${props => props.backgroundimage});
   background-position: center;
   background-size: cover;
   min-width: 350px;

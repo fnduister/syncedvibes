@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import Cancel from "@material-ui/icons/Cancel";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import { withRouter } from "react-router";
 import { withFirebase, isLoaded, isEmpty } from "react-redux-firebase";
 import SearchIcon from "@material-ui/icons/Search";
@@ -17,18 +12,14 @@ import {
   ToolbarStyled,
   EmptyAccount,
   AvatarStyled,
-  TabStyled,
-  IconBox,
   AvatarProgress,
   AvatarContainer,
   SearchContainer,
-  TypographyStyled,
   HeaderWrapper,
   Search,
   SearchIconStyled,
   InputBaseStyled
 } from "./styled";
-import { FirstPage } from "@material-ui/icons";
 
 const NavBar = ({
   withIcon,
@@ -81,7 +72,7 @@ const NavBar = ({
               >
                 {isEmpty(auth) ? (
                   <EmptyAccount
-                    status={mouseStatus}
+                    status={mouseStatus ? 1 : 0}
                     fontSize="large"
                     onClick={signIn}
                   />

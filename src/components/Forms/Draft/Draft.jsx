@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from "react";
-import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
+import React, { Component } from "react";
+import { RichUtils } from "draft-js";
 import BlockControls from "./BlockControls/BlockControls";
 import InlineControls from "./InlineControls/InlineControls";
 import { ControlsContainer,EditorStyled, EditorSection, Container } from "./styled";

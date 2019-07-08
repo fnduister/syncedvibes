@@ -7,9 +7,7 @@ import { DialogContentStyled, DialogTitleStyled } from "./styled";
 import EditFormSchema from "../Forms/EditForm/EditForm";
 import moment from "moment";
 import {
-  Editor,
   EditorState,
-  RichUtils,
   convertToRaw,
   convertFromRaw
 } from "draft-js";
@@ -37,7 +35,7 @@ const AddArticle = props => {
               convertToRaw(values.editorState.getCurrentContent())
             );
             const { title, type, url, thumbnail, media } = values;
-            const date = moment().format("LLLL");
+            const date = moment().format();
             props.updateArticle({ title, type, url,media, thumbnail, date, content });
             actions.setSubmitting(false);
             actions.setStatus({ msg: "Recorded" });

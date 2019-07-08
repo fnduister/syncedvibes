@@ -1,9 +1,6 @@
 import React from "react";
 import {
-  TextContent,
-  TextUrl,
   ForgotPassword,
-  Header,
   SubHeader,
   Social,
   GoogleButton,
@@ -11,21 +8,15 @@ import {
   FacebookButton,
   Image,
   TextTitle,
-  SaveIconStyled,
   Already,
   LoginButton
 } from "./styled";
 import {withRouter} from 'react-router-dom';
-import { Button, Typography, Fab } from "@material-ui/core";
-import SaveIcon from "@material-ui/icons/Save";
 import { Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
-import AddIcon from "@material-ui/icons/Add";
 import GoogleIcon from "../../../images/google-icon2.png";
 import FacebookIcon from "../../../images/facebook-icon.png";
 import { withFirebase } from "react-redux-firebase";
-import { Icon, IconButton } from "@material-ui/core";
-import VisibilityIcon from "@material-ui/icons/Visibility";
 import AdornementInputText from "../AdornmentInputText/AdornementInputText";
 import { compose } from 'recompose';
 

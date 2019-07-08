@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
+import { Editor } from "draft-js";
 
 export const ControlsContainer = styled.div`
   background: #4e78a0;

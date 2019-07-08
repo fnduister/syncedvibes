@@ -6,7 +6,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { routerMiddleware } from "connected-react-router";
 import createReducer from "./rootReducers";
 import thunk from "redux-thunk";
-import { getFirebase, reactReduxFirebase } from "react-redux-firebase";
+import { getFirebase } from "react-redux-firebase";
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares

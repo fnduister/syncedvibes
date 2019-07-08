@@ -75,14 +75,14 @@ export const HeaderWrapper = styled.div`
   height: 6.5vh;
 `;
 
-export const AppBarStyled = styled(AppBar).attrs({
-  style: ({ background }) => ({ backgroundColor: background })
-})`
+export const AppBarStyled = styled(AppBar).attrs(props => ({
+  style: { backgroundColor: props.background }
+}))`
   box-shadow: none;
   z-index: ${props => props.zIndex};
   height: 6vh;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0);
+  /* background-color: rgba(0, 0, 0, 0); */
 
   @media screen and (max-height: ${viewport.sm}px) {
     height: 14vh;

@@ -6,10 +6,9 @@ export const getFilters = state => state.global.homepage;
 const filterArticles = (articles, values) => {
   let newArticles = Object.assign({}, articles);
 
-  Object.keys(articles).map(key => {
+  Object.keys(articles).forEach(key => {
     for (const value of values) {
       if (articles[key].type === value) {
-        console.log({ articles: articles[key], value });
         delete newArticles[key];
         break;
       }

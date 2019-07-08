@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withFirebase } from "react-redux-firebase";
 import { compose, withHandlers } from "recompose";
 

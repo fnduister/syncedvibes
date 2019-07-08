@@ -24,8 +24,8 @@ const Slider = ({ completed }) => {
 
     return (
         <SliderStyled ref={sliderRef} {...settings}>
-            {backgrounds.keys().map(element => {
-                return <div><img src={backgrounds(element)} /></div>
+            {backgrounds.keys().map((element,index) => {
+                return <div key={index}><img alt={`backgrounds(element)`} src={backgrounds(element)} /></div>
             }
             )}
         </SliderStyled>)

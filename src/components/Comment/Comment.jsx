@@ -4,9 +4,7 @@ import {
   KeyboardArrowUpStyled,
   ReplyTextStyled,
   FavoriteButton,
-  DeleteIconStyled,
   ReplyUserDate,
-  SmallAvatarStyled,
   ReplyDataContainer,
   CommentContainer,
   TimeStamp,
@@ -20,18 +18,11 @@ import Moment from "react-moment";
 import IconButton from "@material-ui/core/IconButton";
 import AddCommentFormik from "../Forms/AddCommentFormik/AddCommentFormik";
 import CommentList from "../CommentList/CommentList";
-import Avatar from "../../images/savage.jpg";
-import { Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 import { withHandlers } from "recompose";
 import { compose } from "redux";
 import { withRouter } from "react-router";
-import {
-  firebaseConnect,
-  withFirebase,
-  isLoaded,
-  getVal
-} from "react-redux-firebase";
+import { withFirebase } from "react-redux-firebase";
 class Comment extends Component {
   constructor(props) {
     super(props);
@@ -74,7 +65,7 @@ class Comment extends Component {
     return (
       <CommentContainer>
         {user.avatarUrl ? (
-          <AvatarStyled  alt="User Avatar" src={user.avatarUrl} />
+          <AvatarStyled alt="User Avatar" src={user.avatarUrl} />
         ) : (
           <AvatarStyled>{user.avatar}</AvatarStyled>
         )}
@@ -122,7 +113,9 @@ class Comment extends Component {
               </ViewReplies>
             )
           ) : null}
-          {this.state.showReplies ? <CommentList smaller comments={replies} /> : null}
+          {this.state.showReplies ? (
+            <CommentList smaller comments={replies} />
+          ) : null}
           {this.state.addReply ? (
             <AddCommentFormik
               smaller

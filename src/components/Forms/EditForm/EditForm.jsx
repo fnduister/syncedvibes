@@ -1,6 +1,5 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
 import {
-  TextContent,
   TextUrl,
   LibraryAddStyled,
   FormStyled,
@@ -11,8 +10,7 @@ import {
 } from "./styled";
 import AdornementInputUrl from "../AdornementInputUrl/AdornementInputUrl";
 import MyEditor from "../Draft/Draft";
-import { Button, MenuItem } from "@material-ui/core";
-import SaveIcon from "@material-ui/icons/Save";
+import { MenuItem } from "@material-ui/core";
 import { Field, ErrorMessage, FieldArray } from "formik";
 
 const EditForm = ({
@@ -69,7 +67,7 @@ const EditForm = ({
                   component={AdornementInputUrl}
                   label={`url ${index}`}
                   variant="outlined"
-                  removeUrl={() => arrayHelpers.remove(index)}
+                  removeurl={() => arrayHelpers.remove(index)}
                 />
               </div>
             ))}
