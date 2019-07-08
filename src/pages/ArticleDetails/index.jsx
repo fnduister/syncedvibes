@@ -47,8 +47,6 @@ class ArticleDetails extends Component {
   };
 
   render() {
-    const dateToFormat = '1976-04-19T12:59-0500';
-
     const opts = {
       width: "100%",
       playerVars: {

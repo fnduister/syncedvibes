@@ -44,7 +44,7 @@ const LoginForm = ({
       <SubHeader color="secondary" variant="h4">
         {signup ? "SIGN UP" : "LOG IN"}
       </SubHeader>
-      <SubHeader variant="subheading">Welcome to the Vibe</SubHeader>
+      <SubHeader variant="subtitle1">Welcome to the Vibe</SubHeader>
       <Field
         type="text"
         className="error"

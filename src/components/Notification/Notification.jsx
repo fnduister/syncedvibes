@@ -37,11 +37,11 @@ class Notification extends Component {
       >
         <SnackbarContentStyled
           aria-describedby="client-snackbar"
-          variant={this.props.variant}
+          variantcolor={this.props.variant}
           message={
             <MessageBox>
               <Icon />
-              <Message variant="primary">{this.props.message}</Message>
+              <Message variant="body1">{this.props.message}</Message>
             </MessageBox>
           }
           action={[

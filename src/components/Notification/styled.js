@@ -23,7 +23,7 @@ export const SnackbarStyled = styled(Snackbar)`
 `;
 
 export const SnackbarContentStyled = styled(SnackbarContent)`
-  background-color: ${props => variantTheme(props.variant)};
+  background-color: ${props => variantTheme(props.variantcolor)};
 `;
 
 export const MessageBox = styled.span`
@@ -34,4 +34,5 @@ export const MessageBox = styled.span`
 
 export const Message = styled(Typography)`
   margin-left: 0.4em;
+  color: white;
 `;
