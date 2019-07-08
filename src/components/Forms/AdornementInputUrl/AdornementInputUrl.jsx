@@ -2,9 +2,9 @@ import React, { useRef } from "react";
 import { TextInput, RemoveCircleStyled } from "./styled";
 import { InputAdornment, IconButton } from "@material-ui/core";
 
-const AdornementInputUrl = props => {
+const AdornementInputUrl = ({removeurl, ...restProps}) => {
   const newRef = useRef(null);
-  console.log({props});
+  console.log({restProps});
   // const paste = () => {
   //   // newRef
   //   console.log("TCL: newRef", newRef.current.children[0].children[1].children[1]);
@@ -15,7 +15,7 @@ const AdornementInputUrl = props => {
   return (
     <span ref={newRef}>
       <TextInput
-        {...props}
+        {...restProps}
         type="text"
         InputProps={{
           endAdornment: (
@@ -26,7 +26,7 @@ const AdornementInputUrl = props => {
               >
                 <FileCopyStyled fontSize="small" />
               </IconButton> */}
-              <IconButton onClick={props.removeurl}  aria-label="Toggle password visibility">
+              <IconButton onClick={removeurl}  aria-label="Toggle password visibility">
                 <RemoveCircleStyled fontSize="small" />
               </IconButton>
             </InputAdornment>
