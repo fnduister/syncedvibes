@@ -10,6 +10,8 @@ import { convertFromRaw } from "draft-js";
 import {
   YoutubeStyled,
   Title,
+  KeyboardArrowDownStyled,
+  KeyboardArrowUpStyled,
   TimeStamp,
   ArticleGrid,
   ScheduleIconStyled,
@@ -75,15 +77,16 @@ class ArticleDetails extends Component {
           {this.props.article.media.map((url, index) => (
             <div key={index}>
               {url.includes("youtube") ? (
-              <AspectRatio>
-                <YoutubeStyled
-                  opts={opts}
-                  videoId={this.parseUrl(url)}
-                  onReady={this.onPlayerReady}
-                />
-              </AspectRatio>
+                <AspectRatio>
+                  <YoutubeStyled
+                    opts={opts}
+                    videoId={this.parseUrl(url)}
+                    onReady={this.onPlayerReady}
+                  />
+                </AspectRatio>
               ) : (
-                <div dangerouslySetInnerHTML={{ __html: url }} />)}
+                <div dangerouslySetInnerHTML={{ __html: url }} />
+              )}
             </div>
           ))}
           <div>
@@ -97,30 +100,28 @@ class ArticleDetails extends Component {
               )
             )}
           </div>
-          <Button
-            variant="contained"
-            color="secondary"
-            type="button"
-            onClick={this.editHandler}
-          >
-            edit
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            type="button"
-            onClick={this.commentHandler}
-          >
-            {this.state.comment ? "- " : "+ "} comments
+          {false && (
+            <Button color="secondary" type="button" onClick={this.editHandler}>
+              edit
+            </Button>
+          )}
+          <Button color="primary" type="button" onClick={this.commentHandler}>
+            {this.state.comment ? (
+              <KeyboardArrowUpStyled />
+            ) : (
+              <KeyboardArrowDownStyled />
+            )}
+            {this.state.comment ? "SHOW " : "HIDE "}
+            comments
           </Button>
 
-          {this.state.comment ? (
+          {this.state.comment && (
             <CommentSection
               updateComment={this.props.updateComment}
               comments={this.props.article.comments}
               addComment={this.props.addComment}
             />
-          ) : null}
+          )}
         </ArticleGrid>
         {this.state.edit && (
           <Dialog

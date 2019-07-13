@@ -52,11 +52,11 @@ function AddCommentForm({
 
           {pristine && (
             <ButtonContainer>
-              {console.log({ touched, dirty, errors, pristine })}
+              {console.log({ touched, dirty, errors, pristine, isSubmitting })}
               <ButtonStyled
                 variant="contained"
                 color="secondary"
-                disabled={isSubmitting || errors.comment || !dirty}
+                disabled={isSubmitting || (errors.comment ? true: false) || !dirty}
                 id="submit"
                 value="Post"
                 type="submit"

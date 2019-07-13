@@ -5,7 +5,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import Title from "../../components/Title/Title";
 import { Spring, config } from "react-spring";
 import { Background, HeaderNavBar, ProgressiveLine } from "./styled";
-import Slider from '../../components/Slider/Slider';
+import Slider from "../../components/Slider/Slider";
 
 const Header = props => {
   const navRef = useRef(null);
@@ -19,6 +19,7 @@ const Header = props => {
 
   const handleScroll = value => {
     setScroll(window.scrollY);
+    // if (scroll > 10 && scroll < height + 20) scrollToTheEnd();
   };
 
   useEffect(() => {
@@ -44,13 +45,18 @@ const Header = props => {
         }
         return Math.min(oldCompleted + 10, 110);
       });
-    }
+    };
 
     const timer = setInterval(progress, 350);
     return () => {
       clearInterval(timer);
     };
   }, []);
+
+  const scrollToTheEnd = () => {
+    console.log("just scroll");
+    window.scrollTo(0, maxHeight);
+  };
 
   return (
     <Background>
@@ -77,8 +83,12 @@ const Header = props => {
         </Spring>
       </HeaderNavBar>
       <Title onMobile={props.onMobile} />
-      <Slider completed={completed}/>  
-      <ProgressiveLine color="secondary" variant="determinate" value={completed} />
+      <Slider completed={completed} />
+      <ProgressiveLine
+        color="secondary"
+        variant="determinate"
+        value={completed}
+      />
       <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[300]} />
     </Background>
   );

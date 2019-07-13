@@ -12,8 +12,10 @@ import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import testFirebase from "../../components/testComponent/testFirebase";
 import withSizes from "react-sizes";
+import AdminButtons from '../../components/AdminButtons/AdminButtons';
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
+import ScrollToMainComponent from '../../components/ScrollToMainComponent/ScrollToMainComponent';
 import "moment-timezone";
 
 const Container = styled(Grid)`
@@ -29,7 +31,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Fragment>
+        <ScrollToMainComponent>
+          <AdminButtons/>
           <Header
             // onMobile={this.props.onMobile}
           />
@@ -68,7 +71,7 @@ class App extends Component {
           <Footer />
           <GlobalStyle />
           <Notification />
-        </Fragment>
+        </ScrollToMainComponent>
       </Router>
     );
   }

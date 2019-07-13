@@ -17,7 +17,6 @@ import {
 } from "./reducer";
 
 class HomePage extends Component {
-  // componentWillUpdate
   render() {
     const {
       onMobile,

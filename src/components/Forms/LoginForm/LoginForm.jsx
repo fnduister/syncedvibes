@@ -11,33 +11,27 @@ import {
   Already,
   LoginButton
 } from "./styled";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import { Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import GoogleIcon from "../../../images/google-icon2.png";
 import FacebookIcon from "../../../images/facebook-icon.png";
 import { withFirebase } from "react-redux-firebase";
 import AdornementInputText from "../AdornmentInputText/AdornementInputText";
-import { compose } from 'recompose';
+import { compose } from "recompose";
 
 const LoginForm = ({
   signup,
   errors,
   status,
   touched,
+  dialog,
+  closeDialog,
   isSubmitting,
   firebase,
+  socialLogin,
   history
 }) => {
-  const socialLogin = async provider => {
-    try {
-      const user = await firebase.login({ provider, type: "popup" });
-      console.log({ user });
-      history.goBack();
-    } catch (err) {
-      console.log({ err });
-    }
-  };
 
   return (
     <Form>
@@ -119,4 +113,7 @@ const LoginForm = ({
   );
 };
 
-export default compose(withFirebase, withRouter)(LoginForm);
+export default compose(
+  withFirebase,
+  withRouter
+)(LoginForm);

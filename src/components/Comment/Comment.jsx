@@ -28,25 +28,51 @@ class Comment extends Component {
     super(props);
     this.state = {
       favorite: false,
+      favoriteList: [],
       addReply: false,
       showReplies: false,
       replySubmitButtonFocused: false
     };
   }
 
+  componentDidMount() {
+    if (this.props.profile.hasOwnProperty("comments")) {
+      this.setState({ favoriteList: this.props.profile.comments.favorites });
+      if (this.props.profile.comments.favorites.includes(this.props.commentId))
+        this.setState({ favorite: true });
+    }
+  }
+
   render() {
     const {
       data: { user, replies, favorite, date, comment },
       commentId,
-      updateComment
+      updateComment,
+      firebase
     } = this.props;
 
-    console.log("TCL: Comment -> render -> replies", replies);
-
-    const toggleFavorite = e => {
+    const toggleFavorite = () => {
       this.setState(state => ({ favorite: !state.favorite }));
-      let newFavorite = this.state.favorite ? favorite + 1 : favorite - 1;
+      let newFavorite;
+      if (this.state.favorite) {
+        newFavorite = favorite - 1;
+        console.log({ state: this.state, commentId });
+        this.state.favoriteList = this.state.favoriteList.filter(
+          id => id !== commentId
+        );
+
+        console.log({ newState: this.state, commentId });
+      } else {
+        // newFavorite = [...favorites, commentId];
+        this.setState({
+          favoriteList: this.state.favoriteList.push(commentId)
+        });
+        newFavorite = favorite + 1;
+      }
       updateComment({ ...this.props.data, favorite: newFavorite }, commentId);
+      firebase.updateProfile({
+        comments: { favorites: this.state.favoriteList }
+      });
     };
 
     const toggleReply = () => {
@@ -82,7 +108,7 @@ class Comment extends Component {
             {comment}
           </ReplyTextStyled>
           <ReplyButtonsContainer>
-            <IconButton aria-label="Delete" onClick={toggleFavorite}>
+            <IconButton aria-label="Favorite" onClick={toggleFavorite}>
               <FavoriteButton favorite={this.state.favorite ? "red" : "grey"} />
             </IconButton>
             <span>{favorite}</span>
@@ -113,9 +139,9 @@ class Comment extends Component {
               </ViewReplies>
             )
           ) : null}
-          {this.state.showReplies ? (
-            <CommentList smaller comments={replies} />
-          ) : null}
+          {this.state.showReplies && (
+            <CommentList smaller comments={replies} parentId={commentId} />
+          )}
           {this.state.addReply ? (
             <AddCommentFormik
               smaller

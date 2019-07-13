@@ -1,16 +1,28 @@
 import styled from "styled-components";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import { theme, viewport } from "../../GlobalStyle";
 import Youtube from "react-youtube";
+import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
+import KeyboardArrowUp from "@material-ui/icons/KeyboardArrowUp";
 
+export const KeyboardArrowDownStyled = styled(KeyboardArrowDown)`
+  margin-bottom: 0.2em;
+`;
+export const KeyboardArrowUpStyled = styled(KeyboardArrowUp)`
+  margin-bottom: 0.2em;
+`;
 export const YoutubeStyled = styled(Youtube)`
   height: 100%;
   top: 0;
   left: 0;
 `;
 
+export const ShowComment = styled(Button)`
+  margin: 0.5em 0;
+`;
 
 export const Title = styled(Typography)`
   margin-bottom: 2vh;
@@ -34,12 +46,12 @@ export const Title = styled(Typography)`
 `;
 
 export const AspectRatio = styled.div`
-    position: relative;
-    display: flex;
-    width: 100%;
-    height: 0;
-    padding-bottom: 51%;
-    margin-bottom: 2em;
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 0;
+  padding-bottom: 51%;
+  margin-bottom: 2em;
 
   & iframe {
     height: 100%;
