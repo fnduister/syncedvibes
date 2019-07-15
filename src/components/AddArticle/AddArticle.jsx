@@ -20,8 +20,8 @@ const AddArticle = props => {
   const contentState = props.article.content ? convertFromRaw(JSON.parse(props.article.content)) : null;
   return (
     <Fragment>
-      <DialogContentStyled>
-        <DialogTitleStyled color="secondary">Add Article</DialogTitleStyled>
+      {/* <DialogContentStyled>
+        <DialogTitleStyled color="secondary">Add Article</DialogTitleStyled> */}
         <Formik
           initialValues={{
             ...props.article,
@@ -47,7 +47,7 @@ const AddArticle = props => {
           )}
         />
         {console.log("dans addArticle")}
-      </DialogContentStyled>
+      {/* </DialogContentStyled> */}
     </Fragment>
   );
 };

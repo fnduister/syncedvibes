@@ -1,26 +1,21 @@
 import React from "react";
-import {
-  Container,
-  ButtonStyled,
-  InvertColorsStyled,
-  SettingsStyled,
-  DividerStyled,
-  HowToRegStyled
-} from "./styled";
+import { Link } from "react-router-dom";
+import { Container, ButtonStyled, IconStyled } from "./styled";
 
 const AdminButtons = () => {
   return (
     <Container>
       <ButtonStyled>
-        <InvertColorsStyled />
+        <IconStyled>invert_colors</IconStyled>
       </ButtonStyled>
-      <DividerStyled/>
       <ButtonStyled>
-        <HowToRegStyled />
+        <IconStyled>how_to_reg</IconStyled>
       </ButtonStyled>
-      <DividerStyled/>
       <ButtonStyled>
-        <SettingsStyled />
+        <IconStyled>settings</IconStyled>
+      </ButtonStyled>
+      <ButtonStyled component={Link} to="addArticle">
+        <IconStyled>queue</IconStyled>
       </ButtonStyled>
     </Container>
   );
