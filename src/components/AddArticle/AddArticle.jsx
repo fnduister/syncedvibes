@@ -2,61 +2,89 @@ import React, { Fragment } from "react";
 import { Formik } from "formik";
 import { compose } from "redux";
 import { withHandlers } from "recompose";
-import { firebaseConnect } from "react-redux-firebase";
+import { firebaseConnect, isLoaded } from "react-redux-firebase";
 import { DialogContentStyled, DialogTitleStyled } from "./styled";
 import EditFormSchema from "../Forms/EditForm/EditForm";
 import moment from "moment";
-import {
-  EditorState,
-  convertToRaw,
-  convertFromRaw
-} from "draft-js";
+import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import { connect } from "react-redux";
 import "moment-timezone";
 import EditForm from "../Forms/EditForm/EditForm";
 import { openNotification } from "../Notification/reducer";
 
-const AddArticle = props => {
-  const contentState = props.article.content ? convertFromRaw(JSON.parse(props.article.content)) : null;
+const AddArticle = ({
+  settings,
+  article,
+  add,
+  updateArticle,
+  saveArticle,
+  editHandler,
+  edit,
+  openNotificationHandler
+}) => {
+  let contentState = {};
+  let articlesDefault = {};
+  if (article) {
+    contentState = article.hasOwnProperty("content")
+      ? convertFromRaw(JSON.parse(article.content))
+      : null;
+    articlesDefault = { ...article };
+  }
+  if (!isLoaded(settings)) return <div>...loading</div>;
   return (
     <Fragment>
-      {/* <DialogContentStyled>
-        <DialogTitleStyled color="secondary">Add Article</DialogTitleStyled> */}
+      <DialogContentStyled>
+        <DialogTitleStyled color="secondary">Add Article</DialogTitleStyled>
         <Formik
           initialValues={{
-            ...props.article,
-            editorState: new EditorState.createWithContent(contentState)
+            ...articlesDefault,
+            editorState: !add ? new EditorState.createWithContent(contentState) : new EditorState.createEmpty()
           }}
           validationSchema={EditFormSchema}
           onSubmit={(values, actions) => {
-            console.log({ article: props.article });
+            console.log({ article });
             actions.setSubmitting(false);
             const content = JSON.stringify(
               convertToRaw(values.editorState.getCurrentContent())
             );
-            const { title, type, url, thumbnail, media } = values;
+            const { title, type, thumbnail, media } = values;
             const date = moment().format();
-            props.updateArticle({ title, type, url,media, thumbnail, date, content });
+            const dataToSave = {
+              title,
+              type,
+              media,
+              thumbnail,
+              date,
+              content
+            };
+            if (edit) {
+              editHandler();
+              updateArticle(dataToSave);
+            }
+
+            if (add) {
+              saveArticle(dataToSave);
+            }
             actions.setSubmitting(false);
             actions.setStatus({ msg: "Recorded" });
-            props.editHandler();
-            props.openNotificationHandler("Modification saved", "success");
+
+            openNotificationHandler("Modification saved", "success");
           }}
           render={formikProps => (
-            <EditForm types={props.types} {...formikProps} />
+            <EditForm types={settings.types} {...formikProps} />
           )}
         />
         {console.log("dans addArticle")}
-      {/* </DialogContentStyled> */}
+      </DialogContentStyled>
     </Fragment>
   );
 };
 
 const enhance = compose(
-  firebaseConnect("articles", "settings"),
+  firebaseConnect(() => ["articles","settings"]),
   connect(
     ({ firebase }, props) => ({
-      types: firebase.data.settings.articlesTypes // lodash's get can also be used
+      settings: firebase.data.settings // lodash's get can also be used
     }),
     {
       openNotificationHandler: (message, variant) =>

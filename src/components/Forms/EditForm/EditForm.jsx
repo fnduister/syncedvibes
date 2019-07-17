@@ -23,7 +23,7 @@ const EditForm = ({
   handleBlur,
   setFieldValue
 }) => {
-  console.log({media: values.media});
+  console.log({ media: values });
   return (
     <FormStyled>
       <Field
@@ -59,23 +59,25 @@ const EditForm = ({
         name="media"
         render={arrayHelpers => (
           <Fragment>
-            {values.media.map((url, index) => (
-              <div key={index}>
-                <Field
-                  type="text"
-                  name={`media.${index}`}
-                  component={AdornementInputUrl}
-                  label={`url ${index}`}
-                  variant="outlined"
-                  removeurl={() => arrayHelpers.remove(index)}
-                />
-              </div>
-            ))}
+            {values.media
+              ? values.media.map((url, index) => (
+                  <div key={index}>
+                    <Field
+                      type="text"
+                      name={`media.${index}`}
+                      component={AdornementInputUrl}
+                      label={`url ${index}`}
+                      variant="outlined"
+                      removeurl={() => arrayHelpers.remove(index)}
+                    />
+                  </div>
+                ))
+              : null}
             <ButtonStyled
               variant="contained"
               color="primary"
               size="large"
-              onClick={() => arrayHelpers.push('')} // insert an empty string at a position
+              onClick={() => arrayHelpers.push("")} // insert an empty string at a position
               disabled={isSubmitting}
             >
               <LibraryAddStyled />
@@ -84,19 +86,6 @@ const EditForm = ({
           </Fragment>
         )}
       />
-
-      {/* {extraUrl.map(url => (
-        <Field
-          type="text"
-          key={url}
-          name={`media.${url}`}
-          label={url}
-          render={props => (
-            <AdornementInputUrl removeUrl={removeUrl} {...props} />
-          )}
-          variant="outlined"
-        />
-      ))} */}
 
       <Field
         type="text"

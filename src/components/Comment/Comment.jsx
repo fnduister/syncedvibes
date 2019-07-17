@@ -115,7 +115,7 @@ class Comment extends Component {
             <ReplyButton
               id="Reply"
               value="Post"
-              type="Reply"
+              type="button"
               variant="text"
               onClick={toggleReply}
             >

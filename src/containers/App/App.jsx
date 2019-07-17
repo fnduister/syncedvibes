@@ -19,6 +19,7 @@ import ScrollToMainComponent from '../../components/ScrollToMainComponent/Scroll
 import "moment-timezone";
 import AddArticle from '../../components/AddArticle/AddArticle';
 import { Settings } from "@material-ui/icons";
+import ManageUsers from "../../pages/ManageUsers/ManageUsers";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -67,6 +68,7 @@ class App extends Component {
                     />
                     <Route path="/test" component={testFirebase} />
                     <Route path="/settings" component={Settings}/>
+                    <Route path="/ManageUsers" component={ManageUsers}/>
                     <Route path="/addArticle" render={props => <AddArticle {...props} add/>}/>
                   </Switch>
                 </Container>

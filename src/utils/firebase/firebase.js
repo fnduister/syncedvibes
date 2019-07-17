@@ -19,16 +19,9 @@ export const rrfConfig = {
   profileParamsToPopulate: [
     { child: "role", root: "roles" } // populates user's role with matching role object from roles
   ],
-  // profileFactory: (userData, profileData) => {
-  //   // how profiles are stored in database
-  //   const { user } = profileData;
-  //   console.log({ user });
-  //   return { email: "maman" };
-  //   // return {
-  //   //   email: user.email,
-  //   //   username: user.username
-  //   // };
-  // },
+  profileFactory: user => ({
+    role: "user",
+  }),
   attachAuthIsReady: true, // attaches auth is ready promise to store
   firebaseStateName: "firebase" // should match the reducer name ('firebase' is default)
   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB

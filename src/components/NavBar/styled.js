@@ -105,12 +105,12 @@ export const Search = styled.div`
   width: 100%;
   ${breakpoint("sm")`
     width: auto;
-    margin-left: {theme.spacing.unit}px;
+    margin-left: {theme.spacing(1)}px;
   `}
 `;
 
 export const SearchIconStyled = styled.div`
-  width: ${theme.spacing.unit * 9}px;
+  width: ${theme.spacing(9)}px;
   height: 100%;
   position: absolute;
   pointer-events: none;
@@ -125,10 +125,10 @@ export const InputBaseStyled = styled(props => (
   width: 100%;
   & .input {
     color: inherit;
-    padding-top: ${theme.spacing.unit}px;
-    padding-right: ${theme.spacing.unit}px;
-    padding-bottom: ${theme.spacing.unit}px;
-    padding-left: ${theme.spacing.unit * 10}px;
+    padding-top: ${theme.spacing(1)}px;
+    padding-right: ${theme.spacing(1)}px;
+    padding-bottom: ${theme.spacing(1)}px;
+    padding-left: ${theme.spacing(10)}px;
     transition: ${theme.transitions.create("width")};
     width: 100%;
 

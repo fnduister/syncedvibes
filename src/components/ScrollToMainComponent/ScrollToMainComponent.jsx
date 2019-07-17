@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { withRouter } from "react-router";
 
-const ScrollToTop = ({ children, location: { pathname } }) => {
+const ScrollToMainComponent = ({ children, location: { pathname } }) => {
   useEffect(() => {
       const maxHeight = window.innerHeight;
     window.scrollTo(0, maxHeight);
@@ -10,4 +10,4 @@ const ScrollToTop = ({ children, location: { pathname } }) => {
   return children;
 };
 
-export default withRouter(ScrollToTop);
+export default withRouter(ScrollToMainComponent);

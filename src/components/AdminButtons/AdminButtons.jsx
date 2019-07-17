@@ -8,13 +8,13 @@ const AdminButtons = () => {
       <ButtonStyled>
         <IconStyled>invert_colors</IconStyled>
       </ButtonStyled>
-      <ButtonStyled>
+      <ButtonStyled component={Link} to="/manageUsers">
         <IconStyled>how_to_reg</IconStyled>
       </ButtonStyled>
       <ButtonStyled>
         <IconStyled>settings</IconStyled>
       </ButtonStyled>
-      <ButtonStyled component={Link} to="addArticle">
+      <ButtonStyled component={Link} to="/addArticle">
         <IconStyled>queue</IconStyled>
       </ButtonStyled>
     </Container>
