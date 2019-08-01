@@ -60,7 +60,7 @@ class ArticleDetails extends Component {
     return isLoaded(this.props.article) ? (
       <Fragment>
         {console.log("dans articles details")}
-        <ArticleGrid item xs={10} md={8} lg={5}>
+        <ArticleGrid item xs={10} md={8} lg={8}>
           <Title
             variant={this.props.onMobile ? "h3" : "h2"}
             component={Link}

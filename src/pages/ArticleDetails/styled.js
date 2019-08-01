@@ -73,7 +73,7 @@ export const Summary = styled(Typography)`
 `;
 
 export const ArticleGrid = styled(Grid)`
-  margin-bottom: 15vh;
+  margin-bottom: 5vh;
 `;
 
 export const ScheduleIconStyled = styled(ScheduleIcon)`
