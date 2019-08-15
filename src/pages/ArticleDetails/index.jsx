@@ -100,7 +100,7 @@ class ArticleDetails extends Component {
               )
             )}
           </div>
-          {false && (
+          {true && (
             <Button color="secondary" type="button" onClick={this.editHandler}>
               edit
             </Button>

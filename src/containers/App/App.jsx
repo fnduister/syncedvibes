@@ -57,14 +57,6 @@ class App extends Component {
                       <HomePage {...props} onMobile={this.props.onMobile} />
                     )}
                   />
-                  <CustomCard>
-                    <Route path="/login" component={Login} />
-                    <Route path="/signup" component={SignUp} />
-                    <Route path="/test" component={testFirebase} />
-                    <Route path="/settings" component={Settings} />
-                    <Route path="/ManageUsers" component={ManageUsers} />
-                    <Route path="/addArticle" render={props => <AddArticle {...props} add />} />
-                  </CustomCard>
                   <Route
                     path="/article/:articleId"
                     render={props => (
@@ -74,6 +66,14 @@ class App extends Component {
                       />
                     )}
                   />
+                  <CustomCard>
+                    <Route path="/login" component={Login} />
+                    <Route path="/signup" component={SignUp} />
+                    <Route path="/test" component={testFirebase} />
+                    <Route path="/settings" component={Settings} />
+                    <Route path="/ManageUsers" component={ManageUsers} />
+                    <Route path="/addArticle" render={props => <AddArticle {...props} add />} />
+                  </CustomCard>
                 </Switch>
               </Container>
             </RouteContainer>
