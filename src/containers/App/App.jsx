@@ -12,14 +12,16 @@ import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import testFirebase from "../../components/testComponent/testFirebase";
 import withSizes from "react-sizes";
-import AdminButtons from '../../components/AdminButtons/AdminButtons';
+import AdminButtons from "../../components/AdminButtons/AdminButtons";
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
-import ScrollToMainComponent from '../../components/ScrollToMainComponent/ScrollToMainComponent';
+import ScrollToMainComponent from "../../components/ScrollToMainComponent/ScrollToMainComponent";
 import "moment-timezone";
-import AddArticle from '../../components/AddArticle/AddArticle';
+import AddArticle from "../../components/AddArticle/AddArticle";
 import { Settings } from "@material-ui/icons";
 import ManageUsers from "../../pages/ManageUsers/ManageUsers";
+import AddArticlePage from "../../pages/AddArticlePage/AddArticlePage";
+import CustomCard from "../../components/CustomCard/CustomCard";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -35,45 +37,47 @@ class App extends Component {
     return (
       <Router>
         <ScrollToMainComponent>
-          <AdminButtons/>
+          <AdminButtons />
           <Header
-            // onMobile={this.props.onMobile}
+          // onMobile={this.props.onMobile}
           />
-            <PoseGroup>
-              <RouteContainer key="allo">
-                <Container
-                  container
-                  alignItems="center"
-                  direction="column"
-                  justify="center"
-                >
-                  <Switch>
-                    <Route
-                      exact
-                      path="/"
-                      render={props => (
-                        <HomePage {...props} onMobile={this.props.onMobile} />
-                      )}
-                    />
+          <PoseGroup>
+            <RouteContainer key="allo">
+              <Container
+                container
+                alignItems="center"
+                direction="column"
+                justify="center"
+              >
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={props => (
+                      <HomePage {...props} onMobile={this.props.onMobile} />
+                    )}
+                  />
+                  <CustomCard>
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={SignUp} />
-                    <Route
-                      path="/article/:articleId"
-                      render={props => (
-                        <ArticleDetails
-                          {...props}
-                          onMobile={this.props.onMobile}
-                        />
-                      )}
-                    />
                     <Route path="/test" component={testFirebase} />
-                    {/* <Route path="/settings" component={Settings}/> */}
-                    <Route path="/ManageUsers" component={ManageUsers}/>
-                    <Route path="/addArticle" render={props => <AddArticle {...props} add/>}/>
-                  </Switch>
-                </Container>
-              </RouteContainer>
-            </PoseGroup>
+                    <Route path="/settings" component={Settings} />
+                    <Route path="/ManageUsers" component={ManageUsers} />
+                    <Route path="/addArticle" component={AddArticlePage} />
+                  </CustomCard>
+                  <Route
+                    path="/article/:articleId"
+                    render={props => (
+                      <ArticleDetails
+                        {...props}
+                        onMobile={this.props.onMobile}
+                      />
+                    )}
+                  />
+                </Switch>
+              </Container>
+            </RouteContainer>
+          </PoseGroup>
           <Footer />
           <GlobalStyle />
           <Notification />

@@ -12,12 +12,12 @@ export const Container = styled.div`
   overflow: hidden;
   display: flex;
   width: 10px;
-  height: 13.5vh;
+  height: 150px;
   position: fixed;
   top: 45%;
-  justify-content: center;
-  align-items: center;
   right: 0.5em;
+  justify-content: space-around;
+  align-items: center;
   flex-direction: column;
   z-index: 50;
   transition: background-color ease-in-out 0.4s;
@@ -29,6 +29,7 @@ export const Container = styled.div`
 `;
 
 export const ButtonStyled = styled(Button)`
+  height: 40px;
   ${Container}:hover & {
     color: black;
   }

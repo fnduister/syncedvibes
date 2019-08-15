@@ -115,6 +115,7 @@ export const SearchIconStyled = styled.div`
   position: absolute;
   pointer-events: none;
   display: flex;
+  color: white;
   align-items: center;
   justify-content: center;
 `;

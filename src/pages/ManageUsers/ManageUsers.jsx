@@ -1,15 +1,15 @@
 import React from "react";
-import MaterialTable from "material-table";
 import { compose } from "recompose";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import AddBox from "@material-ui/icons/AddBox";
+import { Container, MaterialTableStyled } from "./styled";
 
 const ManageUsers = ({ users }) => {
   console.log({ users });
   return (
-    <div>
-      <MaterialTable
+    <Container>
+      <MaterialTableStyled
         columns={[
           { title: "Adı", field: "name" },
           { title: "Soyadı", field: "surname" },
@@ -25,7 +25,7 @@ const ManageUsers = ({ users }) => {
         ]}
         title="Demo Title"
       />
-    </div>
+    </Container>
   );
 };
 

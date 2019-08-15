@@ -5,13 +5,13 @@ import { Container, ButtonStyled, IconStyled } from "./styled";
 const AdminButtons = () => {
   return (
     <Container>
-      <ButtonStyled>
+      <ButtonStyled component={Link} to="/manageUsers">
         <IconStyled>invert_colors</IconStyled>
       </ButtonStyled>
       <ButtonStyled component={Link} to="/manageUsers">
         <IconStyled>how_to_reg</IconStyled>
       </ButtonStyled>
-      <ButtonStyled>
+      <ButtonStyled component={Link} to="/manageUsers">
         <IconStyled>settings</IconStyled>
       </ButtonStyled>
       <ButtonStyled component={Link} to="/addArticle">
