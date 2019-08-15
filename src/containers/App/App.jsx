@@ -63,7 +63,7 @@ class App extends Component {
                     <Route path="/test" component={testFirebase} />
                     <Route path="/settings" component={Settings} />
                     <Route path="/ManageUsers" component={ManageUsers} />
-                    <Route path="/addArticle" component={AddArticlePage} />
+                    <Route path="/addArticle" render={props => <AddArticle {...props} add />} />
                   </CustomCard>
                   <Route
                     path="/article/:articleId"
