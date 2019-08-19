@@ -8,6 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUp from "@material-ui/icons/KeyboardArrowUp";
+import { viewport } from "../../GlobalStyle";
 
 export const ReplySectionStyled = styled.div``;
 
@@ -19,7 +20,7 @@ export const FavoriteButton = styled(Favorite)`
 
 export const AvatarStyled = styled(Avatar)`
   margin: 10;
-   color: red;
+  color: red;
   width: 32.5px;
   height: 32.5px;
 `;
@@ -102,8 +103,17 @@ export const ReplyOptionsContainer = styled.div`
 export const ReplyDataContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding-right: 3em;
+  padding-right: 0.5em;
+
+  /* @media screen and (min-width: ${viewport.md}px) {
+    max-width: 625px;
+  }
+  @media screen and (min-width: ${viewport.lg}px) {
+    max-width: 605px;
+  }
+  @media screen and (min-width: ${viewport.xl}px) {
+    max-width: 705px;
+  } */
 `;
 
 export const ReplyAvatarStyled = styled(AccountCircle)`
