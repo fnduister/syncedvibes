@@ -22,10 +22,7 @@ import { Settings } from "@material-ui/icons";
 import ManageUsers from "../../pages/ManageUsers/ManageUsers";
 import AddArticlePage from "../../pages/AddArticlePage/AddArticlePage";
 import CustomCard from "../../components/CustomCard/CustomCard";
-
-const Container = styled(Grid)`
-  flex-grow: 1;
-`;
+import { Container } from "./styled";
 
 const RouteContainer = posed.div({
   enter: { opacity: 1, delay: 350, beforeChildren: true },
@@ -43,39 +40,42 @@ class App extends Component {
           />
           <PoseGroup>
             <RouteContainer key="allo">
-              <Container
+              <Grid
                 container
                 alignItems="center"
                 direction="column"
                 justify="center"
               >
-                <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    render={props => (
-                      <HomePage {...props} onMobile={this.props.onMobile} />
-                    )}
-                  />
-                  <Route
-                    path="/article/:articleId"
-                    render={props => (
-                      <ArticleDetails
-                        {...props}
-                        onMobile={this.props.onMobile}
+                  <Switch>
+                    <Route
+                      exact
+                      path="/"
+                      render={props => (
+                        <HomePage {...props} onMobile={this.props.onMobile} />
+                      )}
+                    />
+                    <Route
+                      path="/article/:articleId"
+                      render={props => (
+                        <ArticleDetails
+                          {...props}
+                          onMobile={this.props.onMobile}
+                        />
+                      )}
+                    />
+                    <CustomCard>
+                      <Route path="/login" component={Login} />
+                      <Route path="/signup" component={SignUp} />
+                      <Route path="/test" component={testFirebase} />
+                      {/* <Route path="/settings" component={Settings} /> */}
+                      <Route path="/ManageUsers" component={ManageUsers} />
+                      <Route
+                        path="/addArticle"
+                        render={props => <AddArticle {...props} add />}
                       />
-                    )}
-                  />
-                  <CustomCard>
-                    <Route path="/login" component={Login} />
-                    <Route path="/signup" component={SignUp} />
-                    <Route path="/test" component={testFirebase} />
-                    <Route path="/settings" component={Settings} />
-                    <Route path="/ManageUsers" component={ManageUsers} />
-                    <Route path="/addArticle" render={props => <AddArticle {...props} add />} />
-                  </CustomCard>
-                </Switch>
-              </Container>
+                    </CustomCard>
+                  </Switch>
+                </Grid>
             </RouteContainer>
           </PoseGroup>
           <Footer />

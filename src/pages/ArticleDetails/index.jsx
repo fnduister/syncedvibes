@@ -60,11 +60,9 @@ class ArticleDetails extends Component {
     return isLoaded(this.props.article) ? (
       <Fragment>
         {console.log("dans articles details")}
-        <ArticleGrid item xs={10} md={8} lg={8}>
+        <ArticleGrid item xs={10} md={8} lg={6}>
           <Title
             variant={this.props.onMobile ? "h3" : "h2"}
-            component={Link}
-            to="article"
             color="secondary"
           >
             {this.props.article.title}
@@ -105,13 +103,14 @@ class ArticleDetails extends Component {
               edit
             </Button>
           )}
+
           <Button color="primary" type="button" onClick={this.commentHandler}>
             {this.state.comment ? (
               <KeyboardArrowUpStyled />
             ) : (
               <KeyboardArrowDownStyled />
             )}
-            {this.state.comment ? "SHOW " : "HIDE "}
+            {!this.state.comment ? "SHOW " : "HIDE "}
             comments
           </Button>
 
@@ -123,7 +122,6 @@ class ArticleDetails extends Component {
             />
           )}
         </ArticleGrid>
-        {this.state.edit && (
           <Dialog
             open={this.state.edit}
             onClose={this.editHandler}
@@ -136,7 +134,6 @@ class ArticleDetails extends Component {
               editHandler={this.editHandler}
             />
           </Dialog>
-        )}
       </Fragment>
     ) : (
       "Loading..."

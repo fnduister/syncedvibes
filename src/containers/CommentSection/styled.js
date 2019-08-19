@@ -67,7 +67,7 @@ export const TextAreaStyled = styled(TextField)`
   }
 `;
 export const Container = styled.div`
-  padding: 0 0.5vw 1vh;
+  padding: 0 1em;
   display: flex;
   flex-direction: column;
   background-color: #f1f1f2;

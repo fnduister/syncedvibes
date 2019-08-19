@@ -25,20 +25,8 @@ export const ShowComment = styled(Button)`
 `;
 
 export const Title = styled(Typography)`
-  margin-bottom: 2vh;
+  margin-bottom: 0.6em;
   text-decoration: none;
-
-  @media screen and (max-width: ${viewport.lg}px) {
-    width: 80vw;
-  }
-
-  @media screen and (min-width: ${viewport.lg}px) and (max-width: ${viewport.xl}px) {
-    width: 60vw;
-  }
-
-  @media screen and (min-width: ${viewport.xl}px) {
-    width: 42vw;
-  }
 
   &:hover {
     color: ${theme.palette.action.hover};
@@ -70,10 +58,11 @@ export const Summary = styled(Typography)`
   margin-top: 2vh;
   width: 100%;
   display: flex;
-`;
+    `;
 
 export const ArticleGrid = styled(Grid)`
-  margin-bottom: 5vh;
+  margin: 1em;
+  width: 80vw;
 `;
 
 export const ScheduleIconStyled = styled(ScheduleIcon)`

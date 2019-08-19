@@ -4,7 +4,7 @@ import { compose } from "redux";
 import { withHandlers } from "recompose";
 import { firebaseConnect, isLoaded } from "react-redux-firebase";
 import { DialogContentStyled, DialogTitleStyled } from "./styled";
-import EditFormSchema from "../Forms/EditForm/EditForm";
+import EditFormSchema from "../Forms/EditForm/EditFormSchema";
 import moment from "moment";
 import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import { connect } from "react-redux";
@@ -71,7 +71,7 @@ const AddArticle = ({
             openNotificationHandler("Modification saved", "success");
           }}
           render={formikProps => (
-            <EditForm types={settings.types} {...formikProps} />
+              <EditForm types={settings.types} {...formikProps} />
           )}
         />
         {console.log("dans addArticle")}

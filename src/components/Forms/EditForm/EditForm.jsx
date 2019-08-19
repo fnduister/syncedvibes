@@ -10,8 +10,10 @@ import {
 } from "./styled";
 import AdornementInputUrl from "../AdornementInputUrl/AdornementInputUrl";
 import MyEditor from "../Draft/Draft";
-import { MenuItem } from "@material-ui/core";
+import { MenuItem, Button } from "@material-ui/core";
 import { Field, ErrorMessage, FieldArray } from "formik";
+import FileInput from "../FileInput/FileInput";
+import { Label } from "@material-ui/icons";
 
 const EditForm = ({
   types,
@@ -41,10 +43,12 @@ const EditForm = ({
         select
         label="Select type"
         margin="normal"
+        value="{types}"
       >
-        {Object.keys(types).map(key => (
-          <MenuItem key={key} value={types[key]}>
-            {types[key]}
+        {console.log({ types })}
+        {types.map((type, index) => (
+          <MenuItem key={index} value={type}>
+            {type}
           </MenuItem>
         ))}
       </Field>
@@ -88,11 +92,14 @@ const EditForm = ({
       />
 
       <Field
-        type="text"
+        type="file"
         name="thumbnail"
-        component={TextUrl}
+        component={FileInput}
         label="thumbnail"
         variant="outlined"
+        onChange={(event) => {
+          setFieldValue("file", event.currentTarget.files[0]);
+        }}
       />
 
       <ErrorMessage name="social.twitter" className="error" component="div" />
