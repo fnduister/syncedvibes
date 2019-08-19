@@ -127,17 +127,10 @@ class Comment extends Component {
           </ReplyButtonsContainer>
 
           {replies ? (
-            !this.state.showReplies ? (
-              <ViewReplies size="small" onClick={handleRepliesVisibility}>
-                Show replies
-                <KeyboardArrowDownStyled />
-              </ViewReplies>
-            ) : (
-              <ViewReplies size="small" onClick={handleRepliesVisibility}>
-                Hide replies
-                <KeyboardArrowUpStyled />
-              </ViewReplies>
-            )
+            <ViewReplies size="small" onClick={handleRepliesVisibility}>
+              {!this.state.showReplies ? "Show replies" : "Hide replies"}
+              <KeyboardArrowDownStyled />
+            </ViewReplies>
           ) : null}
           {this.state.showReplies && (
             <CommentList smaller comments={replies} parentId={commentId} />

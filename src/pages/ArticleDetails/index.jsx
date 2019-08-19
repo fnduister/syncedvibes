@@ -13,6 +13,7 @@ import {
   KeyboardArrowDownStyled,
   KeyboardArrowUpStyled,
   TimeStamp,
+  MediaContainer,
   ArticleGrid,
   ScheduleIconStyled,
   AspectRatio
@@ -60,7 +61,7 @@ class ArticleDetails extends Component {
     return isLoaded(this.props.article) ? (
       <Fragment>
         {console.log("dans articles details")}
-        <ArticleGrid item xs={10} md={8} lg={8}>
+        <ArticleGrid item xs={10} sm={10}>
           <Title
             variant={this.props.onMobile ? "h3" : "h2"}
             component={Link}
@@ -74,21 +75,23 @@ class ArticleDetails extends Component {
             <Moment fromNow date={this.props.article.date} />
             {console.log(this.props.article.date)}
           </TimeStamp>
-          {this.props.article.media.map((url, index) => (
-            <div key={index}>
-              {url.includes("youtube") ? (
-                <AspectRatio>
-                  <YoutubeStyled
-                    opts={opts}
-                    videoId={this.parseUrl(url)}
-                    onReady={this.onPlayerReady}
-                  />
-                </AspectRatio>
-              ) : (
-                <div dangerouslySetInnerHTML={{ __html: url }} />
-              )}
-            </div>
-          ))}
+          <MediaContainer >
+            {this.props.article.media.map((url, index) => (
+              <Fragment key={index}>
+                {url.includes("youtube") ? (
+                  <AspectRatio>
+                    <YoutubeStyled
+                      opts={opts}
+                      videoId={this.parseUrl(url)}
+                      onReady={this.onPlayerReady}
+                    />
+                  </AspectRatio>
+                ) : (
+                  <div dangerouslySetInnerHTML={{ __html: url }} />
+                )} 
+              </Fragment>
+            ))}
+          </MediaContainer>
           <div>
             {/* on recuperer une version json du content, alors on le parse
             ensuite on le convertie en stateContent pour draft, 

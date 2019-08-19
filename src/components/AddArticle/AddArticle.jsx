@@ -42,7 +42,6 @@ const AddArticle = ({
           }}
           validationSchema={EditFormSchema}
           onSubmit={(values, actions) => {
-            console.log({ article });
             actions.setSubmitting(false);
             const content = JSON.stringify(
               convertToRaw(values.editorState.getCurrentContent())

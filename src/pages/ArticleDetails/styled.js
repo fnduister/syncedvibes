@@ -24,6 +24,10 @@ export const ShowComment = styled(Button)`
   margin: 0.5em 0;
 `;
 
+export const MediaContainer = styled.div`
+  width: 100%;
+`;
+
 export const Title = styled(Typography)`
   margin-bottom: 2vh;
   text-decoration: none;

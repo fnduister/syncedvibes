@@ -1,5 +1,5 @@
 import React from "react";
-import { SortContainer, SortButton, SortButtonGroup } from "./styled";
+import { SortContainer, SortButton } from "./styled";
 import { ButtonGroup } from "@material-ui/core";
 
 const SortArticles = ({
