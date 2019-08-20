@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import { TextField } from "formik-material-ui";
+import { TextField, SimpleFileUpload } from "formik-material-ui";
 import SaveIcon from "@material-ui/icons/Save";
 import { Button } from "@material-ui/core";
 import { Form } from "formik";
 import {
   LibraryAdd
 } from "@material-ui/icons";
+
+export const FileInput = styled(SimpleFileUpload)`
+
+`;
 
 export const TextContent = styled(TextField)`
   display: flex;

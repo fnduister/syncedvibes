@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from "@material-ui/core";
+import { SimpleFileUpload } from "formik-material-ui";
 
 export const Container = styled.div`
     display: flex;

@@ -97,7 +97,8 @@ const EditForm = ({
         component={FileInput}
         label="thumbnail"
         variant="outlined"
-        onChange={(event) => {
+        onChange={event => {
+          console.log({ file: event.currentTarget.files[0] });
           setFieldValue("file", event.currentTarget.files[0]);
         }}
       />

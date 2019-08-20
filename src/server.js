@@ -5,7 +5,7 @@ const app = express();
 
 app.use(fileUpload());
 
-//upload endpoint
+// upload endpoint
 
 app.post("/upload", (req, res) => {
   if (req.files === null) {
