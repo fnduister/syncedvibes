@@ -11,9 +11,10 @@ const FileInput = ({
     <Container>
       <ButtonStyled variant="contained" component="label" >
         Upload File
-        <input {...field} {...props} type="file" style={{ display: "none" }} id="customFile"/>
+        <input {...props} type="file" style={{ display: "none" }} id="customFile"/>
       </ButtonStyled>
-      <Label htmlFor="customFile">hhh eee lll lll lll ooo ooo ooo ooo</Label>
+      {console.log({field})}
+      <Label htmlFor="customFile">{field.value && field.value.name}</Label>
     </Container>
   );
 };
