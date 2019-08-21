@@ -32,7 +32,7 @@ export const BottomStyled = styled.div`
   background-color: ${fade(theme.palette.primary[300], 0.5)};
   display: flex;
   justify-content: center;
-  padding: 1em;
+  padding: .8em;
   position: absolute;
   width: 100%;
 `;
@@ -62,7 +62,6 @@ export const ToggleContainer = styled.div`
 
 export const SlideStyled = styled(Slide)`
   margin-top: 1.1em;
-  height: 6vh;
 `;
 
 export const SpotifyButton = styled(Button)`
