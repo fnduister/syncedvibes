@@ -2,7 +2,7 @@ import React from "react";
 import { ArticleContainer, Header, Content, Type, Video } from "./styled";
 
 function Article({ title, views, mediaUrl, type, thumbnail, id }) {
-  const images = require.context("../../images/gifs", true);
+  const images = require.context("../../images/mp4s", true);
   return (
     // <ArticleContainer
     //   to={`/article/${id}`}

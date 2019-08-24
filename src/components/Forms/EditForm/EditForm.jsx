@@ -19,13 +19,13 @@ const EditForm = ({
   types,
   errors,
   status,
+  setFile,
   touched,
   isSubmitting,
   values,
   handleBlur,
   setFieldValue
 }) => {
-  console.log({ media: values });
   return (
     <FormStyled>
       <Field
@@ -45,7 +45,6 @@ const EditForm = ({
         margin="normal"
         value="{types}"
       >
-        {console.log({ types })}
         {types.map((type, index) => (
           <MenuItem key={index} value={type}>
             {type}
@@ -98,13 +97,15 @@ const EditForm = ({
         label="thumbnail"
         variant="outlined"
         onChange={event => {
-          console.log({ file: event.currentTarget.files[0] });
-          setFieldValue("thumbnail", event.currentTarget.files[0]);
+          console.log({ values });
+          setFile(event.currentTarget.files[0]);
+          setFieldValue("thumbnail", event.currentTarget.files[0].name);
         }}
       />
 
       <ErrorMessage name="social.twitter" className="error" component="div" />
       {status && status.msg && <div>{status.msg}</div>}
+
       <ButtonStyled
         variant="contained"
         color="secondary"
