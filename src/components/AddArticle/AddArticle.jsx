@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Formik } from "formik";
 import { compose } from "redux";
 import { withHandlers } from "recompose";
@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import "moment-timezone";
 import EditForm from "../Forms/EditForm/EditForm";
 import { openNotification } from "../Notification/reducer";
+import Axios from "axios";
 
 const AddArticle = ({
   settings,
@@ -24,6 +25,7 @@ const AddArticle = ({
 }) => {
   let contentState = {};
   let articlesDefault = {};
+  const [file, setFile] = useState("");
   if (article) {
     contentState = article.hasOwnProperty("content")
       ? convertFromRaw(JSON.parse(article.content))
@@ -38,16 +40,20 @@ const AddArticle = ({
         <Formik
           initialValues={{
             ...articlesDefault,
-            editorState: !add ? new EditorState.createWithContent(contentState) : new EditorState.createEmpty()
+            editorState: !add
+              ? new EditorState.createWithContent(contentState)
+              : new EditorState.createEmpty()
           }}
           validationSchema={EditFormSchema}
-          onSubmit={(values, actions) => {
+          onSubmit={async (values, actions) => {
             actions.setSubmitting(false);
             const content = JSON.stringify(
               convertToRaw(values.editorState.getCurrentContent())
             );
             const { title, type, thumbnail, media } = values;
             const date = moment().format();
+            const formData = new FormData();
+            formData.append("file", file);
             const dataToSave = {
               title,
               type,
@@ -56,21 +62,40 @@ const AddArticle = ({
               date,
               content
             };
+
+            try {
+              if (add) {
+                console.log("tryinhg");
+                await Axios.post("http://localhost:5000/upload", formData, {
+                  headers: {
+                    "Content-Type": "multipart/form-data"
+                  }
+                });
+              }
+            } catch (err) {
+              console.log(err);
+            }
+
             if (edit) {
               editHandler();
               updateArticle(dataToSave);
+              openNotificationHandler("Modification Saved", "success");
             }
 
-            if (add) {
-              saveArticle(dataToSave);
-            }
+            // if (add) {
+            //   saveArticle(dataToSave);
+            //   openNotificationHandler("Article Added", "success");
+            // }
+
             actions.setSubmitting(false);
             actions.setStatus({ msg: "Recorded" });
-
-            openNotificationHandler("Modification saved", "success");
           }}
           render={formikProps => (
-              <EditForm types={settings.types} {...formikProps} />
+            <EditForm
+              types={settings.types}
+              {...formikProps}
+              setFile={setFile}
+            />
           )}
         />
         {console.log("dans addArticle")}
@@ -80,7 +105,7 @@ const AddArticle = ({
 };
 
 const enhance = compose(
-  firebaseConnect(() => ["articles","settings"]),
+  firebaseConnect(() => ["articles", "settings"]),
   connect(
     ({ firebase }, props) => ({
       settings: firebase.data.settings // lodash's get can also be used

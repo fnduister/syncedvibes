@@ -14,7 +14,7 @@ const FileInput = ({
         <input {...props} type="file" style={{ display: "none" }} id="customFile"/>
       </ButtonStyled>
       {console.log({field})}
-      <Label htmlFor="customFile">{field.value && field.value.name}</Label>
+      <Label htmlFor="customFile">{field.value ? field.value : "No file was selected yet"}</Label>
     </Container>
   );
 };
