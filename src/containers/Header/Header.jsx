@@ -66,7 +66,7 @@ const Header = props => {
           config={config.gentle}
           to={{
             background: stickyNav
-              ? theme.palette.primary[300]
+              ? theme.palette.primary[900]
               : "rgba(255, 255, 255, 0)"
           }}
         >
@@ -89,7 +89,7 @@ const Header = props => {
         variant="determinate"
         value={completed}
       />
-      <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[300]} />
+      <Overlay overlayOpacity={0.4} overlayColor={theme.palette.primary[900]} />
     </Background>
   );
 };

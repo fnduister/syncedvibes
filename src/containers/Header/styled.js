@@ -32,7 +32,7 @@ export const Background = styled.div`
 `;
 
 export const BottomLine = styled.div`
-  background-color: ${theme.palette.primary[200]};
+  background-color: ${theme.palette.primary[900]};
   height: 1vh;
   width: 100wh;
 `;

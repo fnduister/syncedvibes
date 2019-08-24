@@ -24,17 +24,13 @@ export default function SlidingFooter() {
 
   return (
     <Container>
-      <ToggleContainer checked={checked}
-          onClick={() => setChecked(prev => !prev)}>
-        <ToggleLabel
-          
-        >
-          {checked ? "CLOSE" : "OPEN"}
-        </ToggleLabel>
+      <ToggleContainer
+        checked={checked}
+        onClick={() => setChecked(prev => !prev)}
+      >
+        <ToggleLabel>{checked ? "CLOSE" : "OPEN"}</ToggleLabel>
 
-        <LogoStyled
-          src={Logo}
-        />
+        <LogoStyled background={checked ? 0 : 1} src={Logo} />
       </ToggleContainer>
       <SlideStyled
         direction="left"

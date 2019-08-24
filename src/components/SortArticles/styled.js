@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import Button from '@material-ui/core/Button';
+import { theme } from '../../GlobalStyle';
 
 export const SortContainer = styled.div`
   display: flex;
@@ -9,11 +10,9 @@ export const SortContainer = styled.div`
 `;
 
 export const SortButton = styled(({ color, ...other }) => <Button {...other} />)` 
-  background: ${props => (props.backgroundcolor ? "#b9b9" : "#673ab7")};
-  /* border-color: #673ab7; */
- color: ${props => (props.backgroundcolor ? "#673ab7" : "white")};
+  background: ${props => (props.backgroundcolor ? "black" : `${theme.palette.primary[900]}`)};
+ color: ${props => (props.backgroundcolor ? `${theme.palette.primary[900]}`: "white")};
   & :hover {
-    /* background-color: #b9b9; */
-    color: #673ab7;
+    color: ${theme.palette.primary[900]};
   }
 `;

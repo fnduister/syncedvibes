@@ -1,19 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 import { createMuiTheme } from "@material-ui/core/styles";
-import  deepPurple from "@material-ui/core/colors/deepPurple";
+import { indigo, deepPurple } from "@material-ui/core/colors";
 
 export const theme = createMuiTheme({
   typography: {
     useNextVariants: true
   },
   palette: {
-    primary: deepPurple,
-    secondary: {
-      light: "#64b5f6",
-      main: "#3a5eb7",
-      dark: "#01579b",
-      contrastText: "#fff"
-    },
+    primary: indigo,
+    secondary: deepPurple,
     action: {
       hover: "#89b73a"
     },

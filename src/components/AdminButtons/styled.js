@@ -2,9 +2,10 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import Divider from "@material-ui/core/Divider";
+import { theme } from "../../GlobalStyle";
 
 export const Container = styled.div`
-  background-color: palevioletred;
+  background-color: ${theme.palette.primary[900]};
   border-radius: 4px;
   color: white;
   padding: 10px 20px;
@@ -23,7 +24,7 @@ export const Container = styled.div`
   transition: background-color ease-in-out 0.4s;
 
   :hover {
-    background-color: peachpuff;
+    background-color: ${theme.palette.primary[300]};
     color: black;
   }
 `;
@@ -43,6 +44,6 @@ export const IconStyled = styled(Icon)`
   }
 
   ${ButtonStyled}:hover & {
-    color: red;
+    color: ${theme.palette.secondary[500]};
   }
 `;
