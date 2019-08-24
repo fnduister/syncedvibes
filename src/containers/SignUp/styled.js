@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   width: 25em;
   justify-content: center;
-  margin: 5em;
+  margin: 1em;
 
   && form {
     display: flex;

@@ -32,6 +32,16 @@ export const Image = styled.img`
 export const Buttons = styled(Button)`
   height: 3em;
   width: 49%;
+  display: flex;
+  align-items: center;
+  /* & .MuiButton-label{
+
+  } */
+`;
+
+export const SocialName = styled(Typography)`
+  margin-top: 0.2em;
+  padding: 0;
 `;
 
 export const FacebookButton = styled(Buttons)`

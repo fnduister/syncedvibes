@@ -6,6 +6,7 @@ import {
   GoogleButton,
   Separator,
   FacebookButton,
+  SocialName,
   Image,
   TextTitle,
   Already,
@@ -32,10 +33,9 @@ const LoginForm = ({
   socialLogin,
   history
 }) => {
-
   return (
     <Form>
-      <SubHeader color="secondary" variant="h4">
+      <SubHeader color="primary" variant="h4">
         {signup ? "SIGN UP" : "LOG IN"}
       </SubHeader>
       <SubHeader variant="subtitle1">Welcome to the Vibe</SubHeader>
@@ -90,7 +90,7 @@ const LoginForm = ({
           color="default"
         >
           <Image src={FacebookIcon} alt="facebook" />
-          Login Facebook
+          <SocialName variant="body2">Facebook</SocialName>
         </FacebookButton>
         <GoogleButton
           aria-label="Google"
@@ -100,7 +100,7 @@ const LoginForm = ({
           color="default"
         >
           <Image src={GoogleIcon} alt="facebook" />
-          Login Google
+          <SocialName variant="body2">Google</SocialName>
         </GoogleButton>
       </Social>
       <Already>

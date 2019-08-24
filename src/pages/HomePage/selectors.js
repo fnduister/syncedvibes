@@ -14,7 +14,6 @@ const filterArticles = (articles, values) => {
       }
     }
   });
-  console.log({ newArticles });
   return newArticles;
 };
 
@@ -25,8 +24,6 @@ export const getSelectedArticles = createSelector(
       ((videoFilter ? 1 : 0) << 2) |
       ((newsFilter ? 1 : 0) << 1) |
       ((audioFilter ? 1 : 0) << 0);
-
-    console.log({ filterValue });
 
     switch (filterValue) {
       case 0:

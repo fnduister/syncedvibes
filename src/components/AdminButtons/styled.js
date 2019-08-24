@@ -13,7 +13,7 @@ export const Container = styled.div`
   overflow: hidden;
   display: flex;
   width: 10px;
-  height: 150px;
+  height: 110px;
   position: fixed;
   top: 45%;
   right: 0.5em;

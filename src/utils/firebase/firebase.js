@@ -16,12 +16,12 @@ firebase.initializeApp(config);
 
 export const rrfConfig = {
   userProfile: "users",
-  profileParamsToPopulate: [
-    { child: "role", root: "roles" } // populates user's role with matching role object from roles
-  ],
-  profileFactory: user => ({
-    role: "user",
-  }),
+  // profileParamsToPopulate: [
+  //   { child: "role", root: "roles" } // populates user's role with matching role object from roles
+  // ],
+  // profileFactory: user => ({
+  //   role: "user",
+  // }),
   attachAuthIsReady: true, // attaches auth is ready promise to store
   firebaseStateName: "firebase" // should match the reducer name ('firebase' is default)
   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB

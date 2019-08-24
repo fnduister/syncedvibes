@@ -14,8 +14,9 @@ const SignUp = ({ firebase, auth, signup, history }) => (
       validationSchema={LoginFormSchema}
       onSubmit={async ({ email, password, displayName }, actions) => {
         try {
+          console.log({ email, password, displayName });
           const avatar = displayName.substr(0, 1).toUpperCase();
-          await firebase.createUser({ email, password }, {email, displayName, avatar});
+          await firebase.createUser({ email, password }, {email, displayName, avatar, role: "user"});
           actions.setSubmitting(false);
           history.push("/");
         } catch (err) {

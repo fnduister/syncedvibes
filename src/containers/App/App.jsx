@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ArticleDetails from "../../pages/ArticleDetails";
@@ -8,7 +8,6 @@ import Header from "../Header/Header";
 import Notification from "../../components/Notification/Notification";
 import { GlobalStyle, viewport } from "../../GlobalStyle";
 import Footer from "../Footer/Footer";
-import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import testFirebase from "../../components/testComponent/testFirebase";
 import withSizes from "react-sizes";
@@ -20,74 +19,74 @@ import "moment-timezone";
 import AddArticle from "../../components/AddArticle/AddArticle";
 import { Settings } from "@material-ui/icons";
 import ManageUsers from "../../pages/ManageUsers/ManageUsers";
-import AddArticlePage from "../../pages/AddArticlePage/AddArticlePage";
 import CustomCard from "../../components/CustomCard/CustomCard";
-import { Container } from "./styled";
 
 const RouteContainer = posed.div({
   enter: { opacity: 1, delay: 350, beforeChildren: true },
   exit: { opacity: 0 }
 });
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <ScrollToMainComponent>
-          <AdminButtons />
-          <Header
-          // onMobile={this.props.onMobile}
-          />
-          <PoseGroup>
-            <RouteContainer key="allo">
-              <Grid
-                container
-                alignItems="center"
-                direction="column"
-                justify="center"
-              >
-                  <Switch>
-                    <Route
-                      exact
-                      path="/"
-                      render={props => (
-                        <HomePage {...props} onMobile={this.props.onMobile} />
-                      )}
-                    />
-                    <Route
-                      path="/article/:articleId"
-                      render={props => (
-                        <ArticleDetails
-                          {...props}
-                          onMobile={this.props.onMobile}
-                        />
-                      )}
-                    />
-                    <CustomCard>
-                      <Route path="/login" component={Login} />
-                      <Route path="/signup" component={SignUp} />
-                      <Route path="/test" component={testFirebase} />
-                      {/* <Route path="/settings" component={Settings} /> */}
-                      <Route path="/ManageUsers" component={ManageUsers} />
-                      <Route
-                        path="/addArticle"
-                        render={props => <AddArticle {...props} add />}
-                      />
-                    </CustomCard>
-                  </Switch>
-                </Grid>
-            </RouteContainer>
-          </PoseGroup>
-          <Footer />
-          <GlobalStyle />
-          <Notification />
-        </ScrollToMainComponent>
-      </Router>
-    );
-  }
-}
+const App = ({ auth, profile, onMobile }) => {
+  return (
+    <Router>
+      <ScrollToMainComponent>
+        <AdminButtons />
+        <Header
+        // onMobile={this.props.onMobile}
+        />
+        <PoseGroup>
+          <RouteContainer key="allo">
+            <Grid
+              container
+              alignItems="center"
+              direction="column"
+              justify="center"
+            >
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={props => (
+                    <HomePage {...props} onMobile={onMobile} />
+                  )}
+                />
+                <Route
+                  path="/article/:articleId"
+                  render={props => (
+                    <ArticleDetails {...props} onMobile={onMobile} />
+                  )}
+                />
+                {console.log({auth, profile})}
+                {/* {
+                  auth.isEmpty && profile.role ==="admin"
+                } */}
+                <Route path="/ManageUsers" component={ManageUsers} />
+                <CustomCard>
+                  <Route path="/login" component={Login} />
+                  <Route path="/signup" component={SignUp} />
+                  <Route path="/test" component={testFirebase} />
+                  {/* <Route path="/settings" component={Settings} /> */}
+                  <Route
+                    path="/addArticle"
+                    render={props => <AddArticle {...props} add />}
+                  />
+                </CustomCard>
+              </Switch>
+            </Grid>
+          </RouteContainer>
+        </PoseGroup>
+        <Footer />
+        <GlobalStyle />
+        <Notification />
+      </ScrollToMainComponent>
+    </Router>
+  );
+};
 
-const mapProps = (state, ownProps) => ({});
+const mapProps = ({ firebase: { auth, profile } }, ownProps) => ({
+  auth,
+  profile
+});
 
 const mapActions = {};
 
