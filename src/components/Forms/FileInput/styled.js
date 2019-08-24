@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
+import { theme } from "../../../GlobalStyle";
 
 export const Container = styled.div`
   display: flex;
@@ -7,6 +8,8 @@ export const Container = styled.div`
 `;
 
 export const ButtonStyled = styled(Button)`
+  background: ${theme.palette.primary[600]};
+color: white;
   width: 200px;
 `;
 

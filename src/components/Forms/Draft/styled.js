@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Editor } from "draft-js";
+import { theme } from "../../../GlobalStyle";
 
 export const ControlsContainer = styled.div`
-  background: #4e78a0;
+  background: ${theme.palette.primary[900]};
   /* border-radius: 5px 5px 0 0; */
   font-family: "Georgia", serif;
   font-size: 14px;

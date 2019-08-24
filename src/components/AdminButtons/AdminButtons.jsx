@@ -6,9 +6,6 @@ const AdminButtons = () => {
   return (
     <Container>
       <ButtonStyled component={Link} to="/manageUsers">
-        <IconStyled>invert_colors</IconStyled>
-      </ButtonStyled>
-      <ButtonStyled component={Link} to="/manageUsers">
         <IconStyled>how_to_reg</IconStyled>
       </ButtonStyled>
       <ButtonStyled component={Link} to="/manageUsers">

@@ -2,7 +2,7 @@ import React from "react";
 import { SortContainer, SortButton } from "./styled";
 import { ButtonGroup } from "@material-ui/core";
 
-const SortArticles = ({
+const FilterButtons = ({
   toggleAudioFilterHandler,
   toggleNewsFilterHandler,
   toggleVideoFilterHandler,
@@ -35,4 +35,4 @@ const SortArticles = ({
   );
 };
 
-export default SortArticles;
+export default FilterButtons;

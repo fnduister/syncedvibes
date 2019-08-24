@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Formik } from "formik";
 import { compose } from "redux";
 import { withHandlers } from "recompose";
+import { withRouter } from "react-router";
 import { firebaseConnect, isLoaded } from "react-redux-firebase";
 import { DialogContentStyled, DialogTitleStyled } from "./styled";
 import EditFormSchema from "../Forms/EditForm/EditFormSchema";
@@ -21,7 +22,9 @@ const AddArticle = ({
   saveArticle,
   editHandler,
   edit,
-  openNotificationHandler
+  openNotificationHandler,
+  location,
+  history
 }) => {
   let contentState = {};
   let articlesDefault = {};
@@ -82,10 +85,11 @@ const AddArticle = ({
               openNotificationHandler("Modification Saved", "success");
             }
 
-            // if (add) {
-            //   saveArticle(dataToSave);
-            //   openNotificationHandler("Article Added", "success");
-            // }
+            if (add) {
+              saveArticle(dataToSave);
+              openNotificationHandler("Article Added", "success");
+              history.push("/");
+            }
 
             actions.setSubmitting(false);
             actions.setStatus({ msg: "Recorded" });
@@ -115,6 +119,7 @@ const enhance = compose(
         openNotification(message, variant)
     }
   ),
+  withRouter,
   withHandlers({
     saveArticle: props => data => props.firebase.push("articles", data)
   })

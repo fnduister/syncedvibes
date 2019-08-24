@@ -6,7 +6,8 @@ import {
   TextTitle,
   SaveIconStyled,
   ButtonStyled,
-  TextType
+  TextType,
+  SubmitButtonStyled
 } from "./styled";
 import AdornementInputUrl from "../AdornementInputUrl/AdornementInputUrl";
 import MyEditor from "../Draft/Draft";
@@ -79,7 +80,6 @@ const EditForm = ({
             <ButtonStyled
               variant="contained"
               color="primary"
-              size="large"
               onClick={() => arrayHelpers.push("")} // insert an empty string at a position
               disabled={isSubmitting}
             >
@@ -106,16 +106,15 @@ const EditForm = ({
       <ErrorMessage name="social.twitter" className="error" component="div" />
       {status && status.msg && <div>{status.msg}</div>}
 
-      <ButtonStyled
+      <SubmitButtonStyled
         variant="contained"
         color="secondary"
-        size="large"
         type="submit"
         disabled={isSubmitting}
       >
         <SaveIconStyled />
         Submit
-      </ButtonStyled>
+      </SubmitButtonStyled>
     </FormStyled>
   );
 };

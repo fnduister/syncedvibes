@@ -3,7 +3,7 @@ import Article from "../../components/Article/Article";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { Articles } from "./styled";
-import SortArticles from "../../components/SortArticles/SortArticles";
+import FilterButtons from "../../components/FilterButtons/FilterButtons";
 import {
   firebaseConnect,
   isLoaded,
@@ -33,7 +33,7 @@ class HomePage extends Component {
     
     return (
       <Fragment>
-        <SortArticles
+        <FilterButtons
           toggleAudioFilterHandler={toggleAudioFilterHandler}
           toggleNewsFilterHandler={toggleNewsFilterHandler}
           toggleVideoFilterHandler={toggleVideoFilterHandler}
