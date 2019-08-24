@@ -8,6 +8,7 @@ import { theme } from "../../GlobalStyle";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 // import { black } from "material-ui/styles/colors";
 
+
 export const Container = styled.div`
   position: relative;
   flex-direction: row;
@@ -16,6 +17,15 @@ export const Container = styled.div`
   overflow: hidden;
   flex-direction: row;
 
+  /* flex-direction: column-reverse; */
+`;
+export const Fixed = styled.div`
+  position: fixed;
+bottom: 0;
+right: 0;
+width:  ${({width})=> width ? "100%" :  "10%"};
+transition: width 1s ease-in ;
+z-index: 0;
   /* flex-direction: column-reverse; */
 `;
 

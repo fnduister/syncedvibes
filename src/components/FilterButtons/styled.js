@@ -10,7 +10,7 @@ export const SortContainer = styled.div`
 `;
 
 export const SortButton = styled(({ color, ...other }) => <Button {...other} />)` 
-  background: ${props => (props.backgroundcolor ? "black" : `${theme.palette.primary[900]}`)};
+  background: ${props => (props.backgroundcolor ? "white" : `${theme.palette.primary[900]}`)};
  color: ${props => (props.backgroundcolor ? `${theme.palette.primary[900]}`: "white")};
   & :hover {
     color: ${theme.palette.primary[900]};

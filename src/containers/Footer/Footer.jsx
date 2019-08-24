@@ -7,7 +7,8 @@ import {
   Container,
   LogoStyled,
   ToggleContainer,
-  ToggleLabel
+  ToggleLabel,
+  Fixed
 } from "./styled";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -23,30 +24,32 @@ export default function SlidingFooter() {
   // }
 
   return (
-    <Container>
-      <ToggleContainer
-        checked={checked}
-        onClick={() => setChecked(prev => !prev)}
-      >
-        <ToggleLabel>{checked ? "CLOSE" : "OPEN"}</ToggleLabel>
+    <Fixed width={checked? 1: 0}>
+      <Container>
+        <ToggleContainer
+          checked={checked}
+          onClick={() => setChecked(prev => !prev)}
+        >
+          <ToggleLabel>{checked ? "CLOSE" : "OPEN"}</ToggleLabel>
 
-        <LogoStyled background={checked ? 0 : 1} src={Logo} />
-      </ToggleContainer>
-      <SlideStyled
-        direction="left"
-        in={checked}
-        mountOnEnter
-        unmountOnExit
-        timeout={800}
-      >
-        <BottomStyled>
-          <SpotifyButton variant="contained">Spotify</SpotifyButton>
-          <Button variant="contained" color="secondary">
-            Secondary
-          </Button>
-        </BottomStyled>
-      </SlideStyled>
-    </Container>
+          <LogoStyled background={checked ? 0 : 1} src={Logo} />
+        </ToggleContainer>
+        <SlideStyled
+          direction="left"
+          in={checked}
+          mountOnEnter
+          unmountOnExit
+          timeout={800}
+        >
+          <BottomStyled>
+            <SpotifyButton variant="contained">Spotify</SpotifyButton>
+            <Button variant="contained" color="secondary">
+              Secondary
+            </Button>
+          </BottomStyled>
+        </SlideStyled>
+      </Container>
+    </Fixed>
   );
 }
 
