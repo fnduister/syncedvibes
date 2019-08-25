@@ -101,7 +101,7 @@ class ArticleDetails extends Component {
               )
             )}
           </div>
-          {true && (
+          {!this.props.profile.isEmpty && this.props.profile.role === "admin" && (
             <Button color="secondary" type="button" onClick={this.editHandler}>
               edit
             </Button>
@@ -149,7 +149,8 @@ const enhance = compose(
     "settings" // equivalent string notation
   ]),
   connect(({ firebase }, props) => ({
-    article: getVal(firebase, `data/articles/${props.match.params.articleId}`) // lodash's get can also be used
+    article: getVal(firebase, `data/articles/${props.match.params.articleId}`), // lodash's get can also be used
+    profile: firebase.profile
   })),
   withHandlers({
     updateComment: props => (comment, commentId) =>

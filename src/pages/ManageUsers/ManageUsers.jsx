@@ -1,36 +1,47 @@
 import React from "react";
 import { compose } from "recompose";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
+import { firebaseConnect, isLoaded } from "react-redux-firebase";
 import AddBox from "@material-ui/icons/AddBox";
 import { Container, MaterialTableStyled } from "./styled";
+import { objectToArray } from "../../utils/common";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-const ManageUsers = ({ users }) => {
-  console.log({ users });
-  return (
+const ManageUsers = ({ users, roles }) => {
+  return isLoaded(users) ? (
     <Container>
+      {users ? console.log(objectToArray(users), roles) : null}
       <MaterialTableStyled
         columns={[
-          { title: "Adı", field: "name" },
-          { title: "Soyadı", field: "surname" },
-          { title: "Doğum Yılı", field: "birthYear", type: "numeric" },
+          { title: "Username", field: "displayName" },
+          { title: "Email", field: "email" },
+          { title: "Last Seen", field: "lastSeen", type: "numeric" },
           {
-            title: "Doğum Yeri",
-            field: "birthCity",
-            lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
+            title: "Role",
+            field: "role", lookup: {admin: "admin", editor: "editor", user: "user"}
           }
         ]}
-        data={[
-          { name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63 }
-        ]}
-        title="Demo Title"
+        data={objectToArray(users)}
+        title="User Management"
+        editable={{
+          isEditable: rowData => rowData.role,
+          onRowUpdate: (newData, oldData) => {
+            
+          }
+
+        }}
       />
     </Container>
+  ) : (
+    <CircularProgress />
   );
 };
 
 const enhance = compose(
-  firebaseConnect(["users"]),
-  connect((state, props) => ({ users: state.firebase.data.users }))
+  firebaseConnect(["users", "settings"]),
+  connect((state, props) => ({
+    users: state.firebase.data.users,
+    roles: state.firebase.data.settings
+  }))
 );
 export default enhance(ManageUsers);

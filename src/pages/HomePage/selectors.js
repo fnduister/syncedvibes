@@ -8,7 +8,7 @@ const filterArticles = (articles, values) => {
 
   Object.keys(articles).forEach(key => {
     for (const value of values) {
-      if (articles[key].type === value) {
+      if (articles[key].type.toLowerCase() === value.toLowerCase()) {
         delete newArticles[key];
         break;
       }

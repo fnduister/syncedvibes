@@ -30,7 +30,7 @@ const App = ({ auth, profile, onMobile }) => {
   return (
     <Router>
       <ScrollToMainComponent>
-        <AdminButtons />
+        {!profile.isEmpty && profile.role === "admin" && <AdminButtons />}
         <Header
         // onMobile={this.props.onMobile}
         />
@@ -46,9 +46,7 @@ const App = ({ auth, profile, onMobile }) => {
                 <Route
                   exact
                   path="/"
-                  render={props => (
-                    <HomePage {...props} onMobile={onMobile} />
-                  )}
+                  render={props => <HomePage {...props} onMobile={onMobile} />}
                 />
                 <Route
                   path="/article/:articleId"
@@ -56,11 +54,15 @@ const App = ({ auth, profile, onMobile }) => {
                     <ArticleDetails {...props} onMobile={onMobile} />
                   )}
                 />
-                {console.log({auth, profile})}
-                {/* {
-                  auth.isEmpty && profile.role ==="admin"
-                } */}
-                <Route path="/ManageUsers" component={ManageUsers} />
+                {console.log({ auth, profile })}
+                {!profile.isEmpty && (
+                  <Route
+                    path="/ManageUsers"
+                    render={props =>
+                      !profile.isEmpty ? <ManageUsers {...props} /> : null
+                    }
+                  />
+                )}
                 <CustomCard>
                   <Route path="/login" component={Login} />
                   <Route path="/signup" component={SignUp} />
