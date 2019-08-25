@@ -1,5 +1,5 @@
 import React from "react";
-import { compose } from "recompose";
+import { compose, withHandlers } from "recompose";
 import { connect } from "react-redux";
 import { firebaseConnect, isLoaded } from "react-redux-firebase";
 import AddBox from "@material-ui/icons/AddBox";
@@ -7,7 +7,7 @@ import { Container, MaterialTableStyled } from "./styled";
 import { objectToArray } from "../../utils/common";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const ManageUsers = ({ users, roles }) => {
+const ManageUsers = ({ users, roles, updateRole, history }) => {
   return isLoaded(users) ? (
     <Container>
       {users ? console.log(objectToArray(users), roles) : null}
@@ -25,8 +25,10 @@ const ManageUsers = ({ users, roles }) => {
         title="User Management"
         editable={{
           isEditable: rowData => rowData.role,
-          onRowUpdate: (newData, oldData) => {
-            
+          onRowUpdate: async (newData, oldData) => {
+            console.log({oldData, newData});
+            await updateRole(newData.key, newData.role )
+            // history.push("/");
           }
 
         }}
@@ -42,6 +44,13 @@ const enhance = compose(
   connect((state, props) => ({
     users: state.firebase.data.users,
     roles: state.firebase.data.settings
-  }))
+  })),
+  withHandlers({
+    updateRole: props => (userId, newRole) =>
+      props.firebase.update(
+        `users/${userId}`,
+        {role: newRole}
+      )
+  })
 );
 export default enhance(ManageUsers);
