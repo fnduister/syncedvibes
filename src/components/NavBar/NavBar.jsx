@@ -45,7 +45,7 @@ const NavBar = ({
 
   const signOut = () => {
     firebase.logout();
-    history.push("/");
+    history.push("/login");
   };
 
   const signIn = () => {
