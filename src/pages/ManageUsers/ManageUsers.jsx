@@ -13,9 +13,9 @@ const ManageUsers = ({ users, roles }) => {
       {users ? console.log(objectToArray(users), roles) : null}
       <MaterialTableStyled
         columns={[
-          { title: "Username", field: "displayName" },
-          { title: "Email", field: "email" },
-          { title: "Last Seen", field: "lastSeen", type: "numeric" },
+          { title: "Username", field: "displayName", editable: "never"},
+          { title: "Email", field: "email", editable: "never"},
+          { title: "Last Seen", field: "lastSeen", type: "numeric", editable: "never" },
           {
             title: "Role",
             field: "role", lookup: {admin: "admin", editor: "editor", user: "user"}
