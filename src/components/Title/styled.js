@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
+export const LogoStyled = styled.img`
+  height: 20em;
+  width: 20em;
+  color: white;
 
+`;
 export const TitleBox = styled.div`
   display: flex;
   flex-grow: 1;

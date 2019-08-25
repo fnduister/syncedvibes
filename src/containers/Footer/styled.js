@@ -23,8 +23,8 @@ export const Fixed = styled.div`
   position: fixed;
 bottom: 0;
 right: 0;
-width:  ${({width})=> width ? "100%" :  "10%"};
-transition: width 1s ease-in ;
+width:  ${({width})=> width ? "100%" :  "4em"};
+transition: width .3s ease-in ;
 z-index: 0;
   /* flex-direction: column-reverse; */
 `;
