@@ -7,7 +7,7 @@ import { Container, MaterialTableStyled } from "./styled";
 import { objectToArray } from "../../utils/common";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const ManageUsers = ({ users, roles, updateRole, history }) => {
+const ManageUsers = ({ users, roles, updateRole, history, auth }) => {
   return isLoaded(users) ? (
     <Container>
       {users ? console.log(objectToArray(users), roles) : null}
@@ -15,7 +15,6 @@ const ManageUsers = ({ users, roles, updateRole, history }) => {
         columns={[
           { title: "Username", field: "displayName", editable: "never"},
           { title: "Email", field: "email", editable: "never"},
-          { title: "Last Seen", field: "lastSeen", type: "numeric", editable: "never" },
           {
             title: "Role",
             field: "role", lookup: {admin: "admin", editor: "editor", user: "user"}
@@ -30,7 +29,6 @@ const ManageUsers = ({ users, roles, updateRole, history }) => {
             await updateRole(newData.key, newData.role )
             // history.push("/");
           }
-
         }}
       />
     </Container>
@@ -43,7 +41,8 @@ const enhance = compose(
   firebaseConnect(["users", "settings"]),
   connect((state, props) => ({
     users: state.firebase.data.users,
-    roles: state.firebase.data.settings
+    roles: state.firebase.data.settings,
+    auth: state.firebase.data.auth
   })),
   withHandlers({
     updateRole: props => (userId, newRole) =>
