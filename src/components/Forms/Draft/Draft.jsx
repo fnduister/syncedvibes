@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { RichUtils } from "draft-js";
 import BlockControls from "./BlockControls/BlockControls";
 import InlineControls from "./InlineControls/InlineControls";
-import { ControlsContainer,EditorStyled, EditorSection, Container } from "./styled";
+import {
+  ControlsContainer,
+  EditorStyled,
+  EditorSection,
+  Container
+} from "./styled";
+import { mediaBlockRenderer } from "./entities/mediaBlockRenderer";
 class MyEditor extends Component {
   onChange = editorState => {
     this.props.onChange("editorState", editorState);
@@ -38,7 +44,7 @@ class MyEditor extends Component {
   styleMap = {
     CODE: {
       backgroundColor: "rgba(0, 0, 0, 0.05)",
-      fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+      fontFamily: '"Roboto","Inconsolata", "Menlo", "Consolas", monospace',
       fontSize: 16,
       padding: 2
     }
@@ -70,6 +76,7 @@ class MyEditor extends Component {
             placeholder="Tell a story..."
             ref="editor"
             spellCheck={true}
+            blockRendererFn={mediaBlockRenderer}
           />
         </EditorSection>
       </Container>
