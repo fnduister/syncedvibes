@@ -6,7 +6,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles/colorManipulator";
-import breakpoint from "styled-components-breakpoint";
 import React from "react";
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
@@ -66,13 +65,10 @@ export const IconBox = styled.div`
 export const TypographyStyled = styled(Typography)`
   padding: 0.9vh;
   display: none;
-  ${breakpoint("sm")`
-    display: block;
-  `}
 `;
 
 export const HeaderWrapper = styled.div`
-  height: 6.5vh;
+  height: 4em;
 `;
 
 export const AppBarStyled = styled(AppBar).attrs(props => ({
@@ -80,7 +76,6 @@ export const AppBarStyled = styled(AppBar).attrs(props => ({
 }))`
   box-shadow: none;
   z-index: ${props => props.zIndex};
-  height: 6vh;
   justify-content: center;
   /* background-color: rgba(0, 0, 0, 0); */
 
@@ -95,18 +90,20 @@ export const ToolbarStyled = styled(Toolbar)`
 
 export const Search = styled.div`
   position: relative;
+  margin-left: 0;
+  width: 100%;
   border-radius: ${theme.shape.borderRadius}px;
   background-color: ${fade(theme.palette.common.white, 0.15)};
+
   & :hover {
     background-color: ${fade(theme.palette.common.white, 0.25)};
     border-radius: ${theme.shape.borderRadius}px;
   }
-  margin-left: 0;
-  width: 100%;
-  ${breakpoint("sm")`
-    width: auto;
-    margin-left: {theme.spacing(1)}px;
-  `}
+  
+
+  @media screen and (max-width: ${viewport.sm}px){
+    display: none;
+  }
 `;
 
 export const SearchIconStyled = styled.div`
@@ -133,11 +130,5 @@ export const InputBaseStyled = styled(props => (
     transition: ${theme.transitions.create("width")};
     width: 100%;
 
-    ${breakpoint("sm")`
-      width: 120px;
-      &:focus {
-        width: 200px;
-      }
-    `}
   }
 `;

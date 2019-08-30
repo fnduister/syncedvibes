@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Typography from "@material-ui/core/Typography";
 
 export const LogoStyled = styled.img`
   height: 20em;
@@ -15,4 +16,9 @@ export const TitleBox = styled.div`
   justify-content: center;
   margin-bottom: 25vh;
   color: white;
+  width: 90vw;
+`;
+
+export const TitleStyled = styled(Typography)`
+  text-align: center;
 `;

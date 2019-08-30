@@ -12,6 +12,7 @@ export const DialogTitleStyled = styled(DialogTitle)`
 
 export const DialogContentStyled = styled(DialogContent)`
   display: flex;
+  max-width: 800px;
   flex-direction: column;
   position: relative;
   padding: 1em;
