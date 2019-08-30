@@ -20,7 +20,7 @@ const EditForm = ({
   types,
   errors,
   status,
-  setFile,
+  setFile, 
   touched,
   isSubmitting,
   values,

@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-import { RichUtils } from "draft-js";
+import { EditorState, RichUtils, AtomicBlockUtils } from "draft-js";
 import BlockControls from "./BlockControls/BlockControls";
 import InlineControls from "./InlineControls/InlineControls";
 import {
   ControlsContainer,
   EditorStyled,
+  CustomButton,
   EditorSection,
   Container
 } from "./styled";
 import { mediaBlockRenderer } from "./entities/mediaBlockRenderer";
+import Button from "./Button/Button";
+import CustomBlockControls from "./CustomBlockControls/CustomBlockControls";
+
 class MyEditor extends Component {
   onChange = editorState => {
     this.props.onChange("editorState", editorState);
@@ -24,6 +28,30 @@ class MyEditor extends Component {
       return true;
     }
     return false;
+  };
+
+  onAddImage = e => {
+    e.preventDefault();
+    const { editorState } = this.props;
+    const urlValue = window.prompt("Paste Video Link");
+    console.log("TCL: MyEditor -> urlValue", urlValue)
+    const contentState = editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+      "image",
+      "IMMUTABLE",
+      { url: urlValue }
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    console.log("TCL: MyEditor -> entityKey", entityKey)
+    const newEditorState = EditorState.set(
+      editorState,
+      { currentContent: contentStateWithEntity },
+      "create-entity"
+    );
+    console.log("TCL: MyEditor -> newEditorState", newEditorState)
+    this.onChange(
+      AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ")
+    );
   };
 
   onTab = e => {
@@ -64,6 +92,10 @@ class MyEditor extends Component {
           <InlineControls
             editorState={editorState}
             onToggle={this.toggleInlineStyle}
+          />
+          <CustomBlockControls
+            onAddImage={this.onAddImage}
+            editorState={editorState}
           />
         </ControlsContainer>
         <EditorSection onClick={this.focus}>
