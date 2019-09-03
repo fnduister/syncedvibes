@@ -25,21 +25,17 @@ const onPlayerReady = evt => {
 };
 
 const parseUrl = iframeCode => {
-  console.log("TCL: iframeCode", iframeCode);
   const regex = /https:\/\/[\w./]+/g;
   const justTesting = iframeCode.match(regex)[0];
-  console.log("TCL: justTesting", justTesting);
   const code = iframeCode
     .match(regex)[0]
     .split("/")
     .pop();
-  console.log("TCL: code", code);
   return code;
 };
 
 const Video = ({ url }) => {
   if (!!url) {
-    console.log("TCL: Video in the renderer -> url", url);
     return (
       <Fragment>
         {console.log("parsing:", parseUrl(url))}

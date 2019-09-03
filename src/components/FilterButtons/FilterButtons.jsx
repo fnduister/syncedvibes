@@ -1,35 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SortContainer, SortButton } from "./styled";
 import { ButtonGroup } from "@material-ui/core";
 
 const FilterButtons = ({
-  toggleAudioFilterHandler,
-  toggleNewsFilterHandler,
-  toggleVideoFilterHandler,
-  filters
+  updateSelectedArticles,
+  types
 }) => {
+  const [actives, changeActives] = useState({});
+
+  useEffect(() => {
+    types.forEach(type => {
+      changeActives(actives => ({ ...actives, [type]: false }));
+    });
+  }, [types]);
+
+  const handleFilter = type => {
+    changeActives(actives => ({ ...actives, [type]: !actives[type] }));
+    console.log("calling updateSelected");
+    updateSelectedArticles(type);
+  };
+
   return (
     <SortContainer>
       <ButtonGroup variant="contained">
-        <SortButton
-          onClick={() => toggleVideoFilterHandler()}
-          backgroundcolor={filters.videoFilter ? 1 : 0}
-        >
-          video
-        </SortButton>
-        {console.log({ videoFilter: filters })}
-        <SortButton
-          onClick={() => toggleNewsFilterHandler()}
-          backgroundcolor={filters.newsFilter ? 1 : 0}
-        >
-          news
-        </SortButton>
-        <SortButton
-          onClick={() => toggleAudioFilterHandler()}
-          backgroundcolor={filters.audioFilter ? 1 : 0}
-        >
-          audio
-        </SortButton>
+        {types.map(type => {
+          return (
+            <SortButton
+              key={type}
+              backgroundcolor={actives[type] ? 1 : 0}
+              onClick={() => handleFilter(type)}
+            >
+              {type}
+            </SortButton>
+          );
+        })}
       </ButtonGroup>
     </SortContainer>
   );
