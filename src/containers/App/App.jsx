@@ -11,6 +11,7 @@ import Footer from "../Footer/Footer";
 import Grid from "@material-ui/core/Grid";
 import testFirebase from "../../components/testComponent/testFirebase";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import Page404 from "../../components/Page404/Page404";
 import withSizes from "react-sizes";
 import AdminButtons from "../../components/AdminButtons/AdminButtons";
 import Login from "../Login/Login";
@@ -50,19 +51,19 @@ const App = ({ auth, profile, onMobile }) => {
                   render={props => <HomePage {...props} onMobile={onMobile} />}
                 />
                 <Route
+                  exact
                   path="/article/:articleId"
                   render={props => (
                     <ArticleDetails {...props} onMobile={onMobile} />
                   )}
                 />
-                <PrivateRoute rolei="admin" profile={profile}>
-                  <Route
-                    path="/ManageUsers"
-                    render={props =>
-                      !profile.isEmpty ? <ManageUsers {...props} /> : null
-                    }
-                  />
-                </PrivateRoute>
+                <PrivateRoute
+                  rolei="admin"
+                  path="/manageUsers"
+                  profile={profile}
+                  component={ManageUsers}
+                />
+
                 <CustomCard>
                   <Route path="/signup" component={SignUp} />
                   {/* <Route path="/settings" component={Settings} /> */}
@@ -70,9 +71,11 @@ const App = ({ auth, profile, onMobile }) => {
                     path="/addArticle"
                     rolei="admin"
                     profile={profile}
-                    component={<AddArticle add />}
+                    add={true}
+                    component={AddArticle}
                   />
-                  <Route path="/login" component={Login} />
+                  <Route exact path="/login" component={Login} />
+                  <Route component={Page404} />
                 </CustomCard>
               </Switch>
             </Grid>

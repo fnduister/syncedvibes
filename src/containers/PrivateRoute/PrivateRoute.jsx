@@ -9,7 +9,7 @@ function PrivateRoute({ profile, component: Component, rolei ,...rest }) {
         {...rest}
         render={props =>
           !profile.isEmpty && profile.role === rolei ? (
-            <Component {...props} />
+            <Component {...props} {...rest}/>
           ) : (
             <Redirect
               to={{
