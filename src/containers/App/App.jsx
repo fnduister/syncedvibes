@@ -75,6 +75,8 @@ const App = ({ auth, profile, onMobile }) => {
                     component={AddArticle}
                   />
                   <Route exact path="/login" component={Login} />
+                </CustomCard>
+                <CustomCard>
                   <Route component={Page404} />
                 </CustomCard>
               </Switch>

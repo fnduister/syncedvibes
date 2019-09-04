@@ -5,6 +5,7 @@ import { theme } from "../../../GlobalStyle";
 export const Container = styled.div`
   display: flex;
   margin: 0.8em 0;
+  flex-wrap: wrap;
 `;
 
 export const ButtonStyled = styled(Button)`
