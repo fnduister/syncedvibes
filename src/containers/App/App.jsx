@@ -10,6 +10,7 @@ import { GlobalStyle, viewport } from "../../GlobalStyle";
 import Footer from "../Footer/Footer";
 import Grid from "@material-ui/core/Grid";
 import testFirebase from "../../components/testComponent/testFirebase";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import withSizes from "react-sizes";
 import AdminButtons from "../../components/AdminButtons/AdminButtons";
 import Login from "../Login/Login";
@@ -54,24 +55,24 @@ const App = ({ auth, profile, onMobile }) => {
                     <ArticleDetails {...props} onMobile={onMobile} />
                   )}
                 />
-                {console.log({ auth, profile })}
-                {!profile.isEmpty && (
+                <PrivateRoute rolei="admin" profile={profile}>
                   <Route
                     path="/ManageUsers"
                     render={props =>
                       !profile.isEmpty ? <ManageUsers {...props} /> : null
                     }
                   />
-                )}
+                </PrivateRoute>
                 <CustomCard>
-                  <Route path="/login" component={Login} />
                   <Route path="/signup" component={SignUp} />
-                  <Route path="/test" component={testFirebase} />
                   {/* <Route path="/settings" component={Settings} /> */}
-                  <Route
+                  <PrivateRoute
                     path="/addArticle"
-                    render={props => <AddArticle {...props} add />}
+                    rolei="admin"
+                    profile={profile}
+                    component={<AddArticle add />}
                   />
+                  <Route path="/login" component={Login} />
                 </CustomCard>
               </Switch>
             </Grid>
