@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Typography from "@material-ui/core/Typography";
 
 export const LogoStyled = styled.img`
-  height: 20em;
-  width: 20em;
+  height: 30em;
+  width: 30em;
   color: white;
 
 `;
