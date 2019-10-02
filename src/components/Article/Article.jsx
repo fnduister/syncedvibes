@@ -2,6 +2,9 @@ import React from "react";
 import { ArticleContainer, Header, Content, Type, Video } from "./styled";
 
 function Article({ title, views, mediaUrl, type, thumbnail, id }) {
+  // const  ghify=()=>{
+     
+  // };
   const images = require.context("../../images/mp4s", true);
   return (
     // <ArticleContainer
@@ -18,7 +21,7 @@ function Article({ title, views, mediaUrl, type, thumbnail, id }) {
         <Type>{type}</Type>
       </Header>
       <Video autoPlay loop muted playsInline>
-        <source src={images(`./${thumbnail}`)} type="video/mp4" />>
+        {/* <source src={images(`./${thumbnail}`)} type="video/mp4" />> */}
       </Video>
       <Content variant="h6"> {title} </Content>
     </ArticleContainer>

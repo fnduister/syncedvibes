@@ -13,7 +13,18 @@ import "moment-timezone";
 import EditForm from "../Forms/EditForm/EditForm";
 import { openNotification } from "../Notification/reducer";
 import Axios from "axios";
+import SearchBar from '../SearchBar/SearchBar';
+import GifList from '../GifList/GifList'
+import request from 'superagent';
 
+let gifs = []
+const handleTermChange = term => {
+  const url = `http://api.giphy.com/v1/gifs/search?q=${term.replace(/\s/g, '+')}&api_key=dc6zaTOxFJmzC`;
+
+  request.get(url, (err, res) => {
+       gifs= res.body.data 
+  });
+}
 const AddArticle = ({
   settings,
   article,
@@ -24,8 +35,9 @@ const AddArticle = ({
   edit,
   openNotificationHandler,
   location,
-  history
+  history,
 }) => {
+
   let contentState = {};
   let articlesDefault = {};
   const [file, setFile] = useState("");
@@ -37,6 +49,7 @@ const AddArticle = ({
   }
   if (!isLoaded(settings)) return <div>...loading</div>;
   return (
+
     <Fragment>
       <DialogContentStyled>
         <DialogTitleStyled color="secondary">Add Article</DialogTitleStyled>
@@ -47,7 +60,9 @@ const AddArticle = ({
               ? new EditorState.createWithContent(contentState)
               : new EditorState.createEmpty()
           }}
+
           validationSchema={EditFormSchema}
+     
           onSubmit={async (values, actions) => {
             actions.setSubmitting(false);
             const content = JSON.stringify(
@@ -104,6 +119,10 @@ const AddArticle = ({
         />
         {console.log("dans addArticle")}
       </DialogContentStyled>
+      <div>
+      <SearchBar  onTermChange={handleTermChange}  />
+      <GifList gifs={gifs} />
+      </div>
     </Fragment>
   );
 };
