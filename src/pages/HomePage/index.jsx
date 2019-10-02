@@ -76,6 +76,7 @@ const HomePage = ({ onMobile, articles, settings }) => {
         updateSelectedArticles={updateSelectedArticles}
         types={settings.types}
       />
+      {console.log(currentArticles)}
       {isEmpty(articles) ? (
         <div>There's no articles</div>
       ) : (
