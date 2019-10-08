@@ -6,6 +6,7 @@ import { Button, Fab } from "@material-ui/core";
 import { Slide } from "@material-ui/core";
 import { theme } from "../../GlobalStyle";
 import { fade } from "@material-ui/core/styles/colorManipulator";
+import IconButton from '@material-ui/core/IconButton';
 // import { black } from "material-ui/styles/colors";
 
 
@@ -42,7 +43,7 @@ export const LogoStyled = styled.img`
 `;
 
 export const BottomStyled = styled.div`
-  background-color: ${fade(theme.palette.primary[900], 0.5)};
+  background-color: ${fade(theme.palette.primary[900], 0.9)};
   display: flex;
   justify-content: center;
   padding: 0.8em;
@@ -81,4 +82,12 @@ export const SpotifyButton = styled(Button)`
   margin-right: 1vw;   
   background-color: #1DB954 ;
   color: white;
+`;
+
+export const IconStyled = styled.img`
+  color: white;
+width: 2vw;
+height: 4vh;
+padding-bottom: 1vh;
+
 `;

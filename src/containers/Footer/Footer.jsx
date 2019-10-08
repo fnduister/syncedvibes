@@ -8,13 +8,19 @@ import {
   LogoStyled,
   ToggleContainer,
   ToggleLabel,
-  Fixed
+  Fixed,
+  IconStyled
 } from "./styled";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { theme } from "../../GlobalStyle";
 import Button from "@material-ui/core/Button";
 import Logo from "../../images/Logos/SV_SeeThrough_Logo.png";
+import SoundCloudIcon from"../../images/soundcloudicon.png";
+import InstagramIcon from"../../images/instagramicon.png";
+import SpotifyIcon from"../../images/spotifyicon.png";
+import TwitterIcon from"../../images/twittericon.png";
+import { Icon } from "@material-ui/core";
 
 export default function SlidingFooter() {
   const [checked, setChecked] = useState(false);
@@ -42,9 +48,18 @@ export default function SlidingFooter() {
           timeout={800}
         >
           <BottomStyled>
-            <SpotifyButton variant="contained">Spotify</SpotifyButton>
-            <Button variant="contained" color="secondary">
-              Secondary
+            <Button onClick={() => window.open('https://www.instagram.com/synced.vibes/ ')}>
+              <IconStyled src={InstagramIcon}></IconStyled>  
+            </Button>
+            <Button onClick={() => window.open('https://twitter.com/syncedvibes')}>
+              <IconStyled src={TwitterIcon}></IconStyled>  
+            </Button>
+            <Button  onClick={() => window.open( 'https://open.spotify.com/playlist/4WLJKeeVOtZAqFjs88yr9k')}>
+           <IconStyled src={SpotifyIcon}></IconStyled>
+            </Button>
+            <Button onClick={() => window.open('https://soundcloud.com/syncedvibesdotcom')}>
+            <IconStyled src={SoundCloudIcon}>
+            </IconStyled>
             </Button>
           </BottomStyled>
         </SlideStyled>
