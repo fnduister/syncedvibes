@@ -85,9 +85,8 @@ export const SpotifyButton = styled(Button)`
 `;
 
 export const IconStyled = styled.img`
-  color: white;
-width: 1.5vw;
-height: 4vh;
-padding-bottom: 1.4vh;
+height: 3.5vh; 
+padding-bottom: .5vh;
+
 
 `;
