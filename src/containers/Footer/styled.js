@@ -35,7 +35,7 @@ export const LogoStyled = styled.img`
   width: 4em;
   position: absolute;
   background-color: ${({ background }) =>
-    background ? `${fade(theme.palette.primary[900], 0.5)}` : "none"};
+    background ? `${fade(theme.palette.primary[900], 0.7)}` : "none"};
     transition: background-color 1s ease-in;
   z-index: 1;
   right: 0;
@@ -43,7 +43,7 @@ export const LogoStyled = styled.img`
 `;
 
 export const BottomStyled = styled.div`
-  background-color: ${fade(theme.palette.primary[900], 0.9)};
+  background-color: ${fade(theme.palette.primary[900], 0.7)};
   display: flex;
   justify-content: center;
   padding: 0.8em;
@@ -86,8 +86,8 @@ export const SpotifyButton = styled(Button)`
 
 export const IconStyled = styled.img`
   color: white;
-width: 2vw;
+width: 1.5vw;
 height: 4vh;
-padding-bottom: 1vh;
+padding-bottom: 1.4vh;
 
 `;
