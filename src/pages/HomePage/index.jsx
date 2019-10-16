@@ -1,19 +1,15 @@
-import React, { Fragment, useState, useEffect } from "react";
-import Article from "../../components/Article/Article";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { Articles } from "./styled";
-import FilterButtons from "../../components/FilterButtons/FilterButtons";
-import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
-import { getSelectedArticles } from "./selectors";
-import {
-  toggleAudioFilter,
-  toggleNewsFilter,
-  toggleVideoFilter
-} from "./reducer";
-import { objectToArray } from "../../utils/common";
+import React, { Fragment, useState, useEffect } from 'react';
+import Article from '../../components/Article/Article';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Articles } from './styled';
+import FilterButtons from '../../components/FilterButtons/FilterButtons';
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { getSelectedArticles } from './selectors';
+import { objectToArray } from '../../utils/common';
+import moment from 'moment';
 
-const HomePage = ({ onMobile, articles, settings }) => {
+const HomePage = ({ onMobile, articles, settings, firebase }) => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [currentArticles, setCurrentArticles] = useState([]);
   // const [arrayArticles, setArrayArticles] = useState([]);
@@ -21,31 +17,22 @@ const HomePage = ({ onMobile, articles, settings }) => {
   let arrayArticles = [];
 
   //filtering articles depending on the type selected
-  const updateSelectedArticles = type => {
+  const updateSelectedArticles = (type) => {
     //if we remove a type
-    arrayArticles = objectToArray(articles);
+    if (articles) {
+      arrayArticles = objectToArray(articles);
+    }
 
-    console.log({ selectedTypes, type, arrayArticles });
     if (selectedTypes.includes(type)) {
-      setSelectedTypes(prevTypes =>
-        prevTypes.filter(currentType => currentType !== type)
-      );
-      setCurrentArticles(prevArticles =>
-        prevArticles.filter(article => article.type !== type)
-      );
+      setSelectedTypes((prevTypes) => prevTypes.filter((currentType) => currentType !== type));
+      setCurrentArticles((prevArticles) => prevArticles.filter((article) => article.type !== type));
     } else {
       //if we add a type
-      setSelectedTypes(prevTypes => [...prevTypes, type]);
-      console.log({ arrayArticles, articles });
+      setSelectedTypes((prevTypes) => [...prevTypes, type]);
 
-      const newArticlesSelected = arrayArticles.filter(
-        article => article.type === type
-      );
+      const newArticlesSelected = arrayArticles.filter((article) => article.type === type);
 
-      setCurrentArticles(prevArticles => [
-        ...prevArticles,
-        ...newArticlesSelected
-      ]);
+      setCurrentArticles((prevArticles) => [...prevArticles, ...newArticlesSelected]);
     }
     //   console.log("remove article", "%c", "background: #222; color: pink");
     //   console.log({ selectedTypesSecond: selectedTypes });
@@ -63,7 +50,7 @@ const HomePage = ({ onMobile, articles, settings }) => {
   }
 
   // if (isLoaded(articles, settings)) {
-  if (firstRender && articles !== undefined && settings !== undefined) {
+  if (articles && firstRender && articles !== undefined && settings !== undefined) {
     setFirstRender(false);
     arrayArticles = objectToArray(articles);
     setCurrentArticles(arrayArticles);
@@ -72,31 +59,34 @@ const HomePage = ({ onMobile, articles, settings }) => {
 
   return (
     <Fragment>
-      <FilterButtons
-        updateSelectedArticles={updateSelectedArticles}
-        types={settings.types}
-      />
+      <FilterButtons updateSelectedArticles={updateSelectedArticles} types={settings.types} />
       {console.log(currentArticles)}
       {isEmpty(articles) ? (
         <div>There's no articles</div>
       ) : (
         <Articles container>
-          {console.log("dans le homepage")}
-          {currentArticles.map(article => {
-            return (
-              <Article
-                onMobile={onMobile}
-                mediaUrl={article.url}
-                title={article.title}
-                date={article.date}
-                views={article.views}
-                thumbnail={article.thumbnail}
-                type={article.type}
-                id={article.key}
-                key={article.key}
-              />
-            );
-          })}
+          {console.log('dans le homepage')}
+          {currentArticles
+            .sort((a, b) => {
+              console.log('moment compare', moment(a).isAfter(b));
+              return moment(b).isAfter(a) ? 1 : -1;
+            })
+            .map((article) => {
+              return (
+                <Article
+                  firebase={firebase}
+                  onMobile={onMobile}
+                  mediaUrl={article.url}
+                  title={article.title}
+                  date={article.date}
+                  views={article.views}
+                  thumbnail={article.thumbnail}
+                  type={article.type}
+                  id={article.key}
+                  key={article.key}
+                />
+              );
+            })}
         </Articles>
       )}
     </Fragment>
@@ -106,11 +96,11 @@ const HomePage = ({ onMobile, articles, settings }) => {
 // };
 
 const enhance = compose(
-  firebaseConnect(() => ["articles", "settings/types"]),
-  connect(state => ({
+  firebaseConnect(() => ['articles', 'settings/types']),
+  connect((state) => ({
     articles: getSelectedArticles(state),
-    settings: state.firebase.data.settings
-  }))
+    settings: state.firebase.data.settings,
+  })),
 );
 
 export default enhance(HomePage);
