@@ -20,6 +20,7 @@ import SoundCloudIcon from '../../images/soundcloudicon.png';
 import InstagramIcon from '../../images/instagramicon.png';
 import SpotifyIcon from '../../images/spotifyicon.png';
 import TwitterIcon from '../../images/twittericon.png';
+import YouTubeIcon from '../../images/youtubeicon.png';
 import { Icon } from '@material-ui/core';
 
 export default function SlidingFooter() {
@@ -54,6 +55,9 @@ export default function SlidingFooter() {
             </Button>
             <Button onClick={() => window.open('https://soundcloud.com/syncedvibesdotcom')}>
               <IconStyled src={SoundCloudIcon}></IconStyled>
+            </Button>
+            <Button onClick={() => window.open('https://www.youtube.com/channel/UCUDwoWSTVPAfXLLN48xzBPA/videos?disable_polymer=1')}>
+              <IconStyled src={YouTubeIcon}></IconStyled>
             </Button>
           </BottomStyled>
         </SlideStyled>
