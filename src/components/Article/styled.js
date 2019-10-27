@@ -6,6 +6,11 @@ export const Video = styled.video`
   width: 350px;
   z-index: -5;
 `;
+export const Image = styled.img`
+  width: 350px;
+  height: 200px;
+  z-index: -4;
+`;
 
 export const Delete = styled(IconButton)`
   position: absolute;
@@ -13,7 +18,7 @@ export const Delete = styled(IconButton)`
   top: 0;
   z-index: 50;
   transition: color 0.5s ease;
-  color: red;
+  color: #EC7E2A;
 
   &:hover {
     color: pink;
@@ -39,7 +44,6 @@ export const Header = styled.div`
   position: absolute;
   top: 3px;
   width: 100%;
-  /* background-color: rgba(0, 0, 0, 0.3); */
 `;
 
 export const Content = styled(Typography)`
@@ -53,7 +57,6 @@ export const Content = styled(Typography)`
   transition: padding 0.1s ease-out;
 
   ${ArticleContainer}:hover & {
-    /* background-color: white; */
     padding-bottom: 1.5em;
   }
 `;
