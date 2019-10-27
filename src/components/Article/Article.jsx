@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { ArticleContainer, Header, Content, Type, Video, Image } from './styled';
-import { withFirebase } from 'react-redux-firebase';
+import { withFirebase, firebaseConnect } from 'react-redux-firebase';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { Delete } from './styled';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 //test me
 class Article extends Component {
@@ -25,24 +27,20 @@ class Article extends Component {
 
   isMP4() {
     const str = this.state.url;
-    const mp4 = /.mp4/;
-    const ext = mp4.test(str);
-    console.log('TEST', ext);
-    this.setState({ isVideo: ext });
+    this.setState({ isVideo: /.mp4/.test(str) });
   }
 
   render() {
-    const { title, type, id } = this.props;
+    const { title, type, id, firebase, profile } = this.props;
     return (
       <ArticleContainer>
         <Header>
           <Type>{type}</Type>
-          <Delete
-            onClick={() => this.props.firebase.remove(`articles/${this.props.id}`)}
-            aria-label='delete'
-          >
-            <DeleteForeverIcon />
-          </Delete>
+          {!profile.isEmpty && profile.role === 'admin' && (
+            <Delete onClick={() => firebase.remove(`articles/${id}`)} aria-label='delete'>
+              <DeleteForeverIcon />
+            </Delete>
+          )}
         </Header>
         <Link to={`/article/${id}`}>
           {this.state.isVideo ? (
@@ -57,4 +55,6 @@ class Article extends Component {
   }
 }
 
-export default withFirebase(Article);
+export default compose(firebaseConnect(),
+connect(({ firebase: { profile } }) => ({ profile }))
+)(Article)

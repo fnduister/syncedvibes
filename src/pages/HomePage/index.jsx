@@ -13,13 +13,11 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [currentArticles, setCurrentArticles] = useState([]);
   // const [arrayArticles, setArrayArticles] = useState([]);
-  const [firstRender, setFirstRender] = useState(true);
   let arrayArticles = [];
 
   useEffect(() => {
     console.log('TCL: articles', articles);
     if (articles && articles !== undefined && settings !== undefined) {
-      setFirstRender(false);
       arrayArticles = objectToArray(articles);
       setCurrentArticles(arrayArticles);
       setSelectedTypes(settings.types);
@@ -62,10 +60,6 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
         <Articles container>
           {console.log('dans le homepage')}
           {currentArticles
-            .sort((a, b) => {
-              console.log('moment compare', moment(a).isAfter(b));
-              return moment(b).isAfter(a) ? 1 : -1;
-            })
             .map((article) => {
               return (
                 <Article

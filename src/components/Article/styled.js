@@ -8,7 +8,7 @@ export const Video = styled.video`
 `;
 export const Image = styled.img`
   width: 350px;
-  height: 200px;
+  height: 100%;
   z-index: -4;
 `;
 
@@ -21,7 +21,7 @@ export const Delete = styled(IconButton)`
   color: #EC7E2A;
 
   &:hover {
-    color: pink;
+    color: #E80909;
   }
 `;
 
@@ -31,6 +31,8 @@ export const ArticleContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  height: 200px;
+  overflow:hidden;
 `;
 
 export const Type = styled(Typography)`

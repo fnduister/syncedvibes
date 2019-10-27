@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ArticleDetails from "../../pages/ArticleDetails";
@@ -9,7 +9,6 @@ import Notification from "../../components/Notification/Notification";
 import { GlobalStyle, viewport } from "../../GlobalStyle";
 import Footer from "../Footer/Footer";
 import Grid from "@material-ui/core/Grid";
-import testFirebase from "../../components/testComponent/testFirebase";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Page404 from "../../components/Page404/Page404";
 import withSizes from "react-sizes";
@@ -28,7 +27,7 @@ const RouteContainer = posed.div({
   exit: { opacity: 0 }
 });
 
-const App = ({ auth, profile, onMobile }) => {
+const App = ({ profile, onMobile }) => {
   return (
     <Router>
       <ScrollToMainComponent>

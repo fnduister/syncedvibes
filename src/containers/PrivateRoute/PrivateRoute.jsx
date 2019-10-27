@@ -1,7 +1,5 @@
 import React from "react";
-import { Fragment } from "react";
 import { Route, Redirect, withRouter } from "react-router-dom";
-import { isLoaded } from "react-redux-firebase";
 
 function PrivateRoute({ profile, component: Component, rolei ,...rest }) {
     return (

@@ -8,7 +8,7 @@ import { compose } from "redux";
 import { firebaseConnect } from "react-redux-firebase";
 import LoginFormSchema from "../../components/Forms/LoginForm/LoginFormSchema";
 
-const Login = ({ firebase, auth, history, dialog, closeDialog }) => {
+const Login = ({ firebase, history, dialog, closeDialog }) => {
   console.log("je suis dans le login");
 
   const socialLogin = async provider => {
@@ -49,5 +49,4 @@ const Login = ({ firebase, auth, history, dialog, closeDialog }) => {
 export default compose(
   withRouter,
   firebaseConnect("articles"),
-  connect(({ firebase: { auth } }) => ({ auth }))
 )(Login);
