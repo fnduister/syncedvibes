@@ -16,6 +16,16 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
   const [firstRender, setFirstRender] = useState(true);
   let arrayArticles = [];
 
+  useEffect(() => {
+    console.log('TCL: articles', articles);
+    if (articles && articles !== undefined && settings !== undefined) {
+      setFirstRender(false);
+      arrayArticles = objectToArray(articles);
+      setCurrentArticles(arrayArticles);
+      setSelectedTypes(settings.types);
+    }
+  }, [articles, settings]);
+
   //filtering articles depending on the type selected
   const updateSelectedArticles = (type) => {
     //if we remove a type
@@ -34,15 +44,6 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
 
       setCurrentArticles((prevArticles) => [...prevArticles, ...newArticlesSelected]);
     }
-    //   console.log("remove article", "%c", "background: #222; color: pink");
-    //   console.log({ selectedTypesSecond: selectedTypes });
-    // } else {
-    //   //if we add a type
-    //   console.log("add article", "background: #222; color: #bada55");
-
-    //   setSelectedTypes(prevTypes => prevTypes.push(type));
-    //   console.log({ arrayArticles, articles });
-    // }
   };
 
   if (!isLoaded(articles, settings)) {
@@ -50,12 +51,6 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
   }
 
   // if (isLoaded(articles, settings)) {
-  if (articles && firstRender && articles !== undefined && settings !== undefined) {
-    setFirstRender(false);
-    arrayArticles = objectToArray(articles);
-    setCurrentArticles(arrayArticles);
-    setSelectedTypes(settings.types);
-  }
 
   return (
     <Fragment>

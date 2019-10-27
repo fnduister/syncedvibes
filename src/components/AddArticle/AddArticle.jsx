@@ -55,8 +55,6 @@ const AddArticle = ({
             const content = JSON.stringify(convertToRaw(values.editorState.getCurrentContent()));
             const { title, type, thumbnail, media } = values;
             const date = moment().format();
-            const formData = new FormData();
-            formData.append('file', file);
             const dataToSave = {
               title,
               type,

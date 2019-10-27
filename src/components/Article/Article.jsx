@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { ArticleContainer, Header, Content, Type, Video } from './styled';
 import { withFirebase } from 'react-redux-firebase';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { Delete } from './styled';
+import { Link } from 'react-router-dom';
 
 class Article extends Component {
   constructor(props) {
@@ -19,13 +22,25 @@ class Article extends Component {
   }
 
   render() {
+    const deleteArticle = async () => {
+      await this.props.firebase.remove(`articles/${this.props.id}`);
+    };
+
     const { title, type, id } = this.props;
     return (
-      <ArticleContainer to={`/article/${id}`}>
+      <ArticleContainer>
         <Header>
           <Type>{type}</Type>
+          <Delete
+            onClick={() => this.props.firebase.remove(`articles/${this.props.id}`)}
+            aria-label='delete'
+          >
+            <DeleteForeverIcon />
+          </Delete>
         </Header>
-        <Video src={this.state.url} type='video/mp4' autoPlay loop muted playsInline />
+        <Link to={`/article/${id}`}>
+          <Video src={this.state.url} type='video/mp4' autoPlay loop muted playsInline />
+        </Link>
         <Content variant='h6'> {title} </Content>
       </ArticleContainer>
     );
