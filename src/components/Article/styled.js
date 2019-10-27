@@ -6,7 +6,11 @@ export const Video = styled.video`
   width: 350px;
   z-index: -5;
 `;
-
+export const Image = styled.img`
+  width: 350px;
+  height: 200px;
+  z-index: -4;
+`;
 export const ArticleContainer = styled(Link)`
   margin: 0.6em;
   display: flex;
