@@ -13,17 +13,17 @@ import IconButton from '@material-ui/core/IconButton';
 // import { black } from "material-ui/styles/colors";
 export const PageUpContainer = styled.div`
   position: fixed;
-bottom: 5em;
-left: 1em;
+bottom: .3em;
+left: 0;
 transition: width .3s ease-in ;
-z-index: 0;
+z-index: 100;
   /* flex-direction: column-reverse; */
 `;
 
         export const PageUpStyled = styled(Fab)`
         position: relative;
-        background-color: ${fade(theme.palette.primary[900], 0.7)};
-       margin-bottom: 4em;
+        background-color: ${fade(theme.palette.primary[900], 1)};
+
 
         `;
 
@@ -100,7 +100,7 @@ export const FadeStyled = styled(Fade)`
 `;
 
 export const SpotifyButton = styled(Button)`
-  margin-right: 1vw;   
+  margin-right: .5vw;   
   background-color: #1DB954 ;
   color: white;
 `;

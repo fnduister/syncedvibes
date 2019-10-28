@@ -61,22 +61,20 @@ const SlidingFooter = props => {
   }, [scroll]);
   return (
     <div>
-      <PageUpContainer onClick={scrollToTop}>
-      <FadeStyled in={pageUpButton} mountOnEnter unmountOnExit >
-         <PageUpStyled   size="medium" > <NavigationIcon/></PageUpStyled>
-         </FadeStyled>
-         </PageUpContainer>
-    <Fixed width={checked ? 1 : 0} >
- 
 
-      <Container>
+    <Fixed width={checked ? 1 : 0} >
+
+
+      <Container>  
+
         <ToggleContainer checked={checked} onClick={() => setChecked((prev) => !prev)}>
           <ToggleLabel>{checked ? 'CLOSE' : 'OPEN'}</ToggleLabel>
 
           <LogoStyled background={checked ? 0 : 1} src={Logo} />
         </ToggleContainer>
         <SlideStyled direction='left' in={checked} mountOnEnter unmountOnExit timeout={800}>
-          <BottomStyled>
+          <BottomStyled>            
+          
             <Button onClick={() => window.open('https://twitter.com/syncedvibes')}>
               <IconStyled src={TwitterIcon}></IconStyled>
             </Button>
@@ -100,6 +98,11 @@ const SlidingFooter = props => {
         </SlideStyled>
       </Container>
     </Fixed>
+    <PageUpContainer >
+      <FadeStyled in={pageUpButton} mountOnEnter unmountOnExit >
+         <PageUpStyled onClick={scrollToTop}  size="medium" > <NavigationIcon/></PageUpStyled>
+         </FadeStyled>
+         </PageUpContainer>
     </div>
   );
 };
