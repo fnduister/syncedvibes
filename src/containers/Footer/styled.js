@@ -6,9 +6,26 @@ import { Button, Fab } from "@material-ui/core";
 import { Slide } from "@material-ui/core";
 import { theme } from "../../GlobalStyle";
 import { fade } from "@material-ui/core/styles/colorManipulator";
+import Fade from '@material-ui/core/Fade';
 import IconButton from '@material-ui/core/IconButton';
-// import { black } from "material-ui/styles/colors";
+;
 
+// import { black } from "material-ui/styles/colors";
+export const PageUpContainer = styled.div`
+  position: fixed;
+bottom: 5em;
+left: 1em;
+transition: width .3s ease-in ;
+z-index: 0;
+  /* flex-direction: column-reverse; */
+`;
+
+        export const PageUpStyled = styled(Fab)`
+        position: relative;
+        background-color: ${fade(theme.palette.primary[900], 0.7)};
+       margin-bottom: 4em;
+
+        `;
 
 export const Container = styled.div`
   position: relative;
@@ -76,6 +93,10 @@ export const ToggleContainer = styled.div`
 
 export const SlideStyled = styled(Slide)`
   margin-top: 1.1em;
+`;
+
+export const FadeStyled = styled(Fade)`
+
 `;
 
 export const SpotifyButton = styled(Button)`
