@@ -8,7 +8,6 @@ export const Video = styled.video`
 `;
 export const Image = styled.img`
   width: 350px;
-  height: 100%;
   z-index: -4;
 `;
 
