@@ -30,7 +30,6 @@ const AddArticle = ({
   let contentState = {};
   let articlesDefault = {};
   const [file, setFile] = useState('');
-  const customFirebase = useFirebase();
   if (article) {
     contentState = article.hasOwnProperty('content')
       ? convertFromRaw(JSON.parse(article.content))

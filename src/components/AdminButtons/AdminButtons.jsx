@@ -8,7 +8,7 @@ const AdminButtons = () => {
       <ButtonStyled component={Link} to="/manageUsers">
         <IconStyled>how_to_reg</IconStyled>
       </ButtonStyled>
-      <ButtonStyled component={Link} to="/manageUsers">
+      <ButtonStyled component={Link} to="/setting">
         <IconStyled>settings</IconStyled>
       </ButtonStyled>
       <ButtonStyled component={Link} to="/addArticle">

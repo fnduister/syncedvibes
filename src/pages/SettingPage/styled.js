@@ -4,7 +4,18 @@ import SaveIcon from '@material-ui/icons/Save';
 import { Button } from '@material-ui/core';
 import { Form } from 'formik';
 import { LibraryAdd } from '@material-ui/icons';
-import { theme } from '../../../GlobalStyle';
+import { theme } from '../../GlobalStyle';
+
+export const Container = styled.div`
+        margin: 2em;    
+`;
+
+export const Dropzone = styled.div`
+  border: 1px dashed black;
+  border-radius: 1px;
+  padding: 1em;
+`;
+
 
 export const FileInput = styled(SimpleFileUpload)``;
 
@@ -42,3 +53,5 @@ export const SaveIconStyled = styled(SaveIcon)`
 export const LibraryAddStyled = styled(LibraryAdd)`
   margin-right: 0.4em;
 `;
+
+

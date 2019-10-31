@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import {
-  TextUrl,
   LibraryAddStyled,
   FormStyled,
   TextTitle,
@@ -11,10 +10,9 @@ import {
 } from "./styled";
 import AdornementInputUrl from "../AdornementInputUrl/AdornementInputUrl";
 import MyEditor from "../Draft/Draft";
-import { MenuItem, Button } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 import { Field, ErrorMessage, FieldArray } from "formik";
 import FileInput from "../FileInput/FileInput";
-import { Label } from "@material-ui/icons";
 
 const EditForm = ({
   types,

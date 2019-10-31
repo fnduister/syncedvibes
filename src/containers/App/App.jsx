@@ -18,9 +18,9 @@ import SignUp from "../SignUp/SignUp";
 import ScrollToMainComponent from "../../components/ScrollToMainComponent/ScrollToMainComponent";
 import "moment-timezone";
 import AddArticle from "../../components/AddArticle/AddArticle";
-import { Settings } from "@material-ui/icons";
 import ManageUsers from "../../pages/ManageUsers/ManageUsers";
 import CustomCard from "../../components/CustomCard/CustomCard";
+import SettingPage from "../../pages/SettingPage/SettingPage";
 
 const RouteContainer = posed.div({
   enter: { opacity: 1, delay: 350, beforeChildren: true },
@@ -72,6 +72,12 @@ const App = ({ profile, onMobile }) => {
                     profile={profile}
                     add={true}
                     component={AddArticle}
+                  />
+                  <PrivateRoute
+                    path="/setting"
+                    rolei="admin"
+                    profile={profile}
+                    component={SettingPage}
                   />
                   <Route exact path="/login" component={Login} />
                 </CustomCard>
