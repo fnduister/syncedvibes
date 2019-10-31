@@ -1,17 +1,58 @@
 import styled from 'styled-components';
-import { Typography } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
+import Popover from '@material-ui/core/Popover';
+import { theme } from "../../GlobalStyle";
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { fade } from "@material-ui/core/styles/colorManipulator";
+import Fade from '@material-ui/core/Fade';
+import {
+  Typography
+} from '@material-ui/core';
+import {
+  IconButton, Button
+} from '@material-ui/core';
 
-export const Video = styled.video`
+export const DeleteConfirmation = styled(Popover)
+`
+
+`;
+export const GroupStyled = styled(ButtonGroup)`
+width: 100%;  
+height: 100%;
+font-size: 1em
+`;
+export const ConfirmationButtonYes = styled(Button)`
+color: #1DB954 ;
+;
+`;
+export const ConfirmationButtonNo = styled(Button)`
+color: red ;
+`;
+
+export const DeleteText = styled(Typography)`
+  position: relative;
+  font-size: 1em;
+  z-index: 1000;
+  color: white;
+  background-color:${fade(theme.palette.primary[900], 1)};
+  justify-content: right;
+  
+  /* margin-left: 96%; */
+  /* position: relative; */
+  cursor: pointer;
+`;
+
+
+export const Video = styled.video `
   width: 350px;
   z-index: -5;
 `;
-export const Image = styled.img`
+export const Image = styled.img `
   width: 350px;
   z-index: -4;
 `;
 
-export const Delete = styled(IconButton)`
+export const Delete = styled(IconButton)
+`
   position: absolute;
   right: 0;
   top: 0;
@@ -24,7 +65,7 @@ export const Delete = styled(IconButton)`
   }
 `;
 
-export const ArticleContainer = styled.div`
+export const ArticleContainer = styled.div `
   margin: 0.6em;
   display: flex;
   flex-direction: column;
@@ -34,20 +75,22 @@ export const ArticleContainer = styled.div`
   overflow:hidden;
 `;
 
-export const Type = styled(Typography)`
+export const Type = styled(Typography)
+`
   color: paleturquoise;
   margin: 0.5em;
 `;
 
-export const Looks = styled.div``;
+export const Looks = styled.div ``;
 
-export const Header = styled.div`
+export const Header = styled.div `
   position: absolute;
   top: 3px;
   width: 100%;
 `;
 
-export const Content = styled(Typography)`
+export const Content = styled(Typography)
+`
   background-color: rgba(0, 0, 0, 0.55);
   display: flex;
   width: 100%;
@@ -62,9 +105,10 @@ export const Content = styled(Typography)`
   }
 `;
 
-export const Media = styled.div``;
+export const Media = styled.div ``;
 
-export const HeaderText = styled(Typography)`
+export const HeaderText = styled(Typography)
+`
   color: paleturquoise;
   margin: 0.5em;
   background-color: rgba(0, 0, 0, 0.65);
