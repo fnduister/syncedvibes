@@ -13,7 +13,7 @@ const Header = props => {
   const [maxHeight, setMaxHeight] = useState(0);
   const [scroll, setScroll] = useState(0);
   const [height, setHeight] = useState();
-  const [stickyNav, SetStickyNav] = useState(false);
+  const [stickyNav, setStickyNav] = useState(false);
   const [completed, setCompleted] = useState(0);
   const [, incrementCurrentImage] = useState(0);
 
@@ -29,9 +29,9 @@ const Header = props => {
     window.addEventListener("scroll", handleScroll);
 
     if (height + scroll > maxHeight) {
-      if (stickyNav === false) SetStickyNav(true);
+      if (stickyNav === false) setStickyNav(true);
     } else {
-      if (stickyNav === true) SetStickyNav(false);
+      if (stickyNav === true) setStickyNav(false);
     }
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scroll]);

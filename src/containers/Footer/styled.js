@@ -6,9 +6,26 @@ import { Button, Fab } from "@material-ui/core";
 import { Slide } from "@material-ui/core";
 import { theme } from "../../GlobalStyle";
 import { fade } from "@material-ui/core/styles/colorManipulator";
+import Fade from '@material-ui/core/Fade';
 import IconButton from '@material-ui/core/IconButton';
-// import { black } from "material-ui/styles/colors";
+;
 
+// import { black } from "material-ui/styles/colors";
+export const PageUpContainer = styled.div`
+  position: fixed;
+bottom: .3em;
+left: 0;
+transition: width .3s ease-in ;
+z-index: 100;
+  /* flex-direction: column-reverse; */
+`;
+
+        export const PageUpStyled = styled(Fab)`
+        position: relative;
+        background-color: ${fade(theme.palette.primary[900], 1)};
+
+
+        `;
 
 export const Container = styled.div`
   position: relative;
@@ -78,8 +95,12 @@ export const SlideStyled = styled(Slide)`
   margin-top: 1.1em;
 `;
 
+export const FadeStyled = styled(Fade)`
+
+`;
+
 export const SpotifyButton = styled(Button)`
-  margin-right: 1vw;   
+  margin-right: .5vw;   
   background-color: #1DB954 ;
   color: white;
 `;
