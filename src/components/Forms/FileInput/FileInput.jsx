@@ -10,7 +10,7 @@ const FileInput = ({
   return (
     <Container>
       <ButtonStyled variant="contained" component="label" >
-        Upload File
+        Upload Thumbnail
         <input {...props} type="file" style={{ display: "none" }} id="customFile"/>
       </ButtonStyled>
       {console.log({field})}

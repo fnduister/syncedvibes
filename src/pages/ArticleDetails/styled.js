@@ -29,7 +29,7 @@ export const MediaContainer = styled.div`
 `;
 
 export const Title = styled(Typography)`
-  margin-bottom: 0.6em;
+  margin-bottom: 0.2em;
   text-decoration: none;
 
   &:hover {
