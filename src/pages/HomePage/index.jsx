@@ -16,8 +16,8 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
   let arrayArticles = [];
 
   useEffect(() => {
-    console.log('TCL: articles', articles);
-    if (articles && articles !== undefined && settings !== undefined) {
+    console.log('TCL: articles', articles, settings);
+    if (articles && articles !==undefined && settings !== undefined) {
       arrayArticles = objectToArray(articles);
       setCurrentArticles(arrayArticles);
       setSelectedTypes(settings.types);
@@ -59,23 +59,22 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
       ) : (
         <Articles container>
           {console.log('dans le homepage')}
-          {currentArticles
-            .map((article) => {
-              return (
-                <Article
-                  firebase={firebase}
-                  onMobile={onMobile}
-                  mediaUrl={article.url}
-                  title={article.title}
-                  date={article.date}
-                  views={article.views}
-                  thumbnail={article.thumbnail}
-                  type={article.type}
-                  id={article.key}
-                  key={article.key}
-                />
-              );
-            })}
+          {currentArticles.map((article) => {
+            return (
+              <Article
+                firebase={firebase}
+                onMobile={onMobile}
+                mediaUrl={article.url}
+                title={article.title}
+                date={article.date}
+                views={article.views}
+                thumbnail={article.thumbnail}
+                type={article.type}
+                id={article.key}
+                key={article.key}
+              />
+            );
+          })}
         </Articles>
       )}
     </Fragment>
@@ -85,7 +84,10 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
 // };
 
 const enhance = compose(
-  firebaseConnect(() => ['articles', 'settings/types']),
+  firebaseConnect(() => [
+    { path: 'articles', queryParams: ['orderByChild=date'] },
+    { path: 'settings/types' },
+  ]),
   connect((state) => ({
     articles: getSelectedArticles(state),
     settings: state.firebase.data.settings,
