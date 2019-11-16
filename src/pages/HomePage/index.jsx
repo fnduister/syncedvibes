@@ -59,7 +59,7 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
       ) : (
         <Articles container>
           {console.log('dans le homepage')}
-          {currentArticles.map((article) => {
+          {currentArticles.reverse().map((article) => {
             return (
               <Article
                 firebase={firebase}
