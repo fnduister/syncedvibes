@@ -57,7 +57,10 @@ const AddArticle = ({
               const content = JSON.stringify(
                 convertToRaw(values.editorState.getCurrentContent())
               );
-              const { title, type, thumbnail, media } = values;
+              let { title, type, thumbnail, media } = values;
+                if(media === undefined){
+                  media = [];
+                }
               const date = moment().format();
               const dataToSave = {
                 title,
