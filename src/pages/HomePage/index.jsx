@@ -37,9 +37,7 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
     } else {
       //if we add a type
       setSelectedTypes((prevTypes) => [...prevTypes, type]);
-
       const newArticlesSelected = arrayArticles.filter((article) => article.type === type);
-
       setCurrentArticles((prevArticles) => [...prevArticles, ...newArticlesSelected]);
     }
   };
@@ -53,13 +51,11 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
   return (
     <Fragment>
       <FilterButtons updateSelectedArticles={updateSelectedArticles} types={settings.types} />
-      {console.log(currentArticles)}
       {isEmpty(articles) ? (
         <div>There's no articles</div>
       ) : (
         <Articles container>
-          {console.log('dans le homepage')}
-          {currentArticles.reverse().map((article) => {
+          {currentArticles.map((article) => {
             return (
               <Article
                 firebase={firebase}
@@ -74,7 +70,7 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
                 key={article.key}
               />
             );
-          })}
+          }).reverse()}
         </Articles>
       )}
     </Fragment>
