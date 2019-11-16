@@ -24,7 +24,7 @@ export const ConfirmationButtonNo = styled(Button)`
 export const DeleteText = styled(Typography)`
   position: relative;
   font-size: 1em;
-  z-index: 1000;
+  z-index: 10;
   color: white;
   background-color: ${fade(theme.palette.primary[900], 1)};
   justify-content: right;
@@ -47,7 +47,7 @@ export const Delete = styled(IconButton)`
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 50;
+  z-index: 1;
   transition: color 0.5s ease;
   color: #ec7e2a;
 
