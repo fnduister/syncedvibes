@@ -41,7 +41,7 @@ export const BottomLine = styled.div`
 export const HeaderNavBar = styled.div`
   flex-grow: 1;
   /* height: 2vh; */
-  z-index: 5;
+  z-index: 50;
 `;
 
 export const IconBox = styled.div`

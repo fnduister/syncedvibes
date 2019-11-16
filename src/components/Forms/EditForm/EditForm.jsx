@@ -82,7 +82,7 @@ const EditForm = ({
               disabled={isSubmitting}
             >
               <LibraryAddStyled />
-              Add an url
+              Add an embed media
             </ButtonStyled>
           </Fragment>
         )}

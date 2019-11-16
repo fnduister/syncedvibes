@@ -55,9 +55,6 @@ class Article extends Component {
     this.setState({ anchorEl: null });
   };
 
- 
- 
-
   isMP4() {
     const str = this.state.url;
     this.setState({ isVideo: /.mp4/.test(str) });
@@ -65,7 +62,7 @@ class Article extends Component {
 
   render() {
     const { title, type, id, firebase, profile } = this.props;
-    return (
+      return (
       <ArticleContainer>
         <Header>
           <Type>{type}</Type>
