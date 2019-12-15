@@ -36,12 +36,7 @@ class Article extends Component {
     };
   }
   componentDidMount() {
-    const images = this.props.firebase
-      .storage()
-      .ref()
-      .child("gifs");
-    const image = images.child(this.props.thumbnail);
-    image.getDownloadURL().then(newUrl => {
+    this.props.image.getDownloadURL().then(newUrl => {
       this.setState({ url: newUrl });
       this.isMP4();
     });

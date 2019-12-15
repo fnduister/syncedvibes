@@ -11,13 +11,21 @@ import moment from 'moment';
 
 const HomePage = ({ onMobile, articles, settings, firebase }) => {
   const [selectedTypes, setSelectedTypes] = useState([]);
+  const [images, setImages] = useState([]);
   const [currentArticles, setCurrentArticles] = useState([]);
   // const [arrayArticles, setArrayArticles] = useState([]);
   let arrayArticles = [];
 
   useEffect(() => {
     console.log('TCL: articles', articles, settings);
-    if (articles && articles !==undefined && settings !== undefined) {
+    if (articles && articles !== undefined && settings !== undefined) {
+      setImages(
+        firebase
+          .storage()
+          .ref()
+          .child('gifs'),
+      );
+
       arrayArticles = objectToArray(articles);
       setCurrentArticles(arrayArticles);
       setSelectedTypes(settings.types);
@@ -55,22 +63,25 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
         <div>There's no articles</div>
       ) : (
         <Articles container>
-          {currentArticles.map((article) => {
-            return (
-              <Article
-                firebase={firebase}
-                onMobile={onMobile}
-                mediaUrl={article.url}
-                title={article.title}
-                date={article.date}
-                views={article.views}
-                thumbnail={article.thumbnail}
-                type={article.type}
-                id={article.key}
-                key={article.key}
-              />
-            );
-          }).reverse()}
+          {currentArticles
+            .map(({ key, value }) => {
+              return (
+                <Article
+                  firebase={firebase}
+                  onMobile={onMobile}
+                  mediaUrl={value.url}
+                  title={value.title}
+                  date={value.date}
+                  image={images.child(value.thumbnail)}
+                  views={value.views}
+                  thumbnail={value.thumbnail}
+                  type={value.type}
+                  id={value.key}
+                  key={key}
+                />
+              );
+            })
+            .reverse()}
         </Articles>
       )}
     </Fragment>
@@ -81,11 +92,11 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
 
 const enhance = compose(
   firebaseConnect(() => [
-    { path: 'articles', queryParams: ['orderByChild=date'] },
+    { path: 'articles', queryParams: ['orderByChild=date', 'limitToFirst=20'] },
     { path: 'settings/types' },
   ]),
   connect((state) => ({
-    articles: getSelectedArticles(state),
+    articles: state.firebase.ordered.articles,
     settings: state.firebase.data.settings,
   })),
 );
