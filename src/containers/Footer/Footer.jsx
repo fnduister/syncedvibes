@@ -29,7 +29,6 @@ import { Icon } from '@material-ui/core';
 
 const SlidingFooter = props => {
   const [checked, setChecked] = useState(false);
-  const navRef = useRef(null);
 
   const [maxHeight, setMaxHeight] = useState(0);
   const [scroll, setScroll] = useState(0);
@@ -59,14 +58,11 @@ const SlidingFooter = props => {
     }
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scroll]);
+
   return (
     <div>
-
     <Fixed width={checked ? 1 : 0} >
-
-
-      <Container>  
-
+      <Container>
         <ToggleContainer checked={checked} onClick={() => setChecked((prev) => !prev)}>
           <ToggleLabel>{checked ? 'CLOSE' : 'OPEN'}</ToggleLabel>
 

@@ -1,89 +1,53 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import Article from '../../components/Article/Article';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Articles } from './styled';
 import FilterButtons from '../../components/FilterButtons/FilterButtons';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
-import { getSelectedArticles } from './selectors';
-import { objectToArray } from '../../utils/common';
-import moment from 'moment';
+import Articles from '../../components/Articles/Articles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const HomePage = ({ onMobile, articles, settings, firebase }) => {
+const HomePage = ({ settings }) => {
   const [selectedTypes, setSelectedTypes] = useState([]);
-  const [images, setImages] = useState([]);
-  const [currentArticles, setCurrentArticles] = useState([]);
-  // const [arrayArticles, setArrayArticles] = useState([]);
-  let arrayArticles = [];
-
+  const [selectedType, setSelectedType] = useState('');
+  const [limit, setLimit] = useState(15);
+  const [startAt, setStartAt] = useState('');
+  const [queries, setQueries] = useState([
+    'orderByChild=date',
+    `limitToLast=${limit}`,
+  ]);
   useEffect(() => {
-    console.log('TCL: articles', articles, settings);
-    if (articles && articles !== undefined && settings !== undefined) {
-      setImages(
-        firebase
-          .storage()
-          .ref()
-          .child('gifs'),
-      );
-
-      arrayArticles = objectToArray(articles);
-      setCurrentArticles(arrayArticles);
+    if (settings) {
       setSelectedTypes(settings.types);
     }
-  }, [articles, settings]);
-
-  //filtering articles depending on the type selected
-  const updateSelectedArticles = (type) => {
-    //if we remove a type
-    if (articles) {
-      arrayArticles = objectToArray(articles);
-    }
-
-    if (selectedTypes.includes(type)) {
-      setSelectedTypes((prevTypes) => prevTypes.filter((currentType) => currentType !== type));
-      setCurrentArticles((prevArticles) => prevArticles.filter((article) => article.type !== type));
-    } else {
-      //if we add a type
-      setSelectedTypes((prevTypes) => [...prevTypes, type]);
-      const newArticlesSelected = arrayArticles.filter((article) => article.type === type);
-      setCurrentArticles((prevArticles) => [...prevArticles, ...newArticlesSelected]);
-    }
-  };
-
-  if (!isLoaded(articles, settings)) {
-    return <div>Loading...</div>;
+  }, [settings]);
+  
+  if (!isLoaded(settings)) {
+    return <CircularProgress size='50' color='secondary' />;
   }
-
-  // if (isLoaded(articles, settings)) {
+  
+  const changeStartArticles = (startArticleId) => {
+    console.log("TCL: HomePage -> settings", settings)
+    console.log("TCL: changeStartArticles -> startArticleId", startArticleId)
+    setStartAt(startArticleId);
+    setQueries([
+      'orderByChild=date',
+      `endAt=${startArticleId}`,
+      `limitToLast=${limit}`,
+    ]);
+  };
 
   return (
     <Fragment>
-      <FilterButtons updateSelectedArticles={updateSelectedArticles} types={settings.types} />
-      {isEmpty(articles) ? (
-        <div>There's no articles</div>
-      ) : (
-        <Articles container>
-          {currentArticles
-            .map(({ key, value }) => {
-              return (
-                <Article
-                  firebase={firebase}
-                  onMobile={onMobile}
-                  mediaUrl={value.url}
-                  title={value.title}
-                  date={value.date}
-                  image={images.child(value.thumbnail)}
-                  views={value.views}
-                  thumbnail={value.thumbnail}
-                  type={value.type}
-                  id={value.key}
-                  key={key}
-                />
-              );
-            })
-            .reverse()}
-        </Articles>
-      )}
+      <FilterButtons setSelectedType={(type) => setSelectedType(type)} types={settings.types} />
+      <Articles
+        queries={queries}
+        startAt={startAt}
+        changeStartArticles={changeStartArticles}
+        limit={limit}
+        type={selectedType}
+        selectedTypes={selectedTypes}
+        setSelectedTypes={(types) => setSelectedTypes(types)}
+      />
     </Fragment>
   );
 };
@@ -91,12 +55,8 @@ const HomePage = ({ onMobile, articles, settings, firebase }) => {
 // };
 
 const enhance = compose(
-  firebaseConnect(() => [
-    { path: 'articles', queryParams: ['orderByChild=date', 'limitToFirst=20'] },
-    { path: 'settings/types' },
-  ]),
+  firebaseConnect(() => [{ path: 'settings/types' }]),
   connect((state) => ({
-    articles: state.firebase.ordered.articles,
     settings: state.firebase.data.settings,
   })),
 );
