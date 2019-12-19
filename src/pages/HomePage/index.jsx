@@ -11,42 +11,46 @@ const HomePage = ({ settings }) => {
   const [selectedType, setSelectedType] = useState('');
   const [limit, setLimit] = useState(15);
   const [startAt, setStartAt] = useState('');
-  const [queries, setQueries] = useState([
-    'orderByChild=date',
-    `limitToLast=${limit}`,
-  ]);
+  const [queries, setQueries] = useState(['orderByChild=date', `limitToLast=${limit}`]);
+
   useEffect(() => {
     if (settings) {
       setSelectedTypes(settings.types);
     }
   }, [settings]);
-  
+
   if (!isLoaded(settings)) {
     return <CircularProgress size='50' color='secondary' />;
   }
-  
-  const changeStartArticles = (startArticleId) => {
-    console.log("TCL: HomePage -> settings", settings)
-    console.log("TCL: changeStartArticles -> startArticleId", startArticleId)
+
+  const changeQueryArticles = (startArticleId) => {
+    console.log('TCL: HomePage -> settings', settings);
+    console.log('TCL: changeStartArticles -> startArticleId', startArticleId);
     setStartAt(startArticleId);
-    setQueries([
-      'orderByChild=date',
-      `endAt=${startArticleId}`,
-      `limitToLast=${limit}`,
-    ]);
+    setQueries(['orderByChild=date', `endAt=${startArticleId}`, `limitToLast=${limit}`]);
+  };
+
+  const modifySelectedTypes = (type) => {
+    setSelectedType(type);
+    if (selectedTypes.includes(type)) {
+      setSelectedTypes((oldTypes) => oldTypes.filter((oldType) => oldType !== type));
+    } else {
+      setSelectedTypes((oldTypes) => [...oldTypes, type]);
+    }
+    console.log(selectedTypes);
   };
 
   return (
     <Fragment>
-      <FilterButtons setSelectedType={(type) => setSelectedType(type)} types={settings.types} />
+      <FilterButtons modifySelectedTypes={modifySelectedTypes} types={settings.types} />
       <Articles
         queries={queries}
         startAt={startAt}
-        changeStartArticles={changeStartArticles}
+        changeQueryArticles={changeQueryArticles}
         limit={limit}
         type={selectedType}
+        setSelectedTypes={setSelectedTypes}
         selectedTypes={selectedTypes}
-        setSelectedTypes={(types) => setSelectedTypes(types)}
       />
     </Fragment>
   );

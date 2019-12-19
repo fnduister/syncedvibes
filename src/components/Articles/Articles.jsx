@@ -11,7 +11,7 @@ import moment from 'moment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Articles = ({
-  changeStartArticles,
+  changeQueryArticles,
   onMobile,
   articles,
   firebase,
@@ -21,13 +21,13 @@ const Articles = ({
 }) => {
   const [images, setImages] = useState([]);
   const [currentArticles, setCurrentArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [allArticles, setAllArticles] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
   const firstUpdate = useRef(true);
   const articlesRef = useRef();
-  let arrayArticles = [];
 
   useEffect(() => {
+    let arrayArticles = [];
     console.log('TCL: articles', articles);
     if (articles && articles !== undefined) {
       setImages(
@@ -36,22 +36,46 @@ const Articles = ({
           .ref()
           .child('gifs'),
       );
-      if(firstUpdate.current){
+      arrayArticles = objectToArray(articles).slice(1).reverse();
+      setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
+      updateCurrentArticles();
+    }
+    return () => {
+      if (firstUpdate.current) {
         setCurrentArticles([]);
+        setAllArticles([]);
         firstUpdate.current = false;
       }
-      arrayArticles = objectToArray(articles);
-      console.log('TCL: arrayArticles', arrayArticles);
-      updateSelectedArticles(arrayArticles.slice(1).reverse());
-    }
+    };
   }, [articles]);
+
+  useEffect(() => {
+    updateCurrentArticles();
+
+    console.log('TCL: selectedTypes', selectedTypes);
+    console.log('TCL: selectedTypes', type);
+  }, [selectedTypes, allArticles]);
+
+  const isInFilter = (article) => {
+    for (const type of selectedTypes) {
+      if (article.value.type === type) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const updateCurrentArticles = () => {
+    const tempAllArticle = [...allArticles];
+    console.log('TCL: updateCurrentArticles -> allArticles', allArticles);
+    setCurrentArticles(tempAllArticle.filter((article) => isInFilter(article)));
+  };
 
   window.onscroll = debounce(() => {
     // Bails early if:
     // * there's an error
     // * it's already loading
     // * there's nothing left to load
-    if (isLoading || !hasMore) return;
     // Checks that the page has scrolled to the bottom
     if (
       articlesRef.current &&
@@ -63,30 +87,25 @@ const Articles = ({
 
   const loadMoreArticles = () => {
     console.log(articles[0].key);
-    changeStartArticles(articles[0].value.date);
+    changeQueryArticles(articles[0].value.date);
   };
 
-  const updateSelectedArticles = (newArray) => {
-    setCurrentArticles((prevArticles) => [...prevArticles, ...newArray]);
-  };
-
-  //filtering articles depending on the type selected
-  //   const filterArticles = (type) => {
-  //     //if we remove a type
-  //     if (articles) {
-  //       arrayArticles = objectToArray(articles);
-  //     }
-
+  // filtering articles depending on the type selected
+  // const filterArticles = (type) => {
+  //   if (selectedTypes && type) {
   //     if (selectedTypes.includes(type)) {
-  //       setSelectedTypes((prevTypes) => prevTypes.filter((currentType) => currentType !== type));
-  //       setCurrentArticles((prevArticles) => prevArticles.filter((article) => article.type !== type));
+  //       setCurrentArticles((prevArticles) =>
+  //         prevArticles.filter((article) => article.value.type !== type),
+  //       );
   //     } else {
   //       //if we add a type
-  //       setSelectedTypes((prevTypes) => [...prevTypes, type]);
-  //       const newArticlesSelected = arrayArticles.filter((article) => article.type === type);
+  //       const newArticlesSelected = allArticles.filter((article) => article.type === type);
   //       setCurrentArticles((prevArticles) => [...prevArticles, ...newArticlesSelected]);
   //     }
-  //   };
+  //   }
+  //   console.log('TCL: filterArticles -> arrayArticles', allArticles);
+  //   console.log(currentArticles);
+  // };
 
   if (!isLoaded(articles)) {
     return <CircularProgress size='50' color='secondary' />;
@@ -98,24 +117,23 @@ const Articles = ({
         <div>There's no articles</div>
       ) : (
         <Container ref={articlesRef} container>
-          {currentArticles
-            .map(({ key, value }) => {
-              return (
-                <Article
-                  firebase={firebase}
-                  onMobile={onMobile}
-                  mediaUrl={value.url}
-                  title={value.title}
-                  date={value.date}
-                  image={images.child(value.thumbnail)}
-                  views={value.views}
-                  thumbnail={value.thumbnail}
-                  type={value.type}
-                  id={value.key}
-                  key={key}
-                />
-              );
-            })}
+          {currentArticles.map(({ key, value }) => {
+            return (
+              <Article
+                firebase={firebase}
+                onMobile={onMobile}
+                mediaUrl={value.url}
+                title={value.title}
+                date={value.date}
+                image={images.child(value.thumbnail)}
+                views={value.views}
+                thumbnail={value.thumbnail}
+                type={value.type}
+                id={value.key}
+                key={key}
+              />
+            );
+          })}
         </Container>
       )}
     </Fragment>
@@ -126,7 +144,7 @@ const Articles = ({
 
 const enhance = compose(
   firebaseConnect(({ startAt, limit, queries }) => {
-  console.log("TCL: queries", queries)
+    console.log('TCL: queries', queries);
     return [
       {
         path: 'articles',

@@ -3,7 +3,7 @@ import { SortContainer, SortButton } from "./styled";
 import { ButtonGroup } from "@material-ui/core";
 
 const FilterButtons = ({
-  updateSelectedArticles,
+  modifySelectedTypes,
   types
 }) => {
   const [actives, changeActives] = useState({});
@@ -17,7 +17,7 @@ const FilterButtons = ({
   const handleFilter = type => {
     changeActives(actives => ({ ...actives, [type]: !actives[type] }));
     console.log("calling updateSelected");
-    updateSelectedArticles(type);
+    modifySelectedTypes(type);
   };
 
   return (
