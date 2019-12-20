@@ -18,6 +18,7 @@ const Articles = ({
   setSelectedTypes,
   type,
   selectedTypes,
+  ...restProps
 }) => {
   const [images, setImages] = useState([]);
   const [currentArticles, setCurrentArticles] = useState([]);
@@ -28,8 +29,9 @@ const Articles = ({
 
   useEffect(() => {
     let arrayArticles = [];
-    console.log('TCL: articles', articles);
     if (articles && articles !== undefined) {
+      articles.slice(0,14);
+      console.log('TCL: articles', articles);
       setImages(
         firebase
           .storage()
@@ -121,7 +123,7 @@ const Articles = ({
                 views={value.views}
                 thumbnail={value.thumbnail}
                 type={value.type}
-                removeArticleFromList={removeArticle}
+                removeArticleFromList={15}
                 id={key}
                 key={key}
               />
