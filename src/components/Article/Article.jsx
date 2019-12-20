@@ -50,6 +50,11 @@ class Article extends Component {
     this.setState({ anchorEl: null });
   };
 
+  handleRemoveArticle = () => {
+    this.props.firebase.remove(`articles/${this.props.id}`);
+    this.props.removeArticleFromList();
+  };
+
   isMP4() {
     const str = this.state.url;
     this.setState({ isVideo: /.mp4/.test(str) });
@@ -85,8 +90,8 @@ class Article extends Component {
                 }}
               >
                 <DeleteText> Delete this post ?</DeleteText>
-                <GroupStyled variant='text' size='large'>
-                  <ConfirmationButtonYes onClick={() => firebase.remove(`articles/${id}`)}>
+                <GroupStyled variant='outlined' size='large'>
+                  <ConfirmationButtonYes onClick={this.handleRemoveArticle}>
                     yes
                   </ConfirmationButtonYes>
                   <ConfirmationButtonNo onClick={this.handleClose}>no</ConfirmationButtonNo>

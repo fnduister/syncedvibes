@@ -7,6 +7,7 @@ import Dialog from '@material-ui/core/Dialog';
 import AddArticle from '../../components/AddArticle/AddArticle';
 import { stateToHTML } from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   YoutubeStyled,
   Title,
@@ -129,7 +130,7 @@ class ArticleDetails extends Component {
         </Dialog>
       </Fragment>
     ) : (
-      'Loading...'
+      <CircularProgress size='50' color='secondary' />
     );
   }
 }

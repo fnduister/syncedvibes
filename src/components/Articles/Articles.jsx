@@ -36,7 +36,9 @@ const Articles = ({
           .ref()
           .child('gifs'),
       );
-      arrayArticles = objectToArray(articles).slice(1).reverse();
+      arrayArticles = objectToArray(articles)
+        .slice(1)
+        .reverse();
       setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
       updateCurrentArticles();
     }
@@ -57,6 +59,7 @@ const Articles = ({
   }, [selectedTypes, allArticles]);
 
   const isInFilter = (article) => {
+    console.log("TCL: isInFilter -> article", article)
     for (const type of selectedTypes) {
       if (article.value.type === type) {
         return true;
@@ -65,8 +68,14 @@ const Articles = ({
     return false;
   };
 
+  const removeArticle = (key) => {
+    setAllArticles((prevArticles) => prevArticles.filter((article) => article.key !== key));
+    updateCurrentArticles();
+  };
+
   const updateCurrentArticles = () => {
     const tempAllArticle = [...allArticles];
+    console.log("TCL: updateCurrentArticles -> tempAllArticle", tempAllArticle)
     console.log('TCL: updateCurrentArticles -> allArticles', allArticles);
     setCurrentArticles(tempAllArticle.filter((article) => isInFilter(article)));
   };
@@ -90,23 +99,6 @@ const Articles = ({
     changeQueryArticles(articles[0].value.date);
   };
 
-  // filtering articles depending on the type selected
-  // const filterArticles = (type) => {
-  //   if (selectedTypes && type) {
-  //     if (selectedTypes.includes(type)) {
-  //       setCurrentArticles((prevArticles) =>
-  //         prevArticles.filter((article) => article.value.type !== type),
-  //       );
-  //     } else {
-  //       //if we add a type
-  //       const newArticlesSelected = allArticles.filter((article) => article.type === type);
-  //       setCurrentArticles((prevArticles) => [...prevArticles, ...newArticlesSelected]);
-  //     }
-  //   }
-  //   console.log('TCL: filterArticles -> arrayArticles', allArticles);
-  //   console.log(currentArticles);
-  // };
-
   if (!isLoaded(articles)) {
     return <CircularProgress size='50' color='secondary' />;
   }
@@ -129,7 +121,8 @@ const Articles = ({
                 views={value.views}
                 thumbnail={value.thumbnail}
                 type={value.type}
-                id={value.key}
+                removeArticleFromList={removeArticle}
+                id={key}
                 key={key}
               />
             );
@@ -148,7 +141,6 @@ const enhance = compose(
     return [
       {
         path: 'articles',
-        type: 'once',
         queryParams: queries,
       },
     ];
