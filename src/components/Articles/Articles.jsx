@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Container } from './styled';
 import debounce from 'lodash.debounce';
-import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { withFirebase } from 'react-redux-firebase';
 // import { getSelectedArticles } from './selectors';
 import { objectToArrayWithKey } from '../../utils/common';
 import moment from 'moment';
@@ -23,8 +23,9 @@ const Articles = ({
   const [images, setImages] = useState([]);
   const [currentArticles, setCurrentArticles] = useState([]);
   const [allArticles, setAllArticles] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  const firstUpdate = useRef(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [previousQueryValue, setPreviousQueryValue] = useState('');
+  const [noMoreFetch, setNoMoreFetch] = useState(false);
   const articlesRef = useRef();
 
   useEffect(() => {
@@ -38,22 +39,10 @@ const Articles = ({
         .child('gifs'),
     );
     removeArticle();
-    // ref.on('child_removed', function(data) {
-    //   var deletedPlayer = data.val();
-    //   console.log(deletedPlayer + ' has been deleted');
-    // });
-    // return () => {
-    //   if (firstUpdate.current) {
-    //     setCurrentArticles([]);
-    //     setAllArticles([]);
-    //     firstUpdate.current = false;
-    //   }
-    // };
   }, []);
 
   const addNewArticle = () => {
     let first = true;
-    console.log('calling addNewArticle');
 
     firebase
       .database()
@@ -63,10 +52,13 @@ const Articles = ({
       .on('child_added', (snapshot) => {
         if (!first) {
           const newArticle = snapshot.val();
-          setAllArticles((prevArticles) => [
-            { key: snapshot.key, value: newArticle },
-            ...prevArticles,
-          ]);
+          setAllArticles((prevArticles) => {
+            //simple hack to prevent adding a deleted element
+            //cause firebase call child_added event with delete
+            return prevArticles[1].key === snapshot.key
+              ? prevArticles
+              : [{ key: snapshot.key, value: newArticle }, ...prevArticles];
+          });
         }
         first = false;
       });
@@ -75,6 +67,7 @@ const Articles = ({
   const fetchFirstArticleBatch = async () => {
     let arrayArticles = [];
     console.log('calling FetchFirst');
+    setIsLoading(true);
     await firebase
       .database()
       .ref('articles/')
@@ -86,7 +79,9 @@ const Articles = ({
           arrayArticles = objectToArrayWithKey(snapshot.val())
             .slice(1)
             .reverse();
+          setPreviousQueryValue(arrayArticles[arrayArticles.length - 1].value.date);
           setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
+          setIsLoading(false);
         },
         (error) => {
           console.log('Error: ' + error.code);
@@ -96,20 +91,28 @@ const Articles = ({
 
   const fetchNextArticleBatch = async () => {
     let arrayArticles = [];
-    console.log('calling FetchNext');
+    setIsLoading(true);
+
     await firebase
       .database()
       .ref('articles/')
-      .limitToLast(maxArticlesPerPage)
       .orderByChild('date')
-      .endAt(allArticles[allArticles.length - 1].value.date)
+      .endAt(previousQueryValue)
+      .limitToLast(maxArticlesPerPage)
       .once(
         'value',
         (snapshot) => {
           arrayArticles = objectToArrayWithKey(snapshot.val())
             .reverse()
             .slice(1);
-          setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
+          if (previousQueryValue === arrayArticles[arrayArticles.length - 1].value.date) {
+            setNoMoreFetch(true);
+          } else {
+            setPreviousQueryValue(arrayArticles[arrayArticles.length - 1].value.date);
+            setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
+          }
+          console.log(isLoading);
+          setIsLoading(false);
         },
         (error) => {
           console.log('Error: ' + error.code);
@@ -130,25 +133,34 @@ const Articles = ({
     return false;
   };
 
+  // const articleAlreadyRendered = (currentSelectedType) => {
+  //   for (const type of selectedTypes) {
+  //     console.log('TCL: isInSelectedTypes -> selectedTypes', selectedTypes);
+  //     if (type.key === currentSelectedType.key) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // };
+
   const removeArticle = () => {
+    console.log('ok on test tous les articles', allArticles);
     firebase
       .database()
       .ref('articles/')
       .on('child_removed', (data) => {
-        var deletedPlayer = data.val();
-        console.log(deletedPlayer + ' has been deleted');
-        console.log(data.key + ' key has been deleted');
-        setAllArticles((prevArticles) => prevArticles.filter((article) => 
-        {
-          console.log("TCL: removeArticle -> prevArticles", prevArticles)
-          
-          console.log("TCL: removeArticle -> article.key", article.key, data.key);
-          return article.key !== data.key
-        }));
+        setAllArticles((prevArticles) => {
+          console.log('TCL: removeArticle -> prevArticles', prevArticles);
+          // prevArticles.shift();
+          return prevArticles.filter((article) => {
+            return article.key !== data.key;
+          });
+        });
       });
   };
 
   const updateCurrentArticles = () => {
+    console.log('TCL: updateCurrentArticles -> allArticles', allArticles);
     const tempAllArticle = [...allArticles];
     setCurrentArticles(tempAllArticle.filter((article) => isInFilter(article)));
   };
@@ -159,7 +171,9 @@ const Articles = ({
       articlesRef.current &&
       articlesRef.current.clientHeight < document.documentElement.scrollTop
     ) {
-      fetchNextArticleBatch();
+      if (!noMoreFetch) {
+        fetchNextArticleBatch();
+      }
     }
   }, 100);
 
@@ -198,15 +212,10 @@ const Articles = ({
           })}
         </Container>
       )}
+      {isLoading && <CircularProgress size={50} color='secondary' />}
+      {noMoreFetch && <p>There is no more articles!</p>}
     </Fragment>
   );
 };
 
-const enhance = compose(
-  firebaseConnect(),
-  connect((state) => ({
-    articles: state.firebase.ordered.articles,
-  })),
-);
-
-export default enhance(Articles);
+export default withFirebase(Articles);

@@ -19,7 +19,6 @@ const FilterButtons = ({ modifySelectedTypes, types }) => {
   return (
     <SortContainer>
       <ButtonGroup variant='contained'>
-        {console.log("types", types)}
         {types.map((type) => {
           return (
             <SortButton

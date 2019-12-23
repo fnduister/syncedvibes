@@ -23,7 +23,7 @@ import CustomCard from "../../components/CustomCard/CustomCard";
 import SettingPage from "../../pages/SettingPage/SettingPage";
 
 const RouteContainer = posed.div({
-  enter: { opacity: 1, delay: 350, beforeChildren: true },
+  enter: { opacity: 1, delay: 500, beforeChildren: true },
   exit: { opacity: 0 }
 });
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   ArticleContainer,
   Header,
@@ -18,6 +18,7 @@ import { Delete } from './styled';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 //test me
 class Article extends Component {
@@ -27,6 +28,7 @@ class Article extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.state = {
       url: '',
+      isLoading: false,
       isVideo: false,
       anchorEl: null,
       setAnchorEl: false,
@@ -36,10 +38,12 @@ class Article extends Component {
     };
   }
   componentDidMount() {
+    this.setState({ isLoading: true });
     this.props.image.getDownloadURL().then((newUrl) => {
       this.setState({ url: newUrl });
       this.isMP4();
     });
+    this.setState({ isLoading: false });
   }
 
   handleClick = (event) => {
@@ -51,6 +55,7 @@ class Article extends Component {
   };
 
   handleRemoveArticle = () => {
+    console.log('TCL: Article -> handleRemoveArticle -> this.props.id', this.props.id);
     this.props.firebase.remove(`articles/${this.props.id}`);
     // this.props.removeArticleFromList();
   };
@@ -61,54 +66,60 @@ class Article extends Component {
   }
 
   render() {
-    const { title, type, id, firebase, profile } = this.props;
+    const { title, type, id, profile } = this.props;
     return (
-      <ArticleContainer>
-        <Header>
-          <Type>{type}</Type>
-          {!profile.isEmpty && profile.role === 'admin' && (
-            <div>
-              <Delete
-                onClick={this.handleClick}
-                //
-                aria-label='delete'
-              >
-                {' '}
-                <DeleteForeverIcon />
-              </Delete>
-              <DeleteConfirmation
-                open={this.state.anchorEl ? true : false}
-                anchorEl={this.state.anchorEl}
-                onClose={this.handleClose}
-                anchorOrigin={{
-                  vertical: 'center',
-                  horizontal: 'left',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-              >
-                <DeleteText> Delete this post ?</DeleteText>
-                <GroupStyled variant='outlined' size='large'>
-                  <ConfirmationButtonYes onClick={this.handleRemoveArticle}>
-                    yes
-                  </ConfirmationButtonYes>
-                  <ConfirmationButtonNo onClick={this.handleClose}>no</ConfirmationButtonNo>
-                </GroupStyled>
-              </DeleteConfirmation>
-            </div>
-          )}
-        </Header>
-        <Link to={`/article/${id}`}>
-          {this.state.isVideo ? (
-            <Video src={this.state.url} type='video/mp4' autoPlay loop muted playsInline />
-          ) : (
-            <Image src={this.state.url} type='image' alt={title} />
-          )}
-        </Link>
-        <Content variant='h6'> {title} </Content>
-      </ArticleContainer>
+      <Fragment>
+        {this.state.isLoading ? (
+          <CircularProgress size={50} color='secondary' />
+        ) : (
+          <ArticleContainer>
+            <Header>
+              <Type>{type}</Type>
+              {!profile.isEmpty && profile.role === 'admin' && (
+                <div>
+                  <Delete
+                    onClick={this.handleClick}
+                    //
+                    aria-label='delete'
+                  >
+                    {' '}
+                    <DeleteForeverIcon />
+                  </Delete>
+                  <DeleteConfirmation
+                    open={this.state.anchorEl ? true : false}
+                    anchorEl={this.state.anchorEl}
+                    onClose={this.handleClose}
+                    anchorOrigin={{
+                      vertical: 'center',
+                      horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                  >
+                    <DeleteText> Delete this post ?</DeleteText>
+                    <GroupStyled variant='outlined' size='large'>
+                      <ConfirmationButtonYes onClick={this.handleRemoveArticle}>
+                        yes
+                      </ConfirmationButtonYes>
+                      <ConfirmationButtonNo onClick={this.handleClose}>no</ConfirmationButtonNo>
+                    </GroupStyled>
+                  </DeleteConfirmation>
+                </div>
+              )}
+            </Header>
+            <Link to={`/article/${id}`}>
+              {this.state.isVideo ? (
+                <Video src={this.state.url} type='video/mp4' autoPlay loop muted playsInline />
+              ) : (
+                <Image src={this.state.url} type='image' alt={title} />
+              )}
+            </Link>
+            <Content variant='h6'> {title} </Content>
+          </ArticleContainer>
+        )}
+      </Fragment>
     );
   }
 }
