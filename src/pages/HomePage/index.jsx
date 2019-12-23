@@ -5,6 +5,7 @@ import FilterButtons from '../../components/FilterButtons/FilterButtons';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import Articles from '../../components/Articles/Articles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { objectToArrayWithKey, objectToArray } from '../../utils/common';
 
 const HomePage = ({ settings }) => {
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -12,28 +13,40 @@ const HomePage = ({ settings }) => {
   const [limit, setLimit] = useState(15);
   const [startAt, setStartAt] = useState('');
   const [queries, setQueries] = useState(['orderByChild=date', `limitToLast=${limit}`]);
-
+  const [types, setTypes] = useState([]);
   useEffect(() => {
     if (settings) {
-      setSelectedTypes(settings.types);
+      setTypes(objectToArrayWithKey(settings.types));
     }
   }, [settings]);
+
+  useEffect(() => {
+    setSelectedTypes(objectToArray(types));
+  }, [types]);
 
   if (!isLoaded(settings)) {
     return <CircularProgress size='50' color='secondary' />;
   }
 
   const changeQueryArticles = (startArticleId) => {
-    console.log('TCL: HomePage -> settings', settings);
-    console.log('TCL: changeStartArticles -> startArticleId', startArticleId);
     setStartAt(startArticleId);
     setQueries(['orderByChild=date', `endAt=${startArticleId}`, `limitToLast=${limit}`]);
   };
 
+  const isInSelectedTypes = (currentSelectedType) => {
+    for (const type of selectedTypes) {
+      console.log('TCL: isInSelectedTypes -> selectedTypes', selectedTypes);
+      if (type.key === currentSelectedType.key) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const modifySelectedTypes = (type) => {
     setSelectedType(type);
-    if (selectedTypes.includes(type)) {
-      setSelectedTypes((oldTypes) => oldTypes.filter((oldType) => oldType !== type));
+    if (isInSelectedTypes(type)) {
+      setSelectedTypes((oldTypes) => oldTypes.filter((oldType) => oldType.key !== type.key));
     } else {
       setSelectedTypes((oldTypes) => [...oldTypes, type]);
     }
@@ -42,12 +55,14 @@ const HomePage = ({ settings }) => {
 
   return (
     <Fragment>
-      <FilterButtons modifySelectedTypes={modifySelectedTypes} types={settings.types} />
+      <FilterButtons modifySelectedTypes={modifySelectedTypes} types={types} />
       <Articles
         queries={queries}
         startAt={startAt}
         changeQueryArticles={changeQueryArticles}
+        maxArticlesPerPage={settings.maxArticlesPerPage}
         limit={limit}
+        types={settings.types}
         type={selectedType}
         setSelectedTypes={setSelectedTypes}
         selectedTypes={selectedTypes}
@@ -59,7 +74,7 @@ const HomePage = ({ settings }) => {
 // };
 
 const enhance = compose(
-  firebaseConnect(() => [{ path: 'settings/types' }]),
+  firebaseConnect(() => [{ path: 'settings' }]),
   connect((state) => ({
     settings: state.firebase.data.settings,
   })),

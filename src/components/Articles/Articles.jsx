@@ -6,17 +6,17 @@ import { Container } from './styled';
 import debounce from 'lodash.debounce';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 // import { getSelectedArticles } from './selectors';
-import { objectToArray } from '../../utils/common';
+import { objectToArrayWithKey } from '../../utils/common';
 import moment from 'moment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Articles = ({
   changeQueryArticles,
   onMobile,
-  articles,
   firebase,
-  setSelectedTypes,
+  maxArticlesPerPage,
   type,
+  types,
   selectedTypes,
   ...restProps
 }) => {
@@ -28,86 +28,153 @@ const Articles = ({
   const articlesRef = useRef();
 
   useEffect(() => {
+    console.log('calling useEffect');
+    fetchFirstArticleBatch();
+    addNewArticle();
+    setImages(
+      firebase
+        .storage()
+        .ref()
+        .child('gifs'),
+    );
+    removeArticle();
+    // ref.on('child_removed', function(data) {
+    //   var deletedPlayer = data.val();
+    //   console.log(deletedPlayer + ' has been deleted');
+    // });
+    // return () => {
+    //   if (firstUpdate.current) {
+    //     setCurrentArticles([]);
+    //     setAllArticles([]);
+    //     firstUpdate.current = false;
+    //   }
+    // };
+  }, []);
+
+  const addNewArticle = () => {
+    let first = true;
+    console.log('calling addNewArticle');
+
+    firebase
+      .database()
+      .ref('articles/')
+      .endAt()
+      .limitToLast(1)
+      .on('child_added', (snapshot) => {
+        if (!first) {
+          const newArticle = snapshot.val();
+          setAllArticles((prevArticles) => [
+            { key: snapshot.key, value: newArticle },
+            ...prevArticles,
+          ]);
+        }
+        first = false;
+      });
+  };
+
+  const fetchFirstArticleBatch = async () => {
     let arrayArticles = [];
-    if (articles && articles !== undefined) {
-      articles.slice(0,14);
-      console.log('TCL: articles', articles);
-      setImages(
-        firebase
-          .storage()
-          .ref()
-          .child('gifs'),
+    console.log('calling FetchFirst');
+    await firebase
+      .database()
+      .ref('articles/')
+      .limitToLast(maxArticlesPerPage)
+      .orderByChild('date')
+      .once(
+        'value',
+        (snapshot) => {
+          arrayArticles = objectToArrayWithKey(snapshot.val())
+            .slice(1)
+            .reverse();
+          setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
+        },
+        (error) => {
+          console.log('Error: ' + error.code);
+        },
       );
-      arrayArticles = objectToArray(articles)
-        .slice(1)
-        .reverse();
-      setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
-      updateCurrentArticles();
-    }
-    return () => {
-      if (firstUpdate.current) {
-        setCurrentArticles([]);
-        setAllArticles([]);
-        firstUpdate.current = false;
-      }
-    };
-  }, [articles]);
+  };
+
+  const fetchNextArticleBatch = async () => {
+    let arrayArticles = [];
+    console.log('calling FetchNext');
+    await firebase
+      .database()
+      .ref('articles/')
+      .limitToLast(maxArticlesPerPage)
+      .orderByChild('date')
+      .endAt(allArticles[allArticles.length - 1].value.date)
+      .once(
+        'value',
+        (snapshot) => {
+          arrayArticles = objectToArrayWithKey(snapshot.val())
+            .reverse()
+            .slice(1);
+          setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
+        },
+        (error) => {
+          console.log('Error: ' + error.code);
+        },
+      );
+  };
 
   useEffect(() => {
     updateCurrentArticles();
-
-    console.log('TCL: selectedTypes', selectedTypes);
-    console.log('TCL: selectedTypes', type);
   }, [selectedTypes, allArticles]);
 
   const isInFilter = (article) => {
-    console.log("TCL: isInFilter -> article", article)
     for (const type of selectedTypes) {
-      if (article.value.type === type) {
+      if (article.value.type === type.key) {
         return true;
       }
     }
     return false;
   };
 
-  const removeArticle = (key) => {
-    setAllArticles((prevArticles) => prevArticles.filter((article) => article.key !== key));
-    updateCurrentArticles();
+  const removeArticle = () => {
+    firebase
+      .database()
+      .ref('articles/')
+      .on('child_removed', (data) => {
+        var deletedPlayer = data.val();
+        console.log(deletedPlayer + ' has been deleted');
+        console.log(data.key + ' key has been deleted');
+        setAllArticles((prevArticles) => prevArticles.filter((article) => 
+        {
+          console.log("TCL: removeArticle -> prevArticles", prevArticles)
+          
+          console.log("TCL: removeArticle -> article.key", article.key, data.key);
+          return article.key !== data.key
+        }));
+      });
   };
 
   const updateCurrentArticles = () => {
     const tempAllArticle = [...allArticles];
-    console.log("TCL: updateCurrentArticles -> tempAllArticle", tempAllArticle)
-    console.log('TCL: updateCurrentArticles -> allArticles', allArticles);
     setCurrentArticles(tempAllArticle.filter((article) => isInFilter(article)));
   };
 
   window.onscroll = debounce(() => {
-    // Bails early if:
-    // * there's an error
-    // * it's already loading
-    // * there's nothing left to load
-    // Checks that the page has scrolled to the bottom
     if (
+      allArticles.length &&
       articlesRef.current &&
       articlesRef.current.clientHeight < document.documentElement.scrollTop
     ) {
-      loadMoreArticles();
+      fetchNextArticleBatch();
     }
   }, 100);
 
-  const loadMoreArticles = () => {
-    console.log(articles[0].key);
-    changeQueryArticles(articles[0].value.date);
-  };
+  // const loadMoreArticles = () => {
+  //   console.log(articles[0].key);
+  //   changeQueryArticles(articles[0].value.date);
+  // };
 
-  if (!isLoaded(articles)) {
-    return <CircularProgress size='50' color='secondary' />;
-  }
+  // if (!isLoaded(articles)) {
+  //   return <CircularProgress size='50' color='secondary' />;
+  // }
 
   return (
     <Fragment>
-      {isEmpty(articles) ? (
+      {false ? (
         <div>There's no articles</div>
       ) : (
         <Container ref={articlesRef} container>
@@ -122,7 +189,7 @@ const Articles = ({
                 image={images.child(value.thumbnail)}
                 views={value.views}
                 thumbnail={value.thumbnail}
-                type={value.type}
+                type={types[value.type]}
                 removeArticleFromList={15}
                 id={key}
                 key={key}
@@ -135,18 +202,8 @@ const Articles = ({
   );
 };
 
-// };
-
 const enhance = compose(
-  firebaseConnect(({ startAt, limit, queries }) => {
-    console.log('TCL: queries', queries);
-    return [
-      {
-        path: 'articles',
-        queryParams: queries,
-      },
-    ];
-  }),
+  firebaseConnect(),
   connect((state) => ({
     articles: state.firebase.ordered.articles,
   })),

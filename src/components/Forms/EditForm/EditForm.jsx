@@ -44,9 +44,9 @@ const EditForm = ({
         margin="normal"
         value="{types}"
       >
-        {types.map((type, index) => (
-          <MenuItem key={index} value={type}>
-            {type}
+        {Object.keys(types).map((index) => (
+          <MenuItem key={index} value={index}>
+            {types[index]}
           </MenuItem>
         ))}
       </Field>

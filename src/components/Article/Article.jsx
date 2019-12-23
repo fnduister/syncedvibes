@@ -52,7 +52,7 @@ class Article extends Component {
 
   handleRemoveArticle = () => {
     this.props.firebase.remove(`articles/${this.props.id}`);
-    this.props.removeArticleFromList();
+    // this.props.removeArticleFromList();
   };
 
   isMP4() {
@@ -77,7 +77,7 @@ class Article extends Component {
                 <DeleteForeverIcon />
               </Delete>
               <DeleteConfirmation
-                open={this.state.anchorEl ? 'simple-popover' : false}
+                open={this.state.anchorEl ? true : false}
                 anchorEl={this.state.anchorEl}
                 onClose={this.handleClose}
                 anchorOrigin={{
