@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { compose } from "redux";
-import { connect } from "react-redux";
-import Cancel from "@material-ui/icons/Cancel";
-import { withRouter } from "react-router";
-import { withFirebase, isLoaded, isEmpty } from "react-redux-firebase";
-import SearchIcon from "@material-ui/icons/Search";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import Cancel from '@material-ui/icons/Cancel';
+import { withRouter } from 'react-router';
+import { withFirebase, isLoaded, isEmpty } from 'react-redux-firebase';
 import {
   AppBarStyled,
   HomePageButton,
@@ -16,10 +15,8 @@ import {
   AvatarContainer,
   SearchContainer,
   HeaderWrapper,
-  Search,
-  SearchIconStyled,
-  InputBaseStyled
-} from "./styled";
+} from './styled';
+import SearchBox from '../Search/Search';
 
 const NavBar = ({
   withIcon,
@@ -40,53 +37,41 @@ const NavBar = ({
   const [mouseStatus, toggleMouseStatus] = useState(false);
 
   const changeMouseStatus = () => {
-    toggleMouseStatus(prev => !prev);
+    toggleMouseStatus((prev) => !prev);
   };
 
   const signOut = () => {
     firebase.logout();
-    history.push("/login");
+    history.push('/login');
   };
 
   const signIn = () => {
-    history.push("/login");
+    history.push('/login');
   };
   return (
     <HeaderWrapper ref={navRef}>
       <AppBarStyled position={position} background={background}>
         <ToolbarStyled withicon={withIcon}>
-          <HomePageButton component={Link} to="/">
+          <HomePageButton component={Link} to='/'>
             SyncedVibes
           </HomePageButton>
           <SearchContainer>
-            <Search>
-              <SearchIconStyled>
-                <SearchIcon />
-              </SearchIconStyled>
-              <InputBaseStyled placeholder="Search…" />
-            </Search>
+            <SearchBox />
             {isLoaded(auth) ? (
-              <AvatarContainer
-                onMouseEnter={changeMouseStatus}
-                onMouseLeave={changeMouseStatus}
-              >
+              <AvatarContainer onMouseEnter={changeMouseStatus} onMouseLeave={changeMouseStatus}>
                 {isEmpty(auth) ? (
-                  <EmptyAccount
-                    status={mouseStatus ? 1 : 0}
-                    fontSize="large"
-                    onClick={signIn}
-                  />
+                  <EmptyAccount status={mouseStatus ? 1 : 0} fontSize='large' onClick={signIn} />
                 ) : mouseStatus ? (
-                  <Cancel onClick={signOut} fontSize="large" />
+                  <Cancel onClick={signOut} fontSize='large' />
                 ) : profile.avatarUrl ? (
-                  <AvatarStyled alt="User Avatar" src={profile.avatarUrl} />
+                  <AvatarStyled alt='User Avatar' src={profile.avatarUrl} />
                 ) : (
-                        <AvatarStyled>{profile.avatar}</AvatarStyled>
-                      )}
+                  <AvatarStyled>{profile.avatar}</AvatarStyled>
+                )}
               </AvatarContainer>
             ) : (
-                <AvatarProgress size={26} />
-              )}
+              <AvatarProgress size={26} />
+            )}
           </SearchContainer>
         </ToolbarStyled>
       </AppBarStyled>
@@ -99,8 +84,8 @@ const enhance = compose(
   withFirebase,
   connect(({ firebase: { profile, auth } }) => ({
     profile,
-    auth
-  }))
+    auth,
+  })),
 );
 
 export default enhance(NavBar);

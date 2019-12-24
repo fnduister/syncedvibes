@@ -5,11 +5,12 @@ import FileInput from '../../components/Forms/FileInput/FileInput';
 import { withFirebase } from 'react-redux-firebase';
 import { SubmitButtonStyled, SaveIconStyled } from './styled';
 import { Dropzone } from './styled';
+import Slider from 'react-slick';
 
 const SettingPage = ({ firebase }) => {
   const [files, addFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles) => {
-    console.log("TCL: onDrop -> acceptedFiles", acceptedFiles)
+    console.log('TCL: onDrop -> acceptedFiles', acceptedFiles);
     addFiles((files) => {
       for (const file of acceptedFiles) {
         files.push(file);
@@ -18,6 +19,15 @@ const SettingPage = ({ firebase }) => {
     });
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  const settings = {
+    className: 'center',
+    centerMode: true,
+    infinite: true,
+    centerPadding: '60px',
+    slidesToShow: 3,
+    speed: 500,
+  };
 
   return (
     <div>
@@ -30,9 +40,11 @@ const SettingPage = ({ firebase }) => {
         )}
       </Dropzone>
       <div>
-        {files.map((file) => {
-          return <img key={file.name} src={URL.createObjectURL(file)} alt={file.name} />;
-        })}
+        {files.map((file) => (
+          <Slider {...settings}>
+            <img key={file.name} src={URL.createObjectURL(file)} alt={file.name} />;
+          </Slider>
+        ))}
       </div>
     </div>
   );

@@ -1,20 +1,20 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import Article from '../../components/Article/Article';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { Container } from './styled';
 import debounce from 'lodash.debounce';
 import { withFirebase } from 'react-redux-firebase';
 // import { getSelectedArticles } from './selectors';
 import { objectToArrayWithKey } from '../../utils/common';
-import moment from 'moment';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 const Articles = ({
   changeQueryArticles,
   onMobile,
   firebase,
   maxArticlesPerPage,
+  searchValue,
   type,
   types,
   selectedTypes,
@@ -29,6 +29,11 @@ const Articles = ({
   const articlesRef = useRef();
 
   useEffect(() => {
+    console.log('inside articles', searchValue);
+  }, [searchValue]);
+
+  useEffect(() => {
+    console.log('inside articles', searchValue);
     console.log('calling useEffect');
     fetchFirstArticleBatch();
     addNewArticle();
@@ -92,6 +97,7 @@ const Articles = ({
   const fetchNextArticleBatch = async () => {
     let arrayArticles = [];
     setIsLoading(true);
+    console.log("TCL: fetchNextArticleBatch -> previousQueryValue", previousQueryValue)
 
     await firebase
       .database()
@@ -122,7 +128,26 @@ const Articles = ({
 
   useEffect(() => {
     updateCurrentArticles();
-  }, [selectedTypes, allArticles]);
+  }, [selectedTypes, allArticles, searchValue]);
+
+  useEffect(() => {
+    console.log("TCL: currentArticles", currentArticles)
+    if (!noMoreFetch && allArticles.length !== 0 && currentArticles.length === 0 && articlesRef.current) {
+      fetchNextArticleBatch();
+    }
+  }, [currentArticles])
+
+  const isFilterTitle = (article) => {
+    console.log(
+      'TCL: isFilterTitle -> article.value.title.includes(searchValue)',
+      article.value.title.includes(searchValue),
+    );
+    console.log('TCL: isFilterTitle -> searchValue', searchValue);
+    console.log('TCL: isFilterTitle -> article.value.title', article.value.title);
+    return !searchValue
+      ? true
+      : article.value.title.toLowerCase().includes(searchValue.toLowerCase());
+  };
 
   const isInFilter = (article) => {
     for (const type of selectedTypes) {
@@ -132,16 +157,6 @@ const Articles = ({
     }
     return false;
   };
-
-  // const articleAlreadyRendered = (currentSelectedType) => {
-  //   for (const type of selectedTypes) {
-  //     console.log('TCL: isInSelectedTypes -> selectedTypes', selectedTypes);
-  //     if (type.key === currentSelectedType.key) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // };
 
   const removeArticle = () => {
     console.log('ok on test tous les articles', allArticles);
@@ -162,14 +177,20 @@ const Articles = ({
   const updateCurrentArticles = () => {
     console.log('TCL: updateCurrentArticles -> allArticles', allArticles);
     const tempAllArticle = [...allArticles];
-    setCurrentArticles(tempAllArticle.filter((article) => isInFilter(article)));
+    setCurrentArticles(
+      tempAllArticle.filter((article) => isInFilter(article) && isFilterTitle(article)),
+    );
   };
+
+  const canScroll = () => {
+    return articlesRef.current.clientHeight - 50 < document.documentElement.scrollTop
+  }
 
   window.onscroll = debounce(() => {
     if (
       allArticles.length &&
       articlesRef.current &&
-      articlesRef.current.clientHeight < document.documentElement.scrollTop
+      canScroll()
     ) {
       if (!noMoreFetch) {
         fetchNextArticleBatch();
@@ -218,4 +239,17 @@ const Articles = ({
   );
 };
 
-export default withFirebase(Articles);
+const mapProps = (
+  {
+    global: {
+      searchValue: { value },
+    },
+  },
+  ownProps,
+) => ({
+  searchValue: value,
+});
+
+const enhance = compose(withFirebase, connect(mapProps));
+
+export default enhance(Articles);
