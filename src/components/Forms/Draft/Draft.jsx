@@ -30,6 +30,31 @@ class MyEditor extends Component {
     return false;
   };
 
+onHyperLink = e  => {
+  e.preventDefault();
+    const { editorState } = this.props;
+    const urlValue = window.prompt("Paste URL for hyperlink");
+    console.log("TCL: MyEditor -> urlValue", urlValue)
+    const contentState = editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+      "HyperLink",
+      "IMMUTABLE",
+      { url: urlValue }
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    console.log("TCL: MyEditor -> entityKey", entityKey)
+    const newEditorState = EditorState.set(
+      editorState,
+      { currentContent: contentStateWithEntity },
+      "create-entity"
+    );
+    console.log("TCL: MyEditor -> newEditorState", newEditorState)
+    this.onChange(
+      AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ")
+    );
+}
+
+
   onAddImage = e => {
     e.preventDefault();
     const { editorState } = this.props;
@@ -95,6 +120,7 @@ class MyEditor extends Component {
           />
           <CustomBlockControls
             onAddImage={this.onAddImage}
+            onHyperLink={this.onHyperLink}  
             editorState={editorState}
           />
         </ControlsContainer>

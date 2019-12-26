@@ -114,9 +114,16 @@ class Article extends Component {
                 <Video src={this.state.url} type='video/mp4' autoPlay loop muted playsInline />
               ) : (
                 <Image src={this.state.url} type='image' alt={title} />
+<<<<<<< Updated upstream
               )}
               <Content variant='h6'> {title} </Content>
             </Link>
+=======
+              )}  
+              <Content variant='h6'> {title} </Content>
+            </Link>
+          
+>>>>>>> Stashed changes
           </ArticleContainer>
         )}
       </Fragment>
