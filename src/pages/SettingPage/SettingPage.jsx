@@ -47,7 +47,6 @@ const SettingPage = ({ firebase }) => {
   });
 
   useEffect(() => {
-    console.log('TCL: imagesURL', imagesURL);
     setImages(
       firebase
         .storage()
@@ -59,7 +58,6 @@ const SettingPage = ({ firebase }) => {
       .database()
       .ref('url/')
       .once('value', (snap) => {
-        console.log('TCL: snap', snap.val());
         setImagesURL(snap.val());
       });
   }, []);

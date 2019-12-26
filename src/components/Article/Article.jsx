@@ -115,8 +115,8 @@ class Article extends Component {
               ) : (
                 <Image src={this.state.url} type='image' alt={title} />
               )}
+              <Content variant='h6'> {title} </Content>
             </Link>
-            <Content variant='h6'> {title} </Content>
           </ArticleContainer>
         )}
       </Fragment>
