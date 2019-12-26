@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { SliderStyled } from './styled';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+
 
 const Slider = ({ completed }) => {
   const backgrounds = require.context('../../images/backgrounds', true);

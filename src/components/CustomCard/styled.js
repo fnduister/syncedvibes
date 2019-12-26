@@ -5,6 +5,8 @@ export const Container = styled(Card)`
     margin: 2em;
     padding: 1em;
     max-width: 800px;
+    display: flex;
+    justify-content: center;
 `;
 
 export const CardStyled = styled(Card)`
