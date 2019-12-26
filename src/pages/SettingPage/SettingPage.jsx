@@ -33,9 +33,10 @@ const SettingPage = ({ firebase }) => {
   const uploadFile = async () => {
     let currentDate;
     files.forEach((file) => {
+      console.log('TCL: uploadFile -> file', file);
       currentDate = new Date().getMilliseconds();
       const composedName = `${currentDate}${file.name}`;
-      firebase.uploadFile(`gifs`, { ...file, name: composedName });
+      firebase.uploadFile(`BACKGROUNDIMAGESURL`, file);
 
       setImagesLink((prev) => [...prev, { link: file.preview, name: composedName }]);
     });
@@ -119,8 +120,12 @@ const SettingPage = ({ firebase }) => {
     ],
   };
 
+  const removeImage = (imageName) => {
+    console.log('TCL: removeImage -> imageName', imageName);
+  };
+
   const imagesFromServer = imagesLink.map((img) => (
-    <div key={img.name}>
+    <div onClick={() => removeImage(img.name)} key={img.name}>
       <Image src={img.link} alt={img.name} />
     </div>
   ));
