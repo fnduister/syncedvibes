@@ -73,11 +73,10 @@ const AddArticle = ({
 
               try {
                 if (add) {
-                  console.log({ firebase });
                   await firebase.uploadFile(`gifs`, file);
                 }
               } catch (err) {
-                console.log({ err });
+                console.error({ err });
               }
 
               if (edit) {

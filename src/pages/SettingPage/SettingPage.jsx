@@ -13,20 +13,37 @@ const SettingPage = ({ firebase }) => {
   const [images, setImages] = useState([]);
   const [imagesURL, setImagesURL] = useState([]);
   const [imagesLink, setImagesLink] = useState([]);
+  const BACKGROUNDIMAGESURL = 'background-imgs';
+  const [isDropping, setIsDropping] = useState(false);
+
+  const onDrop = (acceptedFiles) => {
+    setFiles(
+      acceptedFiles.map((file) => {
+        return Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        });
+      }),
+    );
+  };
+
+  useEffect(() => {
+    uploadFile();
+  }, [files]);
+
+  const uploadFile = async () => {
+    let currentDate;
+    files.forEach((file) => {
+      currentDate = new Date().getMilliseconds();
+      const composedName = `${currentDate}${file.name}`;
+      firebase.uploadFile(`gifs`, { ...file, name: composedName });
+
+      setImagesLink((prev) => [...prev, { link: file.preview, name: composedName }]);
+    });
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
-    onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map(
-          (file) =>
-            Object.assign(file, {
-              preview: URL.createObjectURL(file),
-            }),
-          // new Date().getMilliseconds();
-        ),
-      );
-    },
+    onDrop,
   });
 
   useEffect(() => {
@@ -35,23 +52,9 @@ const SettingPage = ({ firebase }) => {
       firebase
         .storage()
         .ref()
-        .child('background-imgs'),
+        .child(BACKGROUNDIMAGESURL),
     );
-  }, [imagesURL]);
 
-  // useEffect(() => {
-  //   firebase
-  //     .database()
-  //     .ref('url/')
-  //     .endAt()
-  //     .limitToLast(1)
-  //     .on('child_added', (snap) => {
-  //       console.log('TCL: snap', snap);
-  //       setImagesURL((oldUrl) => [...oldUrl, snap.val()]);
-  //     });
-  // }, []);
-
-  useEffect(() => {
     firebase
       .database()
       .ref('url/')
@@ -70,8 +73,6 @@ const SettingPage = ({ firebase }) => {
           setImagesLink((prev) => [...prev, { link: newLink, name: url }]);
         });
     });
-    // Make sure to revoke the data uris to avoid memory leaks
-    console.log('TCL: images', images);
   }, [imagesURL]);
 
   useEffect(
@@ -120,11 +121,6 @@ const SettingPage = ({ firebase }) => {
     ],
   };
 
-  // const thumbs = files.map((file) => (
-  //   <div key={file.name}>
-  //     <Image src={file.preview} alt={file.name} />
-  //   </div>
-  // ));
   const imagesFromServer = imagesLink.map((img) => (
     <div key={img.name}>
       <Image src={img.link} alt={img.name} />
@@ -133,9 +129,17 @@ const SettingPage = ({ firebase }) => {
 
   return (
     <Container>
-      <Dropzone {...getRootProps({ className: 'dropzone' })}>
+      <Dropzone
+        onMouseLeave={() => setIsDropping(false)}
+        onMouseEnter={() => setIsDropping(true)}
+        {...getRootProps({ className: 'dropzone' })}
+      >
         <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        {!isDropping ? (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        ) : (
+          <p>drop that shit fucker</p>
+        )}
       </Dropzone>
       <SliderContainer>
         <SliderElement {...settings}>{imagesFromServer}</SliderElement>
