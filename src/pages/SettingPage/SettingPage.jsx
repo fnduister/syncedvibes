@@ -2,11 +2,21 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Formik, Form, Field } from 'formik';
 import FileInput from '../../components/Forms/FileInput/FileInput';
+import { objectToArrayWithKey } from '../../utils/common';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withFirebase } from 'react-redux-firebase';
-import { Dropzone, Container, SliderContainer, SliderElement, Image } from './styled';
+import {
+  ImageContainer,
+  Delete,
+  Dropzone,
+  Container,
+  SliderContainer,
+  SliderElement,
+  Image,
+} from './styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
+import { Clear } from '@material-ui/icons';
 
 const SettingPage = ({ firebase }) => {
   const [files, setFiles] = useState([]);
@@ -15,6 +25,7 @@ const SettingPage = ({ firebase }) => {
   const [imagesLink, setImagesLink] = useState([]);
   const BACKGROUNDIMAGESURL = 'background-imgs';
   const [isDropping, setIsDropping] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onDrop = (acceptedFiles) => {
     setFiles(
@@ -31,12 +42,21 @@ const SettingPage = ({ firebase }) => {
   }, [files]);
 
   const uploadFile = async () => {
-    let currentDate;
     files.forEach((file) => {
       console.log('TCL: uploadFile -> file', file);
-      currentDate = new Date().getMilliseconds();
-      const composedName = `${currentDate}${file.name}`;
-      firebase.uploadFile(`BACKGROUNDIMAGESURL`, file);
+      // currentDate = new Date().now();
+      const composedName = `${file.lastModified}-${file.name}`;
+
+      const formdata = new FormData();
+      // this will override the file name
+      formdata.append('file', file, composedName);
+
+      for (let entry of formdata.entries()) {
+        console.log(entry[1]);
+        firebase.uploadFile(BACKGROUNDIMAGESURL, entry[1]);
+      }
+
+      firebase.push('url', composedName);
 
       setImagesLink((prev) => [...prev, { link: file.preview, name: composedName }]);
     });
@@ -48,6 +68,7 @@ const SettingPage = ({ firebase }) => {
   });
 
   useEffect(() => {
+    setIsLoading(true);
     setImages(
       firebase
         .storage()
@@ -59,19 +80,21 @@ const SettingPage = ({ firebase }) => {
       .database()
       .ref('url/')
       .once('value', (snap) => {
-        setImagesURL(snap.val());
+        const arrayUrl = Object.keys(snap.val()).map((key) => ({ key, value: snap.val()[key] }));
+        setImagesURL((prev) => [...prev, ...arrayUrl]);
       });
   }, []);
 
   useEffect(() => {
     imagesURL.forEach((url) => {
       images
-        .child(url)
+        .child(url.value)
         .getDownloadURL()
         .then((newLink) => {
-          setImagesLink((prev) => [...prev, { link: newLink, name: url }]);
+          setImagesLink((prev) => [...prev, { link: newLink, name: url.value, key: url.key }]);
         });
     });
+    setIsLoading(false);
   }, [imagesURL]);
 
   useEffect(
@@ -120,14 +143,31 @@ const SettingPage = ({ firebase }) => {
     ],
   };
 
-  const removeImage = (imageName) => {
-    console.log('TCL: removeImage -> imageName', imageName);
+  const removeImage = async (image) => {
+    setIsLoading(true);
+    try {
+      await firebase
+        .storage()
+        .ref()
+        .child(`${BACKGROUNDIMAGESURL}/${image.name}`)
+        .delete();
+
+      firebase.remove(`url/${image.key}`);
+
+      setImagesLink((prev) => prev.filter((img) => img.name !== image.name));
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const imagesFromServer = imagesLink.map((img) => (
-    <div onClick={() => removeImage(img.name)} key={img.name}>
+    <ImageContainer key={img.name}>
+      <Delete onClick={() => removeImage(img)} size='small' color='secondary' aria-label='add'>
+        <Clear />
+      </Delete>
       <Image src={img.link} alt={img.name} />
-    </div>
+    </ImageContainer>
   ));
 
   return (
@@ -141,12 +181,16 @@ const SettingPage = ({ firebase }) => {
         {!isDropping ? (
           <p>Drag 'n' drop some files here, or click to select files</p>
         ) : (
-          <p>drop that shit fucker</p>
+          <p>Click or Drop</p>
         )}
       </Dropzone>
-      <SliderContainer>
-        <SliderElement {...settings}>{imagesFromServer}</SliderElement>
-      </SliderContainer>
+      {isLoading ? (
+        <CircularProgress size={50} color='secondary' />
+      ) : (
+        <SliderContainer>
+          <SliderElement {...settings}>{imagesFromServer}</SliderElement>
+        </SliderContainer>
+      )}
     </Container>
   );
 };
