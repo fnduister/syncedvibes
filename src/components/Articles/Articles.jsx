@@ -132,9 +132,9 @@ const Articles = ({
 
   useEffect(() => {
     console.log("TCL: currentArticles", currentArticles)
-    if (!noMoreFetch && allArticles.length !== 0 && currentArticles.length === 0 && articlesRef.current) {
-      fetchNextArticleBatch();
-    }
+    // if (!noMoreFetch && allArticles.length !== 0 && currentArticles.length === 0 && articlesRef.current) {
+    //   fetchNextArticleBatch();
+    // }
   }, [currentArticles])
 
   const isFilterTitle = (article) => {
@@ -166,7 +166,6 @@ const Articles = ({
       .on('child_removed', (data) => {
         setAllArticles((prevArticles) => {
           console.log('TCL: removeArticle -> prevArticles', prevArticles);
-          // prevArticles.shift();
           return prevArticles.filter((article) => {
             return article.key !== data.key;
           });
@@ -197,15 +196,6 @@ const Articles = ({
       }
     }
   }, 100);
-
-  // const loadMoreArticles = () => {
-  //   console.log(articles[0].key);
-  //   changeQueryArticles(articles[0].value.date);
-  // };
-
-  // if (!isLoaded(articles)) {
-  //   return <CircularProgress size='50' color='secondary' />;
-  // }
 
   return (
     <Fragment>
