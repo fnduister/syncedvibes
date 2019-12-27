@@ -1,22 +1,46 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SliderStyled } from './styled';
+import { withFirebase } from 'react-redux-firebase';
 
-
-const Slider = ({ completed }) => {
+const Slider = ({ completed, firebase }) => {
   const backgrounds = require.context('../../images/backgrounds', true);
   const sliderRef = useRef();
+  const [images, setImages] = useState([]);
+  const [imagesURL, setImagesURL] = useState([]);
+  const [imagesLink, setImagesLink] = useState([]);
+  const BACKGROUNDIMAGESURL = 'background-imgs';
+  const [isDropping, setIsDropping] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   const images = this.props.firebase
-  //     .storage()
-  //     .ref()
-  //     .child('gifs');
-  //   const image = images.child(this.props.thumbnail);
-  //   image.getDownloadURL().then((newUrl) => {
-  //     this.setState({ url: newUrl });
-  //     this.isMP4();
-  //   });
-  // });
+  useEffect(() => {
+    setIsLoading(true);
+    setImages(
+      firebase
+        .storage()
+        .ref()
+        .child(BACKGROUNDIMAGESURL),
+    );
+
+    firebase
+      .database()
+      .ref('url/')
+      .once('value', (snap) => {
+        const arrayUrl = Object.keys(snap.val()).map((key) => ({ key, value: snap.val()[key] }));
+        setImagesURL((prev) => [...prev, ...arrayUrl]);
+      });
+  }, []);
+
+  useEffect(() => {
+    imagesURL.forEach((url) => {
+      images
+        .child(url.value)
+        .getDownloadURL()
+        .then((newLink) => {
+          setImagesLink((prev) => [...prev, { link: newLink, name: url.value, key: url.key }]);
+        });
+    });
+    setIsLoading(false);
+  }, [imagesURL]);
 
   const settings = {
     lazyLoad: true,
@@ -34,10 +58,10 @@ const Slider = ({ completed }) => {
 
   return (
     <SliderStyled ref={sliderRef} {...settings}>
-      {backgrounds.keys().map((element, index) => {
+      {imagesLink.map((img) => {
         return (
-          <div key={index}>
-            <img alt={`backgrounds(element)`} src={backgrounds(element)} />
+          <div key={img.key}>
+            <img alt={img.name} src={img.link} />
           </div>
         );
       })}
@@ -45,4 +69,4 @@ const Slider = ({ completed }) => {
   );
 };
 
-export default Slider;
+export default withFirebase(Slider);

@@ -6,6 +6,7 @@ import { Form } from 'formik';
 import { LibraryAdd } from '@material-ui/icons';
 import { theme } from '../../GlobalStyle';
 import Slider from 'react-slick';
+import Fab from '@material-ui/core/Fab';
 
 export const Container = styled.div`
   width: 100%;
@@ -24,10 +25,34 @@ export const Dropzone = styled.div`
   height: 100px;
   margin-bottom: 1em;
   justify-content: center;
+  &:hover{
+    background: rgba(255,255,255,.2);
+  }
+`;
+
+
+
+export const Delete = styled(Fab)`
+  position: absolute;
+  top: 10px;
+  left: 22px;
+  color: white;
+  opacity: .7;
+  transition: color 1s;
+  &:hover{
+    color: red;
+  }
 `;
 
 export const Image = styled.img`
   width: 100%;
+  height: 100%;
+  padding: 0 .5em;
+`;
+
+export const ImageContainer = styled.div`
+  width: 100%;
+  position: relative;
   height: 100%;
   padding: 0 .5em;
 `;
