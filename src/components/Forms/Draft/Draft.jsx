@@ -9,29 +9,23 @@ import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 const inlineToolbarPlugin = createInlineToolbarPlugin();
 const { InlineToolbar } = inlineToolbarPlugin;
 const plugins = [inlineToolbarPlugin];
-const text = 'In this editor a toolbar shows up once you select part of the text …';
 
 class MyEditor extends Component {
 
-  state = {
-    editorState: createEditorStateWithText(text),
-  };
-
-  onChange = (editorState) => {
-    this.setState({
-      editorState,
-    });
-  };
-
   focus = () => {
     this.editor.focus();
+  };
+
+  onChange = editorState => {
+    this.props.onChange("editorState", editorState);
+    console.log("TCL: MyEditor -> editorState", editorState)
   };
 
   render() {
     return (
       <EditorSection className={editorStyles.editor} onClick={this.focus}>
         <Editor
-          editorState={this.state.editorState}
+          editorState={this.props.editorState}
           onChange={this.onChange}
           plugins={plugins}
           placeholder="Tell a story..."
