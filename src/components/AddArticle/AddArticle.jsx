@@ -49,7 +49,7 @@ const AddArticle = ({
             ...articlesDefault,
             editorState: !add
               ? new EditorState.createWithContent(contentState)
-              : new createEditorStateWithText('')
+              : new EditorState.createEmpty()
           }}
           validationSchema={EditFormSchema}
           onSubmit={async (values, actions) => {

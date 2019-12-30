@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
+import { RichUtils } from "draft-js";
 import editorStyles from './editorStyles.css';
 import {EditorSection} from './styled';
 import "draft-js-inline-toolbar-plugin/lib/plugin.css";
