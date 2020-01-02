@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 import Editor from 'draft-js-plugins-editor';
 import { theme } from '../../../GlobalStyle';
-import Button from './Button/Button';
-import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
-import buttonStyles from './buttonStyles.css';
-import toolbarStyles from './toolbarStyles.css';
+
 
 
 
