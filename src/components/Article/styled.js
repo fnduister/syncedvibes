@@ -4,10 +4,10 @@ import { theme } from '../../GlobalStyle';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Fade from '@material-ui/core/Fade';
-
 import { Typography } from '@material-ui/core';
 import { IconButton, Button } from '@material-ui/core';
 
+import Logo  from "../../images/Logos/SV_Gold_Logo.png";
 export const DeleteConfirmation = styled(Popover)``;
 export const GroupStyled = styled(ButtonGroup)`
   width: 100%;
@@ -57,7 +57,11 @@ export const Delete = styled(IconButton)`
 `;
 
 export const ArticleContainer = styled.div`
-  background-image: url("https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png");
+  background-image : url(${Logo});
+  background-size : 150px;
+  background-repeat: no-repeat ;
+  background-position-x: 100px; 
+  background-position-y: 50px; 
   margin: 0.6em;
   display: flex;
   flex-direction: column;
