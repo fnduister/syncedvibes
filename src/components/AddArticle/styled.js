@@ -19,6 +19,7 @@ export const DialogContentStyled = styled(DialogContent)`
   flex-flow: row wrap;
   align-content: stretch;
   justify-content: center;
+  overflow-y: visible;
 `;
 
 export const TextContent = styled(TextField)`

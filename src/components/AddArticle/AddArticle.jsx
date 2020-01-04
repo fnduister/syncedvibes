@@ -2,6 +2,8 @@ import React, { Fragment, useState } from "react";
 import { Formik } from "formik";
 import { compose } from "redux";
 import { withHandlers } from "recompose";
+import { createEditorStateWithText } from 'draft-js-plugins-editor';
+
 import { withRouter } from "react-router";
 import { firebaseConnect, isLoaded, useFirebase } from "react-redux-firebase";
 import { DialogContentStyled, DialogTitleStyled } from "./styled";
@@ -47,7 +49,7 @@ const AddArticle = ({
             ...articlesDefault,
             editorState: !add
               ? new EditorState.createWithContent(contentState)
-              : new EditorState.createEmpty()
+              : new createEditorStateWithText('')
           }}
           validationSchema={EditFormSchema}
           onSubmit={async (values, actions) => {

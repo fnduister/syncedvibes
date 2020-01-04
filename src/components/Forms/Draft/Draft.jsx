@@ -1,145 +1,125 @@
-import React, { Component } from "react";
-import { EditorState, RichUtils, AtomicBlockUtils } from "draft-js";
-import BlockControls from "./BlockControls/BlockControls";
-import InlineControls from "./InlineControls/InlineControls";
+import React, { Component } from 'react';
+import Editor, { createEditorStateWithText, composeDecorators } from 'draft-js-plugins-editor';
+import createLinkPlugin from 'draft-js-anchor-plugin';
+import createUndoPlugin from 'draft-js-undo-plugin';
+import createImagePlugin from 'draft-js-image-plugin';
+import createAlignmentPlugin from 'draft-js-alignment-plugin';
+import createFocusPlugin from 'draft-js-focus-plugin';
+import createResizeablePlugin from 'draft-js-resizeable-plugin';
+import createBlockDndPlugin from 'draft-js-drag-n-drop-plugin';
+import createDragNDropUploadPlugin from '@mikeljames/draft-js-drag-n-drop-upload-plugin';
+import { EditorSection } from './styled';
 import {
-  ControlsContainer,
-  EditorStyled,
-  CustomButton,
-  EditorSection,
-  Container
-} from "./styled";
-import { mediaBlockRenderer } from "./entities/mediaBlockRenderer";
-import Button from "./Button/Button";
-import CustomBlockControls from "./CustomBlockControls/CustomBlockControls";
+  ItalicButton,
+  BoldButton,
+  UnderlineButton,
+  CodeButton,
+  HeadlineOneButton,
+  HeadlineTwoButton,
+  HeadlineThreeButton,
+  UnorderedListButton,
+  OrderedListButton,
+  BlockquoteButton,
+  CodeBlockButton,
+} from 'draft-js-buttons';
+import createToolbarPlugin from 'draft-js-static-toolbar-plugin';
+import 'draft-js-anchor-plugin/lib/plugin.css';
+import 'draft-js-static-toolbar-plugin/lib/plugin.css';
+import 'draft-js-alignment-plugin/lib/plugin.css';
+import 'draft-js-focus-plugin/lib/plugin.css';
+import 'draft-js-image-plugin/lib/plugin.css';
+import 'draft-js-video-plugin/lib/plugin.css';
+import editorStyles from './css/editorStyles.module.css';
+import linkStyles from './css/linkStyles.module.css';
+import toolbarStyles from './css/toolbarStyles.module.css';
+import buttonStyles from './css/buttonStyles.module.css';
+import { uploadme } from './upload/upload';
+
+const linkPlugin = createLinkPlugin({
+  theme: linkStyles,
+  placeholder: 'http://…',
+});
+const focusPlugin = createFocusPlugin();
+const resizeablePlugin = createResizeablePlugin();
+const blockDndPlugin = createBlockDndPlugin();
+const alignmentPlugin = createAlignmentPlugin();
+const { AlignmentTool } = alignmentPlugin;
+const decorator = composeDecorators(
+  resizeablePlugin.decorator,
+  alignmentPlugin.decorator,
+  focusPlugin.decorator,
+  blockDndPlugin.decorator,
+);
+const imagePlugin = createImagePlugin({ decorator });
+
+const dragNDropFileUploadPlugin = createDragNDropUploadPlugin({
+  handleUpload: uploadme,
+  addImage: imagePlugin.addImage,
+});
+
+const staticToolbarPlugin = createToolbarPlugin({
+  theme: { buttonStyles, toolbarStyles },
+});
+const undoPlugin = createUndoPlugin();
+const { UndoButton, RedoButton } = undoPlugin;
+
+const { Toolbar } = staticToolbarPlugin;
+const plugins = [
+  dragNDropFileUploadPlugin,
+  blockDndPlugin,
+  focusPlugin,
+  alignmentPlugin,
+  resizeablePlugin,
+  imagePlugin,
+  staticToolbarPlugin,
+  linkPlugin,
+  undoPlugin,
+];
 
 class MyEditor extends Component {
-  onChange = editorState => {
-    this.props.onChange("editorState", editorState);
+  focus = () => {
+    this.editor.focus();
   };
 
-  focus = () => this.refs.editor.focus();
-
-  handleKeyCommand = command => {
-    const { editorState } = this.props;
-    const newState = RichUtils.handleKeyCommand(editorState, command);
-    if (newState) {
-      this.onChange(newState);
-      return true;
-    }
-    return false;
+  state = {
+    editorState: createEditorStateWithText(''),
   };
 
-onHyperLink = e  => {
-  e.preventDefault();
-    const { editorState } = this.props;
-    const urlValue = window.prompt("Paste URL for hyperlink");
-    console.log("TCL: MyEditor -> urlValue", urlValue)
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-      "HyperLink",
-      "IMMUTABLE",
-      { url: urlValue }
-    );
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    console.log("TCL: MyEditor -> entityKey", entityKey)
-    const newEditorState = EditorState.set(
-      editorState,
-      { currentContent: contentStateWithEntity },
-      "create-entity"
-    );
-    console.log("TCL: MyEditor -> newEditorState", newEditorState)
-    this.onChange(
-      AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ")
-    );
-}
-
-
-  onAddImage = e => {
-    e.preventDefault();
-    const { editorState } = this.props;
-    const urlValue = window.prompt("Paste Video Link");
-    console.log("TCL: MyEditor -> urlValue", urlValue)
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-      "image",
-      "IMMUTABLE",
-      { url: urlValue }
-    );
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    console.log("TCL: MyEditor -> entityKey", entityKey)
-    const newEditorState = EditorState.set(
-      editorState,
-      { currentContent: contentStateWithEntity },
-      "create-entity"
-    );
-    console.log("TCL: MyEditor -> newEditorState", newEditorState)
-    this.onChange(
-      AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ")
-    );
-  };
-
-  onTab = e => {
-    const maxDepth = 4;
-    this.onChange(RichUtils.onTab(e, this.props.editorState, maxDepth));
-  };
-
-  toggleBlockType = blockType => {
-    this.onChange(RichUtils.toggleBlockType(this.props.editorState, blockType));
-  };
-
-  toggleInlineStyle = inlineStyle => {
-    this.onChange(
-      RichUtils.toggleInlineStyle(this.props.editorState, inlineStyle)
-    );
-  };
-
-  styleMap = {
-    CODE: {
-      backgroundColor: "rgba(0, 0, 0, 0.05)",
-      fontFamily: '"Roboto","Inconsolata", "Menlo", "Consolas", monospace',
-      fontSize: 16,
-      padding: 2
-    }
-  };
+  onChange = (editorState) => this.setState({ editorState });
 
   render() {
-    const { editorState } = this.props;
-    // If the user changes block type before entering any text, we can
-    // either style the placeholder or hide it. Let's just hide it now.
     return (
-      <Container>
-        <ControlsContainer>
-          <BlockControls
-            editorState={editorState}
-            onToggle={this.toggleBlockType}
-          />
-          <InlineControls
-            editorState={editorState}
-            onToggle={this.toggleInlineStyle}
-          />
-          <CustomBlockControls
-            onAddImage={this.onAddImage}
-            onHyperLink={this.onHyperLink}  
-            editorState={editorState}
-          />
-        </ControlsContainer>
-        <EditorSection onClick={this.focus}>
-          <EditorStyled
-            customStyleMap={this.styleMap}
-            editorState={editorState}
-            handleKeyCommand={this.handleKeyCommand}
-            onChange={this.onChange}
-            onTab={this.onTab}
-            placeholder="Tell a story..."
-            ref="editor"
-            spellCheck={true}
-            blockRendererFn={mediaBlockRenderer}
-          />
-        </EditorSection>
-      </Container>
+      <EditorSection className={editorStyles.editor} onClick={this.focus}>
+        <Editor
+          editorState={this.state.editorState}
+          onChange={this.onChange}
+          plugins={plugins}
+          placeholder='Tell a story...'
+          spellCheck={true}
+          ref={(element) => {
+            this.editor = element;
+          }}
+        />
+        <AlignmentTool />
+        <Toolbar>
+          {// may be use React.Fragment instead of div to improve perfomance after React 16
+          (externalProps) => (
+            <div>
+              <BoldButton {...externalProps} />
+              <ItalicButton {...externalProps} />
+              <UnderlineButton {...externalProps} />
+              <linkPlugin.LinkButton {...externalProps} />
+              <UnorderedListButton {...externalProps} />
+              <OrderedListButton {...externalProps} />
+              <BlockquoteButton {...externalProps} />
+              <CodeBlockButton {...externalProps} />
+              <UndoButton {...externalProps} />
+              <RedoButton {...externalProps} />
+            </div>
+          )}
+        </Toolbar>
+      </EditorSection>
     );
   }
 }
-
 export default MyEditor;

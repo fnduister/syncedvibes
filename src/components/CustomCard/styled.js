@@ -7,6 +7,7 @@ export const Container = styled(Card)`
     max-width: 800px;
     display: flex;
     justify-content: center;
+    overflow: visible;
 `;
 
 export const CardStyled = styled(Card)`
