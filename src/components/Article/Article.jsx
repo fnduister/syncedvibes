@@ -108,6 +108,7 @@ class Article extends Component {
                   </DeleteConfirmation>
                 </div>
               )}
+           
             </Header>
             <Link to={`/article/${id}`}>
               {this.state.isVideo ? (
