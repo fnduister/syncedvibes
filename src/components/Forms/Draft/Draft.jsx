@@ -25,6 +25,10 @@ import {
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin';
 import 'draft-js-anchor-plugin/lib/plugin.css';
 import 'draft-js-static-toolbar-plugin/lib/plugin.css';
+import 'draft-js-alignment-plugin/lib/plugin.css';
+import 'draft-js-focus-plugin/lib/plugin.css';
+import 'draft-js-image-plugin/lib/plugin.css';
+import 'draft-js-video-plugin/lib/plugin.css';
 import editorStyles from './css/editorStyles.module.css';
 import linkStyles from './css/linkStyles.module.css';
 import toolbarStyles from './css/toolbarStyles.module.css';
@@ -44,26 +48,33 @@ const decorator = composeDecorators(
   resizeablePlugin.decorator,
   alignmentPlugin.decorator,
   focusPlugin.decorator,
-  blockDndPlugin.decorator
+  blockDndPlugin.decorator,
 );
 const imagePlugin = createImagePlugin({ decorator });
 
 const dragNDropFileUploadPlugin = createDragNDropUploadPlugin({
   handleUpload: uploadme,
   addImage: imagePlugin.addImage,
-});const staticToolbarPlugin = createToolbarPlugin({
+});
+
+const staticToolbarPlugin = createToolbarPlugin({
   theme: { buttonStyles, toolbarStyles },
 });
 const undoPlugin = createUndoPlugin();
 const { UndoButton, RedoButton } = undoPlugin;
 
 const { Toolbar } = staticToolbarPlugin;
-const plugins = [staticToolbarPlugin, linkPlugin, undoPlugin, imagePlugin,   dragNDropFileUploadPlugin,
+const plugins = [
+  dragNDropFileUploadPlugin,
   blockDndPlugin,
   focusPlugin,
   alignmentPlugin,
   resizeablePlugin,
-  imagePlugin];
+  imagePlugin,
+  staticToolbarPlugin,
+  linkPlugin,
+  undoPlugin,
+];
 
 class MyEditor extends Component {
   focus = () => {
@@ -89,6 +100,7 @@ class MyEditor extends Component {
             this.editor = element;
           }}
         />
+        <AlignmentTool />
         <Toolbar>
           {// may be use React.Fragment instead of div to improve perfomance after React 16
           (externalProps) => (
@@ -106,7 +118,6 @@ class MyEditor extends Component {
             </div>
           )}
         </Toolbar>
-        <AlignmentTool />
       </EditorSection>
     );
   }

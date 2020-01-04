@@ -118,6 +118,7 @@ const Articles = ({
             setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
           }
           console.log(isLoading);
+          //setimeout here
           setIsLoading(false);
         },
         (error) => {
@@ -176,6 +177,7 @@ const Articles = ({
   const updateCurrentArticles = () => {
     console.log('TCL: updateCurrentArticles -> allArticles', allArticles);
     const tempAllArticle = [...allArticles];
+
     setCurrentArticles(
       tempAllArticle.filter((article) => isInFilter(article) && isFilterTitle(article)),
     );
