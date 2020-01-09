@@ -22,13 +22,17 @@ import {
   BlockquoteButton,
   CodeBlockButton,
 } from 'draft-js-buttons';
+
+import ImagesButton from './PluginButtons/Images/ImagesButton';
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin';
+
 import 'draft-js-anchor-plugin/lib/plugin.css';
 import 'draft-js-static-toolbar-plugin/lib/plugin.css';
 import 'draft-js-alignment-plugin/lib/plugin.css';
 import 'draft-js-focus-plugin/lib/plugin.css';
 import 'draft-js-image-plugin/lib/plugin.css';
 import 'draft-js-video-plugin/lib/plugin.css';
+
 import editorStyles from './css/editorStyles.module.css';
 import linkStyles from './css/linkStyles.module.css';
 import toolbarStyles from './css/toolbarStyles.module.css';
@@ -115,6 +119,12 @@ class MyEditor extends Component {
               <CodeBlockButton {...externalProps} />
               <UndoButton {...externalProps} />
               <RedoButton {...externalProps} />
+              <ImagesButton
+                {...externalProps}
+                editorState={this.state.editorState}
+                onChange={this.onChange}
+                modifier={imagePlugin.addImage}
+              />
             </div>
           )}
         </Toolbar>
