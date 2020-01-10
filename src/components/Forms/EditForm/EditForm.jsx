@@ -88,18 +88,14 @@ const EditForm = ({
         )}
       />
 
-      <Field
+      {/* <Field
         type="file"
         name="thumbnail"
         component={FileInput}
         label="thumbnail"
         variant="outlined"
-        onChange={event => {
-          console.log({ values });
-          setFile(event.currentTarget.files[0]);
-          setFieldValue("thumbnail", event.currentTarget.files[0].name);
-        }}
-      />
+
+      /> */}
 
       <ErrorMessage name="social.twitter" className="error" component="div" />
       {status && status.msg && <div>{status.msg}</div>}

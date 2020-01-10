@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import ImagesButton from './ImagesButton';
+import ImagesButton from '../Images/ImagesButton';
+import {InputStyled, Container} from '../Images/styled';
 
 const InputButton = (props) => {
   const onWindowClick = () =>
     // Call `onOverrideContent` again with `undefined`
     // so the toolbar can show its regular content again.
-    props.onOverrideContent(ImagesButton);
+    props.onOverrideContent(undefined);
 
   useEffect(() => {
     console.log({props});
@@ -16,10 +17,10 @@ const InputButton = (props) => {
   }, []);
 
   return (
-    <div>
-      <input type='text' />
+    <Container>
+      <InputStyled type='text' />
       <button>+</button>
-    </div>
+    </Container>
   );
 };
 
