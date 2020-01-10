@@ -118,8 +118,8 @@ const Articles = ({
             setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
           }
           console.log(isLoading);
-          //setimeout here
-          setIsLoading(false);
+          setIsLoading(false)
+          
         },
         (error) => {
           console.log('Error: ' + error.code);

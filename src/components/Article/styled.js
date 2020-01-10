@@ -57,6 +57,7 @@ export const Delete = styled(IconButton)`
 `;
 
 export const ArticleContainer = styled.div`
+  background-image: url("https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png");
   margin: 0.6em;
   display: flex;
   flex-direction: column;
