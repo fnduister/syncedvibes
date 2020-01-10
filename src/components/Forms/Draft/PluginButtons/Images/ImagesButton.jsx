@@ -5,21 +5,37 @@ import { Button } from '@material-ui/core';
 import InputButton from '../video/InputButton';
 import FileInput from '../../../FileInput/FileInput';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import { withFirebase } from 'react-redux-firebase';
 
-const ImagesButton = (props) => {
-  const [file, setFile] = useState({});
-  const InputWrapper = () => <FileInput {...props} />;
+const ImagesButton = ({ onChange, editorState, firebase, modifier }) => {
+  const [imageUrl, setImageUrl] = useState({});
+  const FIREBASEIMAGESURL = 'imgs';
+  const FIREBASElOCATION = `gs://syncedvibes.appspot.com/${FIREBASEIMAGESURL}`;
 
-  const onClick = () => {
-    // A button can call `onOverrideContent` to replace the content
-    // of the toolbar. This can be useful for displaying sub
-    // menus or requesting additional information from the user.
-    return props.onOverrideContent(InputWrapper);
-  };
+  const handleChange = async (files) => {
+    try {
+      const composedName = `${files[0].lastModified}-${files[0].name}`;
+      let value;
+      const formdata = new FormData();
+      // this will override the file name
+      formdata.append('file', files[0], composedName);
 
-  const handleChange = (files) => {
-    console.log({ files });
-    setFile(files[0]);
+      for (let entry of formdata.entries()) {
+        console.log(entry[1]);
+        value = await firebase.uploadFile(FIREBASEIMAGESURL, entry[1]);
+        firebase
+          .storage()
+          .ref()
+          .child(`${FIREBASEIMAGESURL}/${composedName}`)
+          .getDownloadURL()
+          .then((newLink) => {
+            onChange(modifier(editorState, newLink));
+          });
+      }
+      console.log('TCL: handleChange -> value', value);
+    } catch (err) {
+      console.error({ err });
+    }
     // setFieldValue("thumbnail", event.currentTarget.files[0].name);
   };
 
@@ -34,4 +50,4 @@ const ImagesButton = (props) => {
   );
 };
 
-export default ImagesButton;
+export default withFirebase(ImagesButton);

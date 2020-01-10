@@ -37,6 +37,11 @@ export const Container = styled.div`
   &:hover {
     border-color: #2f3030;
   }
+
+  & img{
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;
 
 export const EditorSection = styled.div`
