@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ButtonStyled, Container, ImageIconStyled } from './styled';
 import IconButton from '@material-ui/core/IconButton';
 import { Button } from '@material-ui/core';
-import InputButton from '../video/InputButton';
+import InputButton from '../Videos/InputButton';
 import FileInput from '../../../FileInput/FileInput';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import { withFirebase } from 'react-redux-firebase';
@@ -10,7 +10,6 @@ import { withFirebase } from 'react-redux-firebase';
 const ImagesButton = ({ onChange, editorState, firebase, modifier }) => {
   const [imageUrl, setImageUrl] = useState({});
   const FIREBASEIMAGESURL = 'imgs';
-  const FIREBASElOCATION = `gs://syncedvibes.appspot.com/${FIREBASEIMAGESURL}`;
 
   const handleChange = async (files) => {
     try {

@@ -88,14 +88,13 @@ const EditForm = ({
         )}
       />
 
-      {/* <Field
+      <Field
         type="file"
         name="thumbnail"
         component={FileInput}
         label="thumbnail"
         variant="outlined"
-
-      /> */}
+      />
 
       <ErrorMessage name="social.twitter" className="error" component="div" />
       {status && status.msg && <div>{status.msg}</div>}

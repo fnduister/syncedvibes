@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Editor, { createEditorStateWithText, composeDecorators } from 'draft-js-plugins-editor';
 import createLinkPlugin from 'draft-js-anchor-plugin';
-import createUndoPlugin from 'draft-js-undo-plugin';
+// import createUndoPlugin from 'draft-js-undo-plugin';
 import createImagePlugin from 'draft-js-image-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
 import createFocusPlugin from 'draft-js-focus-plugin';
+import createVideoPlugin from 'draft-js-video-plugin';
 import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import createBlockDndPlugin from 'draft-js-drag-n-drop-plugin';
 import createDragNDropUploadPlugin from '@mikeljames/draft-js-drag-n-drop-upload-plugin';
-import { EditorSection } from './styled';
+import { EditorSection, ButtonWrapper } from './styled';
 import {
   ItalicButton,
   BoldButton,
@@ -38,6 +39,7 @@ import linkStyles from './css/linkStyles.module.css';
 import toolbarStyles from './css/toolbarStyles.module.css';
 import buttonStyles from './css/buttonStyles.module.css';
 import { uploadme } from './upload/upload';
+// import VideosButton from './PluginButtons/Videos/VideosButton';
 
 const linkPlugin = createLinkPlugin({
   theme: linkStyles,
@@ -55,6 +57,7 @@ const decorator = composeDecorators(
   blockDndPlugin.decorator,
 );
 const imagePlugin = createImagePlugin({ decorator });
+const videoPlugin = createVideoPlugin({ decorator });
 
 const dragNDropFileUploadPlugin = createDragNDropUploadPlugin({
   handleUpload: uploadme,
@@ -64,8 +67,8 @@ const dragNDropFileUploadPlugin = createDragNDropUploadPlugin({
 const staticToolbarPlugin = createToolbarPlugin({
   theme: { buttonStyles, toolbarStyles },
 });
-const undoPlugin = createUndoPlugin();
-const { UndoButton, RedoButton } = undoPlugin;
+// const undoPlugin = createUndoPlugin({ undo: buttonStyles, redo: buttonStyles.button });
+// const { UndoButton, RedoButton } = undoPlugin;
 
 const { Toolbar } = staticToolbarPlugin;
 const plugins = [
@@ -75,9 +78,10 @@ const plugins = [
   alignmentPlugin,
   resizeablePlugin,
   imagePlugin,
+  // videoPlugin,
   staticToolbarPlugin,
   linkPlugin,
-  undoPlugin,
+  // undoPlugin,
 ];
 
 class MyEditor extends Component {
@@ -104,11 +108,10 @@ class MyEditor extends Component {
             this.editor = element;
           }}
         />
-        <AlignmentTool />
         <Toolbar>
           {// may be use React.Fragment instead of div to improve perfomance after React 16
           (externalProps) => (
-            <div>
+            <ButtonWrapper>
               <BoldButton {...externalProps} />
               <ItalicButton {...externalProps} />
               <UnderlineButton {...externalProps} />
@@ -117,17 +120,24 @@ class MyEditor extends Component {
               <OrderedListButton {...externalProps} />
               <BlockquoteButton {...externalProps} />
               <CodeBlockButton {...externalProps} />
-              <UndoButton {...externalProps} />
-              <RedoButton {...externalProps} />
+              {/* <UndoButton {...externalProps} />
+              <RedoButton {...externalProps} /> */}
               <ImagesButton
                 {...externalProps}
                 editorState={this.state.editorState}
                 onChange={this.onChange}
                 modifier={imagePlugin.addImage}
               />
-            </div>
+              {/* <VideosButton
+                {...externalProps}
+                editorState={this.state.editorState}
+                onChange={this.onChange}
+                modifier={videoPlugin.addVideo}
+              /> */}
+            </ButtonWrapper>
           )}
         </Toolbar>
+        <AlignmentTool />
       </EditorSection>
     );
   }

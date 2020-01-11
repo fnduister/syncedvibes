@@ -44,6 +44,10 @@ export const Container = styled.div`
   }
 `;
 
+export const ButtonWrapper = styled.div`
+  display: inline-flex;
+`;
+
 export const EditorSection = styled.div`
   box-sizing: border-box;
   border: 1px solid #ddd;
@@ -56,6 +60,10 @@ export const EditorSection = styled.div`
 
   &:global(.public-DraftEditor-content) {
     min-height: 140px;
+  }
+
+  &>img{
+    margin: 5px;
   }
 `;
 

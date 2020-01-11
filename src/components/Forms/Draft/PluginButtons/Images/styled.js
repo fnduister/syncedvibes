@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import InputButton from '../video/InputButton';
+import InputButton from '../Videos/InputButton';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 export const ButtonStyled = styled.span`
@@ -13,6 +13,21 @@ export const ButtonStyled = styled.span`
 
 export const Container = styled.div`
   display: flex;
+  justify-content: center;
+  background: #333;
+  color: #ddd;
+  font-size: 18px;
+  border: 0;
+  padding-top: 5px;
+  vertical-align: bottom;
+  height: 34px;
+  width: 36px;
+  border-radius: 4px;
+
+  &:hover, &:focus{
+    background: #444;
+    outline: 0; /* reset for :focus */
+  }
 
   & > input{
     display: none
@@ -20,12 +35,7 @@ export const Container = styled.div`
 `;
 
 export const ImageIconStyled = styled(InsertPhotoIcon)`
-  color: white;
-  transition: color .5s ease;
-
-  &:hover{
-    color: red;
-  }
+  color: #ddd;
 `;
 export const InputStyled = styled.input`
   border: none;
