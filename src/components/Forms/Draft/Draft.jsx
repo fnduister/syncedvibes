@@ -89,17 +89,15 @@ class MyEditor extends Component {
     this.editor.focus();
   };
 
-  state = {
-    editorState: createEditorStateWithText(''),
-  };
-
-  onChange = (editorState) => this.setState({ editorState });
+  onChange = (editorState) => {
+    this.props.changeEditorState(editorState);
+  }
 
   render() {
     return (
       <EditorSection className={editorStyles.editor} onClick={this.focus}>
         <Editor
-          editorState={this.state.editorState}
+          editorState={this.props.editorState}
           onChange={this.onChange}
           plugins={plugins}
           placeholder='Tell a story...'
@@ -124,7 +122,7 @@ class MyEditor extends Component {
               <RedoButton {...externalProps} /> */}
               <ImagesButton
                 {...externalProps}
-                editorState={this.state.editorState}
+                editorState={this.props.editorState}
                 onChange={this.onChange}
                 modifier={imagePlugin.addImage}
               />

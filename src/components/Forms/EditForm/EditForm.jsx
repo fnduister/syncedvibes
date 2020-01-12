@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 import {
   LibraryAddStyled,
   FormStyled,
@@ -6,43 +6,40 @@ import {
   SaveIconStyled,
   ButtonStyled,
   TextType,
-  SubmitButtonStyled
-} from "./styled";
-import AdornementInputUrl from "../AdornementInputUrl/AdornementInputUrl";
-import MyEditor from "../Draft/Draft";
-import { MenuItem } from "@material-ui/core";
-import { Field, ErrorMessage, FieldArray } from "formik";
-import FileInput from "../FileInput/FileInput";
+  SubmitButtonStyled,
+} from './styled';
+import AdornementInputUrl from '../AdornementInputUrl/AdornementInputUrl';
+import MyEditor from '../Draft/Draft';
+import { MenuItem } from '@material-ui/core';
+import { Field, ErrorMessage, FieldArray } from 'formik';
+import FileInput from '../FileInput/FileInput';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const EditForm = ({
   types,
   errors,
   status,
-  setFile, 
+  setFile,
   touched,
   isSubmitting,
   values,
   handleBlur,
-  setFieldValue
+  editorState,
+  changeEditorState,
+  setFieldValue,
 }) => {
   return (
     <FormStyled>
-      <Field
-        type="text"
-        name="title"
-        component={TextTitle}
-        label="title"
-        variant="outlined"
-      />
+      <Field type='text' name='title' component={TextTitle} label='title' variant='outlined' />
 
       <Field
-        type="select"
+        type='select'
         component={TextType}
-        name="type"
+        name='type'
         select
-        label="Select type"
-        margin="normal"
-        value="{types}"
+        label='Select type'
+        margin='normal'
+        value='{types}'
       >
         {Object.keys(types).map((index) => (
           <MenuItem key={index} value={index}>
@@ -51,34 +48,30 @@ const EditForm = ({
         ))}
       </Field>
 
-      <MyEditor
-        editorState={values.editorState}
-        onChange={setFieldValue}
-        onBlur={handleBlur}
-      />
+      <MyEditor editorState={editorState} changeEditorState={changeEditorState} />
 
       <FieldArray
-        name="media"
-        render={arrayHelpers => (
+        name='media'
+        render={(arrayHelpers) => (
           <Fragment>
             {values.media
               ? values.media.map((url, index) => (
                   <div key={index}>
                     <Field
-                      type="text"
+                      type='text'
                       name={`media.${index}`}
                       component={AdornementInputUrl}
                       label={`url ${index}`}
-                      variant="outlined"
+                      variant='outlined'
                       removeurl={() => arrayHelpers.remove(index)}
                     />
                   </div>
                 ))
               : null}
             <ButtonStyled
-              variant="contained"
-              color="primary"
-              onClick={() => arrayHelpers.push("")} // insert an empty string at a position
+              variant='contained'
+              color='primary'
+              onClick={() => arrayHelpers.push('')} // insert an empty string at a position
               disabled={isSubmitting}
             >
               <LibraryAddStyled />
@@ -89,23 +82,28 @@ const EditForm = ({
       />
 
       <Field
-        type="file"
-        name="thumbnail"
+        type='file'
+        name='thumbnail'
         component={FileInput}
-        label="thumbnail"
-        variant="outlined"
+        label='thumbnail'
+        variant='outlined'
+        onChange={(event) => {
+          console.log({ values });
+          setFile(event.currentTarget.files[0]);
+          setFieldValue('thumbnail', event.currentTarget.files[0].name);
+        }}
       />
 
-      <ErrorMessage name="social.twitter" className="error" component="div" />
+      <ErrorMessage name='social.twitter' className='error' component='div' />
       {status && status.msg && <div>{status.msg}</div>}
 
       <SubmitButtonStyled
-        variant="contained"
-        color="secondary"
-        type="submit"
+        variant='contained'
+        color='secondary'
+        type='submit'
         disabled={isSubmitting}
       >
-        <SaveIconStyled />
+        {isSubmitting ? <CircularProgress size={15} color='secondary' /> : <SaveIconStyled />}
         Submit
       </SubmitButtonStyled>
     </FormStyled>

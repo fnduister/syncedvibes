@@ -4,7 +4,6 @@ import { InputAdornment, IconButton } from "@material-ui/core";
 
 const AdornementInputUrl = ({removeurl, ...restProps}) => {
   const newRef = useRef(null);
-  console.log({restProps});
   // const paste = () => {
   //   // newRef
   //   console.log("TCL: newRef", newRef.current.children[0].children[1].children[1]);
