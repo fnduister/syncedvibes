@@ -37,6 +37,15 @@ export const Container = styled.div`
   &:hover {
     border-color: #2f3030;
   }
+
+  & img{
+    max-width: 100%;
+    max-height: 100%;
+  }
+`;
+
+export const ButtonWrapper = styled.div`
+  display: inline-flex;
 `;
 
 export const EditorSection = styled.div`
@@ -51,6 +60,10 @@ export const EditorSection = styled.div`
 
   &:global(.public-DraftEditor-content) {
     min-height: 140px;
+  }
+
+  &>img{
+    margin: 5px;
   }
 `;
 

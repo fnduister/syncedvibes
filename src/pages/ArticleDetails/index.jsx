@@ -15,6 +15,7 @@ import {
   KeyboardArrowUpStyled,
   TimeStamp,
   MediaContainer,
+  ContentStyled,
   ArticleGrid,
   ScheduleIconStyled,
   AspectRatio,
@@ -89,13 +90,13 @@ class ArticleDetails extends Component {
                 </Fragment>
               ))}
           </MediaContainer>
-          <div>
+          <ContentStyled>
             {/* on recuperer une version json du content, alors on le parse
             ensuite on le convertie en stateContent pour draft, 
             ensuite on le transforme en text, et pour finir, on convertie le text en html
             */}
             {ReactHtmlParser(stateToHTML(convertFromRaw(JSON.parse(this.props.article.content))))}
-          </div>
+          </ContentStyled>
           {!this.props.profile.isEmpty && this.props.profile.role === 'admin' && (
             <Button color='secondary' type='button' onClick={this.editHandler}>
               edit

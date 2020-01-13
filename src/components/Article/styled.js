@@ -65,6 +65,7 @@ export const ArticleContainer = styled.div`
   position: relative;
   height: 200px;
   overflow: hidden;
+  background-image: url("https://www.w3schools.com/images/w3schools_green.jpg");
 `;
 
 export const Type = styled(Typography)`
