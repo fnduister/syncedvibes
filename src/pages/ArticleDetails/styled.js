@@ -28,7 +28,7 @@ export const MediaContainer = styled.div`
   width: 100%;
 `;
 
-export const contentStyled = styled.div`
+export const ContentStyled = styled.div`
   & img{
     width: 100%;
     height: 100%;

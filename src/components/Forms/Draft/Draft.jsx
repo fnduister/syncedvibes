@@ -135,7 +135,7 @@ class MyEditor extends Component {
             </ButtonWrapper>
           )}
         </Toolbar>
-        <AlignmentTool />
+        {/* <AlignmentTool /> */}
       </EditorSection>
     );
   }

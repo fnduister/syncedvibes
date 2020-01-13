@@ -41,13 +41,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Roboto','Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto','Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
     color:#000;
     background-color: #fafafa;
   }
 
   body.fontLoaded {
-    font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
   }
 
   #app {
@@ -59,7 +59,8 @@ export const GlobalStyle = createGlobalStyle`
 
   p,
   label {
-    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Roboto', 'Georgia', 'Times', 'Times New Roman', 'serif';
+    font-size: 16px;
     line-height: 1.5em;
   }
 `;
