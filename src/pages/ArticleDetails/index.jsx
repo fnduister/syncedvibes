@@ -44,7 +44,7 @@ class ArticleDetails extends Component {
   };
 
   parseUrl = (iframeCode) => {
-    const regex = /https:\/\/[\w./]+/g;
+    const regex = /https:\/\/[\w./-]+/g;
     return iframeCode
       .match(regex)[0]
       .split('/')

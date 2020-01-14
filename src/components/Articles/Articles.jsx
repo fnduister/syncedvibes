@@ -33,8 +33,6 @@ const Articles = ({
   }, [searchValue]);
 
   useEffect(() => {
-    console.log('inside articles', searchValue);
-    console.log('calling useEffect');
     fetchFirstArticleBatch();
     addNewArticle();
     setImages(
@@ -71,7 +69,6 @@ const Articles = ({
 
   const fetchFirstArticleBatch = async () => {
     let arrayArticles = [];
-    console.log('calling FetchFirst');
     setIsLoading(true);
     await firebase
       .database()
@@ -89,7 +86,7 @@ const Articles = ({
           setIsLoading(false);
         },
         (error) => {
-          console.log('Error: ' + error.code);
+          console.error('Error: ' + error.code);
         },
       );
   };
@@ -97,7 +94,6 @@ const Articles = ({
   const fetchNextArticleBatch = async () => {
     let arrayArticles = [];
     setIsLoading(true);
-    console.log("TCL: fetchNextArticleBatch -> previousQueryValue", previousQueryValue)
 
     await firebase
       .database()
@@ -117,12 +113,10 @@ const Articles = ({
             setPreviousQueryValue(arrayArticles[arrayArticles.length - 1].value.date);
             setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
           }
-          console.log(isLoading);
           setIsLoading(false)
-          
         },
         (error) => {
-          console.log('Error: ' + error.code);
+          console.error('Error: ' + error.code);
         },
       );
   };
@@ -139,12 +133,6 @@ const Articles = ({
   }, [currentArticles])
 
   const isFilterTitle = (article) => {
-    console.log(
-      'TCL: isFilterTitle -> article.value.title.includes(searchValue)',
-      article.value.title.includes(searchValue),
-    );
-    console.log('TCL: isFilterTitle -> searchValue', searchValue);
-    console.log('TCL: isFilterTitle -> article.value.title', article.value.title);
     return !searchValue
       ? true
       : article.value.title.toLowerCase().includes(searchValue.toLowerCase());
@@ -160,13 +148,11 @@ const Articles = ({
   };
 
   const removeArticle = () => {
-    console.log('ok on test tous les articles', allArticles);
     firebase
       .database()
       .ref('articles/')
       .on('child_removed', (data) => {
         setAllArticles((prevArticles) => {
-          console.log('TCL: removeArticle -> prevArticles', prevArticles);
           return prevArticles.filter((article) => {
             return article.key !== data.key;
           });
@@ -175,7 +161,6 @@ const Articles = ({
   };
 
   const updateCurrentArticles = () => {
-    console.log('TCL: updateCurrentArticles -> allArticles', allArticles);
     const tempAllArticle = [...allArticles];
 
     setCurrentArticles(

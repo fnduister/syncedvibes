@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, Fragment } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Formik, Form, Field } from 'formik';
 import FileInput from '../../components/Forms/FileInput/FileInput';
@@ -44,7 +44,6 @@ const SettingPage = ({ firebase }) => {
   const uploadFile = async () => {
     files.forEach((file) => {
       console.log('TCL: uploadFile -> file', file);
-      // currentDate = new Date().now();
       const composedName = `${file.lastModified}-${file.name}`;
 
       const formdata = new FormData();
@@ -179,7 +178,10 @@ const SettingPage = ({ firebase }) => {
       >
         <input {...getInputProps()} />
         {!isDropping ? (
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <Fragment>            
+            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>Best image is under 350kb around 1000x900 pixel</p>
+          </Fragment>
         ) : (
           <p>Click or Drop</p>
         )}

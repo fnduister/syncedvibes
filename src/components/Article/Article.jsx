@@ -55,7 +55,6 @@ class Article extends Component {
   };
 
   handleRemoveArticle = () => {
-    console.log('TCL: Article -> handleRemoveArticle -> this.props.id', this.props.id);
     this.props.firebase.remove(`articles/${this.props.id}`);
     // this.props.removeArticleFromList();
   };

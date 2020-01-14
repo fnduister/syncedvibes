@@ -44,7 +44,6 @@ function AddCommentForm({
             fullWidth
             onFocus={showButtons}
             onBlur={e => {
-              console.log("inside you");
               changeOnBlur();
               handleBlur(e);
             }}
@@ -52,7 +51,6 @@ function AddCommentForm({
 
           {pristine && (
             <ButtonContainer>
-              {console.log({ touched, dirty, errors, pristine, isSubmitting })}
               <ButtonStyled
                 variant="contained"
                 color="secondary"

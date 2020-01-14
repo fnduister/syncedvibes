@@ -56,12 +56,9 @@ class Comment extends Component {
       let newFavorite;
       if (this.state.favorite) {
         newFavorite = favorite - 1;
-        console.log({ state: this.state, commentId });
         this.state.favoriteList = this.state.favoriteList.filter(
           id => id !== commentId
         );
-
-        console.log({ newState: this.state, commentId });
       } else {
         // newFavorite = [...favorites, commentId];
         this.setState({

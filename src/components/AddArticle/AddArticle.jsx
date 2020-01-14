@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 import 'moment-timezone';
 import EditForm from '../Forms/EditForm/EditForm';
 import { openNotification } from '../Notification/reducer';
-import Axios from 'axios';
 
 const AddArticle = ({
   settings,
@@ -30,18 +29,18 @@ const AddArticle = ({
   history,
 }) => {
   let contentState = {};
-  const [editorState, seteditorState] = useState(
-    !add ? new EditorState.createWithContent(contentState) : new createEditorStateWithText(''),
-  );
   let articlesDefault = {};
-  const [file, setFile] = useState('');
-  const [submited, setSubmited] = useState(false);
   if (article) {
     contentState = article.hasOwnProperty('content')
       ? convertFromRaw(JSON.parse(article.content))
       : null;
     articlesDefault = { ...article };
   }
+  const [editorState, seteditorState] = useState(
+    !add ? new EditorState.createWithContent(contentState) : new createEditorStateWithText(''),
+  );
+  const [file, setFile] = useState('');
+  const [submited, setSubmited] = useState(false);
   if (!isLoaded(settings)) return <div>...loading</div>;
 
   return (
@@ -57,7 +56,6 @@ const AddArticle = ({
             if (!submited) {
               actions.setSubmitting(true);
               const content = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
-              console.log("TCL: content", content)
               let { title, type, thumbnail, media } = values;
               if (media === undefined) {
                 media = [];
@@ -75,7 +73,6 @@ const AddArticle = ({
               try {
                 if (add) {
                   await firebase.uploadFile(`gifs`, file);
-                  console.log("TCL: file", file)
                 }
               } catch (err) {
                 console.error({ err });
@@ -107,7 +104,6 @@ const AddArticle = ({
             />
           )}
         />
-        {console.log('dans addArticle')}
       </DialogContentStyled>
     </Fragment>
   );
