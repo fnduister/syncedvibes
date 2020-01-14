@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 import { Form } from 'formik';
 import { LibraryAdd } from '@material-ui/icons';
 import { theme } from '../../../GlobalStyle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export const FileInput = styled(SimpleFileUpload)``;
 
@@ -37,6 +38,10 @@ export const SubmitButtonStyled = styled(Button)`
 export const SaveIconStyled = styled(SaveIcon)`
   font-size: 20px;
   margin-right: 0.3em;
+`;
+
+export const ProgressStyled = styled(CircularProgress)`
+  margin-right: .5em;
 `;
 
 export const LibraryAddStyled = styled(LibraryAdd)`

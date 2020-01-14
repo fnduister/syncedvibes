@@ -60,7 +60,6 @@ const App = ({ profile, onMobile }) => {
 
                 <CustomCard>
                   <Route path='/signup' component={SignUp} />
-                  {/* <Route path="/settings" component={Settings} /> */}
                   <PrivateRoute
                     path='/addArticle'
                     rolei='admin'

@@ -1,10 +1,11 @@
-import { useEffect } from "react";
-import { withRouter } from "react-router";
+import { useEffect } from 'react';
+import { withRouter } from 'react-router';
 
 const ScrollToMainComponent = ({ children, location: { pathname } }) => {
   useEffect(() => {
-      const maxHeight = window.innerHeight;
-    window.scrollTo(0, maxHeight);
+    // const maxHeight = window.innerHeight;
+    // console.log("TCL: ScrollToMainComponent -> maxHeight", maxHeight)
+    // window.scrollTo(0, maxHeight/2);
   }, [pathname]);
 
   return children;

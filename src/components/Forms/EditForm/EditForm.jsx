@@ -5,6 +5,7 @@ import {
   TextTitle,
   SaveIconStyled,
   ButtonStyled,
+  ProgressStyled,
   TextType,
   SubmitButtonStyled,
 } from './styled';
@@ -13,7 +14,6 @@ import MyEditor from '../Draft/Draft';
 import { MenuItem } from '@material-ui/core';
 import { Field, ErrorMessage, FieldArray } from 'formik';
 import FileInput from '../FileInput/FileInput';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const EditForm = ({
   types,
@@ -103,7 +103,7 @@ const EditForm = ({
         type='submit'
         disabled={isSubmitting}
       >
-        {isSubmitting ? <CircularProgress size={15} color='secondary' /> : <SaveIconStyled />}
+        {isSubmitting ? <ProgressStyled size={15} color='secondary' /> : <SaveIconStyled />}
         Submit
       </SubmitButtonStyled>
     </FormStyled>
