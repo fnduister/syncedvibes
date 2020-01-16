@@ -190,7 +190,8 @@ const Articles = ({
         <div>There's no articles</div>
       ) : (
         <Container ref={articlesRef} container>
-          {currentArticles.map(({ key, value }) => {
+          {currentArticles.map(({ key, value }, index, array) => {
+            console.log({index, array});
             return (
               <Article
                 firebase={firebase}
@@ -205,6 +206,8 @@ const Articles = ({
                 removeArticleFromList={15}
                 id={key}
                 key={key}
+                prevArticle={index === 0 ? null: array[index-1]}
+                nextArticle={index === array.length - 1? null: array[index+1]}
               />
             );
           })}

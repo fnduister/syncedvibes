@@ -5,7 +5,7 @@ import { withHandlers } from 'recompose';
 import { createEditorStateWithText } from 'draft-js-plugins-editor';
 
 import { withRouter } from 'react-router';
-import { firebaseConnect, isLoaded, useFirebase } from 'react-redux-firebase';
+import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 import { DialogContentStyled, DialogTitleStyled } from './styled';
 import EditFormSchema from '../Forms/EditForm/EditFormSchema';
 import moment from 'moment';
