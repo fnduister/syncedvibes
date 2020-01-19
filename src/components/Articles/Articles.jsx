@@ -107,13 +107,16 @@ const Articles = ({
           arrayArticles = objectToArrayWithKey(snapshot.val())
             .reverse()
             .slice(1);
-          if (previousQueryValue === arrayArticles[arrayArticles.length - 1].value.date) {
+          // if (previousQueryValue === arrayArticles[arrayArticles.length - 1].value.date) {
+          // } else {
+          if (arrayArticles.length < maxArticlesPerPage - 1) {
             setNoMoreFetch(true);
           } else {
             setPreviousQueryValue(arrayArticles[arrayArticles.length - 1].value.date);
             setAllArticles((prevArticles) => [...prevArticles, ...arrayArticles]);
           }
-          setIsLoading(false)
+          // }
+          setIsLoading(false);
         },
         (error) => {
           console.error('Error: ' + error.code);
@@ -126,11 +129,11 @@ const Articles = ({
   }, [selectedTypes, allArticles, searchValue]);
 
   useEffect(() => {
-    console.log("TCL: currentArticles", currentArticles)
+    console.log('TCL: currentArticles', currentArticles);
     // if (!noMoreFetch && allArticles.length !== 0 && currentArticles.length === 0 && articlesRef.current) {
     //   fetchNextArticleBatch();
     // }
-  }, [currentArticles])
+  }, [currentArticles]);
 
   const isFilterTitle = (article) => {
     return !searchValue
@@ -169,15 +172,11 @@ const Articles = ({
   };
 
   const canScroll = () => {
-    return articlesRef.current.clientHeight - 50 < document.documentElement.scrollTop
-  }
+    return articlesRef.current.clientHeight - 50 < document.documentElement.scrollTop;
+  };
 
   window.onscroll = debounce(() => {
-    if (
-      allArticles.length &&
-      articlesRef.current &&
-      canScroll()
-    ) {
+    if (allArticles.length && articlesRef.current && canScroll()) {
       if (!noMoreFetch) {
         fetchNextArticleBatch();
       }

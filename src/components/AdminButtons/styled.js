@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
-import Divider from "@material-ui/core/Divider";
 import { theme } from "../../GlobalStyle";
 
 export const Container = styled.div`

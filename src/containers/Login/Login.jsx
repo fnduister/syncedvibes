@@ -2,7 +2,6 @@ import React from "react";
 import LoginForm from "../../components/Forms/LoginForm/LoginForm";
 import { Formik } from "formik";
 import { Container } from "./styled";
-import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { compose } from "redux";
 import { firebaseConnect } from "react-redux-firebase";

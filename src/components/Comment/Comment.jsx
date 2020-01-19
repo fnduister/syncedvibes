@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
   ReplyUserStyled,
-  KeyboardArrowUpStyled,
   ReplyTextStyled,
   FavoriteButton,
   ReplyUserDate,
@@ -51,6 +50,7 @@ class Comment extends Component {
       firebase
     } = this.props;
 
+    // TODO: this favorite function is to redo completly
     const toggleFavorite = () => {
       this.setState(state => ({ favorite: !state.favorite }));
       let newFavorite;

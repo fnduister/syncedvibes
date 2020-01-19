@@ -1,5 +1,4 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 import { TitleBox, LogoStyled, TitleStyled } from "./styled";
 import Logo from "../../images/Logos/SV_SeeThrough_Logo_TeeEdit.png";
 

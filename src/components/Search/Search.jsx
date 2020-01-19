@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Search, SearchIconStyled, InputBaseStyled } from './styled';
 import SearchIcon from '@material-ui/icons/Search';
 import { withFirebase } from 'react-redux-firebase';

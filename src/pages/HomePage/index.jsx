@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import FilterButtons from '../../components/FilterButtons/FilterButtons';
-import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { firebaseConnect, isLoaded } from 'react-redux-firebase';
 import Articles from '../../components/Articles/Articles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { objectToArrayWithKey, objectToArray } from '../../utils/common';
@@ -10,7 +10,7 @@ import { objectToArrayWithKey, objectToArray } from '../../utils/common';
 const HomePage = ({ settings }) => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedType, setSelectedType] = useState('');
-  const [limit, setLimit] = useState(15);
+  const limit = 15; // this should be modified
   const [startAt, setStartAt] = useState('');
   const [queries, setQueries] = useState(['orderByChild=date', `limitToLast=${limit}`]);
   const [types, setTypes] = useState([]);
@@ -35,7 +35,6 @@ const HomePage = ({ settings }) => {
 
   const isInSelectedTypes = (currentSelectedType) => {
     for (const type of selectedTypes) {
-      console.log('TCL: isInSelectedTypes -> selectedTypes', selectedTypes);
       if (type.key === currentSelectedType.key) {
         return true;
       }
@@ -50,7 +49,6 @@ const HomePage = ({ settings }) => {
     } else {
       setSelectedTypes((oldTypes) => [...oldTypes, type]);
     }
-    console.log(selectedTypes);
   };
 
   return (

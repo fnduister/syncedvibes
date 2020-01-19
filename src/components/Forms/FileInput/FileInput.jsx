@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import { Button } from '@material-ui/core';
+import React from 'react';
 import { Container, Label, ButtonStyled } from './styled';
 
 const FileInput = ({

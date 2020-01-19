@@ -3,7 +3,6 @@ import Popover from '@material-ui/core/Popover';
 import { theme } from '../../GlobalStyle';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import Fade from '@material-ui/core/Fade';
 import { Typography } from '@material-ui/core';
 import { IconButton, Button } from '@material-ui/core';
 
@@ -24,7 +23,7 @@ export const ConfirmationButtonNo = styled(Button)`
 export const DeleteText = styled(Typography)`
   position: relative;
   font-size: 1em;
-  z-index: 10;
+  z-index: 5;
   color: white;
   background-color: ${fade(theme.palette.primary[900], 1)};
   justify-content: right;

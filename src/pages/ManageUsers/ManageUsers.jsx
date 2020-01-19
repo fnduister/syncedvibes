@@ -2,7 +2,6 @@ import React from "react";
 import { compose, withHandlers } from "recompose";
 import { connect } from "react-redux";
 import { firebaseConnect, isLoaded } from "react-redux-firebase";
-import AddBox from "@material-ui/icons/AddBox";
 import { Container, MaterialTableStyled } from "./styled";
 import { objectToArray } from "../../utils/common";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -10,7 +9,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const ManageUsers = ({ users, roles, updateRole, history, auth }) => {
   return isLoaded(users) ? (
     <Container>
-      {users ? console.log(objectToArray(users), roles) : null}
       <MaterialTableStyled
         columns={[
           { title: "Username", field: "displayName", editable: "never"},
@@ -25,7 +23,6 @@ const ManageUsers = ({ users, roles, updateRole, history, auth }) => {
         editable={{
           isEditable: rowData => rowData.role,
           onRowUpdate: async (newData, oldData) => {
-            console.log({oldData, newData});
             await updateRole(newData.key, newData.role )
             // history.push("/");
           }

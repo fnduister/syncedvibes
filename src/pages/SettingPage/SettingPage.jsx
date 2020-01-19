@@ -1,8 +1,5 @@
-import React, { useState, useCallback, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Formik, Form, Field } from 'formik';
-import FileInput from '../../components/Forms/FileInput/FileInput';
-import { objectToArrayWithKey } from '../../utils/common';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withFirebase } from 'react-redux-firebase';
 import {
@@ -43,7 +40,6 @@ const SettingPage = ({ firebase }) => {
 
   const uploadFile = async () => {
     files.forEach((file) => {
-      console.log('TCL: uploadFile -> file', file);
       const composedName = `${file.lastModified}-${file.name}`;
 
       const formdata = new FormData();
@@ -51,7 +47,6 @@ const SettingPage = ({ firebase }) => {
       formdata.append('file', file, composedName);
 
       for (let entry of formdata.entries()) {
-        console.log(entry[1]);
         firebase.uploadFile(BACKGROUNDIMAGESURL, entry[1]);
       }
 

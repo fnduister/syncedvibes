@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container } from "./styled";
-import AddArticle from "../../components/AddArticle/AddArticle";
 
 const CustomCard = props => {
   const [raised, toggleRaised] = useState(false);

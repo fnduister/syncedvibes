@@ -1,8 +1,7 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
 import CommentSection from '../../containers/CommentSection/CommentSection';
-import { Link } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import AddArticle from '../../components/AddArticle/AddArticle';
 import { stateToHTML } from 'draft-js-export-html';
@@ -16,34 +15,95 @@ import {
   TimeStamp,
   MediaContainer,
   ContentStyled,
+  PrevNextContainer,
+  Prev,
+  Next,
   ArticleGrid,
   ScheduleIconStyled,
   AspectRatio,
 } from './styled';
 import ReactHtmlParser from 'react-html-parser';
 import Moment from 'react-moment';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { connect } from 'react-redux';
 import { withHandlers } from 'recompose';
 import { firebaseConnect, isLoaded, getVal } from 'react-redux-firebase';
+import { Link } from 'react-router-dom';
+import { objectToArrayWithKey } from '../../utils/common';
 
-class ArticleDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { edit: false, comment: false };
-  }
-  onPlayerReady = (evt) => {
+const ArticleDetails = (props) => {
+  const [edit, setEdit] = useState(false);
+  const [comment, setComment] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [previous, setPrevious] = useState(null);
+  const [next, setNext] = useState(null);
+
+  const onPlayerReady = (evt) => {
     evt.target.pauseVideo();
   };
 
-  editHandler = () => {
-    this.setState((state) => ({ edit: !state.edit }));
+  const editHandler = () => {
+    setEdit((prevEdit) => !prevEdit);
   };
 
-  commentHandler = () => {
-    this.setState((state) => ({ comment: !state.comment }));
+  const commentHandler = () => {
+    setComment((prevComment) => !prevComment);
   };
 
-  parseUrl = (iframeCode) => {
+  useEffect(() => {
+    fetchNextArticleBatch();
+    fetchPreviousArticleBatch();
+  }, [props.article]);
+
+  const fetchNextArticleBatch = async () => {
+    let arrayArticles = [];
+    if (props.article) {
+      await props.firebase
+        .database()
+        .ref('articles/')
+        .orderByChild('date')
+        .endAt(props.article.date)
+        .limitToLast(2)
+        .once(
+          'value',
+          (snapshot) => {
+            arrayArticles = objectToArrayWithKey(snapshot.val())
+              .reverse()
+              .slice(1);
+            setNext(arrayArticles[0]);
+          },
+          (error) => {
+            console.error('Error: ' + error.code);
+          },
+        );
+    }
+  };
+
+  const fetchPreviousArticleBatch = async () => {
+    let arrayArticles = [];
+    if (props.article) {
+      await props.firebase
+        .database()
+        .ref('articles/')
+        .orderByChild('date')
+        .startAt(props.article.date)
+        .limitToFirst(2)
+        .once(
+          'value',
+          (snapshot) => {
+            arrayArticles = objectToArrayWithKey(snapshot.val()).slice(1);
+            setPrevious(arrayArticles[0]);
+            console.log('TCL: fetchPreviousArticleBatch -> arrayArticles[0]', arrayArticles[0]);
+          },
+          (error) => {
+            console.error('Error: ' + error.code);
+          },
+        );
+    }
+  };
+
+  const parseUrl = (iframeCode) => {
     const regex = /https:\/\/[\w./-]+/g;
     return iframeCode
       .match(regex)[0]
@@ -51,90 +111,94 @@ class ArticleDetails extends Component {
       .pop();
   };
 
-  render() {
-    const opts = {
-      width: '100%',
-      playerVars: {
-        // https://developers.google.com/youtube/player_parameters
-        autoplay: 0,
-      },
-    };
+  const opts = {
+    width: '100%',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 0,
+    },
+  };
 
-    return isLoaded(this.props.article) ? (
-      <Fragment>
-        {console.log('dans articles details')}
-        <ArticleGrid item xs={10} md={8} lg={6}>
-          <Title variant={this.props.onMobile ? 'h3' : 'h2'} color='secondary'>
-            {this.props.article.title}
-          </Title>
-          <TimeStamp variant='body2' color='textPrimary'>
-            <ScheduleIconStyled fontSize='small' />
-            <Moment fromNow date={this.props.article.date} />
-            {console.log(this.props.article.date)}
-          </TimeStamp>
-          <MediaContainer>
-            {this.props.article.media &&
-              this.props.article.media.map((url, index) => (
-                <Fragment key={index}>
-                  {url.includes('youtube') ? (
-                    <AspectRatio>
-                      <YoutubeStyled
-                        opts={opts}
-                        videoId={this.parseUrl(url)}
-                        onReady={this.onPlayerReady}
-                      />
-                    </AspectRatio>
-                  ) : (
-                    <div dangerouslySetInnerHTML={{ __html: url }} />
-                  )}
-                </Fragment>
-              ))}
-          </MediaContainer>
-          <ContentStyled>
-            {/* on recuperer une version json du content, alors on le parse
+  return isLoaded(props.article) ? (
+    <Fragment>
+      <ArticleGrid item xs={10} md={8} lg={6}>
+        <Title variant={props.onMobile ? 'h3' : 'h2'} color='secondary'>
+          {props.article.title}
+        </Title>
+        <TimeStamp variant='body2' color='textPrimary'>
+          <ScheduleIconStyled fontSize='small' />
+          <Moment fromNow date={props.article.date} />
+        </TimeStamp>
+        <MediaContainer>
+          {props.article.media &&
+            props.article.media.map((url, index) => (
+              <Fragment key={index}>
+                {url.includes('youtube') ? (
+                  <AspectRatio>
+                    <YoutubeStyled opts={opts} videoId={parseUrl(url)} onReady={onPlayerReady} />
+                  </AspectRatio>
+                ) : (
+                  <div dangerouslySetInnerHTML={{ __html: url }} />
+                )}
+              </Fragment>
+            ))}
+        </MediaContainer>
+        <ContentStyled>
+          {/* on recuperer une version json du content, alors on le parse
             ensuite on le convertie en stateContent pour draft, 
             ensuite on le transforme en text, et pour finir, on convertie le text en html
             */}
-            {ReactHtmlParser(stateToHTML(convertFromRaw(JSON.parse(this.props.article.content))))}
-          </ContentStyled>
-          {!this.props.profile.isEmpty && this.props.profile.role === 'admin' && (
-            <Button color='secondary' type='button' onClick={this.editHandler}>
-              edit
-            </Button>
-          )}
-
-          <Button color='primary' type='button' onClick={this.commentHandler}>
-            {this.state.comment ? <KeyboardArrowUpStyled /> : <KeyboardArrowDownStyled />}
-            {!this.state.comment ? 'SHOW ' : 'HIDE '}
-            comments
+          {ReactHtmlParser(stateToHTML(convertFromRaw(JSON.parse(props.article.content))))}
+        </ContentStyled>
+        {!props.profile.isEmpty && props.profile.role === 'admin' && (
+          <Button color='secondary' type='button' onClick={editHandler}>
+            edit
           </Button>
+        )}
 
-          {this.state.comment && (
-            <CommentSection
-              updateComment={this.props.updateComment}
-              comments={this.props.article.comments}
-              addComment={this.props.addComment}
-            />
+        <PrevNextContainer>
+          {previous && (
+            <Prev component={Link} variant='contained' to={`/article/${previous.key}`}>
+              <KeyboardArrowLeft size="medium"/>
+              {previous.value.title}
+            </Prev>
           )}
-        </ArticleGrid>
-        <Dialog
-          open={this.state.edit}
-          onClose={this.editHandler}
-          aria-labelledby='form-dialog-title'
-        >
-          <AddArticle
-            article={this.props.article}
-            updateArticle={this.props.updateArticle}
-            edit={this.state.edit}
-            editHandler={this.editHandler}
+          {next && (
+            <Next component={Link} variant='contained' to={`/article/${next.key}`}>
+              {next.value.title}
+              <KeyboardArrowRight size="medium"/>
+            </Next>
+          )}
+        </PrevNextContainer>
+
+        <Button color='primary' type='button' onClick={commentHandler}>
+          {comment ? <KeyboardArrowUpStyled /> : <KeyboardArrowDownStyled />}
+          {!comment ? 'SHOW ' : 'HIDE '}
+          comments
+        </Button>
+
+        {comment && (
+          <CommentSection
+            updateComment={props.updateComment}
+            comments={props.article.comments}
+            addComment={props.addComment}
           />
-        </Dialog>
-      </Fragment>
-    ) : (
-      <CircularProgress size='50' color='secondary' />
-    );
-  }
-}
+        )}
+      </ArticleGrid>
+      <Dialog open={edit} onClose={editHandler} aria-labelledby='form-dialog-title'>
+        <AddArticle
+          article={props.article}
+          updateArticle={props.updateArticle}
+          edit={edit}
+          editHandler={editHandler}
+        />
+      </Dialog>
+    </Fragment>
+  ) : (
+    <CircularProgress size='50' color='secondary' />
+  );
+};
+
 const enhance = compose(
   firebaseConnect((props) => [
     `articles/${props.match.params.articleId}`,

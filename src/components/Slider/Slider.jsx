@@ -3,13 +3,11 @@ import { SliderStyled } from './styled';
 import { withFirebase } from 'react-redux-firebase';
 
 const Slider = ({ completed, firebase }) => {
-  const backgrounds = require.context('../../images/backgrounds', true);
   const sliderRef = useRef();
   const [images, setImages] = useState([]);
   const [imagesURL, setImagesURL] = useState([]);
   const [imagesLink, setImagesLink] = useState([]);
   const BACKGROUNDIMAGESURL = 'background-imgs';
-  const [isDropping, setIsDropping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

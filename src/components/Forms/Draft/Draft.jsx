@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import Editor, { createEditorStateWithText, composeDecorators } from 'draft-js-plugins-editor';
+import Editor, { composeDecorators } from 'draft-js-plugins-editor';
 import createLinkPlugin from 'draft-js-anchor-plugin';
 // import createUndoPlugin from 'draft-js-undo-plugin';
 import createImagePlugin from 'draft-js-image-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
 import createFocusPlugin from 'draft-js-focus-plugin';
-import createVideoPlugin from 'draft-js-video-plugin';
 import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import createBlockDndPlugin from 'draft-js-drag-n-drop-plugin';
 import createDragNDropUploadPlugin from '@mikeljames/draft-js-drag-n-drop-upload-plugin';
@@ -14,10 +13,6 @@ import {
   ItalicButton,
   BoldButton,
   UnderlineButton,
-  CodeButton,
-  HeadlineOneButton,
-  HeadlineTwoButton,
-  HeadlineThreeButton,
   UnorderedListButton,
   OrderedListButton,
   BlockquoteButton,
@@ -49,7 +44,6 @@ const focusPlugin = createFocusPlugin();
 const resizeablePlugin = createResizeablePlugin();
 const blockDndPlugin = createBlockDndPlugin();
 const alignmentPlugin = createAlignmentPlugin();
-const { AlignmentTool } = alignmentPlugin;
 const decorator = composeDecorators(
   resizeablePlugin.decorator,
   alignmentPlugin.decorator,
@@ -57,7 +51,6 @@ const decorator = composeDecorators(
   blockDndPlugin.decorator,
 );
 const imagePlugin = createImagePlugin({ decorator });
-const videoPlugin = createVideoPlugin({ decorator });
 
 const dragNDropFileUploadPlugin = createDragNDropUploadPlugin({
   handleUpload: uploadme,

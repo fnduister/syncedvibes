@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import InputButton from '../Videos/InputButton';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 export const ButtonStyled = styled.span`

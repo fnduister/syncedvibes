@@ -1,31 +1,24 @@
-import styled from "styled-components";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { viewport } from "../../GlobalStyle";
-import { Button, Fab } from "@material-ui/core";
-import { Slide } from "@material-ui/core";
-import { theme } from "../../GlobalStyle";
-import { fade } from "@material-ui/core/styles/colorManipulator";
+import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
+import { Button, Fab } from '@material-ui/core';
+import { Slide } from '@material-ui/core';
+import { theme } from '../../GlobalStyle';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import Fade from '@material-ui/core/Fade';
-import IconButton from '@material-ui/core/IconButton';
-;
-
 // import { black } from "material-ui/styles/colors";
 export const PageUpContainer = styled.div`
   position: fixed;
-bottom: .3em;
-left: 0;
-transition: width .3s ease-in ;
-z-index: 100;
+  bottom: 0.3em;
+  left: 0;
+  transition: width 0.3s ease-in;
+  z-index: 100;
   /* flex-direction: column-reverse; */
 `;
 
-        export const PageUpStyled = styled(Fab)`
-        position: relative;
-        background-color: ${fade(theme.palette.primary[900], 1)};
-
-
-        `;
+export const PageUpStyled = styled(Fab)`
+  position: relative;
+  background-color: ${fade(theme.palette.primary[900], 1)};
+`;
 
 export const Container = styled.div`
   position: relative;
@@ -39,11 +32,11 @@ export const Container = styled.div`
 `;
 export const Fixed = styled.div`
   position: fixed;
-bottom: 0;
-right: 0;
-width:  ${({width})=> width ? "100%" :  "4em"};
-transition: width .3s ease-in ;
-z-index: 0;
+  bottom: 0;
+  right: 0;
+  width: ${({ width }) => (width ? '100%' : '4em')};
+  transition: width 0.3s ease-in;
+  z-index: 2;
   /* flex-direction: column-reverse; */
 `;
 
@@ -52,9 +45,9 @@ export const LogoStyled = styled.img`
   width: 4em;
   position: absolute;
   background-color: ${({ background }) =>
-    background ? `${fade(theme.palette.primary[900], 0.7)}` : "none"};
-    transition: background-color 1s ease-in;
-  z-index: 1;
+    background ? `${fade(theme.palette.primary[900], 0.7)}` : 'none'};
+  transition: background-color 1s ease-in;
+  z-index: 4;
   right: 0;
   cursor: pointer;
 `;
@@ -63,9 +56,10 @@ export const BottomStyled = styled.div`
   background-color: ${fade(theme.palette.primary[900], 0.7)};
   display: flex;
   justify-content: center;
-  padding: 0.8em;
+  align-items: center;
   position: absolute;
   width: 100%;
+  z-index: 3;
 `;
 
 export const ToggleLabel = styled(Typography)`
@@ -95,19 +89,21 @@ export const SlideStyled = styled(Slide)`
   margin-top: 1.1em;
 `;
 
-export const FadeStyled = styled(Fade)`
-
-`;
+export const FadeStyled = styled(Fade)``;
 
 export const SpotifyButton = styled(Button)`
-  margin-right: .5vw;   
-  background-color: #1DB954 ;
+  margin-right: 0.5vw;
+  background-color: #1db954;
   color: white;
 `;
 
 export const IconStyled = styled.img`
-height: 3.5vh; 
-padding-bottom: .5vh;
+  height: 3.5vh;
+  margin-bottom: 1em;
+`;
 
-
+export const PreviousWebsiteIconStyled = styled.img`
+  height: 3.7em;
+  margin-bottom: 1em;
+  /* height: 4em; */
 `;

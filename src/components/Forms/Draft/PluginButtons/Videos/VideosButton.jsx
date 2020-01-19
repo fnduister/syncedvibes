@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ButtonStyled, Container, VideoIconStyled } from './styled';
+import React from 'react';
+import { VideoIconStyled } from './styled';
 import IconButton from '@material-ui/core/IconButton';
 import InputButton from './InputButton';
 import { withFirebase } from 'react-redux-firebase';

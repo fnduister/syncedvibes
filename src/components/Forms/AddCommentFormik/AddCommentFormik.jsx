@@ -7,7 +7,6 @@ import moment from "moment";
 const AddCommentFormik = props => {
   const [pristine, setPristine] = useState(false);
 
-  console.log({ props });
   const showButtons = () => {
     setPristine(true);
   };

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import {
   ArticleContainer,
   Header,
@@ -12,118 +12,99 @@ import {
   ConfirmationButtonNo,
   GroupStyled,
 } from './styled';
-import { withFirebase, firebaseConnect } from 'react-redux-firebase';
+import { firebaseConnect } from 'react-redux-firebase';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { Delete } from './styled';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { objectToArrayWithKey } from '../../utils/common';
 
 //test me
-class Article extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.state = {
-      url: '',
-      isLoading: false,
-      isVideo: false,
-      anchorEl: null,
-      setAnchorEl: false,
-      open: false,
-      checked: null,
-      setChecked: false,
-    };
-  }
-  componentDidMount() {
-    this.setState({ isLoading: true });
-    this.props.image.getDownloadURL().then((newUrl) => {
-      this.setState({ url: newUrl });
-      this.isMP4();
+const Article = ({ title, type, firebase, id, profile, image }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [url, setUrl] = useState('');
+  const [isVideo, SetIsVideo] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    setIsLoading(true);
+    image.getDownloadURL().then((newUrl) => {
+      setUrl(newUrl);
+      SetIsVideo(/.mp4/.test(newUrl));
     });
-    this.setState({ isLoading: false });
-  }
+    setIsLoading(false);
+  }, []);
 
-  handleClick = (event) => {
-    this.setState({ anchorEl: event.target });
+  useEffect(() => {
+  }, []);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.target);
   };
 
-  handleClose = () => {
-    this.setState({ anchorEl: null });
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
-  handleRemoveArticle = () => {
-    this.props.firebase.remove(`articles/${this.props.id}`);
-    // this.props.removeArticleFromList();
+  const handleRemoveArticle = () => {
+    firebase.remove(`articles/${id}`);
   };
 
-  isMP4() {
-    const str = this.state.url;
-    this.setState({ isVideo: /.mp4/.test(str) });
-  }
-
-  render() {
-    const { title, type, id, profile } = this.props;
-    return (
-      <Fragment>
-        {this.state.isLoading ? (
-          <CircularProgress size={50} color='secondary' />
-        ) : (
-          <ArticleContainer>
-            <Header>
-              <Type>{type}</Type>
-              {!profile.isEmpty && profile.role === 'admin' && (
-                <div>
-                  <Delete
-                    onClick={this.handleClick}
-                    //
-                    aria-label='delete'
-                  >
-                    {' '}
-                    <DeleteForeverIcon />
-                  </Delete>
-                  <DeleteConfirmation
-                    open={this.state.anchorEl ? true : false}
-                    anchorEl={this.state.anchorEl}
-                    onClose={this.handleClose}
-                    anchorOrigin={{
-                      vertical: 'center',
-                      horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                  >
-                    <DeleteText> Delete this post ?</DeleteText>
-                    <GroupStyled variant='outlined' size='large'>
-                      <ConfirmationButtonYes onClick={this.handleRemoveArticle}>
-                        yes
-                      </ConfirmationButtonYes>
-                      <ConfirmationButtonNo onClick={this.handleClose}>no</ConfirmationButtonNo>
-                    </GroupStyled>
-                  </DeleteConfirmation>
-                </div>
-              )}
-           
-            </Header>
-            <Link to={`/article/${id}`}>
-              {this.state.isVideo ? (
-                <Video src={this.state.url} type='video/mp4' autoPlay loop muted playsInline />
-              ) : (
-                <Image src={this.state.url} type='image' alt={title} />
-              )}  
-              <Content variant='h6'> {title} </Content>
-            </Link>
-          
-          </ArticleContainer>
-        )}
-      </Fragment>
-    );
-  }
-}
+  return (
+    <Fragment>
+      {isLoading ? (
+        <CircularProgress size={50} color='secondary' />
+      ) : (
+        <ArticleContainer>
+          <Header>
+            <Type>{type}</Type>
+            {!profile.isEmpty && profile.role === 'admin' && (
+              <div>
+                <Delete
+                  onClick={handleClick}
+                  //
+                  aria-label='delete'
+                >
+                  {' '}
+                  <DeleteForeverIcon />
+                </Delete>
+                <DeleteConfirmation
+                  open={anchorEl ? true : false}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'center',
+                    horizontal: 'left',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                >
+                  <DeleteText> Delete this post ?</DeleteText>
+                  <GroupStyled variant='outlined' size='large'>
+                    <ConfirmationButtonYes onClick={handleRemoveArticle}>yes</ConfirmationButtonYes>
+                    <ConfirmationButtonNo onClick={handleClose}>no</ConfirmationButtonNo>
+                  </GroupStyled>
+                </DeleteConfirmation>
+              </div>
+            )}
+          </Header>
+          <Link to={`/article/${id}`}>
+            {isVideo ? (
+              <Video src={url} type='video/mp4' autoPlay loop muted playsInline />
+            ) : (
+              <Image src={url} type='image' alt={title} />
+            )}
+            <Content variant='h6'> {title} </Content>
+          </Link>
+        </ArticleContainer>
+      )}
+    </Fragment>
+  );
+};
 
 export default compose(
   firebaseConnect(),

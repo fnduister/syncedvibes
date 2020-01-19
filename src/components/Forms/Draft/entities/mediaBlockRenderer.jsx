@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { EditorState, RichUtils, AtomicBlockUtils } from "draft-js";
 import { YoutubeStyled, AspectRatio } from "./styled";
 
 export const mediaBlockRenderer = block => {
@@ -26,7 +25,6 @@ const onPlayerReady = evt => {
 
 const parseUrl = iframeCode => {
   const regex = /https:\/\/[\w./]+/g;
-  const justTesting = iframeCode.match(regex)[0];
   const code = iframeCode
     .match(regex)[0]
     .split("/")
@@ -38,7 +36,6 @@ const Video = ({ url }) => {
   if (!!url) {
     return (
       <Fragment>
-        {console.log("parsing:", parseUrl(url))}
         {url.includes("youtube") ? (
           <AspectRatio>
             <YoutubeStyled

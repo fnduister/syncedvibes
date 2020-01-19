@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import ImagesButton from '../Images/ImagesButton';
+import React, { useState } from 'react';
 import { InputStyled, Container } from './styled';
 
 const InputButton = ({modifier, onChange, editorState, onOverrideContent}) => {
