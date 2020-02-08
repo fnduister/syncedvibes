@@ -26,7 +26,6 @@ const AddCommentFormik = props => {
           ? props.profile.avatarUrl
           : null;
         const avatar = props.profile.avatar ? props.profile.avatar : null;
-        console.log({ profile: props.profile });
         const comment = {
           ...values,
           user: {

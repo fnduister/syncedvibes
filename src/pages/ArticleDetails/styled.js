@@ -39,9 +39,9 @@ export const PrevNextContainer = styled.div`
     justify-content: center;
     flex-direction: column;
 
-    & a{
+    & a {
       width: 100%;
-      margin: .5em 0; 
+      margin: 0.5em 0;
     }
   }
 `;
@@ -51,6 +51,7 @@ export const ShowComment = styled(Button)`
 `;
 
 export const MediaContainer = styled.div`
+  margin-top: 0.5em;
   width: 100%;
 `;
 
@@ -87,7 +88,7 @@ export const AspectRatio = styled.div`
 `;
 
 export const TimeStamp = styled(Typography)`
-  margin-bottom: 2vh;
+  margin-bottom: 1em;
   opacity: 0.5;
 `;
 

@@ -53,11 +53,6 @@ const Header = props => {
     };
   }, []);
 
-  const scrollToTheEnd = () => {
-    console.log("just scroll");
-    window.scrollTo(0, maxHeight);
-  };
-
   return (
     <Background>
       <HeaderNavBar>

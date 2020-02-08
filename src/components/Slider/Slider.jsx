@@ -8,9 +8,10 @@ const Slider = ({ completed, firebase }) => {
   const [imagesURL, setImagesURL] = useState([]);
   const [imagesLink, setImagesLink] = useState([]);
   const BACKGROUNDIMAGESURL = 'background-imgs';
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [isLoading,setIsLoading] = useState(false);
+  
   useEffect(() => {
+    console.log("calling effet 1");
     setIsLoading(true);
     setImages(
       firebase
@@ -29,6 +30,7 @@ const Slider = ({ completed, firebase }) => {
   }, []);
 
   useEffect(() => {
+    console.log("calling effet 2");
     imagesURL.forEach((url) => {
       images
         .child(url.value)
@@ -57,6 +59,7 @@ const Slider = ({ completed, firebase }) => {
   return (
     <SliderStyled ref={sliderRef} {...settings}>
       {imagesLink.map((img) => {
+      // console.log("TCL: Slider -> img", img)
         return (
           <div key={img.key}>
             <img alt={img.name} src={img.link} />

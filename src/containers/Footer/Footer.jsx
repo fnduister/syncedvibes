@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import {
   BottomStyled,
   SlideStyled,
   Container,
+  SocialButton,
   LogoStyled,
   ToggleContainer,
   ToggleLabel,
@@ -53,7 +54,7 @@ const SlidingFooter = (props) => {
   }, [scroll]);
 
   return (
-    <div>
+    <Fragment>
       <Fixed width={checked ? 1 : 0}>
         <ToggleContainer checked={checked} onClick={() => setChecked((prev) => !prev)}>
           <ToggleLabel>{checked ? 'CLOSE' : 'OPEN'}</ToggleLabel>
@@ -63,34 +64,36 @@ const SlidingFooter = (props) => {
         <Container>
           <SlideStyled direction='left' in={checked} mountOnEnter unmountOnExit timeout={800}>
             <BottomStyled>
-              <Button onClick={() => window.open('https://twitter.com/syncedvibes')}>
-                <IconStyled src={TwitterIcon}></IconStyled>
-              </Button>
-              <Button onClick={() => window.open('https://www.instagram.com/synced.vibes/ ')}>
-                <IconStyled src={InstagramIcon}></IconStyled>
-              </Button>
-              <Button
-                onClick={() =>
-                  window.open('https://open.spotify.com/playlist/4WLJKeeVOtZAqFjs88yr9k')
-                }
-              >
-                <IconStyled src={SpotifyIcon}></IconStyled>
-              </Button>
-              <Button onClick={() => window.open('https://soundcloud.com/syncedvibesdotcom')}>
-                <IconStyled src={SoundCloudIcon}></IconStyled>
-              </Button>
-              <Button
-                onClick={() =>
-                  window.open(
-                    'https://www.youtube.com/channel/UCUDwoWSTVPAfXLLN48xzBPA/videos?disable_polymer=1',
-                  )
-                }
-              >
-                <IconStyled src={YouTubeIcon}></IconStyled>
-              </Button>
-              <Button onClick={() => window.open('https://syncedvibescom.wordpress.com/')}>
-                <PreviousWebsiteIconStyled src={PurpleLogo}></PreviousWebsiteIconStyled>
-              </Button>
+              <span>
+                <SocialButton onClick={() => window.open('https://twitter.com/syncedvibes')}>
+                  <IconStyled src={TwitterIcon}></IconStyled>
+                </SocialButton>
+                <SocialButton onClick={() => window.open('https://www.instagram.com/synced.vibes/ ')}>
+                  <IconStyled src={InstagramIcon}></IconStyled>
+                </SocialButton>
+                <SocialButton
+                  onClick={() =>
+                    window.open('https://open.spotify.com/playlist/4WLJKeeVOtZAqFjs88yr9k')
+                  }
+                >
+                  <IconStyled src={SpotifyIcon}></IconStyled>
+                </SocialButton>
+                <SocialButton onClick={() => window.open('https://soundcloud.com/syncedvibesdotcom')}>
+                  <IconStyled src={SoundCloudIcon}></IconStyled>
+                </SocialButton>
+                <SocialButton
+                  onClick={() =>
+                    window.open(
+                      'https://www.youtube.com/channel/UCUDwoWSTVPAfXLLN48xzBPA/videos?disable_polymer=1',
+                    )
+                  }
+                >
+                  <IconStyled src={YouTubeIcon}></IconStyled>
+                </SocialButton>
+                <SocialButton onClick={() => window.open('https://syncedvibescom.wordpress.com/')}>
+                  <PreviousWebsiteIconStyled src={PurpleLogo}></PreviousWebsiteIconStyled>
+                </SocialButton>
+              </span>
             </BottomStyled>
           </SlideStyled>
         </Container>
@@ -98,12 +101,11 @@ const SlidingFooter = (props) => {
       <PageUpContainer>
         <FadeStyled in={pageUpButton} mountOnEnter unmountOnExit>
           <PageUpStyled onClick={scrollToTop} size='medium'>
-            {' '}
             <NavigationIcon />
           </PageUpStyled>
         </FadeStyled>
       </PageUpContainer>
-    </div>
+    </Fragment>
   );
 };
 

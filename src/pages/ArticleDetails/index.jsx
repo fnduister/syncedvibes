@@ -68,10 +68,14 @@ const ArticleDetails = (props) => {
         .once(
           'value',
           (snapshot) => {
-            arrayArticles = objectToArrayWithKey(snapshot.val())
-              .reverse()
-              .slice(1);
-            setNext(arrayArticles[0]);
+            arrayArticles = objectToArrayWithKey(snapshot.val());
+            if (arrayArticles.length > 1) {
+              if (arrayArticles[0].value.date.localeCompare(props.article.date)) {
+                setNext(arrayArticles[0]);
+              } else {
+                setNext(arrayArticles[1]);
+              }
+            }
           },
           (error) => {
             console.error('Error: ' + error.code);
@@ -92,9 +96,14 @@ const ArticleDetails = (props) => {
         .once(
           'value',
           (snapshot) => {
-            arrayArticles = objectToArrayWithKey(snapshot.val()).slice(1);
-            setPrevious(arrayArticles[0]);
-            console.log('TCL: fetchPreviousArticleBatch -> arrayArticles[0]', arrayArticles[0]);
+            arrayArticles = objectToArrayWithKey(snapshot.val());
+            if (arrayArticles.length > 1) {
+              if (arrayArticles[0].value.date.localeCompare(props.article.date)) {
+                setPrevious(arrayArticles[0]);
+              } else {
+                setPrevious(arrayArticles[1]);
+              }
+            }
           },
           (error) => {
             console.error('Error: ' + error.code);
@@ -159,14 +168,14 @@ const ArticleDetails = (props) => {
         <PrevNextContainer>
           {previous && (
             <Prev component={Link} variant='contained' to={`/article/${previous.key}`}>
-              <KeyboardArrowLeft size="medium"/>
+              <KeyboardArrowLeft size='medium' />
               {previous.value.title}
             </Prev>
           )}
           {next && (
             <Next component={Link} variant='contained' to={`/article/${next.key}`}>
               {next.value.title}
-              <KeyboardArrowRight size="medium"/>
+              <KeyboardArrowRight size='medium' />
             </Next>
           )}
         </PrevNextContainer>

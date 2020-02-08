@@ -7,13 +7,14 @@ import Articles from '../../components/Articles/Articles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { objectToArrayWithKey, objectToArray } from '../../utils/common';
 
-const HomePage = ({ settings }) => {
+const HomePage = ({ settings, onMobile }) => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedType, setSelectedType] = useState('');
   const limit = 15; // this should be modified
   const [startAt, setStartAt] = useState('');
   const [queries, setQueries] = useState(['orderByChild=date', `limitToLast=${limit}`]);
   const [types, setTypes] = useState([]);
+  
   useEffect(() => {
     if (settings) {
       setTypes(objectToArrayWithKey(settings.types));
@@ -53,7 +54,7 @@ const HomePage = ({ settings }) => {
 
   return (
     <Fragment>
-      <FilterButtons modifySelectedTypes={modifySelectedTypes} types={types} />
+      <FilterButtons onMobile={onMobile} modifySelectedTypes={modifySelectedTypes} types={types} />
       <Articles
         queries={queries}
         startAt={startAt}

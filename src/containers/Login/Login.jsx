@@ -8,14 +8,13 @@ import { firebaseConnect } from "react-redux-firebase";
 import LoginFormSchema from "../../components/Forms/LoginForm/LoginFormSchema";
 
 const Login = ({ firebase, history, dialog, closeDialog }) => {
-  console.log("je suis dans le login");
 
   const socialLogin = async provider => {
     try {
       await firebase.login({ provider, type: "popup" });
       dialog ? closeDialog() : history.goBack();
     } catch (err) {
-      console.log({ err });
+      console.error({ err });
     }
   };
 
@@ -30,7 +29,7 @@ const Login = ({ firebase, history, dialog, closeDialog }) => {
             actions.setSubmitting(false);
             dialog ? closeDialog() : history.goBack();
           } catch (err) {
-            console.log({ err });
+            console.error({ err });
             actions.setSubmitting(false);
             actions.setStatus({ msg: err.message });
           }

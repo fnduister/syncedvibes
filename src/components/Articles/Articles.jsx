@@ -28,9 +28,9 @@ const Articles = ({
   const [noMoreFetch, setNoMoreFetch] = useState(false);
   const articlesRef = useRef();
 
-  useEffect(() => {
-    console.log('inside articles', searchValue);
-  }, [searchValue]);
+  // useEffect(() => {
+  //   console.log('inside articles', searchValue);
+  // }, [searchValue]);
 
   useEffect(() => {
     fetchFirstArticleBatch();
@@ -128,12 +128,12 @@ const Articles = ({
     updateCurrentArticles();
   }, [selectedTypes, allArticles, searchValue]);
 
-  useEffect(() => {
-    console.log('TCL: currentArticles', currentArticles);
-    // if (!noMoreFetch && allArticles.length !== 0 && currentArticles.length === 0 && articlesRef.current) {
-    //   fetchNextArticleBatch();
-    // }
-  }, [currentArticles]);
+  // useEffect(() => {
+  //   console.log('TCL: currentArticles', currentArticles);
+  //   // if (!noMoreFetch && allArticles.length !== 0 && currentArticles.length === 0 && articlesRef.current) {
+  //   //   fetchNextArticleBatch();
+  //   // }
+  // }, [currentArticles]);
 
   const isFilterTitle = (article) => {
     return !searchValue
@@ -210,7 +210,7 @@ const Articles = ({
         </Container>
       )}
       {isLoading && <CircularProgress size={50} color='secondary' />}
-      {noMoreFetch && <p>There is no more articles!</p>}
+      {noMoreFetch && <p>There are no more articles!</p>}
     </Fragment>
   );
 };

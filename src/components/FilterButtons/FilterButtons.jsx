@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SortContainer, SortButton } from './styled';
 import { ButtonGroup } from '@material-ui/core';
 
-const FilterButtons = ({ modifySelectedTypes, types }) => {
+const FilterButtons = ({ modifySelectedTypes, types, onMobile }) => {
   const [actives, changeActives] = useState({});
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const FilterButtons = ({ modifySelectedTypes, types }) => {
 
   return (
     <SortContainer>
-      <ButtonGroup variant='contained'>
+      <ButtonGroup size={onMobile? "small": "large"} variant='contained'>
         {types.map((type) => {
           return (
             <SortButton

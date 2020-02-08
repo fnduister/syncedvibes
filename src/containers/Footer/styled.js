@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import { Button, Fab } from '@material-ui/core';
 import { Slide } from '@material-ui/core';
-import { theme } from '../../GlobalStyle';
+import { theme, viewport } from '../../GlobalStyle';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Fade from '@material-ui/core/Fade';
 // import { black } from "material-ui/styles/colors";
@@ -28,6 +28,10 @@ export const Container = styled.div`
   overflow: hidden;
   flex-direction: row;
 
+  @media (max-width: ${viewport.sm}px) {
+    height: 8em;
+  }
+
   /* flex-direction: column-reverse; */
 `;
 export const Fixed = styled.div`
@@ -48,7 +52,7 @@ export const LogoStyled = styled.img`
     background ? `${fade(theme.palette.primary[900], 0.7)}` : 'none'};
   transition: background-color 1s ease-in;
   z-index: 4;
-  right: 0;
+  right: 0;top: 0;
   cursor: pointer;
 `;
 
@@ -60,6 +64,17 @@ export const BottomStyled = styled.div`
   position: absolute;
   width: 100%;
   z-index: 3;
+
+  @media (max-width: ${viewport.sm}px) {
+    justify-content: center;
+    & span {
+      justify-content: center;
+      width: 80%;
+      margin: .5em;
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
 `;
 
 export const ToggleLabel = styled(Typography)`
@@ -78,8 +93,7 @@ export const ToggleContainer = styled.div`
   position: absolute;
   right: 0;
   width: 4em;
-
-  /* bottom: 1em; */
+  bottom: 3em;
 
   flex-direction: column;
   /* margin-bottom: 5.5vh; */
@@ -91,19 +105,25 @@ export const SlideStyled = styled(Slide)`
 
 export const FadeStyled = styled(Fade)``;
 
-export const SpotifyButton = styled(Button)`
-  margin-right: 0.5vw;
-  background-color: #1db954;
-  color: white;
+export const SocialButton = styled(Button)`
+  padding: 0;
 `;
 
 export const IconStyled = styled.img`
   height: 3.5vh;
   margin-bottom: 1em;
+  @media (max-width: ${viewport.sm}px) {
+    margin-bottom: 0;
+  }
 `;
 
 export const PreviousWebsiteIconStyled = styled.img`
-  height: 3.7em;
   margin-bottom: 1em;
+  height: 3.7em;
   /* height: 4em; */
+
+  @media (max-width: ${viewport.sm}px) {
+  margin-bottom: 0;
+    height: 2.5em;
+  }
 `;

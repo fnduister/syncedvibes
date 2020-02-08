@@ -1,17 +1,23 @@
-import React, { useState } from "react";
-import { Container } from "./styled";
+import React, { useState, Fragment } from 'react';
+import { Container } from './styled';
 
-const CustomCard = props => {
+const CustomCard = ({ children, onMobile }) => {
   const [raised, toggleRaised] = useState(false);
 
   return (
-    <Container
-      onMouseLeave={() => toggleRaised(false)}
-      onMouseEnter={() => toggleRaised(true)}
-      raised={raised}
-    >
-      {props.children}
-    </Container>
+    <Fragment>
+      {!onMobile ? (
+        <Container
+          onMouseLeave={() => toggleRaised(false)}
+          onMouseEnter={() => toggleRaised(true)}
+          raised={raised}
+        >
+          {children}
+        </Container>
+      ) : (
+        <Fragment>{children}</Fragment>
+      )}
+    </Fragment>
   );
 };
 

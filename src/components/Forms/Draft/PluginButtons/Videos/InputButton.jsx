@@ -9,12 +9,10 @@ const InputButton = ({modifier, onChange, editorState, onOverrideContent}) => {
     if(!hoveringOnInput){
       onOverrideContent(undefined);
     }
-    console.log('TCL: handleBlur -> event', event);
   };
   
   const handleClickInput = (event) => {
     event.stopPropagation();
-    console.log('TCL: handleClickInput -> event', event);
   };
   
   const onsubmit = (event) => {

@@ -88,7 +88,6 @@ const EditForm = ({
         label='thumbnail'
         variant='outlined'
         onChange={(event) => {
-          console.log({ values });
           setFile(event.currentTarget.files[0]);
           setFieldValue('thumbnail', event.currentTarget.files[0].name);
         }}

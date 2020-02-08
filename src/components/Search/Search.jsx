@@ -10,7 +10,6 @@ import { compose } from 'redux';
 const SearchBox = ({ firebase, setNewSearchValue }) => {
   const [textSearched, setTextSearched] = useState('');
   const handleChange = (value) => {
-    console.log(value);
     setNewSearchValue(value);
     setTextSearched(value);
     query();

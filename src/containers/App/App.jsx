@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ArticleDetails from '../../pages/ArticleDetails';
-import posed, { PoseGroup } from 'react-pose';
 import HomePage from '../../pages/HomePage';
 import Header from '../Header/Header';
 import Notification from '../../components/Notification/Notification';
@@ -15,7 +14,6 @@ import withSizes from 'react-sizes';
 import AdminButtons from '../../components/AdminButtons/AdminButtons';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
-import ScrollToMainComponent from '../../components/ScrollToMainComponent/ScrollToMainComponent';
 import 'moment-timezone';
 import AddArticle from '../../components/AddArticle/AddArticle';
 import ManageUsers from '../../pages/ManageUsers/ManageUsers';
@@ -24,21 +22,12 @@ import SettingPage from '../../pages/SettingPage/SettingPage';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const RouteContainer = posed.div({
-  enter: { opacity: 1, delay: 500, beforeChildren: true },
-  exit: { opacity: 0 },
-});
-
 const App = ({ profile, onMobile }) => {
   return (
     <Router>
-      <ScrollToMainComponent>
+      <Fragment>
         {!profile.isEmpty && profile.role === 'admin' && <AdminButtons />}
-        <Header
-        // onMobile={this.props.onMobile}
-        />
-        <PoseGroup>
-          <RouteContainer key='allo'>
+        <Header onMobile={onMobile} />
             <Grid container alignItems='center' direction='column' justify='center'>
               <Switch>
                 <Route
@@ -58,7 +47,7 @@ const App = ({ profile, onMobile }) => {
                   component={ManageUsers}
                 />
 
-                <CustomCard>
+                <CustomCard onMobile={onMobile}>
                   <Route path='/signup' component={SignUp} />
                   <PrivateRoute
                     path='/addArticle'
@@ -66,7 +55,7 @@ const App = ({ profile, onMobile }) => {
                     profile={profile}
                     add={true}
                     component={AddArticle}
-                  />
+                    />
                   <PrivateRoute
                     path='/setting'
                     rolei='admin'
@@ -80,12 +69,10 @@ const App = ({ profile, onMobile }) => {
                 </CustomCard>
               </Switch>
             </Grid>
-          </RouteContainer>
-        </PoseGroup>
         <Footer />
         <GlobalStyle />
         <Notification />
-      </ScrollToMainComponent>
+        </Fragment>
     </Router>
   );
 };
